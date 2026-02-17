@@ -5,7 +5,6 @@ var ALLOWED_USERS_DATA = {
     "users": [
         { "name": "Mayur Rana", "role": "super_admin" },
         { "name": "Chetan Sangani", "role": "admin" },
-        { "name": "Niraj Modi", "role": "admin" },
         { "name": "Tarun R Harkinia", "role": "normal" },
         { "name": "Rahul J Dholaria", "role": "normal" },
         { "name": "Harshit Sharma", "role": "normal" },
@@ -26,5 +25,8 @@ var ALLOWED_USERS_DATA = {
         { "name": "Rahul Jain", "role": "normal" },
         { "name": "Vijay Patel", "role": "normal" },
         { "name": "Akash Rana", "role": "normal" }
+        { "name": "Niraj Modi", "role": "normal" },
+        { "name": "Jigar Patel", "role": "normal" },
+        
     ]
 };
