@@ -1,31 +1,34 @@
 // Dashboard Access Control - Allowed Users
 // Roles: super_admin | admin | normal
-// super_admin & admin = All areas | normal = Max 3 areas
+// super_admin = All tabs + All areas + Update Feature Hours + Full access
+// admin = All tabs + All areas + Update Feature Hours
+// normal = Only assigned tabs + Max 3 areas
+// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=Feature Progress
 var ALLOWED_USERS_DATA = {
     "users": [
-        { "name": "Mayur Rana", "role": "super_admin" },
-        { "name": "Chetan Sanghani", "role": "admin" },
-        { "name": "Tarun R Harkinia", "role": "normal" },
-        { "name": "Rahul J Dholaria", "role": "normal" },
-        { "name": "Harshit Sharma", "role": "normal" },
-        { "name": "Yogesh Siddhapura", "role": "normal" },
-        { "name": "Shaishav Patel", "role": "normal" },
-        { "name": "Raviraj Patgir", "role": "normal" },
-        { "name": "Priyakant K Patel", "role": "normal" },
-        { "name": "Hardik B Chauhan", "role": "normal" },
-        { "name": "Ankur Mistry", "role": "normal" },
-        { "name": "Ankil Patel", "role": "normal" },
-        { "name": "Ankur Patel", "role": "normal" },
-        { "name": "Arpit Patel", "role": "normal" },
-        { "name": "Dhara Bakrola", "role": "normal" },
-        { "name": "Dharmin Desai", "role": "normal" },
-        { "name": "Jackie Patel", "role": "normal" },
-        { "name": "Jainish Jariwala", "role": "normal" },
-        { "name": "Kailash Suthar", "role": "normal" },
-        { "name": "Rahul Jain", "role": "normal" },
-        { "name": "Vijay Patel", "role": "normal" },
-        { "name": "Akash Rana", "role": "normal" },
-        { "name": "Niraj Modi", "role": "normal" },
-        { "name": "Jigar Patel", "role": "normal" }
+        { "name": "Mayur Rana", "role": "super_admin", "tabs": [1, 2, 3, 4] },
+        { "name": "Chetan Sanghani", "role": "admin", "tabs": [1, 2, 3, 4] },
+        { "name": "Tarun R Harkinia", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Rahul J Dholaria", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Harshit Sharma", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "Yogesh Siddhapura", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Shaishav Patel", "role": "normal", "tabs": [1, 2] },
+        { "name": "Raviraj Patgir", "role": "normal", "tabs": [1, 2] },
+        { "name": "Priyakant K Patel", "role": "normal", "tabs": [1, 2] },
+        { "name": "Hardik B Chauhan", "role": "normal", "tabs": [1, 2] },
+        { "name": "Ankur Mistry", "role": "normal", "tabs": [1, 2] },
+        { "name": "Ankil Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Ankur Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Arpit Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Dhara Bakrola", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Dharmin Desai", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Jackie Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Jainish Jariwala", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Kailash Suthar", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Rahul Jain", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Vijay Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Akash Rana", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Niraj Modi", "role": "normal", "tabs": [1] },
+        { "name": "Jigar Patel", "role": "normal", "tabs": [1] }
     ]
 };

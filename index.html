@@ -114,6 +114,112 @@
             color: #4f46e5;
             font-weight: 500;
         }
+        body.light-theme .card-loading {
+            background: rgba(255,255,255,0.92);
+        }
+        body.light-theme .mini-spinner {
+            border-color: #e2e8f0;
+            border-top-color: #3b82f6;
+        }
+        #featureProgressTable thead,
+        #featureProgressTable tfoot {
+            background: #1e293b;
+        }
+        #featureProgressTable .fp-th {
+            padding: 5px 3px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            color: #e2e8f0;
+            font-size: 0.58rem;
+            font-weight: 600;
+            vertical-align: bottom;
+        }
+        .fp-sortable { cursor: pointer; user-select: none; position: relative; }
+        .fp-sortable:hover { background: rgba(255,255,255,0.08); }
+        .fp-sort-icon { font-size: 0.5rem; opacity: 0.3; margin-left: 1px; }
+        .fp-sort-icon.asc::after { content: '▲'; opacity: 1; }
+        .fp-sort-icon.desc::after { content: '▼'; opacity: 1; }
+        body.light-theme .fp-sortable:hover { background: rgba(0,0,0,0.05); }
+        /* Feature Progress cell color classes - Dark theme */
+        #featureProgressTable .fp-title { color: #e2e8f0; }
+        #featureProgressTable .fp-disc-eff { color: #fb923c; }
+        #featureProgressTable .fp-comp-disc { color: #34d399; }
+        #featureProgressTable .fp-planned { color: #c084fc; }
+        #featureProgressTable .fp-comp-eff { color: #2dd4bf; }
+        #featureProgressTable .fp-actual-comp { color: #34d399; }
+        #featureProgressTable .fp-total { color: #e2e8f0; }
+        #featureProgressTable .fp-task-plan { color: #f97316; }
+        #featureProgressTable .fp-task-cdev { color: #38bdf8; }
+        #featureProgressTable .fp-task-acomp { color: #a78bfa; }
+        #featureProgressTable .fp-totals-lbl { color: #93c5fd; }
+        #featureProgressTable tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        #featureProgressTable tfoot tr { border-top: 2px solid rgba(255,255,255,0.15); }
+        /* State pill badges */
+        .fp-state-pill {
+            display: inline-block; padding: 2px 7px; border-radius: 10px;
+            font-size: 0.55rem; font-weight: 600; white-space: nowrap; line-height: 1.4;
+        }
+        .fp-state-proposed { background: rgba(148,163,184,0.25); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.4); }
+        .fp-state-active { background: rgba(59,130,246,0.25); color: #93c5fd; border: 1px solid rgba(59,130,246,0.45); }
+        .fp-state-resolved { background: rgba(45,212,191,0.2); color: #5eead4; border: 1px solid rgba(45,212,191,0.4); }
+        .fp-state-closed { background: rgba(52,211,153,0.2); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.4); }
+        /* Status pill badges */
+        .fp-status-pill {
+            display: inline-block; padding: 2px 6px; border-radius: 10px;
+            font-size: 0.52rem; font-weight: 600; white-space: nowrap; line-height: 1.4;
+            max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+        }
+        .fp-status-discovery { background: rgba(251,146,60,0.2); color: #fdba74; border: 1px solid rgba(251,146,60,0.4); }
+        .fp-status-dev { background: rgba(59,130,246,0.2); color: #93c5fd; border: 1px solid rgba(59,130,246,0.4); }
+        .fp-status-qa { background: rgba(168,85,247,0.2); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.4); }
+        .fp-status-ship { background: rgba(52,211,153,0.2); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.4); }
+        .fp-status-hold { background: rgba(148,163,184,0.2); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.35); }
+        .fp-status-doc { background: rgba(56,189,248,0.2); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.4); }
+        .fp-status-default { background: rgba(139,92,246,0.18); color: #d8b4fe; border: 1px solid rgba(139,92,246,0.35); }
+
+        /* Light theme overrides */
+        body.light-theme #featureProgressTable thead { background: #f1f5f9 !important; }
+        body.light-theme #featureProgressTable .fp-th { color: #1e293b; border-bottom-color: #cbd5e1; }
+        body.light-theme #featureProgressTable tfoot { background: #eef2ff !important; }
+        body.light-theme #featureProgressTable tbody tr { border-bottom-color: #e2e8f0; }
+        body.light-theme #featureProgressTable tfoot tr { border-top-color: #cbd5e1; }
+        body.light-theme #featureProgressTable .fp-title { color: #1e293b; }
+        body.light-theme #featureProgressTable .fp-disc-eff { color: #ea580c; }
+        body.light-theme #featureProgressTable .fp-comp-disc { color: #059669; }
+        body.light-theme #featureProgressTable .fp-planned { color: #7c3aed; }
+        body.light-theme #featureProgressTable .fp-comp-eff { color: #0d9488; }
+        body.light-theme #featureProgressTable .fp-actual-comp { color: #059669; }
+        body.light-theme #featureProgressTable .fp-total { color: #1e293b; }
+        body.light-theme #featureProgressTable .fp-task-plan { color: #c2410c; }
+        body.light-theme #featureProgressTable .fp-task-cdev { color: #0369a1; }
+        body.light-theme #featureProgressTable .fp-task-acomp { color: #6d28d9; }
+        body.light-theme #featureProgressTable .fp-totals-lbl { color: #2563eb; }
+        /* Light theme state pills */
+        body.light-theme .fp-state-proposed { background: #f1f5f9; color: #64748b; border-color: #cbd5e1; }
+        body.light-theme .fp-state-active { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+        body.light-theme .fp-state-resolved { background: #ccfbf1; color: #0f766e; border-color: #5eead4; }
+        body.light-theme .fp-state-closed { background: #d1fae5; color: #047857; border-color: #6ee7b7; }
+        /* Light theme status pills */
+        body.light-theme .fp-status-discovery { background: #fff7ed; color: #c2410c; border-color: #fdba74; }
+        body.light-theme .fp-status-dev { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+        body.light-theme .fp-status-qa { background: #f3e8ff; color: #7c3aed; border-color: #c4b5fd; }
+        body.light-theme .fp-status-ship { background: #d1fae5; color: #047857; border-color: #6ee7b7; }
+        body.light-theme .fp-status-hold { background: #f1f5f9; color: #64748b; border-color: #cbd5e1; }
+        body.light-theme .fp-status-doc { background: #e0f2fe; color: #0369a1; border-color: #7dd3fc; }
+        body.light-theme .fp-status-default { background: #ede9fe; color: #6d28d9; border-color: #c4b5fd; }
+        /* Light theme - Feature Progress card inline color overrides */
+        body.light-theme #featureProgressCard [style*="color:#e2e8f0"] { color: #334155 !important; }
+        body.light-theme #featureProgressCard [style*="color:#cbd5e1"] { color: #475569 !important; }
+        body.light-theme #featureProgressCard [style*="color:#93c5fd"] { color: #2563eb !important; }
+        body.light-theme #featureProgressCard [style*="color:#60a5fa"] { color: #1d4ed8 !important; }
+        body.light-theme #featureProgressCard [style*="color:#34d399"] { color: #047857 !important; }
+        body.light-theme #featureProgressCard [style*="color:#fb923c"] { color: #c2410c !important; }
+        body.light-theme #featureProgressCard [style*="color:#c084fc"] { color: #7c3aed !important; }
+        body.light-theme #featureProgressCard [style*="background:rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.03) !important; }
+        body.light-theme #featureProgressCard [style*="background:rgba(255,255,255,0.1)"] { background: rgba(0,0,0,0.08) !important; }
+        body.light-theme #featureProgressCard { background: linear-gradient(135deg,rgba(59,130,246,0.08),rgba(99,102,241,0.05)) !important; border-color: rgba(59,130,246,0.2) !important; }
+        body.light-theme #featureLookupSection input[type="text"] { background: #ffffff !important; color: #0f172a !important; border-color: #94a3b8 !important; }
+        body.light-theme #featureLookupSection .tasks-table th { background: #e2e8f0; color: #1e293b; }
+        body.light-theme #featureLookupSection .tasks-table td { color: #334155; border-color: #e2e8f0; }
         body.light-theme .ratio-bar {
             background: #cbd5e1;
         }
@@ -410,6 +516,10 @@
         .badge-urn-cf { background: rgba(236,72,153,0.2); color: #f472b6; }
         .wi-link { color: #6366f1; text-decoration: none; }
         .wi-link:hover { text-decoration: underline; }
+        .card-loading { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,23,42,0.92); border-radius: 8px; display: none; justify-content: center; align-items: center; z-index: 10; }
+        .card-loading.visible { display: flex; }
+        .mini-spinner { width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.1); border-top-color: #60a5fa; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .loading { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; flex-direction: column; }
         .loading.visible { display: flex; }
         .loading .spinner { width: 50px; height: 50px; border: 4px solid rgba(99,102,241,0.3); border-top-color: #6366f1; border-radius: 50%; animation: spin 1s linear infinite; }
@@ -598,6 +708,7 @@
             <button class="tab-btn active" id="tabBtn1" onclick="switchTab(1)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(59,130,246,0.3); border: 1px solid rgba(59,130,246,0.5); border-radius: 6px 6px 0 0; color: #93c5fd; cursor: pointer; transition: all 0.2s;">📋 Sprint Planning</button>
             <button class="tab-btn" id="tabBtn2" onclick="switchTab(2)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📈 Work Progress</button>
             <button class="tab-btn" id="tabBtn3" onclick="switchTab(3)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🤖 AI Usage</button>
+            <button class="tab-btn" id="tabBtn4" onclick="switchTab(4)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🚀 Feature Progress</button>
         </div>
 
         <!-- Tab 1: Sprint Planning Check -->
@@ -1884,7 +1995,127 @@
             </div>
         </div>
         </div><!-- End Tab 3 -->
-    </div>
+
+        <!-- Tab 4: Feature Progress -->
+        <div class="tab-content" id="tabContent4" style="display:none;">
+            <div class="dashboard-card" style="margin-bottom:16px;position:relative;background:linear-gradient(135deg,rgba(59,130,246,0.15),rgba(99,102,241,0.1));border:1px solid rgba(59,130,246,0.3);padding:12px;" id="featureProgressCard">
+                <div class="card-loading" id="featureProgressLoading"><div class="mini-spinner"></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                    <h3 style="color:#93c5fd;font-size:1rem;font-weight:700;margin:0;">🚀 Feature Progress (<span id="featureProgressCount">0</span>)</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn btn-primary refresh-icon" id="refreshFeatureProgressBtn" onclick="refreshFeatureProgressCard()" title="Refresh" style="display:none;">🔄</button>
+                        <button class="btn btn-success" id="updateFeatureHoursBtn" onclick="updateFeatureHours()" style="padding:4px 10px;font-size:0.75rem;display:none;" title="Update Planned Hours, Completed Dev Hours, and Actual Completed Hours for the top feature in TFS">⬆️ Update Feature Hours</button>
+                        <button class="btn btn-primary" id="toggleFeatureProgressBtn" onclick="toggleFeatureProgressDashboard()" style="padding:4px 10px;font-size:0.75rem;">📊 Show</button>
+                    </div>
+                </div>
+                <!-- Summary Stats Row -->
+                <div class="summary-row" style="margin:10px 0;gap:6px;">
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureTotalPlanned" style="font-size:1.1rem;color:#93c5fd;font-weight:700;">0h</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Planned Hours</div>
+                    </div>
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureTotalCompleted" style="font-size:1.1rem;color:#34d399;font-weight:700;">0h</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Completed Hours</div>
+                    </div>
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureTotalRemaining" style="font-size:1.1rem;color:#fb923c;font-weight:700;">0h</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Remaining Hours</div>
+                    </div>
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureOverallProgress" style="font-size:1.1rem;color:#c084fc;font-weight:700;">0%</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Overall Progress</div>
+                    </div>
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureTaskLevelPlanned" style="font-size:1.1rem;color:#f97316;font-weight:700;">0h</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Task Planned Hours</div>
+                    </div>
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureTaskLevelCompDev" style="font-size:1.1rem;color:#38bdf8;font-weight:700;">0h</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Task Comp Dev Hours</div>
+                    </div>
+                    <div class="summary-stat" style="padding:6px;">
+                        <div class="value" id="featureTaskLevelActualComp" style="font-size:1.1rem;color:#a78bfa;font-weight:700;">0h</div>
+                        <div class="label" style="font-size:0.55rem;font-weight:600;">Task Actual Comp Hours</div>
+                    </div>
+                </div>
+                <div id="featureProgressContent" style="display:none;">
+                    <!-- PI Info -->
+                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:0.75rem;">
+                        <span style="color:#e2e8f0;font-weight:600;">📅 PI:</span> <span id="featurePIName" style="color:#60a5fa;font-weight:600;">-</span>
+                        <span style="margin-left:16px;color:#e2e8f0;font-weight:600;">Sprints:</span> <span id="featurePISprints" style="color:#34d399;font-weight:500;">-</span>
+                    </div>
+                    <!-- State & Status -->
+                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:10px;margin-bottom:10px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                            <div style="flex:0 0 auto;">
+                                <div style="font-size:0.65rem;color:#34d399;font-weight:600;margin-bottom:5px;">📋 State</div>
+                                <div id="featureStateFilters" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+                            </div>
+                            <div style="flex:1 1 auto;">
+                                <div style="font-size:0.65rem;color:#c084fc;font-weight:600;margin-bottom:5px;">🏷️ Status</div>
+                                <div id="featureStatusFilters" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="featureIterationFilters" style="display:none;"></div>
+                    <span id="featureCompletedPct" style="display:none;"></span>
+                    <span id="featureRemainingPct" style="display:none;"></span>
+                    <span id="featureProgressBar" style="display:none;"></span>
+                    <!-- Table -->
+                    <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
+                        <table id="featureProgressTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
+                            <colgroup>
+                                <col style="width:3.5%;">
+                                <col style="width:20%;">
+                                <col style="width:5.5%;">
+                                <col style="width:7%;">
+                                <col style="width:5.5%;">
+                                <col style="width:5.5%;">
+                                <col style="width:5.5%;">
+                                <col style="width:5.5%;">
+                                <col style="width:5.5%;">
+                                <col style="width:4.5%;">
+                                <col style="width:5.5%;">
+                                <col style="width:6.5%;">
+                                <col style="width:6.5%;">
+                            </colgroup>
+                            <thead>
+                                <tr style="line-height:1.15;">
+                                    <th class="fp-th fp-sortable" data-sort="id" style="text-align:left;" onclick="sortFeatureTable('id')">ID <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="title" style="text-align:left;" onclick="sortFeatureTable('title')">Title <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="state" style="text-align:center;" onclick="sortFeatureTable('state')">State <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="status" style="text-align:center;" onclick="sortFeatureTable('status')">Status <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="discoveryEffort" style="text-align:right;" title="Discovery Effort" onclick="sortFeatureTable('discoveryEffort')">Disc<br>Effort <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="compDiscoveryHours" style="text-align:right;" title="Completed Discovery Hours" onclick="sortFeatureTable('compDiscoveryHours')">Comp<br>Disc <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="plannedHours" style="text-align:right;" title="Planned Hours" onclick="sortFeatureTable('plannedHours')">Planned <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="completedEffort" style="text-align:right;" title="Completed Effort" onclick="sortFeatureTable('completedEffort')">Comp<br>Effort <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="actualCompletedHours" style="text-align:right;" title="Actual Completed Hours" onclick="sortFeatureTable('actualCompletedHours')">Actual<br>Comp <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="total" style="text-align:right;" onclick="sortFeatureTable('total')">Total <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="taskLevelPlannedHours" style="text-align:right;" title="Task Level Planned Hours" onclick="sortFeatureTable('taskLevelPlannedHours')">Task<br>Planned <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="taskLevelCompletedDevHours" style="text-align:right;" title="Task Comp Dev Hours" onclick="sortFeatureTable('taskLevelCompletedDevHours')">Task<br>Comp Dev <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="taskLevelActualCompHours" style="text-align:right;" title="Task Actual Completed Hours" onclick="sortFeatureTable('taskLevelActualCompHours')">Task<br>Act Comp <span class="fp-sort-icon"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="featureProgressTableBody"></tbody>
+                            <tfoot id="featureProgressTableFooter" style="font-weight:600;"></tfoot>
+                        </table>
+                    </div>
+                    <div id="noFeatureProgressData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No features found for this PI</div>
+                </div>
+            </div>
+
+            <!-- Feature Lookup -->
+            <div class="table-section" id="featureLookupSection" style="padding: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <h3 style="font-size: 0.85rem; margin: 0;">🔍 Feature Lookup</h3>
+                    <input type="text" id="featureIdInput" placeholder="Feature ID" style="padding: 4px 8px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; background: rgba(0,0,0,0.3); color: #fff; width: 120px; height:32px; font-size: 0.75rem;" onkeydown="if(event.key==='Enter')lookupFeature()">
+                    <button class="btn btn-primary" onclick="lookupFeature()" style="padding: 4px 10px; font-size: 0.7rem;">🔍 Lookup</button>
+                </div>
+                <div id="featureLookupResult"></div>
+            </div>
+
+        </div><!-- End Tab 4 -->
 
     <script>
         // ============================================
@@ -2088,6 +2319,7 @@
         let projectsFetched = false;
         let isAuthorizedUser = false;
         let currentUserRole = 'normal'; // 'super_admin', 'admin' or 'normal' - loaded from allowed_users.json
+        let currentUserTabs = [1, 2, 3, 4]; // Tab permissions - loaded from allowed_users.json
         let selectedProjects = [];
         
         async function autoFetchProjects() {
@@ -2137,6 +2369,12 @@
                             if (matchedUser) {
                                 accessAllowed = true;
                                 currentUserRole = (matchedUser.role || 'normal').toLowerCase();
+                                // super_admin & admin always get all tabs
+                                if (['super_admin', 'admin'].includes(currentUserRole)) {
+                                    currentUserTabs = [1, 2, 3, 4];
+                                } else {
+                                    currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
+                                }
                             }
                         }
                         
@@ -2153,6 +2391,9 @@
                         
                         isAuthorizedUser = true;
                         userInfoDiv.style.display = 'block';
+                        
+                        // Apply tab-wise permissions
+                        applyTabPermissions();
                     }
                 } catch (connErr) { /* silently skip profile fetch */ }
                 
@@ -3486,6 +3727,14 @@
             // Auto-load Blank Discipline data (no button needed)
             renderBlankDisciplineTasks();
             // Discipline Mismatch data will be loaded on demand in Tab 2
+            // Reset Feature Progress data (Tab 4 - loaded on demand)
+            featureProgressDataLoaded = false;
+            featureSortColumn = null;
+            featureSortDirection = 'asc';
+            if (document.getElementById('featureProgressContent')) document.getElementById('featureProgressContent').style.display = 'none';
+            if (document.getElementById('toggleFeatureProgressBtn')) document.getElementById('toggleFeatureProgressBtn').textContent = '📊 Show';
+            if (document.getElementById('refreshFeatureProgressBtn')) document.getElementById('refreshFeatureProgressBtn').style.display = 'none';
+            if (document.getElementById('updateFeatureHoursBtn')) document.getElementById('updateFeatureHoursBtn').style.display = 'none';
         }
 
         function updateDoughnut(elementId, value1, value2, color1, color2, pctElementId) {
@@ -4071,11 +4320,552 @@
         }
 
         // ========== TAB SWITCHING ==========
+        // ===== CARD LOADING HELPERS =====
+        function showCardLoading(id) { const el = document.getElementById(id + 'Loading'); if (el) el.classList.add('visible'); }
+        function hideCardLoading(id) { const el = document.getElementById(id + 'Loading'); if (el) el.classList.remove('visible'); }
+
+        // ===== FEATURE PROGRESS =====
+        let featureProgressDataLoaded = false;
+        let featureProgressData = [];
+        let featurePISprints = [];
+        let featureFilters = { iterations: [], states: [], statuses: [] };
+        let activeFeatureFilters = { iterations: [], states: [], statuses: [] };
+        let featureSortColumn = null;
+        let featureSortDirection = 'asc';
+
+        function toggleFeatureProgressDashboard() {
+            const content = document.getElementById('featureProgressContent');
+            const btn = document.getElementById('toggleFeatureProgressBtn');
+            const refreshBtn = document.getElementById('refreshFeatureProgressBtn');
+            const updateBtn = document.getElementById('updateFeatureHoursBtn');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.textContent = '🔼 Hide';
+                refreshBtn.style.display = '';
+                if (updateBtn && ['admin','super_admin'].includes(currentUserRole) && featureProgressData.length > 0) {
+                    updateBtn.style.display = 'inline-block';
+                }
+                if (!featureProgressDataLoaded) {
+                    featureProgressDataLoaded = true;
+                    loadFeatureProgressData();
+                }
+            } else {
+                content.style.display = 'none';
+                btn.textContent = '📊 Show';
+                refreshBtn.style.display = 'none';
+                if (updateBtn) updateBtn.style.display = 'none';
+            }
+        }
+
+        function derivePIFromSprint(sprintPath) {
+            const parts = sprintPath.split('\\');
+            const sprintName = parts[parts.length - 1];
+            const basePath = parts.slice(0, -1).join('\\');
+            const piMatch = sprintName.match(/^((?:PI-)?\d{4}-Q\d)_(\d)$/i);
+            let piName = '';
+            let piSprints = [];
+            if (piMatch) {
+                const piPrefix = piMatch[1];
+                piName = piPrefix;
+                const sprintNames = [`${piPrefix}_1`, `${piPrefix}_2`, `${piPrefix}_3`];
+                piSprints = sprintNames.map(name => {
+                    const fullPath = basePath ? `${basePath}\\${name}` : name;
+                    const found = iterations.find(iter => {
+                        const iterName = iter.path.split('\\').pop();
+                        return iterName === name;
+                    });
+                    return found ? { path: found.path, name: name } : { path: fullPath, name: name };
+                });
+            } else {
+                piName = sprintName;
+                piSprints = [{ path: sprintPath, name: sprintName }];
+            }
+            return { piName: piName, piPath: basePath, sprints: piSprints };
+        }
+
+        async function loadFeatureProgressData() {
+            showCardLoading('featureProgress');
+            try {
+                // Use first selected iteration and area from multi-select
+                const iterPath = selectedIterationPaths.length > 0 ? selectedIterationPaths[0].path : '';
+                const areaPath = selectedAreaPaths.length > 0 ? selectedAreaPaths[0].path : '';
+
+                if (!iterPath || !areaPath) {
+                    document.getElementById('noFeatureProgressData').style.display = 'block';
+                    document.getElementById('noFeatureProgressData').textContent = 'Please select at least one Area and Iteration.';
+                    hideCardLoading('featureProgress');
+                    return;
+                }
+
+                const piInfo = derivePIFromSprint(iterPath);
+                featurePISprints = piInfo.sprints;
+                document.getElementById('featurePIName').textContent = piInfo.piName;
+                document.getElementById('featurePISprints').textContent = featurePISprints.map(s => s.name).join(', ');
+
+                const iterPaths = featurePISprints.map(s => s.path);
+
+                // Fetch Features for all sprints in the PI, across all selected areas
+                let allFeatures = [];
+                for (const ap of selectedAreaPaths) {
+                    for (const sprintPath of iterPaths) {
+                        const query = `SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType]='Feature' AND [System.AreaPath] UNDER '${ap.path}' AND [System.IterationPath] UNDER '${sprintPath}'`;
+                        const resp = await apiFetch(`${tfsUrl}/${project}/_apis/wit/wiql?api-version=5.0`, {
+                            method: 'POST',
+                            body: JSON.stringify({ query: query })
+                        });
+                        const data = await resp.json();
+                        const featureIds = (data.workItems || []).map(w => w.id);
+                        if (featureIds.length > 0) {
+                            const featureFields = [
+                                'System.Id','System.WorkItemType','System.Title','System.AssignedTo',
+                                'System.State','System.IterationPath','System.AreaPath','System.Tags',
+                                'Casepoint.TFS.CustomFields.Status','Casepoint.TFS.CustomFields.EstimateInHours',
+                                'Casepoint.TFS.CustomFields.DiscoveryEffort','Microsoft.VSTS.Scheduling.Effort',
+                                'Casepoint.TFS.CustomFields.PlannedHours','Casepoint.TFS.CustomFields.ActualCompletedHours',
+                                'Casepoint.TFS.CustomFields.CompletedEffort','Casepoint.TFS.CustomFields.CompletedDiscoveryHours',
+                                'Microsoft.VSTS.Scheduling.PISize'
+                            ];
+                            const features = await batchFetchWorkItems(featureIds, featureFields);
+                            allFeatures = allFeatures.concat(features.map(f => ({
+                                ...f, sprintPath: sprintPath, sprintName: sprintPath.split('\\').pop()
+                            })));
+                        }
+                    }
+                }
+
+                // Remove duplicates by ID
+                const uniqueFeatures = [];
+                const seenIds = new Set();
+                allFeatures.forEach(f => { if (!seenIds.has(f.id)) { seenIds.add(f.id); uniqueFeatures.push(f); } });
+
+                // Fetch child work items (Feature → Requirements/Bugs → Tasks)
+                const featureIds = uniqueFeatures.map(f => f.id);
+                const featuresWithRel = await batchFetchWithRelations(featureIds);
+                const featureChildMap = {};
+                const allChildWiIds = [];
+                featuresWithRel.forEach(feat => {
+                    const childIds = (feat.relations || [])
+                        .filter(r => r.rel === 'System.LinkTypes.Hierarchy-Forward')
+                        .map(r => parseInt(r.url.split('/').pop()));
+                    featureChildMap[feat.id] = childIds;
+                    allChildWiIds.push(...childIds);
+                });
+                const uniqueChildWiIds = [...new Set(allChildWiIds)];
+
+                // Fetch relations for child work items (Reqs/Bugs → Tasks)
+                const childWiTaskMap = {};
+                const allTaskIdsForFeatures = [];
+                if (uniqueChildWiIds.length > 0) {
+                    const batchSize = 50;
+                    for (let i = 0; i < uniqueChildWiIds.length; i += batchSize) {
+                        const batch = uniqueChildWiIds.slice(i, i + batchSize);
+                        try {
+                            const resp = await apiFetch(`${tfsUrl}/_apis/wit/workitems?ids=${batch.join(',')}&$expand=relations&api-version=5.0`);
+                            if (resp.ok) {
+                                const d = await resp.json();
+                                (d.value || []).forEach(wi => {
+                                    const taskIds = (wi.relations || [])
+                                        .filter(r => r.rel === 'System.LinkTypes.Hierarchy-Forward')
+                                        .map(r => parseInt(r.url.split('/').pop()));
+                                    childWiTaskMap[wi.id] = taskIds;
+                                    allTaskIdsForFeatures.push(...taskIds);
+                                });
+                            } else {
+                                for (const singleId of batch) {
+                                    try {
+                                        const sResp = await apiFetch(`${tfsUrl}/_apis/wit/workitems?ids=${singleId}&$expand=relations&api-version=5.0`);
+                                        if (sResp.ok) {
+                                            const sD = await sResp.json();
+                                            (sD.value || []).forEach(wi => {
+                                                const taskIds = (wi.relations || []).filter(r => r.rel === 'System.LinkTypes.Hierarchy-Forward').map(r => parseInt(r.url.split('/').pop()));
+                                                childWiTaskMap[wi.id] = taskIds;
+                                                allTaskIdsForFeatures.push(...taskIds);
+                                            });
+                                        }
+                                    } catch (e2) { /* skip deleted items */ }
+                                }
+                            }
+                        } catch (e) { console.warn('[FeatureProgress] batch error:', e.message); }
+                    }
+                }
+
+                // Batch fetch all tasks
+                const childTaskFields = ['System.Id','System.WorkItemType','Microsoft.VSTS.Scheduling.OriginalEstimate',
+                    'Microsoft.VSTS.Scheduling.CompletedWork','Microsoft.VSTS.Common.Discipline',
+                    'System.IterationPath','System.AreaPath','System.Reason'];
+                const uniqueTaskIds = [...new Set(allTaskIdsForFeatures)];
+                const allChildTasks = uniqueTaskIds.length > 0 ? await batchFetchWorkItems(uniqueTaskIds, childTaskFields) : [];
+                const childTaskLookup = {};
+                allChildTasks.forEach(t => { childTaskLookup[t.id] = t; });
+
+                // Calculate task level metrics per feature
+                const excludedDisciplines = ['analysis', 'user experience', 'user education'];
+                const excludedDisciplinesActual = ['user experience', 'user education'];
+                const featureTaskPlannedMap = {}, featureTaskCompletedMap = {}, featureTaskActualCompMap = {};
+
+                uniqueFeatures.forEach(f => {
+                    const featureAreaPath = (f.fields['System.AreaPath'] || '').toLowerCase().trim();
+                    const childWiIds = featureChildMap[f.id] || [];
+                    let totalOrigEst = 0, totalCompWork = 0, totalActualComp = 0;
+                    childWiIds.forEach(wiId => {
+                        const taskIds = childWiTaskMap[wiId] || [];
+                        taskIds.forEach(tid => {
+                            const task = childTaskLookup[tid];
+                            if (!task) return;
+                            if (task.fields['System.WorkItemType'] !== 'Task') return;
+                            const discipline = (task.fields['Microsoft.VSTS.Common.Discipline'] || '').toLowerCase().trim();
+                            const iterPath = (task.fields['System.IterationPath'] || '');
+                            const reason = (task.fields['System.Reason'] || '').toLowerCase().trim();
+                            const taskAreaPath = (task.fields['System.AreaPath'] || '').toLowerCase().trim();
+                            const iterLeaf = iterPath.split('\\').pop().trim().toLowerCase();
+                            const isRootIter = (iterLeaf === 'casepointara');
+                            const isRejected = (reason === 'rejected');
+                            // Task Actual Completed
+                            if (!excludedDisciplinesActual.includes(discipline) && !isRootIter && !isRejected) {
+                                totalActualComp += (task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0);
+                            }
+                            // Task Planned & Task Comp Dev
+                            if (excludedDisciplines.includes(discipline)) return;
+                            if (isRootIter || isRejected) return;
+                            totalOrigEst += (task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0);
+                            if (taskAreaPath === featureAreaPath) {
+                                totalCompWork += (task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0);
+                            }
+                        });
+                    });
+                    featureTaskPlannedMap[f.id] = totalOrigEst;
+                    featureTaskCompletedMap[f.id] = totalCompWork;
+                    featureTaskActualCompMap[f.id] = totalActualComp;
+                });
+
+                // Process feature data
+                featureProgressData = uniqueFeatures.map(f => {
+                    const discoveryEffort = f.fields['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
+                    const compDiscoveryHours = f.fields['Casepoint.TFS.CustomFields.CompletedDiscoveryHours'] || 0;
+                    const plannedHours = f.fields['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
+                    const completedEffort = f.fields['Casepoint.TFS.CustomFields.CompletedEffort'] || 0;
+                    const actualCompletedHours = f.fields['Casepoint.TFS.CustomFields.ActualCompletedHours'] || 0;
+                    const total = discoveryEffort + plannedHours;
+                    return {
+                        id: f.id, title: f.fields['System.Title'] || '', state: f.fields['System.State'] || '',
+                        status: f.fields['Casepoint.TFS.CustomFields.Status'] || '-',
+                        assignedTo: f.fields['System.AssignedTo']?.displayName || '-',
+                        iteration: f.sprintName, iterationPath: f.sprintPath,
+                        tags: f.fields['System.Tags'] || '',
+                        discoveryEffort, compDiscoveryHours, plannedHours, completedEffort, actualCompletedHours,
+                        total, progressPct: total > 0 ? parseFloat(((actualCompletedHours / total) * 100).toFixed(1)) : 0,
+                        taskLevelPlannedHours: featureTaskPlannedMap[f.id] || 0,
+                        taskLevelCompletedDevHours: featureTaskCompletedMap[f.id] || 0,
+                        taskLevelActualCompHours: featureTaskActualCompMap[f.id] || 0
+                    };
+                });
+
+                document.getElementById('featureProgressCount').textContent = featureProgressData.length;
+                buildFeatureFilters();
+                updateFeatureSummaryStats();
+                renderFeatureProgressTable();
+                document.getElementById('updateFeatureHoursBtn').style.display = 
+                    (featureProgressData.length > 0 && ['admin','super_admin'].includes(currentUserRole)) ? 'inline-block' : 'none';
+            } catch (e) {
+                console.error('Error loading feature progress:', e);
+                document.getElementById('noFeatureProgressData').style.display = 'block';
+            }
+            hideCardLoading('featureProgress');
+        }
+
+        function buildFeatureFilters() {
+            featureFilters.iterations = featurePISprints.map(s => s.name);
+            featureFilters.states = ['Proposed', 'Active', 'Resolved', 'Closed'];
+            featureFilters.statuses = ['Discovery Pending','Discovery Started','Discovery Done','On Hold','Will not implement',
+                'Under Consideration','In Dev','In QA','In PT','Ready to Ship','Shipped',
+                'Documentation Pending','Documentation Started','Documentation Done'];
+            activeFeatureFilters = { iterations: [], states: [], statuses: [] };
+            renderFeatureFilterButtons('featureIterationFilters', featureFilters.iterations, 'iteration');
+            renderFeatureFilterButtons('featureStateFilters', featureFilters.states, 'state');
+            renderFeatureFilterButtons('featureStatusFilters', featureFilters.statuses, 'status');
+        }
+
+        function renderFeatureFilterButtons(containerId, options, filterType) {
+            const container = document.getElementById(containerId);
+            const isLight = document.body.classList.contains('light-theme');
+            const colorSchemes = {
+                iteration: { active: '#3b82f6', inactive: isLight?'#eff6ff':'rgba(59,130,246,0.15)', text: isLight?'#1d4ed8':'#93c5fd', border: isLight?'#93c5fd':'#3b82f6' },
+                state: { active: '#10b981', inactive: isLight?'#f0fdf4':'rgba(16,185,129,0.15)', text: isLight?'#047857':'#6ee7b7', border: isLight?'#6ee7b7':'#10b981' },
+                status: { active: '#8b5cf6', inactive: isLight?'#f5f3ff':'rgba(139,92,246,0.15)', text: isLight?'#6d28d9':'#c4b5fd', border: isLight?'#c4b5fd':'#8b5cf6' }
+            };
+            const colors = colorSchemes[filterType] || colorSchemes.state;
+            container.innerHTML = options.map(opt => {
+                return `<button class="feature-filter-btn" data-type="${filterType}" data-value="${opt}"
+                    onclick="toggleFeatureFilterBtn(this)"
+                    style="padding:4px 10px;font-size:0.65rem;border-radius:12px;cursor:pointer;
+                    background:${colors.inactive};border:1px solid ${colors.border};color:${colors.text};
+                    font-weight:500;transition:all 0.2s;white-space:nowrap;">${opt}</button>`;
+            }).join('');
+        }
+
+        function toggleFeatureFilterBtn(btn) {
+            const filterType = btn.dataset.type;
+            const value = btn.dataset.value;
+            const filterKeyMap = { 'iteration': 'iterations', 'state': 'states', 'status': 'statuses' };
+            const filterKey = filterKeyMap[filterType];
+            if (!activeFeatureFilters[filterKey]) activeFeatureFilters[filterKey] = [];
+            const idx = activeFeatureFilters[filterKey].indexOf(value);
+            const isLight = document.body.classList.contains('light-theme');
+            const colors = {
+                iteration: { active: '#3b82f6', inactive: isLight?'#eff6ff':'rgba(59,130,246,0.15)', text: isLight?'#1d4ed8':'#93c5fd', border: isLight?'#93c5fd':'#3b82f6' },
+                state: { active: '#10b981', inactive: isLight?'#f0fdf4':'rgba(16,185,129,0.15)', text: isLight?'#047857':'#6ee7b7', border: isLight?'#6ee7b7':'#10b981' },
+                status: { active: '#8b5cf6', inactive: isLight?'#f5f3ff':'rgba(139,92,246,0.15)', text: isLight?'#6d28d9':'#c4b5fd', border: isLight?'#c4b5fd':'#8b5cf6' }
+            };
+            const color = colors[filterType] || colors.status;
+            if (idx === -1) {
+                activeFeatureFilters[filterKey].push(value);
+                btn.style.background = color.active;
+                btn.style.color = '#fff';
+                btn.style.border = 'none';
+                btn.classList.add('fp-filter-active');
+            } else {
+                activeFeatureFilters[filterKey].splice(idx, 1);
+                btn.style.background = color.inactive;
+                btn.style.color = color.text;
+                btn.style.border = '1px solid ' + color.border;
+                btn.classList.remove('fp-filter-active');
+            }
+            renderFeatureProgressTable();
+            updateFeatureSummaryStats();
+        }
+
+        function getFilteredFeatureData() {
+            let data = featureProgressData;
+            if (activeFeatureFilters.iterations.length > 0) data = data.filter(f => activeFeatureFilters.iterations.includes(f.iteration));
+            if (activeFeatureFilters.states.length > 0) data = data.filter(f => activeFeatureFilters.states.includes(f.state));
+            if (activeFeatureFilters.statuses.length > 0) {
+                const lowerStatuses = activeFeatureFilters.statuses.map(s => s.toLowerCase());
+                data = data.filter(f => lowerStatuses.includes((f.status || '').toLowerCase()));
+            }
+            return data;
+        }
+
+        function updateFeatureSummaryStats() {
+            const data = getFilteredFeatureData();
+            const totPlannedHours = data.reduce((s, f) => s + f.discoveryEffort + f.plannedHours, 0);
+            const totCompletedHours = data.reduce((s, f) => s + f.actualCompletedHours, 0);
+            const totRemainingHours = totPlannedHours - totCompletedHours;
+            const totalFeatures = data.length;
+            const closedFeatures = data.filter(f => f.state === 'Closed').length;
+            const overallPct = totalFeatures > 0 ? ((closedFeatures / totalFeatures) * 100).toFixed(1) : 0;
+            document.getElementById('featureTotalPlanned').textContent = fmtH(totPlannedHours) + 'h';
+            document.getElementById('featureTotalCompleted').textContent = fmtH(totCompletedHours) + 'h';
+            document.getElementById('featureTotalRemaining').textContent = fmtH(totRemainingHours > 0 ? totRemainingHours : 0) + 'h';
+            document.getElementById('featureOverallProgress').textContent = overallPct + '%';
+            document.getElementById('featureTaskLevelPlanned').textContent = fmtH(data.reduce((s, f) => s + f.taskLevelPlannedHours, 0)) + 'h';
+            document.getElementById('featureTaskLevelCompDev').textContent = fmtH(data.reduce((s, f) => s + f.taskLevelCompletedDevHours, 0)) + 'h';
+            document.getElementById('featureTaskLevelActualComp').textContent = fmtH(data.reduce((s, f) => s + f.taskLevelActualCompHours, 0)) + 'h';
+            document.getElementById('featureCompletedPct').textContent = closedFeatures + ' / ' + totalFeatures + ' Closed';
+            document.getElementById('featureRemainingPct').textContent = (totalFeatures - closedFeatures) + ' Remaining';
+            document.getElementById('featureProgressBar').style.width = overallPct + '%';
+        }
+
+        function getStatePillClass(state) {
+            const s = (state || '').toLowerCase();
+            if (s === 'closed') return 'fp-state-closed';
+            if (s === 'active') return 'fp-state-active';
+            if (s === 'resolved') return 'fp-state-resolved';
+            return 'fp-state-proposed';
+        }
+        function getStatusPillClass(status) {
+            const s = (status || '').toLowerCase();
+            if (s.includes('discovery')) return 'fp-status-discovery';
+            if (s.includes('in dev') || s === 'under consideration') return 'fp-status-dev';
+            if (s.includes('qa') || s.includes('pt')) return 'fp-status-qa';
+            if (s.includes('ship') || s.includes('shipped')) return 'fp-status-ship';
+            if (s.includes('hold') || s.includes('will not')) return 'fp-status-hold';
+            if (s.includes('doc')) return 'fp-status-doc';
+            return 'fp-status-default';
+        }
+
+        function sortFeatureTable(column) {
+            if (featureSortColumn === column) {
+                featureSortDirection = featureSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                featureSortColumn = column;
+                featureSortDirection = (column === 'id' || column === 'title' || column === 'state' || column === 'status') ? 'asc' : 'desc';
+            }
+            // Update sort icons
+            document.querySelectorAll('#featureProgressTable .fp-sort-icon').forEach(icon => {
+                icon.className = 'fp-sort-icon';
+            });
+            const activeHeader = document.querySelector(`#featureProgressTable th[data-sort="${column}"] .fp-sort-icon`);
+            if (activeHeader) activeHeader.className = 'fp-sort-icon ' + featureSortDirection;
+            renderFeatureProgressTable();
+            updateFeatureSummaryStats();
+        }
+
+        function getSortedFeatureData(data) {
+            if (!featureSortColumn || data.length === 0) return data;
+            const col = featureSortColumn;
+            const dir = featureSortDirection === 'asc' ? 1 : -1;
+            const stringCols = ['title', 'state', 'status'];
+            return [...data].sort((a, b) => {
+                let va = a[col], vb = b[col];
+                if (stringCols.includes(col)) {
+                    va = (va || '').toLowerCase();
+                    vb = (vb || '').toLowerCase();
+                    return va < vb ? -dir : va > vb ? dir : 0;
+                }
+                return ((va || 0) - (vb || 0)) * dir;
+            });
+        }
+
+        function renderFeatureProgressTable() {
+            const filteredData = getFilteredFeatureData();
+            const data = getSortedFeatureData(filteredData);
+            const tbody = document.getElementById('featureProgressTableBody');
+            const tfoot = document.getElementById('featureProgressTableFooter');
+            const pd = 'padding:4px 3px;';
+            if (data.length > 0) {
+                document.getElementById('noFeatureProgressData').style.display = 'none';
+                tbody.innerHTML = data.map(f => {
+                    const stCls = getStatePillClass(f.state);
+                    const statusCls = getStatusPillClass(f.status);
+                    return `<tr>
+                        <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
+                        <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
+                        <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}">${f.state}</span></td>
+                        <td style="${pd}text-align:center;" title="${f.status}"><span class="fp-status-pill ${statusCls}">${f.status}</span></td>
+                        <td class="fp-disc-eff" style="${pd}text-align:right;font-weight:600;">${fmtH(f.discoveryEffort)}h</td>
+                        <td class="fp-comp-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.compDiscoveryHours)}h</td>
+                        <td class="fp-planned" style="${pd}text-align:right;font-weight:600;">${fmtH(f.plannedHours)}h</td>
+                        <td class="fp-comp-eff" style="${pd}text-align:right;font-weight:600;">${fmtH(f.completedEffort)}h</td>
+                        <td class="fp-actual-comp" style="${pd}text-align:right;font-weight:600;">${fmtH(f.actualCompletedHours)}h</td>
+                        <td class="fp-total" style="${pd}text-align:right;font-weight:700;">${fmtH(f.total)}h</td>
+                        <td class="fp-task-plan" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelPlannedHours)}h</td>
+                        <td class="fp-task-cdev" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelCompletedDevHours)}h</td>
+                        <td class="fp-task-acomp" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelActualCompHours)}h</td>
+                    </tr>`;
+                }).join('');
+                const totDiscEffort = data.reduce((s, f) => s + f.discoveryEffort, 0);
+                const totCompDisc = data.reduce((s, f) => s + f.compDiscoveryHours, 0);
+                const totPlanned = data.reduce((s, f) => s + f.plannedHours, 0);
+                const totCompEffort = data.reduce((s, f) => s + f.completedEffort, 0);
+                const totActualComp = data.reduce((s, f) => s + f.actualCompletedHours, 0);
+                const totTotal = data.reduce((s, f) => s + f.total, 0);
+                const totTaskPlanned = data.reduce((s, f) => s + f.taskLevelPlannedHours, 0);
+                const totTaskCompDev = data.reduce((s, f) => s + f.taskLevelCompletedDevHours, 0);
+                const totTaskActualComp = data.reduce((s, f) => s + f.taskLevelActualCompHours, 0);
+                const fp = 'padding:5px 3px;';
+                tfoot.innerHTML = `<tr>
+                    <td colspan="4" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
+                    <td class="fp-disc-eff" style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
+                    <td class="fp-comp-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompDisc)}h</td>
+                    <td class="fp-planned" style="${fp}text-align:right;font-weight:700;">${fmtH(totPlanned)}h</td>
+                    <td class="fp-comp-eff" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompEffort)}h</td>
+                    <td class="fp-actual-comp" style="${fp}text-align:right;font-weight:700;">${fmtH(totActualComp)}h</td>
+                    <td class="fp-total" style="${fp}text-align:right;font-weight:700;">${fmtH(totTotal)}h</td>
+                    <td class="fp-task-plan" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskPlanned)}h</td>
+                    <td class="fp-task-cdev" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskCompDev)}h</td>
+                    <td class="fp-task-acomp" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskActualComp)}h</td>
+                </tr>`;
+            } else {
+                document.getElementById('noFeatureProgressData').style.display = 'block';
+                tbody.innerHTML = '';
+                tfoot.innerHTML = '';
+            }
+        }
+
+        async function refreshFeatureProgressCard() {
+            showCardLoading('featureProgress');
+            try {
+                featureProgressDataLoaded = false;
+                await loadFeatureProgressData();
+                featureProgressDataLoaded = true;
+            } catch (e) { console.error(e); }
+            hideCardLoading('featureProgress');
+        }
+
+        // ===== UPDATE FEATURE HOURS IN TFS =====
+        async function updateFeatureHours() {
+            if (!['admin','super_admin'].includes(currentUserRole)) {
+                alert('⚠️ Only Admin and Super Admin can update feature hours.'); return;
+            }
+            const filteredData = getFilteredFeatureData();
+            if (filteredData.length === 0) { alert('⚠️ No features available to update.'); return; }
+            const summaryLines = filteredData.map(f =>
+                `#${f.id}: Planned=${fmtH(f.taskLevelPlannedHours)}h, CompDev=${fmtH(f.taskLevelCompletedDevHours)}h, ActualComp=${fmtH(f.taskLevelActualCompHours)}h`
+            ).join('\n');
+            if (!confirm(`⬆️ Update Feature Hours in TFS for ${filteredData.length} feature(s)?\n\nMapping:\n• Planned Hours ← Task Planned\n• Completed Dev & Delivery Hours ← Task Comp Dev\n• Actual Completed Hours ← Task Actual Comp\n\n${summaryLines}\n\nProceed?`)) return;
+            const btn = document.getElementById('updateFeatureHoursBtn');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            let successCount = 0, failedIds = [];
+            for (let i = 0; i < filteredData.length; i++) {
+                const feature = filteredData[i];
+                btn.textContent = `⏳ Updating ${i + 1}/${filteredData.length}...`;
+                try {
+                    const patchBody = [
+                        { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.PlannedHours', value: feature.taskLevelPlannedHours },
+                        { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.CompletedEffort', value: feature.taskLevelCompletedDevHours },
+                        { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.ActualCompletedHours', value: feature.taskLevelActualCompHours }
+                    ];
+                    const resp = await fetch(`${tfsUrl}/_apis/wit/workitems/${feature.id}?api-version=5.0`, {
+                        method: 'PATCH',
+                        headers: { ...config.headers, 'Content-Type': 'application/json-patch+json' },
+                        body: JSON.stringify(patchBody)
+                    });
+                    apiCallCount++;
+                    document.getElementById('apiCallCount').textContent = apiCallCount;
+                    if (!resp.ok) throw new Error(`${resp.status}: ${await resp.text()}`);
+                    successCount++;
+                    feature.plannedHours = feature.taskLevelPlannedHours;
+                    feature.completedEffort = feature.taskLevelCompletedDevHours;
+                    feature.actualCompletedHours = feature.taskLevelActualCompHours;
+                    feature.total = feature.discoveryEffort + feature.plannedHours;
+                } catch (e) { failedIds.push(feature.id); }
+            }
+            renderFeatureProgressTable();
+            updateFeatureSummaryStats();
+            let msg = `✅ ${successCount}/${filteredData.length} feature(s) updated successfully.`;
+            if (failedIds.length > 0) msg += `\n\n❌ Failed: ${failedIds.map(id => '#' + id).join(', ')}`;
+            alert(msg);
+            btn.textContent = originalText;
+            btn.disabled = false;
+        }
+
+        function applyTabPermissions() {
+            const tabNames = { 1: 'Sprint Planning', 2: 'Work Progress', 3: 'AI Usage', 4: 'Feature Progress' };
+            const isAdmin = ['admin', 'super_admin'].includes(currentUserRole);
+            [1, 2, 3, 4].forEach(t => {
+                const btn = document.getElementById('tabBtn' + t);
+                if (!btn) return;
+                if (currentUserTabs.includes(t)) {
+                    btn.style.display = '';
+                    btn.removeAttribute('title');
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+            // If current visible tab is not allowed, switch to first allowed tab
+            const activeTab = [1,2,3,4].find(t => document.getElementById('tabContent'+t)?.style.display === 'block');
+            if (activeTab && !currentUserTabs.includes(activeTab)) {
+                switchTab(currentUserTabs[0] || 1);
+            }
+            // Control admin-only features
+            const updateBtn = document.getElementById('updateFeatureHoursBtn');
+            if (updateBtn && !isAdmin) {
+                updateBtn.style.display = 'none';
+                updateBtn.setAttribute('data-role-hidden', 'true');
+            }
+        }
+
         function switchTab(tabNum) {
+            // Tab permission check
+            if (!currentUserTabs.includes(tabNum)) {
+                return; // silently ignore
+            }
             // Hide all tab contents
             document.getElementById('tabContent1').style.display = 'none';
             document.getElementById('tabContent2').style.display = 'none';
             document.getElementById('tabContent3').style.display = 'none';
+            document.getElementById('tabContent4').style.display = 'none';
             
             // Reset all tab buttons
             const inactiveStyle = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;';
@@ -4084,6 +4874,7 @@
             document.getElementById('tabBtn1').style.cssText = inactiveStyle;
             document.getElementById('tabBtn2').style.cssText = inactiveStyle;
             document.getElementById('tabBtn3').style.cssText = inactiveStyle;
+            document.getElementById('tabBtn4').style.cssText = inactiveStyle;
             
             // Show selected tab and activate button
             document.getElementById('tabContent' + tabNum).style.display = 'block';
@@ -8566,6 +9357,244 @@
             });
             
             return clone.outerHTML;
+        }
+
+        async function lookupFeature() {
+            const featureId = document.getElementById('featureIdInput').value.trim();
+            const resultDiv = document.getElementById('featureLookupResult');
+            if (!featureId) { resultDiv.innerHTML = '<div class="error">Please enter a Feature ID</div>'; return; }
+            resultDiv.innerHTML = '<div style="color:#94a3b8;padding:8px;font-size:0.75rem;">🔄 Loading feature...</div>';
+            try {
+                const resp = await apiFetch(`${tfsUrl}/_apis/wit/workitems/${featureId}?$expand=relations&api-version=5.0`);
+                if (!resp.ok) throw new Error(`Feature ${featureId} not found`);
+                const data = await resp.json();
+                const f = data.fields;
+                if (f['System.WorkItemType'] !== 'Feature') throw new Error(`#${featureId} is a ${f['System.WorkItemType']}, not a Feature`);
+
+                const featureAreaPath = (f['System.AreaPath'] || '').toLowerCase().trim();
+                const stCls = getStatePillClass(f['System.State']);
+                const statusVal = f['Casepoint.TFS.CustomFields.Status'] || '-';
+                const statusCls = getStatusPillClass(statusVal);
+                const lt = document.body.classList.contains('light-theme');
+
+                // Theme tokens
+                const T = {
+                    card: lt ? 'background:#f8fafc;border:1px solid #e2e8f0;' : 'background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);',
+                    box: lt ? 'background:#f1f5f9;border:1px solid #e2e8f0;' : 'background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.06);',
+                    h: lt ? 'color:#0f172a;' : 'color:#e2e8f0;',
+                    sub: lt ? 'color:#475569;' : 'color:#94a3b8;',
+                    val: lt ? 'color:#1e293b;font-weight:700;' : 'color:#e2e8f0;font-weight:700;',
+                    lbl: lt ? 'color:#64748b;' : 'color:#64748b;',
+                    tpln: lt ? 'color:#c2410c;' : 'color:#f97316;',
+                    tcdev: lt ? 'color:#0369a1;' : 'color:#38bdf8;',
+                    tacomp: lt ? 'color:#6d28d9;' : 'color:#a78bfa;',
+                    thBg: lt ? 'background:#e2e8f0;color:#1e293b;' : 'background:rgba(255,255,255,0.08);color:#e2e8f0;',
+                    tdColor: lt ? 'color:#334155;' : 'color:#cbd5e1;',
+                    trBorder: lt ? 'border-bottom:1px solid #e2e8f0;' : 'border-bottom:1px solid rgba(255,255,255,0.06);',
+                    totBorder: lt ? 'border-top:2px solid #cbd5e1;' : 'border-top:2px solid rgba(255,255,255,0.15);',
+                    areaClr: lt ? 'color:#0369a1;' : 'color:#38bdf8;',
+                    iterClr: lt ? 'color:#7c3aed;' : 'color:#c084fc;',
+                };
+                const sz = 'font-size:0.7rem;';
+
+                const childIds = (data.relations || [])
+                    .filter(r => r.rel === 'System.LinkTypes.Hierarchy-Forward')
+                    .map(r => r.url.split('/').pop());
+
+                let children = [], allTasks = [];
+                if (childIds.length > 0) {
+                    children = await batchFetchWithRelations(childIds, [
+                        'System.Id','System.Title','System.State','System.WorkItemType',
+                        'System.AssignedTo','System.AreaPath','System.IterationPath','Microsoft.VSTS.Scheduling.Size'
+                    ]);
+                    const taskIds = [];
+                    const childTaskMap = {};
+                    children.forEach(c => {
+                        const tIds = (c.relations || [])
+                            .filter(r => r.rel === 'System.LinkTypes.Hierarchy-Forward')
+                            .map(r => r.url.split('/').pop());
+                        childTaskMap[c.id] = tIds;
+                        tIds.forEach(id => { if (!taskIds.includes(id)) taskIds.push(id); });
+                    });
+                    if (taskIds.length > 0) {
+                        allTasks = await batchFetchWorkItems(taskIds, [
+                            'System.Id','System.Title','System.State','System.WorkItemType',
+                            'System.AssignedTo','System.AreaPath','System.IterationPath','System.Reason',
+                            'Microsoft.VSTS.Common.Discipline','Microsoft.VSTS.Scheduling.OriginalEstimate',
+                            'Microsoft.VSTS.Scheduling.RemainingWork','Microsoft.VSTS.Scheduling.CompletedWork',
+                            'Casepoint.TFS.CustomFields.TaskExecutionType'
+                        ]);
+                        allTasks = allTasks.filter(t => t.fields['System.WorkItemType'] === 'Task');
+                    }
+                    const taskLookup = {};
+                    allTasks.forEach(t => { taskLookup[t.id] = t; });
+
+                    const excludedDisc = ['analysis', 'user experience', 'user education'];
+                    const excludedActual = ['user experience', 'user education'];
+                    let totTaskPlanned = 0, totTaskCompDev = 0, totTaskActualComp = 0;
+                    let totOrigEst = 0, totRemWork = 0, totCompWork = 0;
+
+                    children.forEach(c => {
+                        const tIds = childTaskMap[c.id] || [];
+                        let cPlanned = 0, cCompDev = 0, cActual = 0, cOrig = 0, cRem = 0, cComp = 0;
+                        tIds.forEach(tid => {
+                            const task = taskLookup[tid];
+                            if (!task) return;
+                            const disc = (task.fields['Microsoft.VSTS.Common.Discipline'] || '').toLowerCase().trim();
+                            const iterPath = task.fields['System.IterationPath'] || '';
+                            const reason = (task.fields['System.Reason'] || '').toLowerCase().trim();
+                            const taskArea = (task.fields['System.AreaPath'] || '').toLowerCase().trim();
+                            const iterLeaf = iterPath.split('\\').pop().trim().toLowerCase();
+                            const isRoot = iterLeaf === 'casepointara';
+                            const isRejected = reason === 'rejected';
+                            const orig = task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                            const rem = task.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || 0;
+                            const comp = task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0;
+                            cOrig += orig; cRem += rem; cComp += comp;
+                            if (!excludedActual.includes(disc) && !isRoot && !isRejected) cActual += comp;
+                            if (!excludedDisc.includes(disc) && !isRoot && !isRejected) {
+                                cPlanned += orig;
+                                if (taskArea === featureAreaPath) cCompDev += comp;
+                            }
+                        });
+                        c._taskPlanned = cPlanned; c._taskCompDev = cCompDev; c._taskActual = cActual;
+                        c._origEst = cOrig; c._remWork = cRem; c._compWork = cComp;
+                        c._taskIds = tIds;
+                        totTaskPlanned += cPlanned; totTaskCompDev += cCompDev; totTaskActualComp += cActual;
+                        totOrigEst += cOrig; totRemWork += cRem; totCompWork += cComp;
+                    });
+
+                    const discEff = f['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
+                    const compDisc = f['Casepoint.TFS.CustomFields.CompletedDiscoveryHours'] || 0;
+                    const planned = f['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
+                    const compEff = f['Casepoint.TFS.CustomFields.CompletedEffort'] || 0;
+                    const actualComp = f['Casepoint.TFS.CustomFields.ActualCompletedHours'] || 0;
+                    const total = discEff + planned;
+                    const areaLeaf = (f['System.AreaPath']||'').split('\\').pop();
+                    const iterLeaf = (f['System.IterationPath']||'').split('\\').pop();
+
+                    let html = `<div class="fl-card" style="${T.card}border-radius:8px;padding:10px;margin-top:10px;${sz}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+                            <a href="${tfsUrl}/${project}/_workitems/edit/${featureId}" target="_blank" class="wi-link" style="font-size:0.8rem;font-weight:700;">#${featureId}</a>
+                            <span style="${T.h}font-weight:600;font-size:0.8rem;">${f['System.Title'] || ''}</span>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+                            <span class="fp-state-pill ${stCls}">${f['System.State']}</span>
+                            <span class="fp-status-pill ${statusCls}">${statusVal}</span>
+                            <span style="${T.areaClr}${sz}font-weight:500;">📂 ${areaLeaf}</span>
+                            <span style="${T.iterClr}${sz}font-weight:500;">📅 ${iterLeaf}</span>
+                        </div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+                            <div style="${T.box}border-radius:6px;padding:5px 8px;flex:1;min-width:140px;">
+                                <div style="${T.lbl}font-size:0.58rem;font-weight:600;margin-bottom:3px;">📊 TFS Feature Hours</div>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;">
+                                    <span style="${T.sub}">Disc: <b style="${T.val}">${fmtH(discEff)}h</b></span>
+                                    <span style="${T.sub}">CompDisc: <b style="${T.val}">${fmtH(compDisc)}h</b></span>
+                                    <span style="${T.sub}">Planned: <b style="${T.val}">${fmtH(planned)}h</b></span>
+                                    <span style="${T.sub}">CompEff: <b style="${T.val}">${fmtH(compEff)}h</b></span>
+                                    <span style="${T.sub}">ActComp: <b style="${T.val}">${fmtH(actualComp)}h</b></span>
+                                    <span style="${T.sub}">Total: <b style="${T.val}">${fmtH(total)}h</b></span>
+                                </div>
+                            </div>
+                            <div style="${T.box}border-radius:6px;padding:5px 8px;flex:1;min-width:140px;">
+                                <div style="${T.lbl}font-size:0.58rem;font-weight:600;margin-bottom:3px;">⚙️ Task-Level Calc</div>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;">
+                                    <span style="${T.sub}">Planned: <b style="${T.tpln}font-weight:700;">${fmtH(totTaskPlanned)}h</b></span>
+                                    <span style="${T.sub}">CompDev: <b style="${T.tcdev}font-weight:700;">${fmtH(totTaskCompDev)}h</b></span>
+                                    <span style="${T.sub}">ActComp: <b style="${T.tacomp}font-weight:700;">${fmtH(totTaskActualComp)}h</b></span>
+                                </div>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;margin-top:3px;">
+                                    <span style="${T.sub}">OrigEst: <b style="${T.val}">${fmtH(totOrigEst)}h</b></span>
+                                    <span style="${T.sub}">Rem: <b style="${T.val}">${fmtH(totRemWork)}h</b></span>
+                                    <span style="${T.sub}">Comp: <b style="${T.val}">${fmtH(totCompWork)}h</b></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="${T.h}font-size:0.72rem;font-weight:600;margin:8px 0 4px;">📋 Child Items (${children.length})</div>`;
+
+                    if (children.length > 0) {
+                        html += `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:auto;">
+                            <thead><tr style="${T.thBg}">
+                                <th style="padding:4px 3px;text-align:left;">ID</th>
+                                <th style="padding:4px 3px;text-align:left;">Title</th>
+                                <th style="padding:4px 3px;text-align:center;">Type</th>
+                                <th style="padding:4px 3px;text-align:center;">State</th>
+                                <th style="padding:4px 3px;text-align:left;">Assigned</th>
+                                <th style="padding:4px 3px;text-align:left;">Area</th>
+                                <th style="padding:4px 3px;text-align:left;">Iteration</th>
+                                <th style="padding:4px 3px;text-align:right;">Size</th>
+                                <th style="padding:4px 3px;text-align:center;">Tasks</th>
+                                <th style="padding:4px 3px;text-align:right;">Orig Est</th>
+                                <th style="padding:4px 3px;text-align:right;">Rem</th>
+                                <th style="padding:4px 3px;text-align:right;">Comp</th>
+                                <th style="padding:4px 3px;text-align:right;">Task Plan</th>
+                                <th style="padding:4px 3px;text-align:right;">Task CDev</th>
+                                <th style="padding:4px 3px;text-align:right;">Task ACmp</th>
+                            </tr></thead><tbody>`;
+                        children.forEach(c => {
+                            const cf = c.fields;
+                            const tCount = (c._taskIds || []).length;
+                            const cArea = (cf['System.AreaPath']||'').split('\\').pop();
+                            const cIter = (cf['System.IterationPath']||'').split('\\').pop();
+                            const cAssigned = cf['System.AssignedTo']?.displayName || '-';
+                            html += `<tr style="${T.trBorder}">
+                                <td style="padding:3px;${T.tdColor}"><a href="${tfsUrl}/${project}/_workitems/edit/${c.id}" target="_blank" class="wi-link" style="font-size:0.6rem;">${c.id}</a></td>
+                                <td style="padding:3px;${T.tdColor}max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cf['System.Title']||''}">${cf['System.Title'] || ''}</td>
+                                <td style="padding:3px;text-align:center;${T.tdColor}">${cf['System.WorkItemType'] || ''}</td>
+                                <td style="padding:3px;text-align:center;"><span class="fp-state-pill" style="font-size:0.5rem;padding:1px 5px;">${cf['System.State'] || ''}</span></td>
+                                <td style="padding:3px;${T.tdColor}max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cAssigned}">${cAssigned}</td>
+                                <td style="padding:3px;${T.areaClr}font-weight:500;" title="${cf['System.AreaPath']||''}">${cArea}</td>
+                                <td style="padding:3px;${T.iterClr}font-weight:500;" title="${cf['System.IterationPath']||''}">${cIter}</td>
+                                <td style="padding:3px;text-align:right;${T.tdColor}">${cf['Microsoft.VSTS.Scheduling.Size'] || 0}</td>
+                                <td style="padding:3px;text-align:center;${T.tdColor}">${tCount}</td>
+                                <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._origEst)}h</td>
+                                <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._remWork)}h</td>
+                                <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._compWork)}h</td>
+                                <td style="padding:3px;text-align:right;${T.tpln}font-weight:600;">${fmtH(c._taskPlanned)}h</td>
+                                <td style="padding:3px;text-align:right;${T.tcdev}font-weight:600;">${fmtH(c._taskCompDev)}h</td>
+                                <td style="padding:3px;text-align:right;${T.tacomp}font-weight:600;">${fmtH(c._taskActual)}h</td>
+                            </tr>`;
+                        });
+                        html += `<tr style="${T.totBorder}font-weight:700;">
+                            <td colspan="9" style="padding:4px 3px;text-align:right;${T.h}">Totals:</td>
+                            <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totOrigEst)}h</td>
+                            <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totRemWork)}h</td>
+                            <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totCompWork)}h</td>
+                            <td style="padding:4px 3px;text-align:right;${T.tpln}">${fmtH(totTaskPlanned)}h</td>
+                            <td style="padding:4px 3px;text-align:right;${T.tcdev}">${fmtH(totTaskCompDev)}h</td>
+                            <td style="padding:4px 3px;text-align:right;${T.tacomp}">${fmtH(totTaskActualComp)}h</td>
+                        </tr></tbody></table></div>`;
+                    } else {
+                        html += '<div style="text-align:center;padding:8px;' + T.sub + 'font-size:0.7rem;">No child items found</div>';
+                    }
+                    html += '</div>';
+                    resultDiv.innerHTML = html;
+                } else {
+                    const discEff = f['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
+                    const planned = f['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
+                    const lt2 = document.body.classList.contains('light-theme');
+                    const T2 = {
+                        card: lt2 ? 'background:#f8fafc;border:1px solid #e2e8f0;' : 'background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);',
+                        h: lt2 ? 'color:#0f172a;' : 'color:#e2e8f0;',
+                        sub: lt2 ? 'color:#475569;' : 'color:#94a3b8;'
+                    };
+                    const stCls2 = getStatePillClass(f['System.State']);
+                    const statusVal2 = f['Casepoint.TFS.CustomFields.Status'] || '-';
+                    const statusCls2 = getStatusPillClass(statusVal2);
+                    resultDiv.innerHTML = `<div class="fl-card" style="${T2.card}border-radius:8px;padding:10px;margin-top:10px;font-size:0.7rem;">
+                        <div style="${T2.h}font-weight:600;font-size:0.8rem;margin-bottom:6px;">
+                            <a href="${tfsUrl}/${project}/_workitems/edit/${featureId}" target="_blank" class="wi-link">#${featureId}</a>: ${f['System.Title'] || ''}
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+                            <span class="fp-state-pill ${stCls2}">${f['System.State']}</span>
+                            <span class="fp-status-pill ${statusCls2}">${statusVal2}</span>
+                            <span style="${T2.sub}">Disc: <b>${fmtH(discEff)}h</b></span>
+                            <span style="${T2.sub}">Planned: <b>${fmtH(planned)}h</b></span>
+                        </div>
+                        <div style="text-align:center;padding:8px;${T2.sub}">No child items found</div>
+                    </div>`;
+                }
+            } catch (err) { resultDiv.innerHTML = `<div class="error" style="font-size:0.75rem;">❌ ${err.message}</div>`; }
         }
 
         async function lookupRequirement() {
