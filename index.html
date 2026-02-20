@@ -195,14 +195,14 @@
         #featureProgressTable .fp-task-plan { color: #f97316; }
         #featureProgressTable .fp-task-cdev { color: #f97316; }
         #featureProgressTable .fp-task-acomp { color: #f97316; }
-        #featureProgressTable .fp-planned-mismatch-sum {
-            background: rgba(251, 191, 36, 0.25) !important;
-            border: 1px solid rgba(251, 191, 36, 0.5);
+        #featureProgressTable .fp-hl-red {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border: 1px solid rgba(239, 68, 68, 0.4);
             border-radius: 3px;
         }
-        #featureProgressTable .fp-planned-mismatch-expected {
-            background: rgba(239, 68, 68, 0.25) !important;
-            border: 1px solid rgba(239, 68, 68, 0.5);
+        #featureProgressTable .fp-hl-orange {
+            background: rgba(251, 146, 60, 0.2) !important;
+            border: 1px solid rgba(251, 146, 60, 0.4);
             border-radius: 3px;
         }
         #featureProgressTable .fp-totals-lbl { color: #93c5fd; }
@@ -248,13 +248,13 @@
         body.light-theme #featureProgressTable .fp-task-plan { color: #c2410c; }
         body.light-theme #featureProgressTable .fp-task-cdev { color: #c2410c; }
         body.light-theme #featureProgressTable .fp-task-acomp { color: #c2410c; }
-        body.light-theme #featureProgressTable .fp-planned-mismatch-sum {
-            background: rgba(251, 191, 36, 0.15) !important;
-            border: 1px solid rgba(217, 119, 6, 0.35);
+        body.light-theme #featureProgressTable .fp-hl-red {
+            background: rgba(239, 68, 68, 0.1) !important;
+            border: 1px solid rgba(220, 38, 38, 0.3);
         }
-        body.light-theme #featureProgressTable .fp-planned-mismatch-expected {
-            background: rgba(239, 68, 68, 0.12) !important;
-            border: 1px solid rgba(220, 38, 38, 0.35);
+        body.light-theme #featureProgressTable .fp-hl-orange {
+            background: rgba(251, 146, 60, 0.1) !important;
+            border: 1px solid rgba(234, 88, 12, 0.3);
         }
         body.light-theme #featureProgressTable .fp-totals-lbl { color: #2563eb; }
         /* Light theme state pills */
@@ -4946,10 +4946,14 @@
                 tbody.innerHTML = data.map(f => {
                     const stCls = getStatePillClass(f.state);
                     const statusCls = getStatusPillClass(f.status);
-                    const plannedMismatch = Math.abs((f.compDiscoveryHours + f.taskLevelPlannedHours) - f.plannedHours) > 0.01;
-                    const pmSumCls = plannedMismatch ? ' fp-planned-mismatch-sum' : '';
-                    const pmExpCls = plannedMismatch ? ' fp-planned-mismatch-expected' : '';
-                    const pmTitle = plannedMismatch ? `title="Mismatch: CompDisc(${fmtH(f.compDiscoveryHours)}) + TaskPlanned(${fmtH(f.taskLevelPlannedHours)}) = ${fmtH(f.compDiscoveryHours + f.taskLevelPlannedHours)}h ≠ Planned(${fmtH(f.plannedHours)})h"` : '';
+                    const mm1 = Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01;
+                    const mm2 = Math.abs(f.completedEffort - f.taskLevelCompletedDevHours) > 0.01;
+                    const mm3 = Math.abs(f.actualCompletedHours - f.taskLevelActualCompHours) > 0.01;
+                    const hlR = (m) => m ? ' fp-hl-red' : '';
+                    const hlO = (m) => m ? ' fp-hl-orange' : '';
+                    const ttP = mm1 ? `title="Mismatch: Planned(${fmtH(f.plannedHours)}) ≠ TaskPlanned(${fmtH(f.taskLevelPlannedHours)})"` : '';
+                    const ttE = mm2 ? `title="Mismatch: CompEffort(${fmtH(f.completedEffort)}) ≠ TaskCompDev(${fmtH(f.taskLevelCompletedDevHours)})"` : '';
+                    const ttA = mm3 ? `title="Mismatch: ActualComp(${fmtH(f.actualCompletedHours)}) ≠ TaskActComp(${fmtH(f.taskLevelActualCompHours)})"` : '';
                     return `<tr>
                         <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
                         <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
@@ -4958,13 +4962,13 @@
                         <td class="fp-est-inhrs" style="${pd}text-align:right;font-weight:600;">${fmtH(f.estimateInHours)}h</td>
                         <td class="fp-est-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.discoveryEffort)}h</td>
                         <td class="fp-dev-delivery" style="${pd}text-align:right;font-weight:600;">${fmtH(f.devDeliveryHours)}h</td>
-                        <td class="fp-planned${pmExpCls}" style="${pd}text-align:right;font-weight:600;" ${pmTitle}>${fmtH(f.plannedHours)}h</td>
-                        <td class="fp-comp-disc${pmSumCls}" style="${pd}text-align:right;font-weight:600;" ${pmTitle}>${fmtH(f.compDiscoveryHours)}h</td>
-                        <td class="fp-comp-eff" style="${pd}text-align:right;font-weight:600;">${fmtH(f.completedEffort)}h</td>
-                        <td class="fp-actual-comp" style="${pd}text-align:right;font-weight:600;">${fmtH(f.actualCompletedHours)}h</td>
-                        <td class="fp-task-plan${pmSumCls}" style="${pd}text-align:right;font-weight:700;" ${pmTitle}>${fmtH(f.taskLevelPlannedHours)}h</td>
-                        <td class="fp-task-cdev" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelCompletedDevHours)}h</td>
-                        <td class="fp-task-acomp" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelActualCompHours)}h</td>
+                        <td class="fp-planned${hlR(mm1)}" style="${pd}text-align:right;font-weight:600;" ${ttP}>${fmtH(f.plannedHours)}h</td>
+                        <td class="fp-comp-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.compDiscoveryHours)}h</td>
+                        <td class="fp-comp-eff${hlR(mm2)}" style="${pd}text-align:right;font-weight:600;" ${ttE}>${fmtH(f.completedEffort)}h</td>
+                        <td class="fp-actual-comp${hlR(mm3)}" style="${pd}text-align:right;font-weight:600;" ${ttA}>${fmtH(f.actualCompletedHours)}h</td>
+                        <td class="fp-task-plan${hlO(mm1)}" style="${pd}text-align:right;font-weight:700;" ${ttP}>${fmtH(f.taskLevelPlannedHours)}h</td>
+                        <td class="fp-task-cdev${hlO(mm2)}" style="${pd}text-align:right;font-weight:700;" ${ttE}>${fmtH(f.taskLevelCompletedDevHours)}h</td>
+                        <td class="fp-task-acomp${hlO(mm3)}" style="${pd}text-align:right;font-weight:700;" ${ttA}>${fmtH(f.taskLevelActualCompHours)}h</td>
                     </tr>`;
                 }).join('');
                 const totEstInHrs = data.reduce((s, f) => s + f.estimateInHours, 0);
