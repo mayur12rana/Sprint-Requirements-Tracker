@@ -121,6 +121,17 @@
             border-color: #e2e8f0;
             border-top-color: #3b82f6;
         }
+        body.light-theme #weeklyIterationFilter {
+            background: #ffffff;
+            color: #0f172a;
+            border-color: #94a3b8;
+        }
+        body.light-theme #flIterFilter {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #94a3b8 !important;
+        }
+        .fl-card th[onclick]:hover { opacity: 0.75; }
         #featureProgressTable thead,
         #featureProgressTable tfoot {
             background: #1e293b;
@@ -133,23 +144,67 @@
             font-weight: 600;
             vertical-align: bottom;
         }
-        .fp-sortable { cursor: pointer; user-select: none; position: relative; }
+        .fp-sortable { cursor: pointer; position: relative; }
         .fp-sortable:hover { background: rgba(255,255,255,0.08); }
         .fp-sort-icon { font-size: 0.5rem; opacity: 0.3; margin-left: 1px; }
         .fp-sort-icon.asc::after { content: '▲'; opacity: 1; }
         .fp-sort-icon.desc::after { content: '▼'; opacity: 1; }
         body.light-theme .fp-sortable:hover { background: rgba(0,0,0,0.05); }
+        /* Feature Progress Multi-Select Dropdown */
+        .fp-multiselect { position: relative; display: inline-block; min-width: 140px; }
+        .fp-multiselect-btn {
+            padding: 4px 24px 4px 8px; font-size: 0.65rem; border-radius: 6px; cursor: pointer;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+            color: #e2e8f0; font-weight: 500; white-space: nowrap; width: 100%; text-align: left;
+            position: relative; overflow: hidden; text-overflow: ellipsis;
+        }
+        .fp-multiselect-btn::after { content: '▾'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.6rem; opacity: 0.6; }
+        .fp-multiselect-btn.open::after { content: '▴'; }
+        .fp-multiselect-dropdown {
+            display: none; position: absolute; top: 100%; left: 0; z-index: 999; min-width: 180px; max-height: 220px;
+            overflow-y: auto; background: #1e293b; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5); margin-top: 2px; padding: 4px 0;
+        }
+        .fp-multiselect-dropdown.open { display: block; }
+        .fp-multiselect-item {
+            display: flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 0.65rem;
+            cursor: pointer; color: #cbd5e1; transition: background 0.15s;
+        }
+        .fp-multiselect-item:hover { background: rgba(255,255,255,0.08); }
+        .fp-multiselect-item.select-all { border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2px; font-weight: 600; color: #93c5fd; }
+        .fp-multiselect-item input[type="checkbox"] { accent-color: #3b82f6; width: 13px; height: 13px; cursor: pointer; }
+        .fp-multiselect-badge {
+            display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 0.55rem;
+            background: #3b82f6; color: #fff; font-weight: 600; margin-left: 4px; min-width: 16px; text-align: center;
+        }
+        /* Light theme overrides */
+        body.light-theme .fp-multiselect-btn { background: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
+        body.light-theme .fp-multiselect-dropdown { background: #ffffff; border-color: #cbd5e1; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+        body.light-theme .fp-multiselect-item { color: #334155; }
+        body.light-theme .fp-multiselect-item:hover { background: rgba(0,0,0,0.04); }
+        body.light-theme .fp-multiselect-item.select-all { border-bottom-color: #e2e8f0; color: #2563eb; }
         /* Feature Progress cell color classes - Dark theme */
         #featureProgressTable .fp-title { color: #e2e8f0; }
-        #featureProgressTable .fp-disc-eff { color: #fb923c; }
+        #featureProgressTable .fp-est-inhrs { color: #22d3ee; }
+        #featureProgressTable .fp-est-disc { color: #22d3ee; }
+        #featureProgressTable .fp-dev-delivery { color: #22d3ee; }
         #featureProgressTable .fp-comp-disc { color: #34d399; }
         #featureProgressTable .fp-planned { color: #c084fc; }
-        #featureProgressTable .fp-comp-eff { color: #2dd4bf; }
-        #featureProgressTable .fp-actual-comp { color: #34d399; }
-        #featureProgressTable .fp-total { color: #e2e8f0; }
+        #featureProgressTable .fp-comp-eff { color: #c084fc; }
+        #featureProgressTable .fp-actual-comp { color: #c084fc; }
         #featureProgressTable .fp-task-plan { color: #f97316; }
-        #featureProgressTable .fp-task-cdev { color: #38bdf8; }
-        #featureProgressTable .fp-task-acomp { color: #a78bfa; }
+        #featureProgressTable .fp-task-cdev { color: #f97316; }
+        #featureProgressTable .fp-task-acomp { color: #f97316; }
+        #featureProgressTable .fp-planned-mismatch-sum {
+            background: rgba(251, 191, 36, 0.25) !important;
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            border-radius: 3px;
+        }
+        #featureProgressTable .fp-planned-mismatch-expected {
+            background: rgba(239, 68, 68, 0.25) !important;
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 3px;
+        }
         #featureProgressTable .fp-totals-lbl { color: #93c5fd; }
         #featureProgressTable tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
         #featureProgressTable tfoot tr { border-top: 2px solid rgba(255,255,255,0.15); }
@@ -183,15 +238,24 @@
         body.light-theme #featureProgressTable tbody tr { border-bottom-color: #e2e8f0; }
         body.light-theme #featureProgressTable tfoot tr { border-top-color: #cbd5e1; }
         body.light-theme #featureProgressTable .fp-title { color: #1e293b; }
-        body.light-theme #featureProgressTable .fp-disc-eff { color: #ea580c; }
+        body.light-theme #featureProgressTable .fp-est-inhrs { color: #0e7490; }
+        body.light-theme #featureProgressTable .fp-est-disc { color: #0e7490; }
+        body.light-theme #featureProgressTable .fp-dev-delivery { color: #0e7490; }
         body.light-theme #featureProgressTable .fp-comp-disc { color: #059669; }
         body.light-theme #featureProgressTable .fp-planned { color: #7c3aed; }
-        body.light-theme #featureProgressTable .fp-comp-eff { color: #0d9488; }
-        body.light-theme #featureProgressTable .fp-actual-comp { color: #059669; }
-        body.light-theme #featureProgressTable .fp-total { color: #1e293b; }
+        body.light-theme #featureProgressTable .fp-comp-eff { color: #7c3aed; }
+        body.light-theme #featureProgressTable .fp-actual-comp { color: #7c3aed; }
         body.light-theme #featureProgressTable .fp-task-plan { color: #c2410c; }
-        body.light-theme #featureProgressTable .fp-task-cdev { color: #0369a1; }
-        body.light-theme #featureProgressTable .fp-task-acomp { color: #6d28d9; }
+        body.light-theme #featureProgressTable .fp-task-cdev { color: #c2410c; }
+        body.light-theme #featureProgressTable .fp-task-acomp { color: #c2410c; }
+        body.light-theme #featureProgressTable .fp-planned-mismatch-sum {
+            background: rgba(251, 191, 36, 0.15) !important;
+            border: 1px solid rgba(217, 119, 6, 0.35);
+        }
+        body.light-theme #featureProgressTable .fp-planned-mismatch-expected {
+            background: rgba(239, 68, 68, 0.12) !important;
+            border: 1px solid rgba(220, 38, 38, 0.35);
+        }
         body.light-theme #featureProgressTable .fp-totals-lbl { color: #2563eb; }
         /* Light theme state pills */
         body.light-theme .fp-state-proposed { background: #f1f5f9; color: #64748b; border-color: #cbd5e1; }
@@ -217,6 +281,23 @@
         body.light-theme #featureProgressCard [style*="background:rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.03) !important; }
         body.light-theme #featureProgressCard [style*="background:rgba(255,255,255,0.1)"] { background: rgba(0,0,0,0.08) !important; }
         body.light-theme #featureProgressCard { background: linear-gradient(135deg,rgba(59,130,246,0.08),rgba(99,102,241,0.05)) !important; border-color: rgba(59,130,246,0.2) !important; }
+        body.light-theme #affectedAreaCard { background: linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.05)) !important; border-color: rgba(16,185,129,0.2) !important; }
+        body.light-theme #affectedAreaCard [style*="color:#e2e8f0"] { color: #334155 !important; }
+        body.light-theme #affectedAreaCard [style*="color:#6ee7b7"] { color: #047857 !important; }
+        body.light-theme #affectedAreaCard [style*="color:#94a3b8"] { color: #64748b !important; }
+        body.light-theme #affectedAreaCard [style*="background:rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.03) !important; }
+        body.light-theme #affectedAreaIterFilter {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #94a3b8 !important;
+        }
+        #affectedAreaTable thead, #affectedAreaTable tfoot { position: sticky; z-index: 1; }
+        #affectedAreaTable thead { top: 0; }
+        #affectedAreaTable tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        #affectedAreaTable tfoot tr { border-top: 2px solid rgba(255,255,255,0.15); }
+        body.light-theme #affectedAreaTable thead { background: #f1f5f9 !important; }
+        body.light-theme #affectedAreaTable tbody tr { border-bottom-color: #e2e8f0; }
+        body.light-theme #affectedAreaTable tfoot tr { border-top-color: #cbd5e1; }
         body.light-theme #featureLookupSection input[type="text"] { background: #ffffff !important; color: #0f172a !important; border-color: #94a3b8 !important; }
         body.light-theme #featureLookupSection .tasks-table th { background: #e2e8f0; color: #1e293b; }
         body.light-theme #featureLookupSection .tasks-table td { color: #334155; border-color: #e2e8f0; }
@@ -1171,7 +1252,9 @@
         <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(99,102,241,0.1)); border: 1px solid rgba(59,130,246,0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <h3 style="color: #93c5fd; font-size: 1rem; margin: 0;">📅 Weekly Progress Tracker</h3>
-                <button class="btn btn-primary" id="loadWeeklyBtn" onclick="toggleWeeklyProgress()" style="padding: 4px 12px; font-size: 0.75rem;">📊 Show</button>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button class="btn btn-primary" id="loadWeeklyBtn" onclick="toggleWeeklyProgress()" style="padding: 4px 12px; font-size: 0.75rem;">📊 Show</button>
+                </div>
             </div>
             <div id="weeklyProgressContent" style="display: none;">
                 <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 12px;">
@@ -1179,80 +1262,20 @@
                     <span style="background: rgba(59,130,246,0.3); padding: 2px 6px; border-radius: 4px; color: #93c5fd;">Deliverable</span> items only | Status: Resolved/Closed = Done
                 </p>
                 
-                <!-- Sprint Status Banner -->
-                <div id="sprintStatusBanner" style="background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(5,150,105,0.2)); border: 1px solid rgba(16,185,129,0.5); border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span id="sprintStatusIcon" style="font-size: 2rem;">🚀</span>
-                        <div>
-                            <div id="sprintStatusText" style="font-size: 1.1rem; font-weight: 700; color: #34d399;">ON TRACK</div>
-                            <div id="sprintStatusDesc" style="font-size: 0.7rem; color: #94a3b8;">Sprint delivery is progressing as expected</div>
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 0.65rem; color: #94a3b8;">Progress vs Expected</div>
-                        <div style="display: flex; align-items: baseline; gap: 4px;">
-                            <span id="actualProgress" style="font-size: 1.5rem; font-weight: 700; color: #34d399;">0%</span>
-                            <span style="color: #94a3b8; font-size: 0.8rem;">vs</span>
-                            <span id="expectedProgress" style="font-size: 1rem; color: #94a3b8;">0%</span>
-                        </div>
-                        <div style="font-size: 0.65rem; color: #94a3b8;">Variance: <span id="progressVariance" style="color: #34d399;">+0%</span></div>
-                    </div>
-                </div>
-                
-                <!-- Weekly Summary Grid -->
-                <div class="summary-row" style="margin-bottom: 12px; gap: 8px;">
-                    <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); padding: 8px; flex: 1;">
-                        <div class="value" style="font-size: 1rem; color: #60a5fa;"><span id="week1Done">0</span>/<span id="week1Total">0</span></div>
-                        <div class="label" style="font-size: 0.6rem;">Week 1</div>
-                        <div style="font-size: 0.55rem; color: #94a3b8;" id="week1Dates"></div>
-                    </div>
-                    <div class="summary-stat" style="background: rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.3); padding: 8px; flex: 1;">
-                        <div class="value" style="font-size: 1rem; color: #a78bfa;"><span id="week2Done">0</span>/<span id="week2Total">0</span></div>
-                        <div class="label" style="font-size: 0.6rem;">Week 2</div>
-                        <div style="font-size: 0.55rem; color: #94a3b8;" id="week2Dates"></div>
-                    </div>
-                    <div class="summary-stat" style="background: rgba(236,72,153,0.2); border-color: rgba(236,72,153,0.3); padding: 8px; flex: 1;">
-                        <div class="value" style="font-size: 1rem; color: #f472b6;"><span id="week3Done">0</span>/<span id="week3Total">0</span></div>
-                        <div class="label" style="font-size: 0.6rem;">Week 3</div>
-                        <div style="font-size: 0.55rem; color: #94a3b8;" id="week3Dates"></div>
-                    </div>
-                    <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); padding: 8px; flex: 1;">
-                        <div class="value" style="font-size: 1rem; color: #fbbf24;"><span id="week4Done">0</span>/<span id="week4Total">0</span></div>
-                        <div class="label" style="font-size: 0.6rem;">Week 4</div>
-                        <div style="font-size: 0.55rem; color: #94a3b8;" id="week4Dates"></div>
-                    </div>
-                    <div class="summary-stat" style="background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.3); padding: 8px; flex: 1;">
-                        <div class="value" style="font-size: 1rem; color: #34d399;"><span id="weekTotalDone">0</span>/<span id="weekTotalAll">0</span></div>
-                        <div class="label" style="font-size: 0.6rem;">Overall</div>
-                        <div style="font-size: 0.55rem; color: #34d399;" id="weekOverallPct">0%</div>
-                    </div>
-                </div>
-                
                 <!-- Current Week Focus Items -->
                 <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <h4 style="color: #fbbf24; font-size: 0.9rem; margin: 0;">🎯 Current Week Focus Items (<span id="focusItemCount">0</span>)</h4>
                         <div style="display: flex; gap: 4px; align-items: center;">
+                            <select id="weeklyIterationFilter" onchange="onWeeklyIterationFilterChange()" style="background: rgba(0,0,0,0.3); color: #e2e8f0; border: 1px solid rgba(99,102,241,0.4); border-radius: 6px; padding: 3px 8px; font-size: 0.7rem; cursor: pointer; outline: none; min-width: 130px;">
+                                <option value="all">All Iterations</option>
+                            </select>
                             <span style="color: #94a3b8; font-size: 0.7rem; margin-right: 4px;">Filter:</span>
                             <button onclick="filterFocusItems('all')" id="focusFilterAll" class="focus-filter-btn active" style="background: rgba(139,92,246,0.4); border: 1px solid rgba(139,92,246,0.6); color: #c4b5fd; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">All</button>
                             <button onclick="filterFocusItems('week1')" id="focusFilterWeek1" class="focus-filter-btn" style="background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4); color: #93c5fd; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">Week 1</button>
                             <button onclick="filterFocusItems('week2')" id="focusFilterWeek2" class="focus-filter-btn" style="background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.4); color: #6ee7b7; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">Week 2</button>
                             <button onclick="filterFocusItems('week3')" id="focusFilterWeek3" class="focus-filter-btn" style="background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); color: #fcd34d; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">Week 3</button>
                             <button onclick="filterFocusItems('week4')" id="focusFilterWeek4" class="focus-filter-btn" style="background: rgba(236,72,153,0.2); border: 1px solid rgba(236,72,153,0.4); color: #f9a8d4; padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">Week 4</button>
-                        </div>
-                    </div>
-                    <!-- Progress Summary Bar -->
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                        <div style="display: flex; align-items: center; gap: 6px;">
-                            <span style="color: #34d399; font-size: 0.75rem;">✓ Completed:</span>
-                            <span id="focusCompletedPct" style="color: #34d399; font-weight: 600; font-size: 0.85rem;">0%</span>
-                        </div>
-                        <div style="flex: 1; height: 8px; background: rgba(0,0,0,0.3); border-radius: 4px; overflow: hidden;">
-                            <div id="focusProgressBar" style="height: 100%; background: linear-gradient(90deg, #10b981, #34d399); width: 0%; transition: width 0.3s ease;"></div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 6px;">
-                            <span style="color: #f472b6; font-size: 0.75rem;">⏳ Remaining:</span>
-                            <span id="focusRemainingPct" style="color: #f472b6; font-weight: 600; font-size: 0.85rem;">0%</span>
                         </div>
                     </div>
                     <div style="max-height: 350px; overflow-y: auto;">
@@ -2003,82 +2026,72 @@
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
                     <h3 style="color:#93c5fd;font-size:1rem;font-weight:700;margin:0;">🚀 Feature Progress (<span id="featureProgressCount">0</span>)</h3>
                     <div style="display:flex;gap:8px;">
-                        <button class="btn btn-primary refresh-icon" id="refreshFeatureProgressBtn" onclick="refreshFeatureProgressCard()" title="Refresh" style="display:none;">🔄</button>
-                        <button class="btn btn-success" id="updateFeatureHoursBtn" onclick="updateFeatureHours()" style="padding:4px 10px;font-size:0.75rem;display:none;" title="Update Planned Hours, Completed Dev Hours, and Actual Completed Hours for the top feature in TFS">⬆️ Update Feature Hours</button>
                         <button class="btn btn-primary" id="toggleFeatureProgressBtn" onclick="toggleFeatureProgressDashboard()" style="padding:4px 10px;font-size:0.75rem;">📊 Show</button>
-                    </div>
-                </div>
-                <!-- Summary Stats Row -->
-                <div class="summary-row" style="margin:10px 0;gap:6px;">
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureTotalPlanned" style="font-size:1.1rem;color:#93c5fd;font-weight:700;">0h</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Planned Hours</div>
-                    </div>
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureTotalCompleted" style="font-size:1.1rem;color:#34d399;font-weight:700;">0h</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Completed Hours</div>
-                    </div>
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureTotalRemaining" style="font-size:1.1rem;color:#fb923c;font-weight:700;">0h</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Remaining Hours</div>
-                    </div>
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureOverallProgress" style="font-size:1.1rem;color:#c084fc;font-weight:700;">0%</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Overall Progress</div>
-                    </div>
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureTaskLevelPlanned" style="font-size:1.1rem;color:#f97316;font-weight:700;">0h</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Task Planned Hours</div>
-                    </div>
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureTaskLevelCompDev" style="font-size:1.1rem;color:#38bdf8;font-weight:700;">0h</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Task Comp Dev Hours</div>
-                    </div>
-                    <div class="summary-stat" style="padding:6px;">
-                        <div class="value" id="featureTaskLevelActualComp" style="font-size:1.1rem;color:#a78bfa;font-weight:700;">0h</div>
-                        <div class="label" style="font-size:0.55rem;font-weight:600;">Task Actual Comp Hours</div>
                     </div>
                 </div>
                 <div id="featureProgressContent" style="display:none;">
                     <!-- PI Info -->
-                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:0.75rem;">
-                        <span style="color:#e2e8f0;font-weight:600;">📅 PI:</span> <span id="featurePIName" style="color:#60a5fa;font-weight:600;">-</span>
-                        <span style="margin-left:16px;color:#e2e8f0;font-weight:600;">Sprints:</span> <span id="featurePISprints" style="color:#34d399;font-weight:500;">-</span>
+                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:0.75rem;display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <span style="color:#e2e8f0;font-weight:600;">📅 PI:</span> <span id="featurePIName" style="color:#60a5fa;font-weight:600;">-</span>
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <button class="btn btn-primary refresh-icon" id="refreshFeatureProgressBtn" onclick="refreshFeatureProgressCard()" title="Refresh" style="display:none;padding:3px 8px;font-size:0.7rem;">🔄</button>
+                            <button class="btn btn-success" id="updateFeatureHoursBtn" onclick="updateFeatureHours()" style="padding:3px 8px;font-size:0.7rem;display:none;" title="Update Planned Hours, Completed Dev Hours, and Actual Completed Hours for the top feature in TFS">⬆️ Update Feature Hours</button>
+                        </div>
                     </div>
                     <!-- State & Status -->
                     <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:10px;margin-bottom:10px;">
-                        <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;">
+                            <div style="flex:0 0 auto;">
+                                <div style="font-size:0.65rem;color:#60a5fa;font-weight:600;margin-bottom:5px;">📂 Area Path</div>
+                                <div id="featureAreaPathDropdown" class="fp-multiselect" style="min-width:170px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureAreaPathDropdown')">All Areas</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
                             <div style="flex:0 0 auto;">
                                 <div style="font-size:0.65rem;color:#34d399;font-weight:600;margin-bottom:5px;">📋 State</div>
-                                <div id="featureStateFilters" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+                                <div id="featureStateDropdown" class="fp-multiselect">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureStateDropdown')">All States</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
                             </div>
-                            <div style="flex:1 1 auto;">
+                            <div style="flex:0 0 auto;">
                                 <div style="font-size:0.65rem;color:#c084fc;font-weight:600;margin-bottom:5px;">🏷️ Status</div>
-                                <div id="featureStatusFilters" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+                                <div id="featureStatusDropdown" class="fp-multiselect" style="min-width:180px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureStatusDropdown')">All Statuses</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
+                            <div style="flex:0 0 auto;">
+                                <div style="font-size:0.65rem;color:#f97316;font-weight:600;margin-bottom:5px;">🔄 Task Sprint</div>
+                                <div id="featureTaskSprintDropdown" class="fp-multiselect" style="min-width:170px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureTaskSprintDropdown')">All Sprints</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div id="featureIterationFilters" style="display:none;"></div>
-                    <span id="featureCompletedPct" style="display:none;"></span>
-                    <span id="featureRemainingPct" style="display:none;"></span>
-                    <span id="featureProgressBar" style="display:none;"></span>
                     <!-- Table -->
                     <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
                         <table id="featureProgressTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
                             <colgroup>
-                                <col style="width:3.5%;">
-                                <col style="width:20%;">
-                                <col style="width:5.5%;">
-                                <col style="width:7%;">
-                                <col style="width:5.5%;">
-                                <col style="width:5.5%;">
-                                <col style="width:5.5%;">
-                                <col style="width:5.5%;">
-                                <col style="width:5.5%;">
-                                <col style="width:4.5%;">
-                                <col style="width:5.5%;">
-                                <col style="width:6.5%;">
-                                <col style="width:6.5%;">
+                                <col style="width:50px;">
+                                <col style="width:16%;">
+                                <col style="width:62px;">
+                                <col style="width:80px;">
+                                <col style="width:58px;">
+                                <col style="width:58px;">
+                                <col style="width:58px;">
+                                <col style="width:62px;">
+                                <col style="width:52px;">
+                                <col style="width:52px;">
+                                <col style="width:52px;">
+                                <col style="width:58px;">
+                                <col style="width:62px;">
+                                <col style="width:62px;">
                             </colgroup>
                             <thead>
                                 <tr style="line-height:1.15;">
@@ -2086,12 +2099,13 @@
                                     <th class="fp-th fp-sortable" data-sort="title" style="text-align:left;" onclick="sortFeatureTable('title')">Title <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="state" style="text-align:center;" onclick="sortFeatureTable('state')">State <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="status" style="text-align:center;" onclick="sortFeatureTable('status')">Status <span class="fp-sort-icon"></span></th>
-                                    <th class="fp-th fp-sortable" data-sort="discoveryEffort" style="text-align:right;" title="Discovery Effort" onclick="sortFeatureTable('discoveryEffort')">Disc<br>Effort <span class="fp-sort-icon"></span></th>
-                                    <th class="fp-th fp-sortable" data-sort="compDiscoveryHours" style="text-align:right;" title="Completed Discovery Hours" onclick="sortFeatureTable('compDiscoveryHours')">Comp<br>Disc <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="estimateInHours" style="text-align:right;" title="Estimate In Hours" onclick="sortFeatureTable('estimateInHours')">Est In<br>Hours <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="discoveryEffort" style="text-align:right;" title="Estimated Discovery Hours" onclick="sortFeatureTable('discoveryEffort')">Est Disc<br>Hours <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="devDeliveryHours" style="text-align:right;" title="Dev and Delivery Hours" onclick="sortFeatureTable('devDeliveryHours')">Dev &<br>Delivery <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="plannedHours" style="text-align:right;" title="Planned Hours" onclick="sortFeatureTable('plannedHours')">Planned <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th fp-sortable" data-sort="compDiscoveryHours" style="text-align:right;" title="Completed Discovery Hours" onclick="sortFeatureTable('compDiscoveryHours')">Comp<br>Disc <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="completedEffort" style="text-align:right;" title="Completed Effort" onclick="sortFeatureTable('completedEffort')">Comp<br>Effort <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="actualCompletedHours" style="text-align:right;" title="Actual Completed Hours" onclick="sortFeatureTable('actualCompletedHours')">Actual<br>Comp <span class="fp-sort-icon"></span></th>
-                                    <th class="fp-th fp-sortable" data-sort="total" style="text-align:right;" onclick="sortFeatureTable('total')">Total <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="taskLevelPlannedHours" style="text-align:right;" title="Task Level Planned Hours" onclick="sortFeatureTable('taskLevelPlannedHours')">Task<br>Planned <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="taskLevelCompletedDevHours" style="text-align:right;" title="Task Comp Dev Hours" onclick="sortFeatureTable('taskLevelCompletedDevHours')">Task<br>Comp Dev <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="taskLevelActualCompHours" style="text-align:right;" title="Task Actual Completed Hours" onclick="sortFeatureTable('taskLevelActualCompHours')">Task<br>Act Comp <span class="fp-sort-icon"></span></th>
@@ -2102,6 +2116,68 @@
                         </table>
                     </div>
                     <div id="noFeatureProgressData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No features found for this PI</div>
+                </div>
+            </div>
+
+            <!-- Affected Area Feature -->
+            <div class="dashboard-card" style="margin-bottom:16px;position:relative;background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(5,150,105,0.1));border:1px solid rgba(16,185,129,0.3);padding:12px;" id="affectedAreaCard">
+                <div class="card-loading" id="affectedAreaLoading"><div class="mini-spinner"></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                    <h3 style="color:#6ee7b7;font-size:1rem;font-weight:700;margin:0;">🌐 Affected Area Features (<span id="affectedAreaCount">0</span>)</h3>
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn btn-primary" id="toggleAffectedAreaBtn" onclick="toggleAffectedAreaDashboard()" style="padding:4px 10px;font-size:0.75rem;">📊 Show</button>
+                    </div>
+                </div>
+                <div id="affectedAreaContent" style="display:none;">
+                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:0.75rem;display:flex;justify-content:space-between;align-items:center;">
+                        <div style="display:flex;gap:12px;align-items:center;">
+                            <span style="color:#94a3b8;font-size:0.65rem;">Features from other areas with tasks in your selected area</span>
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <select id="affectedAreaIterFilter" onchange="renderAffectedAreaTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(16,185,129,0.4);border-radius:6px;padding:3px 8px;font-size:0.65rem;cursor:pointer;outline:none;">
+                                <option value="all">All Iterations</option>
+                            </select>
+                            <button class="btn btn-primary refresh-icon" id="refreshAffectedAreaBtn" onclick="loadAffectedAreaData()" title="Refresh" style="padding:3px 8px;font-size:0.7rem;">🔄</button>
+                        </div>
+                    </div>
+                    <div id="affectedAreaSummary" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;"></div>
+                    <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
+                        <table id="affectedAreaTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
+                            <colgroup>
+                                <col style="width:50px;">
+                                <col style="width:16%;">
+                                <col style="width:12%;">
+                                <col style="width:50px;">
+                                <col style="width:14%;">
+                                <col style="width:60px;">
+                                <col style="width:10%;">
+                                <col style="width:70px;">
+                                <col style="width:70px;">
+                                <col style="width:52px;">
+                                <col style="width:42px;">
+                                <col style="width:42px;">
+                            </colgroup>
+                            <thead>
+                                <tr style="line-height:1.15;">
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureId')">FID <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureTitle')">Feature Title <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureArea')">Feature Area <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('taskId')">Task ID <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('taskTitle')">Task Title <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:center;cursor:pointer;" onclick="sortAffectedArea('taskState')">State <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('assigned')">Assigned <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('discipline')">Discipline <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('iteration')">Iteration <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:right;cursor:pointer;" onclick="sortAffectedArea('origEst')">Orig Est <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:right;cursor:pointer;" onclick="sortAffectedArea('rem')">Rem <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:right;cursor:pointer;" onclick="sortAffectedArea('comp')">Comp <span class="aa-sort-icon"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="affectedAreaTableBody"></tbody>
+                            <tfoot id="affectedAreaTableFooter" style="font-weight:600;"></tfoot>
+                        </table>
+                    </div>
+                    <div id="noAffectedAreaData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No affected area features found</div>
                 </div>
             </div>
 
@@ -2231,6 +2307,8 @@
         let reqListSortField = 'id', reqListSortDir = 'asc'; // Sorting for Requirements List
         let storedSprintStartDate = null; // Store for deferred historical fetch
         let weeklyProgressLoaded = false; // Track if Weekly Progress is loaded
+        let weeklyIterFilter = 'all'; // Selected iteration filter for Weekly Progress
+        let weeklyDataByIteration = {}; // weeklyData grouped per iteration path
 
         // PAT Preservation - Load saved credentials on page load
         (function loadSavedCredentials() {
@@ -3039,12 +3117,25 @@
                 
                 // Build weekly data - ONLY Deliverable items
                 weeklyData = { week1: [], week2: [], week3: [], week4: [], noWeekTag: [] };
+                weeklyDataByIteration = {};
                 requirements.filter(req => req.category === 'deliverable').forEach(req => {
+                    // Add to global weeklyData
                     if (req.weekTag === 'week1') weeklyData.week1.push(req);
                     else if (req.weekTag === 'week2') weeklyData.week2.push(req);
                     else if (req.weekTag === 'week3') weeklyData.week3.push(req);
                     else if (req.weekTag === 'week4') weeklyData.week4.push(req);
                     else weeklyData.noWeekTag.push(req);
+                    
+                    // Also group by iteration path
+                    const iterPath = req.fields['System.IterationPath'] || 'Unknown';
+                    if (!weeklyDataByIteration[iterPath]) {
+                        weeklyDataByIteration[iterPath] = { week1: [], week2: [], week3: [], week4: [], noWeekTag: [] };
+                    }
+                    if (req.weekTag === 'week1') weeklyDataByIteration[iterPath].week1.push(req);
+                    else if (req.weekTag === 'week2') weeklyDataByIteration[iterPath].week2.push(req);
+                    else if (req.weekTag === 'week3') weeklyDataByIteration[iterPath].week3.push(req);
+                    else if (req.weekTag === 'week4') weeklyDataByIteration[iterPath].week4.push(req);
+                    else weeklyDataByIteration[iterPath].noWeekTag.push(req);
                 });
                 
                 // Calculate UI/UX & UD tasks
@@ -3118,12 +3209,34 @@
                 });
                 
                 // ====== Fetch Team Capacity (PARALLELIZED - 3 bursts) ======
-                const selectedIteration = iterations.find(i => i.path === iterPath);
+                // Multi-iteration support: calculate combined date range from ALL selected iterations
                 let sprintCalendarDays = 0, sprintStartDate = null, sprintEndDate = null;
+                const selectedIterObjects = [];
                 
-                if (selectedIteration?.attributes?.startDate && selectedIteration?.attributes?.finishDate) {
-                    sprintStartDate = new Date(selectedIteration.attributes.startDate);
-                    sprintEndDate = new Date(selectedIteration.attributes.finishDate);
+                selectedIterationPaths.forEach(selIter => {
+                    const matchedIter = iterations.find(i => i.path === selIter.path);
+                    if (matchedIter?.attributes?.startDate && matchedIter?.attributes?.finishDate) {
+                        const iStart = new Date(matchedIter.attributes.startDate);
+                        const iEnd = new Date(matchedIter.attributes.finishDate);
+                        selectedIterObjects.push({ path: selIter.path, project: selIter.project, startDate: iStart, endDate: iEnd });
+                        if (!sprintStartDate || iStart < sprintStartDate) sprintStartDate = iStart;
+                        if (!sprintEndDate || iEnd > sprintEndDate) sprintEndDate = iEnd;
+                    }
+                });
+                
+                // Fallback to first iteration if no date info found
+                if (selectedIterObjects.length === 0) {
+                    const selectedIteration = iterations.find(i => i.path === iterPath);
+                    if (selectedIteration?.attributes?.startDate && selectedIteration?.attributes?.finishDate) {
+                        const iStart = new Date(selectedIteration.attributes.startDate);
+                        const iEnd = new Date(selectedIteration.attributes.finishDate);
+                        sprintStartDate = iStart;
+                        sprintEndDate = iEnd;
+                        selectedIterObjects.push({ path: iterPath, project: selectedIterationPaths[0]?.project || '', startDate: iStart, endDate: iEnd });
+                    }
+                }
+                
+                if (sprintStartDate && sprintEndDate) {
                     for (let d = new Date(sprintStartDate); d <= sprintEndDate; d.setDate(d.getDate() + 1)) {
                         if (d.getDay() !== 0 && d.getDay() !== 6) sprintCalendarDays++;
                     }
@@ -3187,35 +3300,59 @@
                             apiFetch(`${tfsUrl}/${projName}/${encodeURIComponent(teamName)}/_apis/work/teamsettings/iterations?api-version=5.0`)
                                 .then(r => r.ok ? r.json() : { value: [] })
                                 .then(data => {
-                                    const matchingIter = (data.value || []).find(i =>
+                                    // Match ALL selected iterations (not just the first)
+                                    const matchingIters = (data.value || []).filter(i =>
                                         selectedIterationPaths.some(sel =>
                                             (sel.project === projName && i.path === sel.path) ||
                                             i.name === sel.path.split('\\').pop()
                                         )
                                     );
-                                    return { projName, teamName, iterationId: matchingIter?.id || '' };
+                                    return { projName, teamName, matchingIterations: matchingIters };
                                 })
                         )
                     );
                     
-                    // Step 5: Parallel burst 3 - Fetch ALL capacities + daysoff at once
-                    const teamsWithIter = iterResults.filter(t => t.iterationId);
+                    // Step 5: Parallel burst 3 - Fetch ALL capacities + daysoff for ALL matched iterations
+                    const teamsWithIter = [];
+                    iterResults.forEach(t => {
+                        (t.matchingIterations || []).forEach(iter => {
+                            if (iter.id) teamsWithIter.push({ projName: t.projName, teamName: t.teamName, iterationId: iter.id, iterationPath: iter.path });
+                        });
+                    });
                     
                     const capResults = await Promise.all(
-                        teamsWithIter.map(({ projName, teamName, iterationId }) =>
+                        teamsWithIter.map(({ projName, teamName, iterationId, iterationPath }) =>
                             Promise.all([
                                 apiFetch(`${tfsUrl}/${projName}/${encodeURIComponent(teamName)}/_apis/work/teamsettings/iterations/${iterationId}/teamdaysoff?api-version=5.0`)
                                     .then(r => r.ok ? r.json() : { daysOff: [] }),
                                 apiFetch(`${tfsUrl}/${projName}/${encodeURIComponent(teamName)}/_apis/work/teamsettings/iterations/${iterationId}/capacities?api-version=5.0`)
                                     .then(r => r.ok ? r.json() : { value: [] })
-                            ]).then(([daysOffData, capData]) => ({ projName, teamName, daysOffData, capData }))
+                            ]).then(([daysOffData, capData]) => ({ projName, teamName, iterationId, iterationPath, daysOffData, capData }))
                         )
                     );
                     
                     // Step 6: Process all results (CPU only, no API calls)
+                    // For multi-iteration: aggregate member capacities across all iterations
                     let firstTeamProcessed = false;
-                    capResults.forEach(({ projName, teamName, daysOffData, capData }) => {
+                    const memberCapMap = {}; // key: memberName|teamName → aggregated data
+                    
+                    capResults.forEach(({ projName, teamName, iterationId, iterationPath, daysOffData, capData }) => {
+                        // Find this iteration's date range
+                        const iterObj = selectedIterObjects.find(so => so.path === iterationPath) 
+                            || selectedIterObjects.find(so => iterationPath && iterationPath.split('\\').pop() === so.path.split('\\').pop());
+                        const iterStart = iterObj?.startDate || sprintStartDate;
+                        const iterEnd = iterObj?.endDate || sprintEndDate;
+                        
+                        // Calculate work days for THIS iteration
+                        let iterCalendarDays = 0;
+                        if (iterStart && iterEnd) {
+                            for (let d = new Date(iterStart); d <= iterEnd; d.setDate(d.getDate() + 1)) {
+                                if (d.getDay() !== 0 && d.getDay() !== 6) iterCalendarDays++;
+                            }
+                        }
+                        
                         // Process team days off (only for first team to avoid double counting)
+                        let iterTeamDaysOff = 0;
                         if (!firstTeamProcessed) {
                             firstTeamProcessed = true;
                             (daysOffData.daysOff || []).forEach(dayOff => {
@@ -3230,14 +3367,26 @@
                                     }
                                 }
                             });
-                            sprintWorkDays = Math.max(0, sprintCalendarDays - teamDaysOffCount);
                         }
+                        // Also count team days off specific to this iteration
+                        (daysOffData.daysOff || []).forEach(dayOff => {
+                            if (dayOff.start && dayOff.end) {
+                                const offStart = new Date(dayOff.start);
+                                const offEnd = new Date(dayOff.end);
+                                for (let d = new Date(offStart); d <= offEnd; d.setDate(d.getDate() + 1)) {
+                                    if (d.getDay() !== 0 && d.getDay() !== 6 && d >= iterStart && d <= iterEnd) {
+                                        iterTeamDaysOff++;
+                                    }
+                                }
+                            }
+                        });
+                        const iterWorkDays = Math.max(0, iterCalendarDays - iterTeamDaysOff);
                         
-                        // Process member capacities
+                        // Process member capacities for this iteration
                         (capData.value || []).forEach(member => {
                             const memberName = member.teamMember?.displayName || 'Unknown';
                             const memberUniqueName = member.teamMember?.uniqueName || member.teamMember?.id || '';
-                            if (memberCapacities.find(m => m.name === memberName && m.team === teamName)) return; // skip duplicates
+                            const mapKey = `${memberName}|${teamName}`;
                             
                             let memberCapacityPerDay = 0, memberDevCapacityPerDay = 0;
                             const disciplineList = [];
@@ -3257,28 +3406,41 @@
                                     const offStart = new Date(dayOff.start);
                                     const offEnd = new Date(dayOff.end);
                                     for (let d = new Date(offStart); d <= offEnd; d.setDate(d.getDate() + 1)) {
-                                        if (d.getDay() !== 0 && d.getDay() !== 6 && d >= sprintStartDate && d <= sprintEndDate) {
+                                        if (d.getDay() !== 0 && d.getDay() !== 6 && d >= iterStart && d <= iterEnd) {
                                             memberDaysOff++;
                                         }
                                     }
                                 }
                             });
                             
-                            totalMemberDaysOff += memberDaysOff;
-                            const memberWorkDays = Math.max(0, sprintWorkDays - memberDaysOff);
+                            const memberWorkDays = Math.max(0, iterWorkDays - memberDaysOff);
                             const memberTotalCapacity = memberCapacityPerDay * memberWorkDays;
                             const memberDevTotalCapacity = memberDevCapacityPerDay * memberWorkDays;
-                            teamCapacity += memberTotalCapacity;
                             
-                            memberCapacities.push({
-                                name: memberName, uniqueName: memberUniqueName, discipline: disciplineList.join(', ') || '-',
-                                team: teamName, project: projName,
-                                capacityPerDay: memberCapacityPerDay, devCapacityPerDay: memberDevCapacityPerDay,
-                                daysOff: memberDaysOff, workDays: memberWorkDays,
-                                totalCapacity: memberTotalCapacity, devTotalCapacity: memberDevTotalCapacity
-                            });
+                            if (memberCapMap[mapKey]) {
+                                // Aggregate across iterations
+                                memberCapMap[mapKey].daysOff += memberDaysOff;
+                                memberCapMap[mapKey].workDays += memberWorkDays;
+                                memberCapMap[mapKey].totalCapacity += memberTotalCapacity;
+                                memberCapMap[mapKey].devTotalCapacity += memberDevTotalCapacity;
+                                totalMemberDaysOff += memberDaysOff;
+                            } else {
+                                totalMemberDaysOff += memberDaysOff;
+                                memberCapMap[mapKey] = {
+                                    name: memberName, uniqueName: memberUniqueName, discipline: disciplineList.join(', ') || '-',
+                                    team: teamName, project: projName,
+                                    capacityPerDay: memberCapacityPerDay, devCapacityPerDay: memberDevCapacityPerDay,
+                                    daysOff: memberDaysOff, workDays: memberWorkDays,
+                                    totalCapacity: memberTotalCapacity, devTotalCapacity: memberDevTotalCapacity
+                                };
+                            }
                         });
                     });
+                    
+                    // Convert map to array and calculate totals
+                    memberCapacities = Object.values(memberCapMap);
+                    teamCapacity = memberCapacities.reduce((sum, m) => sum + m.totalCapacity, 0);
+                    sprintWorkDays = Math.max(0, sprintCalendarDays - teamDaysOffCount);
                     
                 } catch (e) { }
                 
@@ -3581,7 +3743,13 @@
             // Reset Weekly Progress
             document.getElementById('weeklyProgressContent').style.display = 'none';
             document.getElementById('loadWeeklyBtn').textContent = '📊 Show';
+            document.getElementById('loadWeeklyBtn').style.background = '';
+            document.getElementById('loadWeeklyBtn').style.borderColor = '';
             weeklyProgressLoaded = false;
+            weeklyIterFilter = 'all';
+            weeklyDataByIteration = {};
+            const weeklyIterFilterEl = document.getElementById('weeklyIterationFilter');
+            if (weeklyIterFilterEl) { weeklyIterFilterEl.value = 'all'; }
             // Reset AI Adoption Data
             document.getElementById('aiAdoptionContent').style.display = 'none';
             const aiBtn = document.getElementById('loadAIAdoptionBtn');
@@ -3729,12 +3897,22 @@
             // Discipline Mismatch data will be loaded on demand in Tab 2
             // Reset Feature Progress data (Tab 4 - loaded on demand)
             featureProgressDataLoaded = false;
+            featureProgressData = [];
             featureSortColumn = null;
             featureSortDirection = 'asc';
+            activeFeatureFilters = { iterations: [], states: [], statuses: [] };
             if (document.getElementById('featureProgressContent')) document.getElementById('featureProgressContent').style.display = 'none';
             if (document.getElementById('toggleFeatureProgressBtn')) document.getElementById('toggleFeatureProgressBtn').textContent = '📊 Show';
             if (document.getElementById('refreshFeatureProgressBtn')) document.getElementById('refreshFeatureProgressBtn').style.display = 'none';
             if (document.getElementById('updateFeatureHoursBtn')) document.getElementById('updateFeatureHoursBtn').style.display = 'none';
+            // Reset Affected Area data
+            affectedAreaDataLoaded = false;
+            affectedAreaData = [];
+            affectedAreaSortCol = null;
+            affectedAreaSortDir = 'asc';
+            if (document.getElementById('affectedAreaContent')) document.getElementById('affectedAreaContent').style.display = 'none';
+            if (document.getElementById('toggleAffectedAreaBtn')) document.getElementById('toggleAffectedAreaBtn').textContent = '📊 Show';
+            if (document.getElementById('affectedAreaCount')) document.getElementById('affectedAreaCount').textContent = '0';
         }
 
         function updateDoughnut(elementId, value1, value2, color1, color2, pctElementId) {
@@ -3901,6 +4079,7 @@
                 btn.style.borderColor = 'rgba(239,68,68,0.5)';
                 
                 if (!weeklyProgressLoaded) {
+                    populateWeeklyIterationFilter();
                     renderWeeklyProgress();
                     weeklyProgressLoaded = true;
                 }
@@ -3912,171 +4091,102 @@
             }
         }
         
-        function renderWeeklyProgress() {
-            const doneStates = ['resolved', 'closed', 'done', 'completed'];
-            
-            // Calculate week stats
-            const weekStats = {
-                week1: { total: weeklyData.week1.length, done: weeklyData.week1.filter(r => doneStates.includes((r.fields['System.State'] || '').toLowerCase())).length },
-                week2: { total: weeklyData.week2.length, done: weeklyData.week2.filter(r => doneStates.includes((r.fields['System.State'] || '').toLowerCase())).length },
-                week3: { total: weeklyData.week3.length, done: weeklyData.week3.filter(r => doneStates.includes((r.fields['System.State'] || '').toLowerCase())).length },
-                week4: { total: weeklyData.week4.length, done: weeklyData.week4.filter(r => doneStates.includes((r.fields['System.State'] || '').toLowerCase())).length }
-            };
-            
-            
-            // Calculate current week of sprint (use first selected iteration)
+        function populateWeeklyIterationFilter() {
+            const filterEl = document.getElementById('weeklyIterationFilter');
+            filterEl.innerHTML = '<option value="all">All Iterations</option>';
+            // Add selected iteration paths
+            const addedPaths = new Set();
+            selectedIterationPaths.forEach(iterObj => {
+                const iterName = iterObj.path.split('\\').pop();
+                const opt = document.createElement('option');
+                opt.value = iterObj.path;
+                opt.textContent = iterName;
+                filterEl.appendChild(opt);
+                addedPaths.add(iterObj.path);
+            });
+            // Also add any iteration paths found in data but not in selectedIterationPaths
+            Object.keys(weeklyDataByIteration).forEach(iterPath => {
+                if (!addedPaths.has(iterPath)) {
+                    const opt = document.createElement('option');
+                    opt.value = iterPath;
+                    opt.textContent = iterPath.split('\\').pop();
+                    filterEl.appendChild(opt);
+                    addedPaths.add(iterPath);
+                }
+            });
+            filterEl.value = weeklyIterFilter;
+        }
+        
+        function onWeeklyIterationFilterChange() {
+            const filterEl = document.getElementById('weeklyIterationFilter');
+            weeklyIterFilter = filterEl.value;
+            renderWeeklyProgress();
+        }
+        
+        function getActiveWeeklyData() {
+            if (weeklyIterFilter === 'all') return weeklyData;
+            // Find matching iteration data by exact path or leaf name match
+            if (weeklyDataByIteration[weeklyIterFilter]) return weeklyDataByIteration[weeklyIterFilter];
+            // Fallback: try matching by leaf name
+            const filterLeaf = weeklyIterFilter.split('\\').pop().toLowerCase();
+            for (const [path, data] of Object.entries(weeklyDataByIteration)) {
+                if (path.split('\\').pop().toLowerCase() === filterLeaf) return data;
+            }
+            return { week1: [], week2: [], week3: [], week4: [], noWeekTag: [] };
+        }
+        
+        function getWeeklyIterationDates() {
+            // When filtering by a specific iteration, use that iteration's dates
+            if (weeklyIterFilter !== 'all') {
+                const matchedIter = iterations.find(i => i.path === weeklyIterFilter);
+                if (matchedIter?.attributes?.startDate) {
+                    return {
+                        start: new Date(matchedIter.attributes.startDate),
+                        end: matchedIter.attributes.finishDate ? new Date(matchedIter.attributes.finishDate) : null
+                    };
+                }
+                // Fallback: match by leaf name
+                const filterLeaf = weeklyIterFilter.split('\\').pop().toLowerCase();
+                const fallbackIter = iterations.find(i => i.path.split('\\').pop().toLowerCase() === filterLeaf);
+                if (fallbackIter?.attributes?.startDate) {
+                    return {
+                        start: new Date(fallbackIter.attributes.startDate),
+                        end: fallbackIter.attributes.finishDate ? new Date(fallbackIter.attributes.finishDate) : null
+                    };
+                }
+            }
+            // For "All" or fallback: use first selected iteration
             const selectedIteration = selectedIterationPaths.length > 0 
                 ? iterations.find(i => i.path === selectedIterationPaths[0].path) 
                 : null;
-            let currentWeek = 0;
-            let sprintStart = null, sprintEnd = null;
             if (selectedIteration?.attributes?.startDate) {
-                sprintStart = new Date(selectedIteration.attributes.startDate);
-                sprintEnd = selectedIteration.attributes.finishDate ? new Date(selectedIteration.attributes.finishDate) : null;
+                return {
+                    start: new Date(selectedIteration.attributes.startDate),
+                    end: selectedIteration.attributes.finishDate ? new Date(selectedIteration.attributes.finishDate) : null
+                };
+            }
+            return { start: null, end: null };
+        }
+        
+        function renderWeeklyProgress() {
+            const activeData = getActiveWeeklyData();
+            const doneStates = ['resolved', 'closed', 'done', 'completed'];
+            
+            // Calculate current week of sprint using the appropriate iteration's dates
+            const iterDates = getWeeklyIterationDates();
+            let currentWeek = 0;
+            let sprintStart = iterDates.start;
+            if (sprintStart) {
                 const today = new Date();
                 const daysSinceStart = Math.floor((today - sprintStart) / (1000 * 60 * 60 * 24));
                 currentWeek = Math.min(4, Math.max(1, Math.ceil((daysSinceStart + 1) / 7)));
             }
             
-            // Update sprint dates display (elements removed from UI but keeping safe check)
-            const sprintStartEl = document.getElementById('sprintStartDate');
-            const sprintEndEl = document.getElementById('sprintEndDate');
-            if (sprintStart && sprintStartEl) {
-                sprintStartEl.textContent = sprintStart.toLocaleDateString();
-            }
-            if (sprintEnd && sprintEndEl) {
-                sprintEndEl.textContent = sprintEnd.toLocaleDateString();
-            }
+            // Total items for no-data check
+            const totalAll = activeData.week1.length + activeData.week2.length + activeData.week3.length + activeData.week4.length;
             
-            // Update week summary cards
-            document.getElementById('week1Done').textContent = weekStats.week1.done;
-            document.getElementById('week1Total').textContent = weekStats.week1.total;
-            document.getElementById('week2Done').textContent = weekStats.week2.done;
-            document.getElementById('week2Total').textContent = weekStats.week2.total;
-            document.getElementById('week3Done').textContent = weekStats.week3.done;
-            document.getElementById('week3Total').textContent = weekStats.week3.total;
-            document.getElementById('week4Done').textContent = weekStats.week4.done;
-            document.getElementById('week4Total').textContent = weekStats.week4.total;
-            
-            // Calculate week date ranges
-            if (sprintStart) {
-                for (let w = 1; w <= 4; w++) {
-                    const weekStart = new Date(sprintStart);
-                    weekStart.setDate(weekStart.getDate() + (w - 1) * 7);
-                    const weekEnd = new Date(weekStart);
-                    weekEnd.setDate(weekEnd.getDate() + 6);
-                    const dateEl = document.getElementById(`week${w}Dates`);
-                    if (dateEl) {
-                        dateEl.textContent = `${weekStart.getDate()}/${weekStart.getMonth()+1} - ${weekEnd.getDate()}/${weekEnd.getMonth()+1}`;
-                    }
-                }
-            }
-            
-            // Current week indicator (element removed from UI but keeping safe check)
-            const currentWeekEl = document.getElementById('currentWeekIndicator');
-            if (currentWeekEl) {
-                currentWeekEl.textContent = currentWeek > 0 ? `Week ${currentWeek}` : 'N/A';
-            }
-            
-            // Overall status - consider only items from Week 1 through current week
-            // Previous weeks: should be 100% done. Current week: proportional to days elapsed.
-            const weekKeys = ['week1', 'week2', 'week3', 'week4'];
-            let totalAll = 0, totalDone = 0;
-            let prevWeeksTotal = 0, currentWeekTotal = 0;
-            for (let w = 0; w < Math.min(currentWeek, 4); w++) {
-                totalAll += weekStats[weekKeys[w]].total;
-                totalDone += weekStats[weekKeys[w]].done;
-                if (w < currentWeek - 1) {
-                    prevWeeksTotal += weekStats[weekKeys[w]].total;
-                } else {
-                    currentWeekTotal += weekStats[weekKeys[w]].total;
-                }
-            }
-            const overallPct = totalAll > 0 ? Math.round((totalDone / totalAll) * 100) : 0;
-            
-            // Calculate how far into current week we are (day 1 of 7 = 14%, day 7 = 100%)
-            let dayInCurrentWeek = 1;
-            if (sprintStart) {
-                const today = new Date();
-                const daysSinceStart = Math.floor((today - sprintStart) / (1000 * 60 * 60 * 24));
-                dayInCurrentWeek = Math.max(1, Math.min(7, daysSinceStart - (currentWeek - 1) * 7 + 1));
-            }
-            const currentWeekElapsedPct = Math.round((dayInCurrentWeek / 7) * 100);
-            
-            // Expected: previous weeks = 100% done, current week = proportional to days elapsed
-            // Weighted expected = (prevItems * 100 + currentItems * dayPct) / totalItems
-            let expectedPct = 0;
-            if (totalAll > 0) {
-                expectedPct = Math.round(((prevWeeksTotal * 100) + (currentWeekTotal * currentWeekElapsedPct)) / totalAll);
-            }
-            const variance = overallPct - expectedPct;
-            
-            document.getElementById('weekTotalDone').textContent = totalDone;
-            document.getElementById('weekTotalAll').textContent = totalAll;
-            document.getElementById('weekOverallPct').textContent = overallPct + '%';
-            
-            // Update progress display
-            document.getElementById('actualProgress').textContent = overallPct + '%';
-            document.getElementById('expectedProgress').textContent = expectedPct + '%';
-            document.getElementById('progressVariance').textContent = (variance >= 0 ? '+' : '') + variance + '%';
-            
-            // Determine status based on variance
-            let statusIcon, statusText, statusDesc, statusColor, bannerStyle, varianceColor;
-            
-            if (totalAll === 0) {
-                // No data
-                statusIcon = '📊';
-                statusText = 'NO DATA';
-                statusDesc = 'No deliverables with weekly tags found';
-                statusColor = '#94a3b8';
-                bannerStyle = 'background: linear-gradient(135deg, rgba(148,163,184,0.2), rgba(100,116,139,0.15)); border: 1px solid rgba(148,163,184,0.4);';
-                varianceColor = '#94a3b8';
-            } else if (variance >= 10) {
-                // Fast - ahead of schedule by 10%+
-                statusIcon = '🚀';
-                statusText = 'AHEAD OF SCHEDULE';
-                statusDesc = 'Sprint delivery is progressing faster than expected!';
-                statusColor = '#22d3ee';
-                bannerStyle = 'background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(14,165,233,0.2)); border: 1px solid rgba(6,182,212,0.5); box-shadow: 0 0 20px rgba(6,182,212,0.2);';
-                varianceColor = '#22d3ee';
-            } else if (variance >= -5) {
-                // On Track - within 5% of expected
-                statusIcon = '✅';
-                statusText = 'ON TRACK';
-                statusDesc = 'Sprint delivery is progressing as expected';
-                statusColor = '#34d399';
-                bannerStyle = 'background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(5,150,105,0.2)); border: 1px solid rgba(16,185,129,0.5); box-shadow: 0 0 20px rgba(16,185,129,0.2);';
-                varianceColor = '#34d399';
-            } else if (variance >= -15) {
-                // At Risk - 5-15% behind
-                statusIcon = '⚠️';
-                statusText = 'AT RISK';
-                statusDesc = 'Sprint delivery is slightly behind schedule - needs attention';
-                statusColor = '#fbbf24';
-                bannerStyle = 'background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(217,119,6,0.2)); border: 1px solid rgba(245,158,11,0.5); box-shadow: 0 0 20px rgba(245,158,11,0.2);';
-                varianceColor = '#fbbf24';
-            } else {
-                // Delayed - more than 15% behind
-                statusIcon = '🔴';
-                statusText = 'DELAYED';
-                statusDesc = 'Sprint delivery is significantly behind - immediate action required';
-                statusColor = '#f87171';
-                bannerStyle = 'background: linear-gradient(135deg, rgba(239,68,68,0.3), rgba(220,38,38,0.2)); border: 1px solid rgba(239,68,68,0.5); box-shadow: 0 0 20px rgba(239,68,68,0.2);';
-                varianceColor = '#f87171';
-            }
-            
-            // Apply status to banner
-            const banner = document.getElementById('sprintStatusBanner');
-            banner.style.cssText = bannerStyle + ' border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;';
-            document.getElementById('sprintStatusIcon').textContent = statusIcon;
-            document.getElementById('sprintStatusText').textContent = statusText;
-            document.getElementById('sprintStatusText').style.color = statusColor;
-            document.getElementById('sprintStatusDesc').textContent = statusDesc;
-            document.getElementById('actualProgress').style.color = statusColor;
-            document.getElementById('progressVariance').style.color = varianceColor;
-            
-            // Focus Items: Current week items + ALL Previous weeks incomplete items
-            const weekArrays = [weeklyData.week1, weeklyData.week2, weeklyData.week3, weeklyData.week4];
+            // Focus Items: All week items with priority/status
+            const weekArrays = [activeData.week1, activeData.week2, activeData.week3, activeData.week4];
             let focusItems = [];
             
             // Add ALL week items (not just current week) for filtering
@@ -4092,16 +4202,6 @@
             // Store globally for filtering
             window.allFocusItems = focusItems;
             window.currentFocusFilter = 'all';
-            
-            // Calculate totals for progress summary
-            const totalOrigEst = focusItems.reduce((sum, r) => sum + (r.taskEstimate || 0), 0);
-            const totalCompleted = focusItems.reduce((sum, r) => sum + (r.taskCompletedWork || 0), 0);
-            const completedPct = totalOrigEst > 0 ? Math.round((totalCompleted / totalOrigEst) * 100) : 0;
-            const remainingPct = 100 - completedPct;
-            
-            document.getElementById('focusCompletedPct').textContent = completedPct + '%';
-            document.getElementById('focusRemainingPct').textContent = remainingPct + '%';
-            document.getElementById('focusProgressBar').style.width = completedPct + '%';
             
             // Render with filter
             renderFocusItemsTable('all');
@@ -4151,16 +4251,6 @@
                     }
                 }
             });
-            
-            // Calculate totals for filtered items
-            const totalOrigEst = filteredItems.reduce((sum, r) => sum + (r.taskEstimate || 0), 0);
-            const totalCompleted = filteredItems.reduce((sum, r) => sum + (r.taskCompletedWork || 0), 0);
-            const completedPct = totalOrigEst > 0 ? Math.round((totalCompleted / totalOrigEst) * 100) : 0;
-            const remainingPct = 100 - completedPct;
-            
-            document.getElementById('focusCompletedPct').textContent = completedPct + '%';
-            document.getElementById('focusRemainingPct').textContent = remainingPct + '%';
-            document.getElementById('focusProgressBar').style.width = completedPct + '%';
             
             // Render rows
             const tdStyle = 'padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);';
@@ -4328,8 +4418,8 @@
         let featureProgressDataLoaded = false;
         let featureProgressData = [];
         let featurePISprints = [];
-        let featureFilters = { iterations: [], states: [], statuses: [] };
-        let activeFeatureFilters = { iterations: [], states: [], statuses: [] };
+        let featureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [] };
+        let activeFeatureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [] };
         let featureSortColumn = null;
         let featureSortDirection = 'asc';
 
@@ -4400,7 +4490,6 @@
                 const piInfo = derivePIFromSprint(iterPath);
                 featurePISprints = piInfo.sprints;
                 document.getElementById('featurePIName').textContent = piInfo.piName;
-                document.getElementById('featurePISprints').textContent = featurePISprints.map(s => s.name).join(', ');
 
                 const iterPaths = featurePISprints.map(s => s.path);
 
@@ -4501,12 +4590,27 @@
                 // Calculate task level metrics per feature
                 const excludedDisciplines = ['analysis', 'user experience', 'user education'];
                 const excludedDisciplinesActual = ['user experience', 'user education'];
+                const includedDisciplinesPlanned = ['development', 'analysis', 'test'];
                 const featureTaskPlannedMap = {}, featureTaskCompletedMap = {}, featureTaskActualCompMap = {};
+                const featureTaskSprintsMap = {};
+                const featureTaskAreaPathsMap = {};
+                const featureRawTasksMap = {};
+                const allTaskSprintNames = new Set();
+                const allTaskAreaPaths = new Set();
 
                 uniqueFeatures.forEach(f => {
                     const featureAreaPath = (f.fields['System.AreaPath'] || '').toLowerCase().trim();
+                    const featureAreaPathOriginal = (f.fields['System.AreaPath'] || '').trim();
                     const childWiIds = featureChildMap[f.id] || [];
                     let totalOrigEst = 0, totalCompWork = 0, totalActualComp = 0;
+                    const taskSprintsForFeature = new Set();
+                    const taskAreaPathsForFeature = new Set();
+                    const rawTasks = [];
+                    // Include the feature's own area path
+                    if (featureAreaPathOriginal) {
+                        taskAreaPathsForFeature.add(featureAreaPathOriginal);
+                        allTaskAreaPaths.add(featureAreaPathOriginal);
+                    }
                     childWiIds.forEach(wiId => {
                         const taskIds = childWiTaskMap[wiId] || [];
                         taskIds.forEach(tid => {
@@ -4517,25 +4621,51 @@
                             const iterPath = (task.fields['System.IterationPath'] || '');
                             const reason = (task.fields['System.Reason'] || '').toLowerCase().trim();
                             const taskAreaPath = (task.fields['System.AreaPath'] || '').toLowerCase().trim();
+                            const taskAreaPathOriginal = (task.fields['System.AreaPath'] || '').trim();
                             const iterLeaf = iterPath.split('\\').pop().trim().toLowerCase();
+                            const iterLeafOriginal = iterPath.split('\\').pop().trim();
                             const isRootIter = (iterLeaf === 'casepointara');
                             const isRejected = (reason === 'rejected');
+                            const origEst = task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                            const compWork = task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0;
+                            // Collect task sprint name
+                            if (!isRootIter && iterLeafOriginal) {
+                                taskSprintsForFeature.add(iterLeafOriginal);
+                                allTaskSprintNames.add(iterLeafOriginal);
+                            }
+                            // Collect task area path
+                            if (taskAreaPathOriginal) {
+                                taskAreaPathsForFeature.add(taskAreaPathOriginal);
+                                allTaskAreaPaths.add(taskAreaPathOriginal);
+                            }
+                            // Store raw task record for dynamic recalculation
+                            rawTasks.push({
+                                discipline, iterLeafOriginal, taskAreaPath, taskAreaPathOriginal,
+                                isRootIter, isRejected, origEst, compWork,
+                                matchesFeatureArea: taskAreaPath === featureAreaPath
+                            });
                             // Task Actual Completed
                             if (!excludedDisciplinesActual.includes(discipline) && !isRootIter && !isRejected) {
-                                totalActualComp += (task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0);
+                                totalActualComp += compWork;
                             }
-                            // Task Planned & Task Comp Dev
+                            // Task Planned - only Development, Analysis, Test disciplines
+                            if (includedDisciplinesPlanned.includes(discipline) && !isRootIter && !isRejected) {
+                                totalOrigEst += origEst;
+                            }
+                            // Task Comp Dev
                             if (excludedDisciplines.includes(discipline)) return;
                             if (isRootIter || isRejected) return;
-                            totalOrigEst += (task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0);
                             if (taskAreaPath === featureAreaPath) {
-                                totalCompWork += (task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0);
+                                totalCompWork += compWork;
                             }
                         });
                     });
                     featureTaskPlannedMap[f.id] = totalOrigEst;
                     featureTaskCompletedMap[f.id] = totalCompWork;
                     featureTaskActualCompMap[f.id] = totalActualComp;
+                    featureTaskSprintsMap[f.id] = [...taskSprintsForFeature];
+                    featureTaskAreaPathsMap[f.id] = [...taskAreaPathsForFeature];
+                    featureRawTasksMap[f.id] = rawTasks;
                 });
 
                 // Process feature data
@@ -4545,27 +4675,36 @@
                     const plannedHours = f.fields['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
                     const completedEffort = f.fields['Casepoint.TFS.CustomFields.CompletedEffort'] || 0;
                     const actualCompletedHours = f.fields['Casepoint.TFS.CustomFields.ActualCompletedHours'] || 0;
+                    const estimateInHours = f.fields['Casepoint.TFS.CustomFields.EstimateInHours'] || 0;
+                    const devDeliveryHours = Math.max(0, estimateInHours - discoveryEffort);
                     const total = discoveryEffort + plannedHours;
                     return {
                         id: f.id, title: f.fields['System.Title'] || '', state: f.fields['System.State'] || '',
                         status: f.fields['Casepoint.TFS.CustomFields.Status'] || '-',
                         assignedTo: f.fields['System.AssignedTo']?.displayName || '-',
+                        areaPath: f.fields['System.AreaPath'] || '',
                         iteration: f.sprintName, iterationPath: f.sprintPath,
                         tags: f.fields['System.Tags'] || '',
-                        discoveryEffort, compDiscoveryHours, plannedHours, completedEffort, actualCompletedHours,
+                        estimateInHours, discoveryEffort, devDeliveryHours, compDiscoveryHours, plannedHours, completedEffort, actualCompletedHours,
                         total, progressPct: total > 0 ? parseFloat(((actualCompletedHours / total) * 100).toFixed(1)) : 0,
                         taskLevelPlannedHours: featureTaskPlannedMap[f.id] || 0,
                         taskLevelCompletedDevHours: featureTaskCompletedMap[f.id] || 0,
-                        taskLevelActualCompHours: featureTaskActualCompMap[f.id] || 0
+                        taskLevelActualCompHours: featureTaskActualCompMap[f.id] || 0,
+                        taskSprints: featureTaskSprintsMap[f.id] || [],
+                        taskAreaPaths: featureTaskAreaPathsMap[f.id] || [],
+                        rawTasks: featureRawTasksMap[f.id] || []
                     };
                 });
 
                 document.getElementById('featureProgressCount').textContent = featureProgressData.length;
-                buildFeatureFilters();
-                updateFeatureSummaryStats();
+                buildFeatureFilters([...allTaskSprintNames].sort(), [...allTaskAreaPaths].sort());
                 renderFeatureProgressTable();
-                document.getElementById('updateFeatureHoursBtn').style.display = 
-                    (featureProgressData.length > 0 && ['admin','super_admin'].includes(currentUserRole)) ? 'inline-block' : 'none';
+                const updateBtnAfterLoad = document.getElementById('updateFeatureHoursBtn');
+                if (updateBtnAfterLoad) {
+                    const isAdminUser = ['admin','super_admin'].includes(currentUserRole);
+                    const hasData = featureProgressData.length > 0;
+                    updateBtnAfterLoad.style.display = (hasData && isAdminUser) ? 'inline-block' : 'none';
+                }
             } catch (e) {
                 console.error('Error loading feature progress:', e);
                 document.getElementById('noFeatureProgressData').style.display = 'block';
@@ -4573,96 +4712,174 @@
             hideCardLoading('featureProgress');
         }
 
-        function buildFeatureFilters() {
+        function buildFeatureFilters(taskSprintNames, taskAreaPaths) {
             featureFilters.iterations = featurePISprints.map(s => s.name);
-            featureFilters.states = ['Proposed', 'Active', 'Resolved', 'Closed'];
-            featureFilters.statuses = ['Discovery Pending','Discovery Started','Discovery Done','On Hold','Will not implement',
+            // Collect dynamic states and statuses from actual data
+            const dynamicStates = [...new Set(featureProgressData.map(f => f.state).filter(Boolean))].sort();
+            const dynamicStatuses = [...new Set(featureProgressData.map(f => f.status).filter(s => s && s !== '-'))].sort();
+            featureFilters.states = dynamicStates.length > 0 ? dynamicStates : ['Proposed', 'Active', 'Resolved', 'Closed'];
+            featureFilters.statuses = dynamicStatuses.length > 0 ? dynamicStatuses : ['Discovery Pending','Discovery Started','Discovery Done','On Hold','Will not implement',
                 'Under Consideration','In Dev','In QA','In PT','Ready to Ship','Shipped',
                 'Documentation Pending','Documentation Started','Documentation Done'];
-            activeFeatureFilters = { iterations: [], states: [], statuses: [] };
-            renderFeatureFilterButtons('featureIterationFilters', featureFilters.iterations, 'iteration');
-            renderFeatureFilterButtons('featureStateFilters', featureFilters.states, 'state');
-            renderFeatureFilterButtons('featureStatusFilters', featureFilters.statuses, 'status');
+            featureFilters.taskSprints = taskSprintNames || [];
+            // Area paths from actual child tasks
+            featureFilters.areaPaths = taskAreaPaths || [];
+            activeFeatureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [] };
+            buildFpMultiSelect('featureAreaPathDropdown', featureFilters.areaPaths.map(p => p.split('\\').pop()), 'areaPaths', 'All Areas', featureFilters.areaPaths);
+            buildFpMultiSelect('featureStateDropdown', featureFilters.states, 'states', 'All States');
+            buildFpMultiSelect('featureStatusDropdown', featureFilters.statuses, 'statuses', 'All Statuses');
+            buildFpMultiSelect('featureTaskSprintDropdown', featureFilters.taskSprints, 'taskSprints', 'All Sprints');
         }
 
-        function renderFeatureFilterButtons(containerId, options, filterType) {
+        function buildFpMultiSelect(containerId, options, filterKey, placeholder, fullValues) {
             const container = document.getElementById(containerId);
-            const isLight = document.body.classList.contains('light-theme');
-            const colorSchemes = {
-                iteration: { active: '#3b82f6', inactive: isLight?'#eff6ff':'rgba(59,130,246,0.15)', text: isLight?'#1d4ed8':'#93c5fd', border: isLight?'#93c5fd':'#3b82f6' },
-                state: { active: '#10b981', inactive: isLight?'#f0fdf4':'rgba(16,185,129,0.15)', text: isLight?'#047857':'#6ee7b7', border: isLight?'#6ee7b7':'#10b981' },
-                status: { active: '#8b5cf6', inactive: isLight?'#f5f3ff':'rgba(139,92,246,0.15)', text: isLight?'#6d28d9':'#c4b5fd', border: isLight?'#c4b5fd':'#8b5cf6' }
-            };
-            const colors = colorSchemes[filterType] || colorSchemes.state;
-            container.innerHTML = options.map(opt => {
-                return `<button class="feature-filter-btn" data-type="${filterType}" data-value="${opt}"
-                    onclick="toggleFeatureFilterBtn(this)"
-                    style="padding:4px 10px;font-size:0.65rem;border-radius:12px;cursor:pointer;
-                    background:${colors.inactive};border:1px solid ${colors.border};color:${colors.text};
-                    font-weight:500;transition:all 0.2s;white-space:nowrap;">${opt}</button>`;
-            }).join('');
+            if (!container) return;
+            const dropdown = container.querySelector('.fp-multiselect-dropdown');
+            const btn = container.querySelector('.fp-multiselect-btn');
+            btn.textContent = placeholder;
+            btn.dataset.filterKey = filterKey;
+            btn.dataset.placeholder = placeholder;
+            let html = `<label class="fp-multiselect-item select-all">
+                <input type="checkbox" checked onchange="fpToggleSelectAll('${containerId}','${filterKey}',this)"> Select All
+            </label>`;
+            options.forEach((opt, i) => {
+                const val = fullValues ? fullValues[i] : opt;
+                html += `<label class="fp-multiselect-item">
+                    <input type="checkbox" value="${String(val).replace(/"/g,'&quot;')}" checked onchange="fpToggleItem('${containerId}','${filterKey}')"> ${opt}
+                </label>`;
+            });
+            dropdown.innerHTML = html;
         }
 
-        function toggleFeatureFilterBtn(btn) {
-            const filterType = btn.dataset.type;
-            const value = btn.dataset.value;
-            const filterKeyMap = { 'iteration': 'iterations', 'state': 'states', 'status': 'statuses' };
-            const filterKey = filterKeyMap[filterType];
-            if (!activeFeatureFilters[filterKey]) activeFeatureFilters[filterKey] = [];
-            const idx = activeFeatureFilters[filterKey].indexOf(value);
-            const isLight = document.body.classList.contains('light-theme');
-            const colors = {
-                iteration: { active: '#3b82f6', inactive: isLight?'#eff6ff':'rgba(59,130,246,0.15)', text: isLight?'#1d4ed8':'#93c5fd', border: isLight?'#93c5fd':'#3b82f6' },
-                state: { active: '#10b981', inactive: isLight?'#f0fdf4':'rgba(16,185,129,0.15)', text: isLight?'#047857':'#6ee7b7', border: isLight?'#6ee7b7':'#10b981' },
-                status: { active: '#8b5cf6', inactive: isLight?'#f5f3ff':'rgba(139,92,246,0.15)', text: isLight?'#6d28d9':'#c4b5fd', border: isLight?'#c4b5fd':'#8b5cf6' }
-            };
-            const color = colors[filterType] || colors.status;
-            if (idx === -1) {
-                activeFeatureFilters[filterKey].push(value);
-                btn.style.background = color.active;
-                btn.style.color = '#fff';
-                btn.style.border = 'none';
-                btn.classList.add('fp-filter-active');
+        function toggleFpDropdown(containerId) {
+            const container = document.getElementById(containerId);
+            const dropdown = container.querySelector('.fp-multiselect-dropdown');
+            const btn = container.querySelector('.fp-multiselect-btn');
+            const isOpen = dropdown.classList.contains('open');
+            // Close all other dropdowns first
+            document.querySelectorAll('.fp-multiselect-dropdown.open').forEach(d => {
+                d.classList.remove('open');
+                d.closest('.fp-multiselect').querySelector('.fp-multiselect-btn').classList.remove('open');
+            });
+            if (!isOpen) {
+                dropdown.classList.add('open');
+                btn.classList.add('open');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.fp-multiselect')) {
+                document.querySelectorAll('.fp-multiselect-dropdown.open').forEach(d => {
+                    d.classList.remove('open');
+                    d.closest('.fp-multiselect').querySelector('.fp-multiselect-btn').classList.remove('open');
+                });
+            }
+        });
+
+        function fpToggleSelectAll(containerId, filterKey, selectAllCb) {
+            const container = document.getElementById(containerId);
+            const checkboxes = container.querySelectorAll('.fp-multiselect-item:not(.select-all) input[type="checkbox"]');
+            checkboxes.forEach(cb => { cb.checked = selectAllCb.checked; });
+            fpUpdateFilter(containerId, filterKey);
+        }
+
+        function fpToggleItem(containerId, filterKey) {
+            const container = document.getElementById(containerId);
+            const checkboxes = container.querySelectorAll('.fp-multiselect-item:not(.select-all) input[type="checkbox"]');
+            const selectAllCb = container.querySelector('.fp-multiselect-item.select-all input[type="checkbox"]');
+            const allChecked = [...checkboxes].every(cb => cb.checked);
+            selectAllCb.checked = allChecked;
+            fpUpdateFilter(containerId, filterKey);
+        }
+
+        function fpUpdateFilter(containerId, filterKey) {
+            const container = document.getElementById(containerId);
+            const btn = container.querySelector('.fp-multiselect-btn');
+            const placeholder = btn.dataset.placeholder;
+            const checkboxes = container.querySelectorAll('.fp-multiselect-item:not(.select-all) input[type="checkbox"]');
+            const selectAllCb = container.querySelector('.fp-multiselect-item.select-all input[type="checkbox"]');
+            const checked = [...checkboxes].filter(cb => cb.checked).map(cb => cb.value);
+            const total = checkboxes.length;
+
+            // If all checked or none checked, treat as "no filter" (show all)
+            if (checked.length === total || checked.length === 0) {
+                activeFeatureFilters[filterKey] = [];
+                btn.innerHTML = placeholder;
             } else {
-                activeFeatureFilters[filterKey].splice(idx, 1);
-                btn.style.background = color.inactive;
-                btn.style.color = color.text;
-                btn.style.border = '1px solid ' + color.border;
-                btn.classList.remove('fp-filter-active');
+                activeFeatureFilters[filterKey] = checked;
+                // For area paths, show short leaf names
+                const displayItems = filterKey === 'areaPaths' ? checked.map(v => v.split('\\').pop()) : checked;
+                const displayText = displayItems.length <= 2 ? displayItems.join(', ') : displayItems.length + ' selected';
+                btn.innerHTML = displayText + ' <span class="fp-multiselect-badge">' + checked.length + '/' + total + '</span>';
             }
             renderFeatureProgressTable();
-            updateFeatureSummaryStats();
         }
 
         function getFilteredFeatureData() {
             let data = featureProgressData;
+            if (activeFeatureFilters.areaPaths.length > 0) {
+                data = data.filter(f => {
+                    return f.taskAreaPaths.some(tap => {
+                        const tapLower = tap.toLowerCase();
+                        return activeFeatureFilters.areaPaths.some(ap => {
+                            const apLower = ap.toLowerCase();
+                            return tapLower === apLower || tapLower.startsWith(apLower + '\\');
+                        });
+                    });
+                });
+            }
             if (activeFeatureFilters.iterations.length > 0) data = data.filter(f => activeFeatureFilters.iterations.includes(f.iteration));
             if (activeFeatureFilters.states.length > 0) data = data.filter(f => activeFeatureFilters.states.includes(f.state));
             if (activeFeatureFilters.statuses.length > 0) {
                 const lowerStatuses = activeFeatureFilters.statuses.map(s => s.toLowerCase());
                 data = data.filter(f => lowerStatuses.includes((f.status || '').toLowerCase()));
             }
-            return data;
-        }
+            if (activeFeatureFilters.taskSprints.length > 0) {
+                data = data.filter(f => f.taskSprints.some(ts => activeFeatureFilters.taskSprints.includes(ts)));
+            }
 
-        function updateFeatureSummaryStats() {
-            const data = getFilteredFeatureData();
-            const totPlannedHours = data.reduce((s, f) => s + f.discoveryEffort + f.plannedHours, 0);
-            const totCompletedHours = data.reduce((s, f) => s + f.actualCompletedHours, 0);
-            const totRemainingHours = totPlannedHours - totCompletedHours;
-            const totalFeatures = data.length;
-            const closedFeatures = data.filter(f => f.state === 'Closed').length;
-            const overallPct = totalFeatures > 0 ? ((closedFeatures / totalFeatures) * 100).toFixed(1) : 0;
-            document.getElementById('featureTotalPlanned').textContent = fmtH(totPlannedHours) + 'h';
-            document.getElementById('featureTotalCompleted').textContent = fmtH(totCompletedHours) + 'h';
-            document.getElementById('featureTotalRemaining').textContent = fmtH(totRemainingHours > 0 ? totRemainingHours : 0) + 'h';
-            document.getElementById('featureOverallProgress').textContent = overallPct + '%';
-            document.getElementById('featureTaskLevelPlanned').textContent = fmtH(data.reduce((s, f) => s + f.taskLevelPlannedHours, 0)) + 'h';
-            document.getElementById('featureTaskLevelCompDev').textContent = fmtH(data.reduce((s, f) => s + f.taskLevelCompletedDevHours, 0)) + 'h';
-            document.getElementById('featureTaskLevelActualComp').textContent = fmtH(data.reduce((s, f) => s + f.taskLevelActualCompHours, 0)) + 'h';
-            document.getElementById('featureCompletedPct').textContent = closedFeatures + ' / ' + totalFeatures + ' Closed';
-            document.getElementById('featureRemainingPct').textContent = (totalFeatures - closedFeatures) + ' Remaining';
-            document.getElementById('featureProgressBar').style.width = overallPct + '%';
+            // Recalculate task-level hours when taskSprints or areaPaths filters are active
+            const hasSprintFilter = activeFeatureFilters.taskSprints.length > 0;
+            const hasAreaFilter = activeFeatureFilters.areaPaths.length > 0;
+            if (hasSprintFilter || hasAreaFilter) {
+                const includedPlanned = ['development', 'analysis', 'test'];
+                const excludedCompDev = ['analysis', 'user experience', 'user education'];
+                const excludedActual = ['user experience', 'user education'];
+
+                data = data.map(f => {
+                    const filteredTasks = (f.rawTasks || []).filter(t => {
+                        // Sprint filter: task's iteration leaf must be in selected sprints
+                        if (hasSprintFilter && !activeFeatureFilters.taskSprints.includes(t.iterLeafOriginal)) return false;
+                        // Area filter: task's area path must match selected areas
+                        if (hasAreaFilter) {
+                            const tapLower = (t.taskAreaPathOriginal || '').toLowerCase();
+                            const areaMatch = activeFeatureFilters.areaPaths.some(ap => {
+                                const apLower = ap.toLowerCase();
+                                return tapLower === apLower || tapLower.startsWith(apLower + '\\');
+                            });
+                            if (!areaMatch) return false;
+                        }
+                        return true;
+                    });
+
+                    let taskPlanned = 0, taskCompDev = 0, taskActualComp = 0;
+                    filteredTasks.forEach(t => {
+                        if (t.isRootIter || t.isRejected) return;
+                        if (includedPlanned.includes(t.discipline)) taskPlanned += t.origEst;
+                        if (!excludedActual.includes(t.discipline)) taskActualComp += t.compWork;
+                        if (!excludedCompDev.includes(t.discipline) && t.matchesFeatureArea) taskCompDev += t.compWork;
+                    });
+
+                    return {
+                        ...f,
+                        taskLevelPlannedHours: taskPlanned,
+                        taskLevelCompletedDevHours: taskCompDev,
+                        taskLevelActualCompHours: taskActualComp
+                    };
+                });
+            }
+            return data;
         }
 
         function getStatePillClass(state) {
@@ -4684,6 +4901,9 @@
         }
 
         function sortFeatureTable(column) {
+            // Skip sorting if user is selecting text
+            var sel = window.getSelection();
+            if (sel && sel.toString().length > 0) return;
             if (featureSortColumn === column) {
                 featureSortDirection = featureSortDirection === 'asc' ? 'desc' : 'asc';
             } else {
@@ -4697,7 +4917,6 @@
             const activeHeader = document.querySelector(`#featureProgressTable th[data-sort="${column}"] .fp-sort-icon`);
             if (activeHeader) activeHeader.className = 'fp-sort-icon ' + featureSortDirection;
             renderFeatureProgressTable();
-            updateFeatureSummaryStats();
         }
 
         function getSortedFeatureData(data) {
@@ -4727,40 +4946,47 @@
                 tbody.innerHTML = data.map(f => {
                     const stCls = getStatePillClass(f.state);
                     const statusCls = getStatusPillClass(f.status);
+                    const plannedMismatch = Math.abs((f.compDiscoveryHours + f.taskLevelPlannedHours) - f.plannedHours) > 0.01;
+                    const pmSumCls = plannedMismatch ? ' fp-planned-mismatch-sum' : '';
+                    const pmExpCls = plannedMismatch ? ' fp-planned-mismatch-expected' : '';
+                    const pmTitle = plannedMismatch ? `title="Mismatch: CompDisc(${fmtH(f.compDiscoveryHours)}) + TaskPlanned(${fmtH(f.taskLevelPlannedHours)}) = ${fmtH(f.compDiscoveryHours + f.taskLevelPlannedHours)}h ≠ Planned(${fmtH(f.plannedHours)})h"` : '';
                     return `<tr>
                         <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
                         <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
                         <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}">${f.state}</span></td>
                         <td style="${pd}text-align:center;" title="${f.status}"><span class="fp-status-pill ${statusCls}">${f.status}</span></td>
-                        <td class="fp-disc-eff" style="${pd}text-align:right;font-weight:600;">${fmtH(f.discoveryEffort)}h</td>
-                        <td class="fp-comp-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.compDiscoveryHours)}h</td>
-                        <td class="fp-planned" style="${pd}text-align:right;font-weight:600;">${fmtH(f.plannedHours)}h</td>
+                        <td class="fp-est-inhrs" style="${pd}text-align:right;font-weight:600;">${fmtH(f.estimateInHours)}h</td>
+                        <td class="fp-est-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.discoveryEffort)}h</td>
+                        <td class="fp-dev-delivery" style="${pd}text-align:right;font-weight:600;">${fmtH(f.devDeliveryHours)}h</td>
+                        <td class="fp-planned${pmExpCls}" style="${pd}text-align:right;font-weight:600;" ${pmTitle}>${fmtH(f.plannedHours)}h</td>
+                        <td class="fp-comp-disc${pmSumCls}" style="${pd}text-align:right;font-weight:600;" ${pmTitle}>${fmtH(f.compDiscoveryHours)}h</td>
                         <td class="fp-comp-eff" style="${pd}text-align:right;font-weight:600;">${fmtH(f.completedEffort)}h</td>
                         <td class="fp-actual-comp" style="${pd}text-align:right;font-weight:600;">${fmtH(f.actualCompletedHours)}h</td>
-                        <td class="fp-total" style="${pd}text-align:right;font-weight:700;">${fmtH(f.total)}h</td>
-                        <td class="fp-task-plan" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelPlannedHours)}h</td>
+                        <td class="fp-task-plan${pmSumCls}" style="${pd}text-align:right;font-weight:700;" ${pmTitle}>${fmtH(f.taskLevelPlannedHours)}h</td>
                         <td class="fp-task-cdev" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelCompletedDevHours)}h</td>
                         <td class="fp-task-acomp" style="${pd}text-align:right;font-weight:700;">${fmtH(f.taskLevelActualCompHours)}h</td>
                     </tr>`;
                 }).join('');
+                const totEstInHrs = data.reduce((s, f) => s + f.estimateInHours, 0);
                 const totDiscEffort = data.reduce((s, f) => s + f.discoveryEffort, 0);
+                const totDevDelivery = data.reduce((s, f) => s + f.devDeliveryHours, 0);
                 const totCompDisc = data.reduce((s, f) => s + f.compDiscoveryHours, 0);
                 const totPlanned = data.reduce((s, f) => s + f.plannedHours, 0);
                 const totCompEffort = data.reduce((s, f) => s + f.completedEffort, 0);
                 const totActualComp = data.reduce((s, f) => s + f.actualCompletedHours, 0);
-                const totTotal = data.reduce((s, f) => s + f.total, 0);
                 const totTaskPlanned = data.reduce((s, f) => s + f.taskLevelPlannedHours, 0);
                 const totTaskCompDev = data.reduce((s, f) => s + f.taskLevelCompletedDevHours, 0);
                 const totTaskActualComp = data.reduce((s, f) => s + f.taskLevelActualCompHours, 0);
                 const fp = 'padding:5px 3px;';
                 tfoot.innerHTML = `<tr>
                     <td colspan="4" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
-                    <td class="fp-disc-eff" style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
-                    <td class="fp-comp-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompDisc)}h</td>
+                    <td class="fp-est-inhrs" style="${fp}text-align:right;font-weight:700;">${fmtH(totEstInHrs)}h</td>
+                    <td class="fp-est-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
+                    <td class="fp-dev-delivery" style="${fp}text-align:right;font-weight:700;">${fmtH(totDevDelivery)}h</td>
                     <td class="fp-planned" style="${fp}text-align:right;font-weight:700;">${fmtH(totPlanned)}h</td>
+                    <td class="fp-comp-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompDisc)}h</td>
                     <td class="fp-comp-eff" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompEffort)}h</td>
                     <td class="fp-actual-comp" style="${fp}text-align:right;font-weight:700;">${fmtH(totActualComp)}h</td>
-                    <td class="fp-total" style="${fp}text-align:right;font-weight:700;">${fmtH(totTotal)}h</td>
                     <td class="fp-task-plan" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskPlanned)}h</td>
                     <td class="fp-task-cdev" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskCompDev)}h</td>
                     <td class="fp-task-acomp" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskActualComp)}h</td>
@@ -4822,12 +5048,287 @@
                 } catch (e) { failedIds.push(feature.id); }
             }
             renderFeatureProgressTable();
-            updateFeatureSummaryStats();
             let msg = `✅ ${successCount}/${filteredData.length} feature(s) updated successfully.`;
             if (failedIds.length > 0) msg += `\n\n❌ Failed: ${failedIds.map(id => '#' + id).join(', ')}`;
             alert(msg);
             btn.textContent = originalText;
             btn.disabled = false;
+        }
+
+        // ===== AFFECTED AREA FEATURES =====
+        let affectedAreaDataLoaded = false;
+        let affectedAreaData = []; // [{featureId, featureTitle, featureArea, featureState, tasks:[{...}]}]
+        let affectedAreaSortCol = null;
+        let affectedAreaSortDir = 'asc';
+
+        function toggleAffectedAreaDashboard() {
+            const content = document.getElementById('affectedAreaContent');
+            const btn = document.getElementById('toggleAffectedAreaBtn');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.textContent = '🔼 Hide';
+                if (!affectedAreaDataLoaded) loadAffectedAreaData();
+            } else {
+                content.style.display = 'none';
+                btn.textContent = '📊 Show';
+            }
+        }
+
+        async function loadAffectedAreaData() {
+            showCardLoading('affectedArea');
+            try {
+                const iterPath = selectedIterationPaths.length > 0 ? selectedIterationPaths[0].path : '';
+                if (!iterPath || selectedAreaPaths.length === 0) {
+                    document.getElementById('noAffectedAreaData').style.display = 'block';
+                    document.getElementById('noAffectedAreaData').textContent = 'Please select at least one Area and Iteration.';
+                    hideCardLoading('affectedArea');
+                    return;
+                }
+
+                const piInfo = derivePIFromSprint(iterPath);
+                const iterPaths = piInfo.sprints.map(s => s.path);
+                const selectedAreaLower = selectedAreaPaths.map(a => a.path.toLowerCase());
+
+                // Step 1: Query tasks in selected area paths for PI sprints
+                let allTaskIds = [];
+                for (const ap of selectedAreaPaths) {
+                    for (const sp of iterPaths) {
+                        const query = `SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType]='Task' AND [System.AreaPath] UNDER '${ap.path}' AND [System.IterationPath] UNDER '${sp}'`;
+                        try {
+                            const resp = await apiFetch(`${tfsUrl}/${project}/_apis/wit/wiql?api-version=5.0`, {
+                                method: 'POST', body: JSON.stringify({ query })
+                            });
+                            const data = await resp.json();
+                            allTaskIds.push(...(data.workItems || []).map(w => w.id));
+                        } catch (e) { /* skip */ }
+                    }
+                }
+                allTaskIds = [...new Set(allTaskIds)];
+
+                if (allTaskIds.length === 0) {
+                    document.getElementById('noAffectedAreaData').style.display = 'block';
+                    affectedAreaData = [];
+                    document.getElementById('affectedAreaCount').textContent = '0';
+                    document.getElementById('affectedAreaTableBody').innerHTML = '';
+                    document.getElementById('affectedAreaTableFooter').innerHTML = '';
+                    document.getElementById('affectedAreaSummary').innerHTML = '';
+                    hideCardLoading('affectedArea');
+                    return;
+                }
+
+                // Step 2: Fetch tasks with relations to find parents
+                const tasksWithRel = await batchFetchWithRelations(allTaskIds);
+                const taskFields = ['System.Id','System.Title','System.State','System.WorkItemType',
+                    'System.AssignedTo','System.AreaPath','System.IterationPath','System.Reason',
+                    'Microsoft.VSTS.Common.Discipline','Microsoft.VSTS.Scheduling.OriginalEstimate',
+                    'Microsoft.VSTS.Scheduling.RemainingWork','Microsoft.VSTS.Scheduling.CompletedWork'];
+                const taskDetails = await batchFetchWorkItems(allTaskIds, taskFields);
+                const taskDetailMap = {};
+                taskDetails.forEach(t => { taskDetailMap[t.id] = t; });
+
+                // Step 3: Find parent IDs (Requirement/Bug) for each task
+                const parentIds = new Set();
+                const taskParentMap = {}; // taskId → parentId
+                tasksWithRel.forEach(t => {
+                    const parentRel = (t.relations || []).find(r => r.rel === 'System.LinkTypes.Hierarchy-Reverse');
+                    if (parentRel) {
+                        const pid = parseInt(parentRel.url.split('/').pop());
+                        parentIds.add(pid);
+                        taskParentMap[t.id] = pid;
+                    }
+                });
+
+                // Step 4: Fetch parents with relations to find grandparent Features
+                const parentsWithRel = parentIds.size > 0 ? await batchFetchWithRelations([...parentIds]) : [];
+                const grandparentIds = new Set();
+                const parentFeatureMap = {}; // parentId → featureId
+                parentsWithRel.forEach(p => {
+                    const gpRel = (p.relations || []).find(r => r.rel === 'System.LinkTypes.Hierarchy-Reverse');
+                    if (gpRel) {
+                        const fid = parseInt(gpRel.url.split('/').pop());
+                        grandparentIds.add(fid);
+                        parentFeatureMap[p.id] = fid;
+                    }
+                });
+
+                // Step 5: Fetch Features
+                const featureFieldsList = ['System.Id','System.Title','System.State','System.AreaPath',
+                    'System.IterationPath','Casepoint.TFS.CustomFields.Status'];
+                const features = grandparentIds.size > 0 ? await batchFetchWorkItems([...grandparentIds], featureFieldsList) : [];
+                const featureMap = {};
+                features.forEach(f => { featureMap[f.id] = f; });
+
+                // Step 6: Filter features NOT in selected areas and group tasks
+                const featureTaskGroups = {}; // featureId → [tasks]
+                const allIterNames = new Set();
+                allTaskIds.forEach(tid => {
+                    const parentId = taskParentMap[tid];
+                    if (!parentId) return;
+                    const featureId = parentFeatureMap[parentId];
+                    if (!featureId) return;
+                    const feat = featureMap[featureId];
+                    if (!feat) return;
+                    // Check if feature area is under any selected area (skip if yes - those are in Feature Progress)
+                    const featAreaLower = (feat.fields['System.AreaPath'] || '').toLowerCase();
+                    const isInSelectedArea = selectedAreaLower.some(sa => featAreaLower === sa || featAreaLower.startsWith(sa + '\\'));
+                    if (isInSelectedArea) return;
+                    // Check if this is actually a Feature
+                    if (!featureTaskGroups[featureId]) featureTaskGroups[featureId] = [];
+                    const task = taskDetailMap[tid];
+                    if (!task || task.fields['System.WorkItemType'] !== 'Task') return;
+                    const disc = (task.fields['Microsoft.VSTS.Common.Discipline'] || '').toLowerCase().trim();
+                    if (!['development', 'test', 'analysis'].includes(disc)) return;
+                    const iterLeaf = (task.fields['System.IterationPath'] || '').split('\\').pop().trim();
+                    if (iterLeaf && iterLeaf.toLowerCase() !== 'casepointara') allIterNames.add(iterLeaf);
+                    featureTaskGroups[featureId].push({
+                        taskId: task.id,
+                        taskTitle: task.fields['System.Title'] || '',
+                        taskState: task.fields['System.State'] || '',
+                        assigned: task.fields['System.AssignedTo']?.displayName || '-',
+                        discipline: task.fields['Microsoft.VSTS.Common.Discipline'] || '-',
+                        iteration: iterLeaf,
+                        origEst: task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0,
+                        rem: task.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || 0,
+                        comp: task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0,
+                        reason: (task.fields['System.Reason'] || '').toLowerCase().trim()
+                    });
+                });
+
+                // Build affectedAreaData
+                affectedAreaData = Object.keys(featureTaskGroups).map(fid => {
+                    const feat = featureMap[parseInt(fid)];
+                    const fArea = (feat.fields['System.AreaPath'] || '').split('\\').pop();
+                    return {
+                        featureId: parseInt(fid),
+                        featureTitle: feat.fields['System.Title'] || '',
+                        featureArea: feat.fields['System.AreaPath'] || '',
+                        featureAreaLeaf: fArea,
+                        featureState: feat.fields['System.State'] || '',
+                        tasks: featureTaskGroups[fid]
+                    };
+                }).filter(f => f.tasks.length > 0).sort((a, b) => a.featureId - b.featureId);
+
+                affectedAreaDataLoaded = true;
+                document.getElementById('affectedAreaCount').textContent = affectedAreaData.length;
+
+                // Populate iteration filter
+                const iterSelect = document.getElementById('affectedAreaIterFilter');
+                const sortedIters = [...allIterNames].sort();
+                iterSelect.innerHTML = '<option value="all">All Iterations</option>' +
+                    sortedIters.map(n => `<option value="${n}">${n}</option>`).join('');
+
+                renderAffectedAreaTable();
+            } catch (err) {
+                console.error('[AffectedArea] Error:', err);
+                document.getElementById('noAffectedAreaData').style.display = 'block';
+                document.getElementById('noAffectedAreaData').textContent = 'Error loading: ' + err.message;
+            }
+            hideCardLoading('affectedArea');
+        }
+
+        function sortAffectedArea(col) {
+            if (affectedAreaSortCol === col) {
+                affectedAreaSortDir = affectedAreaSortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                affectedAreaSortCol = col;
+                affectedAreaSortDir = ['featureId','featureTitle','featureArea','taskId','taskTitle','taskState','assigned','discipline','iteration'].includes(col) ? 'asc' : 'desc';
+            }
+            renderAffectedAreaTable();
+        }
+
+        function renderAffectedAreaTable() {
+            const iterFilter = document.getElementById('affectedAreaIterFilter').value;
+            const tbody = document.getElementById('affectedAreaTableBody');
+            const tfoot = document.getElementById('affectedAreaTableFooter');
+            const summaryDiv = document.getElementById('affectedAreaSummary');
+            const lt = document.body.classList.contains('light-theme');
+
+            // Flatten data: one row per task, with feature info
+            let rows = [];
+            affectedAreaData.forEach(f => {
+                f.tasks.forEach(t => {
+                    if (iterFilter !== 'all' && t.iteration !== iterFilter) return;
+                    rows.push({
+                        featureId: f.featureId, featureTitle: f.featureTitle,
+                        featureArea: f.featureAreaLeaf, featureAreaFull: f.featureArea,
+                        featureState: f.featureState,
+                        taskId: t.taskId, taskTitle: t.taskTitle, taskState: t.taskState,
+                        assigned: t.assigned, discipline: t.discipline, iteration: t.iteration,
+                        origEst: t.origEst, rem: t.rem, comp: t.comp
+                    });
+                });
+            });
+
+            // Sort
+            if (affectedAreaSortCol) {
+                const dir = affectedAreaSortDir === 'asc' ? 1 : -1;
+                const strCols = ['featureTitle','featureArea','taskTitle','taskState','assigned','discipline','iteration'];
+                rows.sort((a, b) => {
+                    let va = a[affectedAreaSortCol], vb = b[affectedAreaSortCol];
+                    if (strCols.includes(affectedAreaSortCol)) {
+                        va = (va || '').toLowerCase(); vb = (vb || '').toLowerCase();
+                        return va < vb ? -dir : va > vb ? dir : 0;
+                    }
+                    return ((va || 0) - (vb || 0)) * dir;
+                });
+            }
+
+            // Summary: unique features count, total tasks, total hours
+            const uniqueFeats = new Set(rows.map(r => r.featureId));
+            const totOrig = rows.reduce((s, r) => s + r.origEst, 0);
+            const totRem = rows.reduce((s, r) => s + r.rem, 0);
+            const totComp = rows.reduce((s, r) => s + r.comp, 0);
+            const boxStyle = lt
+                ? 'background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:0.65rem;'
+                : 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;font-size:0.65rem;';
+            const lblClr = lt ? 'color:#64748b;' : 'color:#94a3b8;';
+            const valClr = lt ? 'color:#0f172a;font-weight:700;' : 'color:#e2e8f0;font-weight:700;';
+            summaryDiv.innerHTML = `
+                <div style="${boxStyle}"><span style="${lblClr}">Features:</span> <span style="${valClr}">${uniqueFeats.size}</span></div>
+                <div style="${boxStyle}"><span style="${lblClr}">Tasks:</span> <span style="${valClr}">${rows.length}</span></div>
+                <div style="${boxStyle}"><span style="${lblClr}">Orig Est:</span> <span style="color:#f97316;font-weight:700;">${fmtH(totOrig)}h</span></div>
+                <div style="${boxStyle}"><span style="${lblClr}">Remaining:</span> <span style="color:#38bdf8;font-weight:700;">${fmtH(totRem)}h</span></div>
+                <div style="${boxStyle}"><span style="${lblClr}">Completed:</span> <span style="color:#34d399;font-weight:700;">${fmtH(totComp)}h</span></div>
+            `;
+
+            if (rows.length > 0) {
+                document.getElementById('noAffectedAreaData').style.display = 'none';
+                const pd = 'padding:4px 3px;';
+                const tdClr = lt ? 'color:#334155;' : 'color:#cbd5e1;';
+                const areaClr = lt ? 'color:#0369a1;' : 'color:#38bdf8;';
+                const iterClr = lt ? 'color:#7c3aed;' : 'color:#c084fc;';
+                let prevFeatId = null;
+                tbody.innerHTML = rows.map(r => {
+                    const showFeat = r.featureId !== prevFeatId;
+                    prevFeatId = r.featureId;
+                    const stCls = getStatePillClass(r.taskState);
+                    return `<tr style="${showFeat ? 'border-top:2px solid rgba(16,185,129,0.3);' : ''}">
+                        <td style="${pd}${tdClr}${showFeat ? 'font-weight:600;' : 'opacity:0.3;'}">${showFeat ? `<a href="${tfsUrl}/${project}/_workitems/edit/${r.featureId}" target="_blank" class="wi-link">${r.featureId}</a>` : r.featureId}</td>
+                        <td style="${pd}${tdClr}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${showFeat ? 'font-weight:500;' : 'opacity:0.3;'}" title="${r.featureTitle}">${showFeat ? r.featureTitle : ''}</td>
+                        <td style="${pd}${areaClr}font-weight:500;${showFeat ? '' : 'opacity:0.3;'}" title="${r.featureAreaFull}">${showFeat ? r.featureArea : ''}</td>
+                        <td style="${pd}${tdClr}"><a href="${tfsUrl}/${project}/_workitems/edit/${r.taskId}" target="_blank" class="wi-link" style="font-size:0.6rem;">${r.taskId}</a></td>
+                        <td style="${pd}${tdClr}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.taskTitle}">${r.taskTitle}</td>
+                        <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}" style="font-size:0.5rem;padding:1px 5px;">${r.taskState}</span></td>
+                        <td style="${pd}${tdClr}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.assigned}">${r.assigned}</td>
+                        <td style="${pd}${tdClr}">${r.discipline}</td>
+                        <td style="${pd}${iterClr}font-weight:500;">${r.iteration}</td>
+                        <td style="${pd}text-align:right;color:#f97316;font-weight:600;">${fmtH(r.origEst)}h</td>
+                        <td style="${pd}text-align:right;color:#38bdf8;font-weight:600;">${fmtH(r.rem)}h</td>
+                        <td style="${pd}text-align:right;color:#34d399;font-weight:600;">${fmtH(r.comp)}h</td>
+                    </tr>`;
+                }).join('');
+                const fp = 'padding:5px 3px;';
+                tfoot.innerHTML = `<tr>
+                    <td colspan="9" style="${fp}text-align:right;font-weight:700;${tdClr}">Totals (${rows.length} tasks):</td>
+                    <td style="${fp}text-align:right;font-weight:700;color:#f97316;">${fmtH(totOrig)}h</td>
+                    <td style="${fp}text-align:right;font-weight:700;color:#38bdf8;">${fmtH(totRem)}h</td>
+                    <td style="${fp}text-align:right;font-weight:700;color:#34d399;">${fmtH(totComp)}h</td>
+                </tr>`;
+            } else {
+                document.getElementById('noAffectedAreaData').style.display = 'block';
+                tbody.innerHTML = '';
+                tfoot.innerHTML = '';
+            }
         }
 
         function applyTabPermissions() {
@@ -9405,7 +9906,8 @@
                 if (childIds.length > 0) {
                     children = await batchFetchWithRelations(childIds, [
                         'System.Id','System.Title','System.State','System.WorkItemType',
-                        'System.AssignedTo','System.AreaPath','System.IterationPath','Microsoft.VSTS.Scheduling.Size'
+                        'System.AssignedTo','System.AreaPath','System.IterationPath','Microsoft.VSTS.Scheduling.Size',
+                        'Casepoint.TFS.CustomFields.Status'
                     ]);
                     const taskIds = [];
                     const childTaskMap = {};
@@ -9429,146 +9931,18 @@
                     const taskLookup = {};
                     allTasks.forEach(t => { taskLookup[t.id] = t; });
 
-                    const excludedDisc = ['analysis', 'user experience', 'user education'];
-                    const excludedActual = ['user experience', 'user education'];
-                    let totTaskPlanned = 0, totTaskCompDev = 0, totTaskActualComp = 0;
-                    let totOrigEst = 0, totRemWork = 0, totCompWork = 0;
-
-                    children.forEach(c => {
-                        const tIds = childTaskMap[c.id] || [];
-                        let cPlanned = 0, cCompDev = 0, cActual = 0, cOrig = 0, cRem = 0, cComp = 0;
-                        tIds.forEach(tid => {
-                            const task = taskLookup[tid];
-                            if (!task) return;
-                            const disc = (task.fields['Microsoft.VSTS.Common.Discipline'] || '').toLowerCase().trim();
-                            const iterPath = task.fields['System.IterationPath'] || '';
-                            const reason = (task.fields['System.Reason'] || '').toLowerCase().trim();
-                            const taskArea = (task.fields['System.AreaPath'] || '').toLowerCase().trim();
-                            const iterLeaf = iterPath.split('\\').pop().trim().toLowerCase();
-                            const isRoot = iterLeaf === 'casepointara';
-                            const isRejected = reason === 'rejected';
-                            const orig = task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
-                            const rem = task.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || 0;
-                            const comp = task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0;
-                            cOrig += orig; cRem += rem; cComp += comp;
-                            if (!excludedActual.includes(disc) && !isRoot && !isRejected) cActual += comp;
-                            if (!excludedDisc.includes(disc) && !isRoot && !isRejected) {
-                                cPlanned += orig;
-                                if (taskArea === featureAreaPath) cCompDev += comp;
-                            }
-                        });
-                        c._taskPlanned = cPlanned; c._taskCompDev = cCompDev; c._taskActual = cActual;
-                        c._origEst = cOrig; c._remWork = cRem; c._compWork = cComp;
-                        c._taskIds = tIds;
-                        totTaskPlanned += cPlanned; totTaskCompDev += cCompDev; totTaskActualComp += cActual;
-                        totOrigEst += cOrig; totRemWork += cRem; totCompWork += cComp;
+                    // Collect unique iteration leaf names from all tasks
+                    const allIterNames = new Set();
+                    allTasks.forEach(t => {
+                        const ip = (t.fields['System.IterationPath'] || '').split('\\').pop().trim();
+                        if (ip && ip.toLowerCase() !== 'casepointara') allIterNames.add(ip);
                     });
 
-                    const discEff = f['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
-                    const compDisc = f['Casepoint.TFS.CustomFields.CompletedDiscoveryHours'] || 0;
-                    const planned = f['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
-                    const compEff = f['Casepoint.TFS.CustomFields.CompletedEffort'] || 0;
-                    const actualComp = f['Casepoint.TFS.CustomFields.ActualCompletedHours'] || 0;
-                    const total = discEff + planned;
-                    const areaLeaf = (f['System.AreaPath']||'').split('\\').pop();
-                    const iterLeaf = (f['System.IterationPath']||'').split('\\').pop();
+                    // Store data globally for re-rendering on filter change
+                    window._flData = { featureId, f, featureAreaPath, stCls, statusVal, statusCls, lt, T, sz, children, childTaskMap, taskLookup, allIterNames: [...allIterNames].sort() };
+                    window._flSort = { col: null, dir: 'asc' };
 
-                    let html = `<div class="fl-card" style="${T.card}border-radius:8px;padding:10px;margin-top:10px;${sz}">
-                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
-                            <a href="${tfsUrl}/${project}/_workitems/edit/${featureId}" target="_blank" class="wi-link" style="font-size:0.8rem;font-weight:700;">#${featureId}</a>
-                            <span style="${T.h}font-weight:600;font-size:0.8rem;">${f['System.Title'] || ''}</span>
-                        </div>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
-                            <span class="fp-state-pill ${stCls}">${f['System.State']}</span>
-                            <span class="fp-status-pill ${statusCls}">${statusVal}</span>
-                            <span style="${T.areaClr}${sz}font-weight:500;">📂 ${areaLeaf}</span>
-                            <span style="${T.iterClr}${sz}font-weight:500;">📅 ${iterLeaf}</span>
-                        </div>
-                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
-                            <div style="${T.box}border-radius:6px;padding:5px 8px;flex:1;min-width:140px;">
-                                <div style="${T.lbl}font-size:0.58rem;font-weight:600;margin-bottom:3px;">📊 TFS Feature Hours</div>
-                                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;">
-                                    <span style="${T.sub}">Disc: <b style="${T.val}">${fmtH(discEff)}h</b></span>
-                                    <span style="${T.sub}">CompDisc: <b style="${T.val}">${fmtH(compDisc)}h</b></span>
-                                    <span style="${T.sub}">Planned: <b style="${T.val}">${fmtH(planned)}h</b></span>
-                                    <span style="${T.sub}">CompEff: <b style="${T.val}">${fmtH(compEff)}h</b></span>
-                                    <span style="${T.sub}">ActComp: <b style="${T.val}">${fmtH(actualComp)}h</b></span>
-                                    <span style="${T.sub}">Total: <b style="${T.val}">${fmtH(total)}h</b></span>
-                                </div>
-                            </div>
-                            <div style="${T.box}border-radius:6px;padding:5px 8px;flex:1;min-width:140px;">
-                                <div style="${T.lbl}font-size:0.58rem;font-weight:600;margin-bottom:3px;">⚙️ Task-Level Calc</div>
-                                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;">
-                                    <span style="${T.sub}">Planned: <b style="${T.tpln}font-weight:700;">${fmtH(totTaskPlanned)}h</b></span>
-                                    <span style="${T.sub}">CompDev: <b style="${T.tcdev}font-weight:700;">${fmtH(totTaskCompDev)}h</b></span>
-                                    <span style="${T.sub}">ActComp: <b style="${T.tacomp}font-weight:700;">${fmtH(totTaskActualComp)}h</b></span>
-                                </div>
-                                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;margin-top:3px;">
-                                    <span style="${T.sub}">OrigEst: <b style="${T.val}">${fmtH(totOrigEst)}h</b></span>
-                                    <span style="${T.sub}">Rem: <b style="${T.val}">${fmtH(totRemWork)}h</b></span>
-                                    <span style="${T.sub}">Comp: <b style="${T.val}">${fmtH(totCompWork)}h</b></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="${T.h}font-size:0.72rem;font-weight:600;margin:8px 0 4px;">📋 Child Items (${children.length})</div>`;
-
-                    if (children.length > 0) {
-                        html += `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:auto;">
-                            <thead><tr style="${T.thBg}">
-                                <th style="padding:4px 3px;text-align:left;">ID</th>
-                                <th style="padding:4px 3px;text-align:left;">Title</th>
-                                <th style="padding:4px 3px;text-align:center;">Type</th>
-                                <th style="padding:4px 3px;text-align:center;">State</th>
-                                <th style="padding:4px 3px;text-align:left;">Assigned</th>
-                                <th style="padding:4px 3px;text-align:left;">Area</th>
-                                <th style="padding:4px 3px;text-align:left;">Iteration</th>
-                                <th style="padding:4px 3px;text-align:right;">Size</th>
-                                <th style="padding:4px 3px;text-align:center;">Tasks</th>
-                                <th style="padding:4px 3px;text-align:right;">Orig Est</th>
-                                <th style="padding:4px 3px;text-align:right;">Rem</th>
-                                <th style="padding:4px 3px;text-align:right;">Comp</th>
-                                <th style="padding:4px 3px;text-align:right;">Task Plan</th>
-                                <th style="padding:4px 3px;text-align:right;">Task CDev</th>
-                                <th style="padding:4px 3px;text-align:right;">Task ACmp</th>
-                            </tr></thead><tbody>`;
-                        children.forEach(c => {
-                            const cf = c.fields;
-                            const tCount = (c._taskIds || []).length;
-                            const cArea = (cf['System.AreaPath']||'').split('\\').pop();
-                            const cIter = (cf['System.IterationPath']||'').split('\\').pop();
-                            const cAssigned = cf['System.AssignedTo']?.displayName || '-';
-                            html += `<tr style="${T.trBorder}">
-                                <td style="padding:3px;${T.tdColor}"><a href="${tfsUrl}/${project}/_workitems/edit/${c.id}" target="_blank" class="wi-link" style="font-size:0.6rem;">${c.id}</a></td>
-                                <td style="padding:3px;${T.tdColor}max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cf['System.Title']||''}">${cf['System.Title'] || ''}</td>
-                                <td style="padding:3px;text-align:center;${T.tdColor}">${cf['System.WorkItemType'] || ''}</td>
-                                <td style="padding:3px;text-align:center;"><span class="fp-state-pill" style="font-size:0.5rem;padding:1px 5px;">${cf['System.State'] || ''}</span></td>
-                                <td style="padding:3px;${T.tdColor}max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cAssigned}">${cAssigned}</td>
-                                <td style="padding:3px;${T.areaClr}font-weight:500;" title="${cf['System.AreaPath']||''}">${cArea}</td>
-                                <td style="padding:3px;${T.iterClr}font-weight:500;" title="${cf['System.IterationPath']||''}">${cIter}</td>
-                                <td style="padding:3px;text-align:right;${T.tdColor}">${cf['Microsoft.VSTS.Scheduling.Size'] || 0}</td>
-                                <td style="padding:3px;text-align:center;${T.tdColor}">${tCount}</td>
-                                <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._origEst)}h</td>
-                                <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._remWork)}h</td>
-                                <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._compWork)}h</td>
-                                <td style="padding:3px;text-align:right;${T.tpln}font-weight:600;">${fmtH(c._taskPlanned)}h</td>
-                                <td style="padding:3px;text-align:right;${T.tcdev}font-weight:600;">${fmtH(c._taskCompDev)}h</td>
-                                <td style="padding:3px;text-align:right;${T.tacomp}font-weight:600;">${fmtH(c._taskActual)}h</td>
-                            </tr>`;
-                        });
-                        html += `<tr style="${T.totBorder}font-weight:700;">
-                            <td colspan="9" style="padding:4px 3px;text-align:right;${T.h}">Totals:</td>
-                            <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totOrigEst)}h</td>
-                            <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totRemWork)}h</td>
-                            <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totCompWork)}h</td>
-                            <td style="padding:4px 3px;text-align:right;${T.tpln}">${fmtH(totTaskPlanned)}h</td>
-                            <td style="padding:4px 3px;text-align:right;${T.tcdev}">${fmtH(totTaskCompDev)}h</td>
-                            <td style="padding:4px 3px;text-align:right;${T.tacomp}">${fmtH(totTaskActualComp)}h</td>
-                        </tr></tbody></table></div>`;
-                    } else {
-                        html += '<div style="text-align:center;padding:8px;' + T.sub + 'font-size:0.7rem;">No child items found</div>';
-                    }
-                    html += '</div>';
-                    resultDiv.innerHTML = html;
+                    renderFeatureLookupResult('all');
                 } else {
                     const discEff = f['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
                     const planned = f['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
@@ -9595,6 +9969,229 @@
                     </div>`;
                 }
             } catch (err) { resultDiv.innerHTML = `<div class="error" style="font-size:0.75rem;">❌ ${err.message}</div>`; }
+        }
+
+        function onFeatureLookupIterFilter() {
+            const sel = document.getElementById('flIterFilter');
+            if (sel) renderFeatureLookupResult(sel.value);
+        }
+
+        function sortFeatureLookup(col) {
+            if (!window._flSort) window._flSort = { col: null, dir: 'asc' };
+            if (window._flSort.col === col) {
+                window._flSort.dir = window._flSort.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                window._flSort.col = col;
+                window._flSort.dir = ['id','title','type','state','status','assigned','area','iteration'].includes(col) ? 'asc' : 'desc';
+            }
+            const sel = document.getElementById('flIterFilter');
+            renderFeatureLookupResult(sel ? sel.value : 'all');
+        }
+
+        function getSortedFlChildren(children) {
+            const s = window._flSort;
+            if (!s || !s.col) return children;
+            const dir = s.dir === 'asc' ? 1 : -1;
+            const strCols = ['title','type','state','status','assigned','area','iteration'];
+            return [...children].sort((a, b) => {
+                let va, vb;
+                const af = a.fields, bf = b.fields;
+                switch (s.col) {
+                    case 'id': va = a.id; vb = b.id; break;
+                    case 'title': va = (af['System.Title']||'').toLowerCase(); vb = (bf['System.Title']||'').toLowerCase(); break;
+                    case 'type': va = (af['System.WorkItemType']||'').toLowerCase(); vb = (bf['System.WorkItemType']||'').toLowerCase(); break;
+                    case 'state': va = (af['System.State']||'').toLowerCase(); vb = (bf['System.State']||'').toLowerCase(); break;
+                    case 'status': va = (af['Casepoint.TFS.CustomFields.Status']||'').toLowerCase(); vb = (bf['Casepoint.TFS.CustomFields.Status']||'').toLowerCase(); break;
+                    case 'assigned': va = (af['System.AssignedTo']?.displayName||'').toLowerCase(); vb = (bf['System.AssignedTo']?.displayName||'').toLowerCase(); break;
+                    case 'area': va = (af['System.AreaPath']||'').toLowerCase(); vb = (bf['System.AreaPath']||'').toLowerCase(); break;
+                    case 'iteration': va = (af['System.IterationPath']||'').toLowerCase(); vb = (bf['System.IterationPath']||'').toLowerCase(); break;
+                    case 'size': va = af['Microsoft.VSTS.Scheduling.Size']||0; vb = bf['Microsoft.VSTS.Scheduling.Size']||0; break;
+                    case 'tasks': va = (a._taskIds||[]).length; vb = (b._taskIds||[]).length; break;
+                    case 'origEst': va = a._origEst||0; vb = b._origEst||0; break;
+                    case 'rem': va = a._remWork||0; vb = b._remWork||0; break;
+                    case 'comp': va = a._compWork||0; vb = b._compWork||0; break;
+                    case 'taskPlan': va = a._taskPlanned||0; vb = b._taskPlanned||0; break;
+                    case 'taskCDev': va = a._taskCompDev||0; vb = b._taskCompDev||0; break;
+                    case 'taskACmp': va = a._taskActual||0; vb = b._taskActual||0; break;
+                    default: return 0;
+                }
+                if (strCols.includes(s.col)) return va < vb ? -dir : va > vb ? dir : 0;
+                return ((va||0) - (vb||0)) * dir;
+            });
+        }
+
+        function renderFeatureLookupResult(iterFilter) {
+            const d = window._flData;
+            if (!d) return;
+            const { featureId, f, featureAreaPath, stCls, statusVal, statusCls, lt, T, sz, children, childTaskMap, taskLookup, allIterNames } = d;
+            const resultDiv = document.getElementById('featureLookupResult');
+
+            const excludedDisc = ['analysis', 'user experience', 'user education'];
+            const excludedActual = ['user experience', 'user education'];
+            const includedPlanned = ['development', 'analysis', 'test'];
+            let totTaskPlanned = 0, totTaskCompDev = 0, totTaskActualComp = 0;
+            let totOrigEst = 0, totRemWork = 0, totCompWork = 0;
+
+            children.forEach(c => {
+                const tIds = childTaskMap[c.id] || [];
+                let cPlanned = 0, cCompDev = 0, cActual = 0, cOrig = 0, cRem = 0, cComp = 0;
+                tIds.forEach(tid => {
+                    const task = taskLookup[tid];
+                    if (!task) return;
+                    const disc = (task.fields['Microsoft.VSTS.Common.Discipline'] || '').toLowerCase().trim();
+                    const iterPath = task.fields['System.IterationPath'] || '';
+                    const reason = (task.fields['System.Reason'] || '').toLowerCase().trim();
+                    const taskArea = (task.fields['System.AreaPath'] || '').toLowerCase().trim();
+                    const iterLeaf = iterPath.split('\\').pop().trim();
+                    const iterLeafLower = iterLeaf.toLowerCase();
+                    const isRoot = iterLeafLower === 'casepointara';
+                    const isRejected = reason === 'rejected';
+                    // Apply iteration filter
+                    if (iterFilter !== 'all' && iterLeaf !== iterFilter) return;
+                    const orig = task.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                    const rem = task.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || 0;
+                    const comp = task.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0;
+                    cOrig += orig; cRem += rem; cComp += comp;
+                    if (!excludedActual.includes(disc) && !isRoot && !isRejected) cActual += comp;
+                    if (includedPlanned.includes(disc) && !isRoot && !isRejected) {
+                        cPlanned += orig;
+                    }
+                    if (!excludedDisc.includes(disc) && !isRoot && !isRejected) {
+                        if (taskArea === featureAreaPath) cCompDev += comp;
+                    }
+                });
+                c._taskPlanned = cPlanned; c._taskCompDev = cCompDev; c._taskActual = cActual;
+                c._origEst = cOrig; c._remWork = cRem; c._compWork = cComp;
+                c._taskIds = tIds;
+                totTaskPlanned += cPlanned; totTaskCompDev += cCompDev; totTaskActualComp += cActual;
+                totOrigEst += cOrig; totRemWork += cRem; totCompWork += cComp;
+            });
+
+            const discEff = f['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
+            const compDisc = f['Casepoint.TFS.CustomFields.CompletedDiscoveryHours'] || 0;
+            const planned = f['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
+            const compEff = f['Casepoint.TFS.CustomFields.CompletedEffort'] || 0;
+            const actualComp = f['Casepoint.TFS.CustomFields.ActualCompletedHours'] || 0;
+            const total = discEff + planned;
+            const areaLeaf = (f['System.AreaPath']||'').split('\\').pop();
+            const iterLeafF = (f['System.IterationPath']||'').split('\\').pop();
+
+            // Build iteration filter dropdown
+            let iterFilterHtml = '';
+            if (allIterNames.length > 0) {
+                iterFilterHtml = `<select id="flIterFilter" onchange="onFeatureLookupIterFilter()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.4);border-radius:6px;padding:3px 8px;font-size:0.65rem;cursor:pointer;outline:none;">
+                    <option value="all"${iterFilter === 'all' ? ' selected' : ''}>All Iterations</option>
+                    ${allIterNames.map(n => `<option value="${n}"${iterFilter === n ? ' selected' : ''}>${n}</option>`).join('')}
+                </select>`;
+            }
+
+            let html = `<div class="fl-card" style="${T.card}border-radius:8px;padding:10px;margin-top:10px;${sz}">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+                    <a href="${tfsUrl}/${project}/_workitems/edit/${featureId}" target="_blank" class="wi-link" style="font-size:0.8rem;font-weight:700;">#${featureId}</a>
+                    <span style="${T.h}font-weight:600;font-size:0.8rem;">${f['System.Title'] || ''}</span>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+                    <span class="fp-state-pill ${stCls}">${f['System.State']}</span>
+                    <span class="fp-status-pill ${statusCls}">${statusVal}</span>
+                    <span style="${T.areaClr}${sz}font-weight:500;">📂 ${areaLeaf}</span>
+                    <span style="${T.iterClr}${sz}font-weight:500;">📅 ${iterLeafF}</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+                    <div style="${T.box}border-radius:6px;padding:5px 8px;flex:1;min-width:140px;">
+                        <div style="${T.lbl}font-size:0.58rem;font-weight:600;margin-bottom:3px;">📊 TFS Feature Hours</div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;">
+                            <span style="${T.sub}">Disc: <b style="${T.val}">${fmtH(discEff)}h</b></span>
+                            <span style="${T.sub}">CompDisc: <b style="${T.val}">${fmtH(compDisc)}h</b></span>
+                            <span style="${T.sub}">Planned: <b style="${T.val}">${fmtH(planned)}h</b></span>
+                            <span style="${T.sub}">CompEff: <b style="${T.val}">${fmtH(compEff)}h</b></span>
+                            <span style="${T.sub}">ActComp: <b style="${T.val}">${fmtH(actualComp)}h</b></span>
+                            <span style="${T.sub}">Total: <b style="${T.val}">${fmtH(total)}h</b></span>
+                        </div>
+                    </div>
+                    <div style="${T.box}border-radius:6px;padding:5px 8px;flex:1;min-width:140px;">
+                        <div style="${T.lbl}font-size:0.58rem;font-weight:600;margin-bottom:3px;">⚙️ Task-Level Calc${iterFilter !== 'all' ? ' <span style="color:#fbbf24;">('+iterFilter+')</span>' : ''}</div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;">
+                            <span style="${T.sub}">Planned: <b style="${T.tpln}font-weight:700;">${fmtH(totTaskPlanned)}h</b></span>
+                            <span style="${T.sub}">CompDev: <b style="${T.tcdev}font-weight:700;">${fmtH(totTaskCompDev)}h</b></span>
+                            <span style="${T.sub}">ActComp: <b style="${T.tacomp}font-weight:700;">${fmtH(totTaskActualComp)}h</b></span>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.65rem;margin-top:3px;">
+                            <span style="${T.sub}">OrigEst: <b style="${T.val}">${fmtH(totOrigEst)}h</b></span>
+                            <span style="${T.sub}">Rem: <b style="${T.val}">${fmtH(totRemWork)}h</b></span>
+                            <span style="${T.sub}">Comp: <b style="${T.val}">${fmtH(totCompWork)}h</b></span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0 4px;">
+                    <span style="${T.h}font-size:0.72rem;font-weight:600;">📋 Child Items (${children.length})</span>
+                    ${iterFilterHtml}
+                </div>`;
+
+            if (children.length > 0) {
+                const sc = window._flSort || {};
+                const si = (col) => sc.col === col ? (sc.dir === 'asc' ? ' ▲' : ' ▼') : '';
+                const thS = `padding:4px 3px;cursor:pointer;user-select:none;`;
+                const sortedChildren = getSortedFlChildren(children);
+                html += `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:auto;">
+                    <thead><tr style="${T.thBg}">
+                        <th style="${thS}text-align:left;" onclick="sortFeatureLookup('id')">ID${si('id')}</th>
+                        <th style="${thS}text-align:left;" onclick="sortFeatureLookup('title')">Title${si('title')}</th>
+                        <th style="${thS}text-align:center;" onclick="sortFeatureLookup('type')">Type${si('type')}</th>
+                        <th style="${thS}text-align:center;" onclick="sortFeatureLookup('state')">State${si('state')}</th>
+                        <th style="${thS}text-align:center;" onclick="sortFeatureLookup('status')">Status${si('status')}</th>
+                        <th style="${thS}text-align:left;" onclick="sortFeatureLookup('assigned')">Assigned${si('assigned')}</th>
+                        <th style="${thS}text-align:left;" onclick="sortFeatureLookup('area')">Area${si('area')}</th>
+                        <th style="${thS}text-align:left;" onclick="sortFeatureLookup('iteration')">Iteration${si('iteration')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('size')">Size${si('size')}</th>
+                        <th style="${thS}text-align:center;" onclick="sortFeatureLookup('tasks')">Tasks${si('tasks')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('origEst')">Orig Est${si('origEst')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('rem')">Rem${si('rem')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('comp')">Comp${si('comp')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('taskPlan')">Task Plan${si('taskPlan')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('taskCDev')">Task CDev${si('taskCDev')}</th>
+                        <th style="${thS}text-align:right;" onclick="sortFeatureLookup('taskACmp')">Task ACmp${si('taskACmp')}</th>
+                    </tr></thead><tbody>`;
+                sortedChildren.forEach(c => {
+                    const cf = c.fields;
+                    const tCount = (c._taskIds || []).length;
+                    const cArea = (cf['System.AreaPath']||'').split('\\').pop();
+                    const cIter = (cf['System.IterationPath']||'').split('\\').pop();
+                    const cAssigned = cf['System.AssignedTo']?.displayName || '-';
+                    const cStatus = cf['Casepoint.TFS.CustomFields.Status'] || '-';
+                    const cStatusCls = getStatusPillClass(cStatus);
+                    html += `<tr style="${T.trBorder}">
+                        <td style="padding:3px;${T.tdColor}"><a href="${tfsUrl}/${project}/_workitems/edit/${c.id}" target="_blank" class="wi-link" style="font-size:0.6rem;">${c.id}</a></td>
+                        <td style="padding:3px;${T.tdColor}max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cf['System.Title']||''}">${cf['System.Title'] || ''}</td>
+                        <td style="padding:3px;text-align:center;${T.tdColor}">${cf['System.WorkItemType'] || ''}</td>
+                        <td style="padding:3px;text-align:center;"><span class="fp-state-pill" style="font-size:0.5rem;padding:1px 5px;">${cf['System.State'] || ''}</span></td>
+                        <td style="padding:3px;text-align:center;"><span class="fp-status-pill ${cStatusCls}" style="font-size:0.5rem;padding:1px 5px;">${cStatus}</span></td>
+                        <td style="padding:3px;${T.tdColor}max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${cAssigned}">${cAssigned}</td>
+                        <td style="padding:3px;${T.areaClr}font-weight:500;" title="${cf['System.AreaPath']||''}">${cArea}</td>
+                        <td style="padding:3px;${T.iterClr}font-weight:500;" title="${cf['System.IterationPath']||''}">${cIter}</td>
+                        <td style="padding:3px;text-align:right;${T.tdColor}">${cf['Microsoft.VSTS.Scheduling.Size'] || 0}</td>
+                        <td style="padding:3px;text-align:center;${T.tdColor}">${tCount}</td>
+                        <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._origEst)}h</td>
+                        <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._remWork)}h</td>
+                        <td style="padding:3px;text-align:right;${T.val}">${fmtH(c._compWork)}h</td>
+                        <td style="padding:3px;text-align:right;${T.tpln}font-weight:600;">${fmtH(c._taskPlanned)}h</td>
+                        <td style="padding:3px;text-align:right;${T.tcdev}font-weight:600;">${fmtH(c._taskCompDev)}h</td>
+                        <td style="padding:3px;text-align:right;${T.tacomp}font-weight:600;">${fmtH(c._taskActual)}h</td>
+                    </tr>`;
+                });
+                html += `<tr style="${T.totBorder}font-weight:700;">
+                    <td colspan="10" style="padding:4px 3px;text-align:right;${T.h}">Totals:</td>
+                    <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totOrigEst)}h</td>
+                    <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totRemWork)}h</td>
+                    <td style="padding:4px 3px;text-align:right;${T.val}">${fmtH(totCompWork)}h</td>
+                    <td style="padding:4px 3px;text-align:right;${T.tpln}">${fmtH(totTaskPlanned)}h</td>
+                    <td style="padding:4px 3px;text-align:right;${T.tcdev}">${fmtH(totTaskCompDev)}h</td>
+                    <td style="padding:4px 3px;text-align:right;${T.tacomp}">${fmtH(totTaskActualComp)}h</td>
+                </tr></tbody></table></div>`;
+            } else {
+                html += '<div style="text-align:center;padding:8px;' + T.sub + 'font-size:0.7rem;">No child items found</div>';
+            }
+            html += '</div>';
+            resultDiv.innerHTML = html;
         }
 
         async function lookupRequirement() {
