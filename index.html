@@ -126,6 +126,13 @@
             color: #0f172a;
             border-color: #94a3b8;
         }
+        body.light-theme #reqFilterState,
+        body.light-theme #reqFilterAssigned,
+        body.light-theme #reqFilterIteration {
+            background: #ffffff;
+            color: #0f172a;
+            border-color: #94a3b8;
+        }
         body.light-theme #flIterFilter {
             background: #ffffff !important;
             color: #0f172a !important;
@@ -498,6 +505,24 @@
             color: #1e293b !important;
         }
 
+        /* Light theme: Update Feature Popup */
+        body.light-theme #updateFeaturePopup { background: rgba(0,0,0,0.4) !important; }
+        body.light-theme .fp-update-popup { background: #ffffff !important; border-color: rgba(59,130,246,0.3) !important; box-shadow: 0 25px 50px rgba(0,0,0,0.2) !important; }
+        body.light-theme .fp-update-popup h3 { color: #1e40af !important; }
+        body.light-theme .fp-update-subtitle { color: #64748b !important; }
+        body.light-theme .fp-update-header { border-bottom-color: #e2e8f0 !important; }
+        body.light-theme .fp-update-summary { background: #f8fafc !important; border-bottom-color: #e2e8f0 !important; }
+        body.light-theme .fp-update-footer { border-top-color: #e2e8f0 !important; }
+        body.light-theme .fp-update-popup table { color: #1e293b; }
+        body.light-theme .fp-update-popup th { color: #475569 !important; }
+        body.light-theme .fp-update-popup td { color: #1e293b !important; }
+        body.light-theme .fp-update-popup td a.wi-link { color: #2563eb !important; }
+        body.light-theme .fp-update-popup select { background: #f1f5f9 !important; color: #1e293b !important; border-color: #cbd5e1 !important; }
+        body.light-theme .fp-update-popup thead tr { background: #f1f5f9 !important; }
+        body.light-theme .fp-update-popup tbody tr { border-bottom-color: #e2e8f0 !important; }
+        body.light-theme .fp-update-popup tbody tr:nth-child(odd) { background: #ffffff !important; }
+        body.light-theme .fp-update-popup tbody tr:nth-child(even) { background: #f8fafc !important; }
+
         /* ==================== BASE STYLES ==================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: var(--bg-primary); min-height: 100vh; color: var(--text-primary); padding: 20px; transition: background 0.3s ease, color 0.3s ease; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -790,6 +815,7 @@
             <button class="tab-btn" id="tabBtn2" onclick="switchTab(2)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📈 Work Progress</button>
             <button class="tab-btn" id="tabBtn3" onclick="switchTab(3)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🤖 AI Usage</button>
             <button class="tab-btn" id="tabBtn4" onclick="switchTab(4)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🚀 Feature Progress</button>
+            <button class="tab-btn" id="tabBtn5" onclick="switchTab(5)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🔍 Data Lookup</button>
         </div>
 
         <!-- Tab 1: Sprint Planning Check -->
@@ -1236,6 +1262,25 @@
                     <button class="table-tab" onclick="filterTable('urnMissing', this)" style="padding: 4px 8px; font-size: 0.7rem;">URN ❌</button>
                     <button class="table-tab" onclick="filterTable('noWeeklyTag', this)" style="padding: 4px 8px; font-size: 0.7rem; background: rgba(239,68,68,0.2); color: #fca5a5;">No Weekly Tag</button>
                 </div>
+                <div id="reqListFilters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;align-items:center;">
+                    <span style="color:#94a3b8;font-size:0.65rem;font-weight:600;">🔽 Filters:</span>
+                    <select id="reqFilterState" onchange="renderTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.3);border-radius:5px;padding:3px 6px;font-size:0.65rem;cursor:pointer;outline:none;">
+                        <option value="all">All States</option>
+                    </select>
+                    <select id="reqFilterAssigned" onchange="renderTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.3);border-radius:5px;padding:3px 6px;font-size:0.65rem;cursor:pointer;outline:none;">
+                        <option value="all">All Assigned</option>
+                    </select>
+                    <select id="reqFilterIteration" onchange="renderTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.3);border-radius:5px;padding:3px 6px;font-size:0.65rem;cursor:pointer;outline:none;">
+                        <option value="all">All Iterations</option>
+                    </select>
+                    <select id="reqFilterCategory" onchange="renderTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.3);border-radius:5px;padding:3px 6px;font-size:0.65rem;cursor:pointer;outline:none;">
+                        <option value="all">All Categories</option>
+                    </select>
+                    <select id="reqFilterUrn" onchange="renderTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.3);border-radius:5px;padding:3px 6px;font-size:0.65rem;cursor:pointer;outline:none;">
+                        <option value="all">All URN</option>
+                    </select>
+                    <button onclick="resetReqListFilters()" style="background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;border-radius:5px;padding:3px 8px;font-size:0.6rem;cursor:pointer;">✕ Clear</button>
+                </div>
                 <table id="reqListTable" style="font-size: 0.75rem; width: 100%; border-collapse: collapse;">
                     <thead id="reqListTableHead" style="background: rgba(0,0,0,0.3);"></thead>
                     <tbody id="reqTable"></tbody>
@@ -1458,20 +1503,16 @@
             </div>
         </div>
 
-        <!-- Requirement Lookup -->
-        <div class="table-section" style="padding: 12px;">
-            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                <h3 style="font-size: 1rem; margin: 0;">🔍 Requirement Task Lookup</h3>
-                <input type="text" id="reqIdInput" placeholder="Enter Requirement ID" style="padding: 6px 10px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; background: rgba(0,0,0,0.3); color: #fff; width: 150px; height:50px; font-size: 0.8rem;">
-                <button class="btn btn-primary" onclick="lookupRequirement()" style="padding: 6px 12px; font-size: 0.75rem;">🔍 Lookup</button>
-            </div>
-            <div id="reqLookupResult"></div>
-        </div>
-
         </div><!-- End Tab 2 -->
 
         <!-- Tab 3: AI Usage -->
         <div class="tab-content" id="tabContent3" style="display: none;">
+
+        <!-- Dev & QA AI Adoption Block -->
+        <div style="border:2px solid rgba(59,130,246,0.3);border-radius:10px;padding:12px;margin-bottom:16px;background:rgba(59,130,246,0.03);">
+        <div style="margin-bottom:10px;padding:6px 12px;border-left:3px solid #3b82f6;background:rgba(59,130,246,0.08);border-radius:0 6px 6px 0;">
+            <span style="color:#93c5fd;font-size:0.8rem;font-weight:700;">📋 Team AI Adoption Reports</span>
+        </div>
 
         <!-- Dev AI Adoption Data Dashboard -->
         <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(59,130,246,0.3);">
@@ -1701,6 +1742,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        </div><!-- End Dev & QA AI Adoption Block -->
+
+        <!-- AI Analytics & Summary Block -->
+        <div style="border:2px solid rgba(245,158,11,0.3);border-radius:10px;padding:12px;margin-bottom:16px;background:rgba(245,158,11,0.03);">
+        <div style="margin-bottom:10px;padding:6px 12px;border-left:3px solid #f59e0b;background:rgba(245,158,11,0.08);border-radius:0 6px 6px 0;">
+            <span style="color:#fcd34d;font-size:0.8rem;font-weight:700;">📊 AI Analytics & Summary</span>
         </div>
 
         <!-- Overall AI Adoption Summary -->
@@ -2017,6 +2065,7 @@
                 </div>
             </div>
         </div>
+        </div><!-- End AI Analytics & Summary Block -->
         </div><!-- End Tab 3 -->
 
         <!-- Tab 4: Feature Progress -->
@@ -2037,7 +2086,6 @@
                         </div>
                         <div style="display:flex;gap:8px;align-items:center;">
                             <button class="btn btn-primary refresh-icon" id="refreshFeatureProgressBtn" onclick="refreshFeatureProgressCard()" title="Refresh" style="display:none;padding:3px 8px;font-size:0.7rem;">🔄</button>
-                            <button class="btn btn-success" id="updateFeatureHoursBtn" onclick="updateFeatureHours()" style="padding:3px 8px;font-size:0.7rem;display:none;" title="Update Planned Hours, Completed Dev Hours, and Actual Completed Hours for the top feature in TFS">⬆️ Update Feature Hours</button>
                         </div>
                     </div>
                     <!-- State & Status -->
@@ -2078,6 +2126,7 @@
                     <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
                         <table id="featureProgressTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
                             <colgroup>
+                                <col style="width:28px;">
                                 <col style="width:50px;">
                                 <col style="width:16%;">
                                 <col style="width:62px;">
@@ -2095,6 +2144,7 @@
                             </colgroup>
                             <thead>
                                 <tr style="line-height:1.15;">
+                                    <th class="fp-th" style="text-align:center;padding:4px 2px;"><input type="checkbox" id="fpTableSelectAll" checked onchange="toggleAllFpTableCheckboxes(this.checked)" title="Select / Deselect All" style="cursor:pointer;accent-color:#3b82f6;"></th>
                                     <th class="fp-th fp-sortable" data-sort="id" style="text-align:left;" onclick="sortFeatureTable('id')">ID <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="title" style="text-align:left;" onclick="sortFeatureTable('title')">Title <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="state" style="text-align:center;" onclick="sortFeatureTable('state')">State <span class="fp-sort-icon"></span></th>
@@ -2116,6 +2166,9 @@
                         </table>
                     </div>
                     <div id="noFeatureProgressData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No features found for this PI</div>
+                    <div id="featureUpdateBtnRow" style="margin-top:10px;text-align:right;">
+                        <button class="btn btn-success" id="updateFeatureHoursBtn" onclick="showUpdateFeaturePopup()" style="display:none;padding:6px 16px;font-size:0.75rem;" title="Update Feature Hours, State & Status in TFS">⬆️ Update Feature Data</button>
+                    </div>
                 </div>
             </div>
 
@@ -2142,35 +2195,18 @@
                     </div>
                     <div id="affectedAreaSummary" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;"></div>
                     <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
-                        <table id="affectedAreaTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
-                            <colgroup>
-                                <col style="width:50px;">
-                                <col style="width:16%;">
-                                <col style="width:12%;">
-                                <col style="width:50px;">
-                                <col style="width:14%;">
-                                <col style="width:60px;">
-                                <col style="width:10%;">
-                                <col style="width:70px;">
-                                <col style="width:70px;">
-                                <col style="width:52px;">
-                                <col style="width:42px;">
-                                <col style="width:42px;">
-                            </colgroup>
+                        <table id="affectedAreaTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;">
                             <thead>
                                 <tr style="line-height:1.15;">
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureId')">FID <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureTitle')">Feature Title <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureArea')">Feature Area <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('taskId')">Task ID <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('taskTitle')">Task Title <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:center;cursor:pointer;" onclick="sortAffectedArea('taskState')">State <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('assigned')">Assigned <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('discipline')">Discipline <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('iteration')">Iteration <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:right;cursor:pointer;" onclick="sortAffectedArea('origEst')">Orig Est <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:right;cursor:pointer;" onclick="sortAffectedArea('rem')">Rem <span class="aa-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:right;cursor:pointer;" onclick="sortAffectedArea('comp')">Comp <span class="aa-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:center;width:30px;"></th>
+                                    <th class="fp-th" style="text-align:left;width:50px;cursor:pointer;" onclick="sortAffectedArea('featureId')">FID</th>
+                                    <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureTitle')">Feature Title</th>
+                                    <th class="fp-th" style="text-align:left;width:10%;cursor:pointer;" onclick="sortAffectedArea('featureArea')">Area</th>
+                                    <th class="fp-th" style="text-align:center;width:60px;cursor:pointer;" onclick="sortAffectedArea('featureState')">State</th>
+                                    <th class="fp-th" style="text-align:center;width:40px;">Items</th>
+                                    <th class="fp-th" style="text-align:right;width:55px;cursor:pointer;" onclick="sortAffectedArea('origEst')">Orig Est</th>
+                                    <th class="fp-th" style="text-align:right;width:45px;cursor:pointer;" onclick="sortAffectedArea('rem')">Rem</th>
+                                    <th class="fp-th" style="text-align:right;width:45px;cursor:pointer;" onclick="sortAffectedArea('comp')">Comp</th>
                                 </tr>
                             </thead>
                             <tbody id="affectedAreaTableBody"></tbody>
@@ -2180,6 +2216,13 @@
                     <div id="noAffectedAreaData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No affected area features found</div>
                 </div>
             </div>
+
+            <!-- Feature Lookup moved to Tab 5 -->
+
+        </div><!-- End Tab 4 -->
+
+        <!-- Tab 5: Data Lookup -->
+        <div class="tab-content" id="tabContent5" style="display:none;">
 
             <!-- Feature Lookup -->
             <div class="table-section" id="featureLookupSection" style="padding: 10px;">
@@ -2191,7 +2234,36 @@
                 <div id="featureLookupResult"></div>
             </div>
 
-        </div><!-- End Tab 4 -->
+            <!-- Requirement Task Lookup -->
+            <div class="table-section" style="padding: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <h3 style="font-size: 0.85rem; margin: 0;">🔍 Requirement Task Lookup</h3>
+                    <input type="text" id="reqIdInput" placeholder="Enter Requirement ID" style="padding: 6px 10px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; background: rgba(0,0,0,0.3); color: #fff; width: 150px; height:32px; font-size: 0.75rem;" onkeydown="if(event.key==='Enter')lookupRequirement()">
+                    <button class="btn btn-primary" onclick="lookupRequirement()" style="padding: 6px 12px; font-size: 0.7rem;">🔍 Lookup</button>
+                </div>
+                <div id="reqLookupResult"></div>
+            </div>
+
+        </div><!-- End Tab 5 -->
+
+    <!-- Update Feature Data Popup -->
+    <div id="updateFeaturePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;">
+        <div class="fp-update-popup" style="background:#1e293b;border:1px solid rgba(59,130,246,0.4);border-radius:12px;max-width:1050px;width:97%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 25px 50px rgba(0,0,0,0.6);">
+            <div class="fp-update-header" style="padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                    <h3 style="color:#93c5fd;font-size:1rem;margin:0;">⬆️ Update Feature Data in TFS</h3>
+                    <p class="fp-update-subtitle" style="color:#64748b;font-size:0.62rem;margin:3px 0 0 0;">Hours: Planned ← Task Planned | Comp Effort ← Task Comp Dev | Actual Comp ← Task Act Comp &nbsp;|&nbsp; <span style="color:#fbbf24;">Change State/Status per feature below</span></p>
+                </div>
+                <button onclick="closeUpdateFeaturePopup()" style="background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
+            </div>
+            <div id="updateFeaturePopupSummary" class="fp-update-summary" style="padding:8px 16px;background:rgba(0,0,0,0.15);border-bottom:1px solid rgba(255,255,255,0.06);"></div>
+            <div id="updateFeaturePopupBody" style="overflow:auto;flex:1;padding:8px 16px;"></div>
+            <div id="updateFeaturePopupFooter" class="fp-update-footer" style="display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.08);">
+                <button onclick="closeUpdateFeaturePopup()" class="btn" style="padding:6px 18px;font-size:0.75rem;background:rgba(100,116,139,0.3);border:1px solid rgba(100,116,139,0.5);color:#94a3b8;border-radius:6px;">Cancel</button>
+                <button id="confirmUpdateFeatureBtn" onclick="confirmUpdateFeatureHours()" class="btn btn-success" style="padding:6px 18px;font-size:0.75rem;border-radius:6px;">✅ Confirm &amp; Update Selected</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ============================================
@@ -2397,7 +2469,7 @@
         let projectsFetched = false;
         let isAuthorizedUser = false;
         let currentUserRole = 'normal'; // 'super_admin', 'admin' or 'normal' - loaded from allowed_users.json
-        let currentUserTabs = [1, 2, 3, 4]; // Tab permissions - loaded from allowed_users.json
+        let currentUserTabs = [1, 2, 3, 4, 5]; // Tab permissions - loaded from allowed_users.json
         let selectedProjects = [];
         
         async function autoFetchProjects() {
@@ -2449,7 +2521,7 @@
                                 currentUserRole = (matchedUser.role || 'normal').toLowerCase();
                                 // super_admin & admin always get all tabs
                                 if (['super_admin', 'admin'].includes(currentUserRole)) {
-                                    currentUserTabs = [1, 2, 3, 4];
+                                    currentUserTabs = [1, 2, 3, 4, 5];
                                 } else {
                                     currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
                                 }
@@ -3747,7 +3819,7 @@
             document.getElementById('loadWeeklyBtn').style.borderColor = '';
             weeklyProgressLoaded = false;
             weeklyIterFilter = 'all';
-            weeklyDataByIteration = {};
+            // weeklyDataByIteration is rebuilt in loadData() - don't clear it here
             const weeklyIterFilterEl = document.getElementById('weeklyIterationFilter');
             if (weeklyIterFilterEl) { weeklyIterFilterEl.value = 'all'; }
             // Reset AI Adoption Data
@@ -3900,6 +3972,7 @@
             featureProgressData = [];
             featureSortColumn = null;
             featureSortDirection = 'asc';
+            fpSelectedIds = new Set();
             activeFeatureFilters = { iterations: [], states: [], statuses: [] };
             if (document.getElementById('featureProgressContent')) document.getElementById('featureProgressContent').style.display = 'none';
             if (document.getElementById('toggleFeatureProgressBtn')) document.getElementById('toggleFeatureProgressBtn').textContent = '📊 Show';
@@ -4094,26 +4167,18 @@
         function populateWeeklyIterationFilter() {
             const filterEl = document.getElementById('weeklyIterationFilter');
             filterEl.innerHTML = '<option value="all">All Iterations</option>';
-            // Add selected iteration paths
-            const addedPaths = new Set();
-            selectedIterationPaths.forEach(iterObj => {
-                const iterName = iterObj.path.split('\\').pop();
+            // Populate from actual data keys (requirement iteration paths) - these are guaranteed to match
+            const sortedPaths = Object.keys(weeklyDataByIteration).sort();
+            sortedPaths.forEach(iterPath => {
                 const opt = document.createElement('option');
-                opt.value = iterObj.path;
-                opt.textContent = iterName;
+                opt.value = iterPath;
+                opt.textContent = iterPath.split('\\').pop();
                 filterEl.appendChild(opt);
-                addedPaths.add(iterObj.path);
             });
-            // Also add any iteration paths found in data but not in selectedIterationPaths
-            Object.keys(weeklyDataByIteration).forEach(iterPath => {
-                if (!addedPaths.has(iterPath)) {
-                    const opt = document.createElement('option');
-                    opt.value = iterPath;
-                    opt.textContent = iterPath.split('\\').pop();
-                    filterEl.appendChild(opt);
-                    addedPaths.add(iterPath);
-                }
-            });
+            // If saved filter still exists in options, restore it
+            if (weeklyIterFilter !== 'all' && !sortedPaths.includes(weeklyIterFilter)) {
+                weeklyIterFilter = 'all';
+            }
             filterEl.value = weeklyIterFilter;
         }
         
@@ -4201,10 +4266,10 @@
             
             // Store globally for filtering
             window.allFocusItems = focusItems;
-            window.currentFocusFilter = 'all';
             
-            // Render with filter
-            renderFocusItemsTable('all');
+            // Render with current filter (preserve week filter on iteration change)
+            const currentFilter = window.currentFocusFilter || 'all';
+            renderFocusItemsTable(currentFilter);
             
             // Show/hide no weekly data message
             if (totalAll === 0) {
@@ -4935,15 +5000,25 @@
             });
         }
 
+        let fpSelectedIds = new Set(); // Track selected feature IDs for Update popup
+
         function renderFeatureProgressTable() {
             const filteredData = getFilteredFeatureData();
             const data = getSortedFeatureData(filteredData);
             const tbody = document.getElementById('featureProgressTableBody');
             const tfoot = document.getElementById('featureProgressTableFooter');
             const pd = 'padding:4px 3px;';
+            // Init selection: if empty (first render), select all
+            if (fpSelectedIds.size === 0 && data.length > 0) {
+                data.forEach(f => fpSelectedIds.add(f.id));
+            }
+            // Clean up IDs no longer in filtered data
+            const currentIds = new Set(data.map(f => f.id));
+            fpSelectedIds.forEach(id => { if (!currentIds.has(id)) fpSelectedIds.delete(id); });
             if (data.length > 0) {
                 document.getElementById('noFeatureProgressData').style.display = 'none';
                 tbody.innerHTML = data.map(f => {
+                    const chk = fpSelectedIds.has(f.id);
                     const stCls = getStatePillClass(f.state);
                     const statusCls = getStatusPillClass(f.status);
                     const mm1 = Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01;
@@ -4955,6 +5030,7 @@
                     const ttE = mm2 ? `title="Mismatch: CompEffort(${fmtH(f.completedEffort)}) ≠ TaskCompDev(${fmtH(f.taskLevelCompletedDevHours)})"` : '';
                     const ttA = mm3 ? `title="Mismatch: ActualComp(${fmtH(f.actualCompletedHours)}) ≠ TaskActComp(${fmtH(f.taskLevelActualCompHours)})"` : '';
                     return `<tr>
+                        <td style="${pd}text-align:center;"><input type="checkbox" class="fp-table-chk" data-fid="${f.id}" ${chk?'checked':''} onchange="onFpTableCheckboxChange(this)" style="cursor:pointer;accent-color:#3b82f6;"></td>
                         <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
                         <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
                         <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}">${f.state}</span></td>
@@ -4983,7 +5059,7 @@
                 const totTaskActualComp = data.reduce((s, f) => s + f.taskLevelActualCompHours, 0);
                 const fp = 'padding:5px 3px;';
                 tfoot.innerHTML = `<tr>
-                    <td colspan="4" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
+                    <td colspan="5" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
                     <td class="fp-est-inhrs" style="${fp}text-align:right;font-weight:700;">${fmtH(totEstInHrs)}h</td>
                     <td class="fp-est-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
                     <td class="fp-dev-delivery" style="${fp}text-align:right;font-weight:700;">${fmtH(totDevDelivery)}h</td>
@@ -4995,10 +5071,50 @@
                     <td class="fp-task-cdev" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskCompDev)}h</td>
                     <td class="fp-task-acomp" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskActualComp)}h</td>
                 </tr>`;
+                syncFpTableSelectAll();
+                updateFpSelectedCount();
             } else {
                 document.getElementById('noFeatureProgressData').style.display = 'block';
                 tbody.innerHTML = '';
                 tfoot.innerHTML = '';
+            }
+        }
+
+        function onFpTableCheckboxChange(cb) {
+            const fid = parseInt(cb.getAttribute('data-fid'));
+            if (cb.checked) { fpSelectedIds.add(fid); } else { fpSelectedIds.delete(fid); }
+            syncFpTableSelectAll();
+            updateFpSelectedCount();
+        }
+
+        function toggleAllFpTableCheckboxes(checked) {
+            document.querySelectorAll('.fp-table-chk').forEach(cb => {
+                cb.checked = checked;
+                const fid = parseInt(cb.getAttribute('data-fid'));
+                if (checked) { fpSelectedIds.add(fid); } else { fpSelectedIds.delete(fid); }
+            });
+            updateFpSelectedCount();
+        }
+
+        function syncFpTableSelectAll() {
+            const all = document.querySelectorAll('.fp-table-chk');
+            const checked = document.querySelectorAll('.fp-table-chk:checked');
+            const selectAll = document.getElementById('fpTableSelectAll');
+            if (selectAll && all.length > 0) {
+                selectAll.checked = checked.length === all.length;
+                selectAll.indeterminate = checked.length > 0 && checked.length < all.length;
+            }
+        }
+
+        function updateFpSelectedCount() {
+            const btn = document.getElementById('updateFeatureHoursBtn');
+            if (!btn) return;
+            const count = fpSelectedIds.size;
+            const total = getFilteredFeatureData().length;
+            if (count > 0 && count < total) {
+                btn.textContent = `⬆️ Update Feature Data (${count})`;
+            } else {
+                btn.textContent = '⬆️ Update Feature Data';
             }
         }
 
@@ -5012,51 +5128,186 @@
             hideCardLoading('featureProgress');
         }
 
-        // ===== UPDATE FEATURE HOURS IN TFS =====
-        async function updateFeatureHours() {
+        // ===== UPDATE FEATURE DATA IN TFS (POPUP) =====
+        function showUpdateFeaturePopup() {
             if (!['admin','super_admin'].includes(currentUserRole)) {
-                alert('⚠️ Only Admin and Super Admin can update feature hours.'); return;
+                alert('⚠️ Only Admin and Super Admin can update feature data.'); return;
             }
-            const filteredData = getFilteredFeatureData();
-            if (filteredData.length === 0) { alert('⚠️ No features available to update.'); return; }
-            const summaryLines = filteredData.map(f =>
-                `#${f.id}: Planned=${fmtH(f.taskLevelPlannedHours)}h, CompDev=${fmtH(f.taskLevelCompletedDevHours)}h, ActualComp=${fmtH(f.taskLevelActualCompHours)}h`
-            ).join('\n');
-            if (!confirm(`⬆️ Update Feature Hours in TFS for ${filteredData.length} feature(s)?\n\nMapping:\n• Planned Hours ← Task Planned\n• Completed Dev & Delivery Hours ← Task Comp Dev\n• Actual Completed Hours ← Task Actual Comp\n\n${summaryLines}\n\nProceed?`)) return;
-            const btn = document.getElementById('updateFeatureHoursBtn');
+            // Only show features checked in the Feature Progress table
+            const filteredData = getFilteredFeatureData().filter(f => fpSelectedIds.has(f.id));
+            if (filteredData.length === 0) { alert('⚠️ No features selected. Please check features in the table first.'); return; }
+            const states = featureFilters.states.length > 0 ? featureFilters.states : ['Proposed','Active','Resolved','Closed'];
+            const statuses = featureFilters.statuses.length > 0 ? featureFilters.statuses : [];
+            const isLight = document.body.classList.contains('light-theme');
+            const totalFiltered = getFilteredFeatureData().length;
+
+            // Theme colors
+            const tc = {
+                muted: isLight ? '#64748b' : '#94a3b8',
+                text: isLight ? '#1e293b' : '#e2e8f0',
+                cellText: isLight ? '#334155' : '#cbd5e1',
+                planned: isLight ? '#7c3aed' : '#c084fc',
+                taskVal: isLight ? '#ea580c' : '#f97316',
+                hlMismatch: isLight ? 'background:rgba(239,68,68,0.1);' : 'background:rgba(239,68,68,0.15);',
+                hlTask: isLight ? 'background:rgba(251,146,60,0.1);' : 'background:rgba(251,146,60,0.15);',
+                selBg: isLight ? 'background:#f1f5f9;color:#1e293b;border:1px solid #cbd5e1;' : 'background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(99,102,241,0.3);',
+                rowAlt: isLight ? 'background:#f8fafc;' : 'background:rgba(255,255,255,0.02);',
+                thBg: isLight ? 'background:#f1f5f9;' : 'background:rgba(0,0,0,0.3);',
+                thColor: isLight ? '#475569' : '#94a3b8',
+                border: isLight ? 'border-bottom:1px solid #e2e8f0;' : 'border-bottom:1px solid rgba(255,255,255,0.06);',
+                warn: isLight ? '#b45309' : '#fbbf24',
+                blue: isLight ? '#2563eb' : '#60a5fa',
+                red: isLight ? '#dc2626' : '#f87171',
+                green: isLight ? '#059669' : '#34d399',
+                footBg: isLight ? 'background:#eef2ff;' : 'background:rgba(59,130,246,0.1);',
+                footBorder: isLight ? 'border-top:2px solid #93c5fd;' : 'border-top:2px solid rgba(59,130,246,0.4);',
+                footText: isLight ? '#1e40af' : '#93c5fd'
+            };
+
+            // Summary bar
+            const summaryDiv = document.getElementById('updateFeaturePopupSummary');
+            const mismatchCount = filteredData.filter(f =>
+                Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01 ||
+                Math.abs(f.completedEffort - f.taskLevelCompletedDevHours) > 0.01 ||
+                Math.abs(f.actualCompletedHours - f.taskLevelActualCompHours) > 0.01
+            ).length;
+            summaryDiv.innerHTML = `<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:0.68rem;align-items:center;">
+                <span style="color:${tc.muted};">Selected: <b style="color:${tc.blue};">${filteredData.length}</b> / ${totalFiltered} features</span>
+                <span style="color:${tc.muted};">Hours Mismatch: <b style="color:${mismatchCount>0?tc.red:tc.green};">${mismatchCount}</b></span>
+                <span style="color:${tc.warn};font-weight:500;">⚠️ Change State/Status per row. Hours auto-sync from tasks.</span>
+            </div>`;
+
+            // Compute totals
+            const totals = {
+                planned: filteredData.reduce((s,f) => s + f.plannedHours, 0),
+                taskPlan: filteredData.reduce((s,f) => s + f.taskLevelPlannedHours, 0),
+                compEff: filteredData.reduce((s,f) => s + f.completedEffort, 0),
+                taskCDev: filteredData.reduce((s,f) => s + f.taskLevelCompletedDevHours, 0),
+                actComp: filteredData.reduce((s,f) => s + f.actualCompletedHours, 0),
+                taskACmp: filteredData.reduce((s,f) => s + f.taskLevelActualCompHours, 0)
+            };
+
+            // Build table
+            const body = document.getElementById('updateFeaturePopupBody');
+            const pd = 'padding:5px 6px;font-size:0.64rem;';
+            const thS = `${pd}text-align:center;color:${tc.thColor};font-weight:600;white-space:nowrap;`;
+            const tfp = 'padding:6px;font-size:0.66rem;font-weight:700;text-align:right;';
+            body.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:0.64rem;">
+                <thead><tr style="${tc.thBg}">
+                    <th style="${pd}text-align:left;color:${tc.thColor};width:50px;">ID</th>
+                    <th style="${pd}text-align:left;color:${tc.thColor};">Title</th>
+                    <th style="${thS}width:85px;">State</th>
+                    <th style="${thS}max-width:130px;">Status</th>
+                    <th style="${thS}color:${tc.planned};width:55px;">Planned</th><th style="${thS}color:${tc.taskVal};width:55px;">Task Plan</th>
+                    <th style="${thS}color:${tc.planned};width:55px;">Comp Eff</th><th style="${thS}color:${tc.taskVal};width:55px;">Task CDev</th>
+                    <th style="${thS}color:${tc.planned};width:55px;">Act Comp</th><th style="${thS}color:${tc.taskVal};width:55px;">Task ACmp</th>
+                </tr></thead><tbody>${filteredData.map((f, i) => {
+                    const mm1 = Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01;
+                    const mm2 = Math.abs(f.completedEffort - f.taskLevelCompletedDevHours) > 0.01;
+                    const mm3 = Math.abs(f.actualCompletedHours - f.taskLevelActualCompHours) > 0.01;
+                    const stOpts = states.map(s => `<option value="${s}"${s===f.state?' selected':''}>${s}</option>`).join('');
+                    const suOpts = ['<option value="">-</option>', ...statuses.map(s => `<option value="${s}"${s===f.status?' selected':''}>${s}</option>`)].join('');
+                    const rowBg = i % 2 === 0 ? '' : tc.rowAlt;
+                    return `<tr id="fpPopupRow-${f.id}" style="${tc.border}${rowBg}">
+                        <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
+                        <td style="${pd}color:${tc.cellText};max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f.title}">${f.title}</td>
+                        <td style="${pd}"><select data-fid="${f.id}" data-field="state" data-orig="${f.state}" style="font-size:0.62rem;padding:2px 4px;${tc.selBg}border-radius:4px;width:100%;">${stOpts}</select></td>
+                        <td style="${pd}"><select data-fid="${f.id}" data-field="status" data-orig="${f.status||''}" style="font-size:0.62rem;padding:2px 4px;${tc.selBg}border-radius:4px;width:100%;">${suOpts}</select></td>
+                        <td style="${pd}text-align:right;color:${tc.planned};${mm1?tc.hlMismatch:''}">${fmtH(f.plannedHours)}h</td>
+                        <td style="${pd}text-align:right;color:${tc.taskVal};font-weight:700;${mm1?tc.hlTask:''}">${fmtH(f.taskLevelPlannedHours)}h</td>
+                        <td style="${pd}text-align:right;color:${tc.planned};${mm2?tc.hlMismatch:''}">${fmtH(f.completedEffort)}h</td>
+                        <td style="${pd}text-align:right;color:${tc.taskVal};font-weight:700;${mm2?tc.hlTask:''}">${fmtH(f.taskLevelCompletedDevHours)}h</td>
+                        <td style="${pd}text-align:right;color:${tc.planned};${mm3?tc.hlMismatch:''}">${fmtH(f.actualCompletedHours)}h</td>
+                        <td style="${pd}text-align:right;color:${tc.taskVal};font-weight:700;${mm3?tc.hlTask:''}">${fmtH(f.taskLevelActualCompHours)}h</td>
+                    </tr>`;
+                }).join('')}</tbody>
+                <tfoot><tr style="${tc.footBg}${tc.footBorder}">
+                    <td colspan="4" style="${tfp}color:${tc.footText};">Totals (${filteredData.length}):</td>
+                    <td style="${tfp}color:${tc.planned};">${fmtH(totals.planned)}h</td>
+                    <td style="${tfp}color:${tc.taskVal};">${fmtH(totals.taskPlan)}h</td>
+                    <td style="${tfp}color:${tc.planned};">${fmtH(totals.compEff)}h</td>
+                    <td style="${tfp}color:${tc.taskVal};">${fmtH(totals.taskCDev)}h</td>
+                    <td style="${tfp}color:${tc.planned};">${fmtH(totals.actComp)}h</td>
+                    <td style="${tfp}color:${tc.taskVal};">${fmtH(totals.taskACmp)}h</td>
+                </tr></tfoot></table>`;
+            // Restore footer buttons
+            document.getElementById('updateFeaturePopupFooter').innerHTML = `
+                <button onclick="closeUpdateFeaturePopup()" class="btn" style="padding:6px 18px;font-size:0.75rem;background:rgba(100,116,139,0.3);border:1px solid rgba(100,116,139,0.5);color:${tc.muted};border-radius:6px;">Cancel</button>
+                <button id="confirmUpdateFeatureBtn" onclick="confirmUpdateFeatureHours()" class="btn btn-success" style="padding:6px 18px;font-size:0.75rem;border-radius:6px;">✅ Confirm &amp; Update All (${filteredData.length})</button>`;
+            document.getElementById('updateFeaturePopupFooter').style.display = 'flex';
+            document.getElementById('updateFeaturePopup').style.display = 'flex';
+        }
+
+        function closeUpdateFeaturePopup() {
+            document.getElementById('updateFeaturePopup').style.display = 'none';
+        }
+
+        async function confirmUpdateFeatureHours() {
+            // Popup already shows only selected features from FP table
+            const selectedData = getFilteredFeatureData().filter(f => fpSelectedIds.has(f.id));
+            if (selectedData.length === 0) { alert('⚠️ No features to update.'); return; }
+
+            const btn = document.getElementById('confirmUpdateFeatureBtn');
             const originalText = btn.textContent;
             btn.disabled = true;
+            btn.textContent = '⏳ Updating...';
             let successCount = 0, failedIds = [];
-            for (let i = 0; i < filteredData.length; i++) {
-                const feature = filteredData[i];
-                btn.textContent = `⏳ Updating ${i + 1}/${filteredData.length}...`;
-                try {
-                    const patchBody = [
-                        { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.PlannedHours', value: feature.taskLevelPlannedHours },
-                        { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.CompletedEffort', value: feature.taskLevelCompletedDevHours },
-                        { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.ActualCompletedHours', value: feature.taskLevelActualCompHours }
-                    ];
-                    const resp = await fetch(`${tfsUrl}/_apis/wit/workitems/${feature.id}?api-version=5.0`, {
-                        method: 'PATCH',
-                        headers: { ...config.headers, 'Content-Type': 'application/json-patch+json' },
-                        body: JSON.stringify(patchBody)
-                    });
-                    apiCallCount++;
-                    document.getElementById('apiCallCount').textContent = apiCallCount;
-                    if (!resp.ok) throw new Error(`${resp.status}: ${await resp.text()}`);
-                    successCount++;
-                    feature.plannedHours = feature.taskLevelPlannedHours;
-                    feature.completedEffort = feature.taskLevelCompletedDevHours;
-                    feature.actualCompletedHours = feature.taskLevelActualCompHours;
-                    feature.total = feature.discoveryEffort + feature.plannedHours;
-                } catch (e) { failedIds.push(feature.id); }
+
+            try {
+                for (let i = 0; i < selectedData.length; i++) {
+                    const feature = selectedData[i];
+                    btn.textContent = `⏳ ${i + 1}/${selectedData.length}...`;
+                    try {
+                        const patchBody = [
+                            { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.PlannedHours', value: feature.taskLevelPlannedHours },
+                            { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.CompletedEffort', value: feature.taskLevelCompletedDevHours },
+                            { op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.ActualCompletedHours', value: feature.taskLevelActualCompHours }
+                        ];
+                        const stSel = document.querySelector(`select[data-fid="${feature.id}"][data-field="state"]`);
+                        const suSel = document.querySelector(`select[data-fid="${feature.id}"][data-field="status"]`);
+                        if (stSel && stSel.value !== stSel.getAttribute('data-orig')) {
+                            patchBody.push({ op: 'replace', path: '/fields/System.State', value: stSel.value });
+                        }
+                        if (suSel && suSel.value !== suSel.getAttribute('data-orig')) {
+                            patchBody.push({ op: 'replace', path: '/fields/Casepoint.TFS.CustomFields.Status', value: suSel.value });
+                        }
+                        const resp = await fetch(`${tfsUrl}/_apis/wit/workitems/${feature.id}?api-version=5.0`, {
+                            method: 'PATCH',
+                            headers: { ...config.headers, 'Content-Type': 'application/json-patch+json' },
+                            body: JSON.stringify(patchBody)
+                        });
+                        apiCallCount++;
+                        document.getElementById('apiCallCount').textContent = apiCallCount;
+                        if (!resp.ok) throw new Error(`${resp.status}: ${await resp.text()}`);
+                        successCount++;
+                        feature.plannedHours = feature.taskLevelPlannedHours;
+                        feature.completedEffort = feature.taskLevelCompletedDevHours;
+                        feature.actualCompletedHours = feature.taskLevelActualCompHours;
+                        if (stSel && stSel.value !== feature.state) feature.state = stSel.value;
+                        if (suSel && suSel.value !== feature.status) feature.status = suSel.value;
+                    } catch (e) { failedIds.push(feature.id); console.error('[UpdateFeature]', feature.id, e.message); }
+                }
+                try { renderFeatureProgressTable(); } catch(e) { console.error('renderFeatureProgressTable error:', e); }
+                try { updateFeatureSummaryStats(); } catch(e) { console.error('updateFeatureSummaryStats error:', e); }
+            } finally {
+                const isLight = document.body.classList.contains('light-theme');
+                const allOk = failedIds.length === 0;
+                const resultColor = allOk ? (isLight ? '#059669' : '#34d399') : (isLight ? '#b45309' : '#fbbf24');
+                const failColor = isLight ? '#dc2626' : '#f87171';
+                const mutedColor = isLight ? '#64748b' : '#94a3b8';
+                const body = document.getElementById('updateFeaturePopupBody');
+                body.innerHTML = `<div style="text-align:center;padding:30px;">
+                    <div style="font-size:2.5rem;margin-bottom:12px;">${allOk ? '✅' : '⚠️'}</div>
+                    <div style="color:${resultColor};font-size:1.1rem;font-weight:700;margin-bottom:8px;">
+                        ${successCount}/${selectedData.length} feature(s) updated successfully
+                    </div>
+                    ${failedIds.length > 0 ? `<div style="color:${failColor};font-size:0.78rem;margin-bottom:10px;">❌ Failed: ${failedIds.map(id => '#' + id).join(', ')}</div>` : ''}
+                    <div style="color:${mutedColor};font-size:0.7rem;margin-top:8px;">Hours synced from task-level data. State/Status changes applied where modified.</div>
+                </div>`;
+                document.getElementById('updateFeaturePopupSummary').innerHTML = '';
+                document.getElementById('updateFeaturePopupFooter').innerHTML = `
+                    <button onclick="closeUpdateFeaturePopup()" class="btn btn-primary" style="padding:6px 20px;font-size:0.75rem;border-radius:6px;">Close</button>`;
             }
-            renderFeatureProgressTable();
-            let msg = `✅ ${successCount}/${filteredData.length} feature(s) updated successfully.`;
-            if (failedIds.length > 0) msg += `\n\n❌ Failed: ${failedIds.map(id => '#' + id).join(', ')}`;
-            alert(msg);
-            btn.textContent = originalText;
-            btn.disabled = false;
         }
 
         // ===== AFFECTED AREA FEATURES =====
@@ -5162,8 +5413,14 @@
                 const featureMap = {};
                 features.forEach(f => { featureMap[f.id] = f; });
 
-                // Step 6: Filter features NOT in selected areas and group tasks
-                const featureTaskGroups = {}; // featureId → [tasks]
+                // Step 5b: Fetch parent (Req/Bug) details for tree view
+                const parentFields = ['System.Id','System.Title','System.State','System.WorkItemType','System.AreaPath','System.IterationPath'];
+                const parentDetails = parentIds.size > 0 ? await batchFetchWorkItems([...parentIds], parentFields) : [];
+                const parentDetailMap = {};
+                parentDetails.forEach(p => { parentDetailMap[p.id] = p; });
+
+                // Step 6: Filter features NOT in selected areas and group tasks by Feature → Req → Task
+                const featureReqTaskGroups = {}; // featureId → { reqId → [tasks] }
                 const allIterNames = new Set();
                 allTaskIds.forEach(tid => {
                     const parentId = taskParentMap[tid];
@@ -5172,19 +5429,18 @@
                     if (!featureId) return;
                     const feat = featureMap[featureId];
                     if (!feat) return;
-                    // Check if feature area is under any selected area (skip if yes - those are in Feature Progress)
                     const featAreaLower = (feat.fields['System.AreaPath'] || '').toLowerCase();
                     const isInSelectedArea = selectedAreaLower.some(sa => featAreaLower === sa || featAreaLower.startsWith(sa + '\\'));
                     if (isInSelectedArea) return;
-                    // Check if this is actually a Feature
-                    if (!featureTaskGroups[featureId]) featureTaskGroups[featureId] = [];
                     const task = taskDetailMap[tid];
                     if (!task || task.fields['System.WorkItemType'] !== 'Task') return;
                     const disc = (task.fields['Microsoft.VSTS.Common.Discipline'] || '').toLowerCase().trim();
                     if (!['development', 'test', 'analysis'].includes(disc)) return;
                     const iterLeaf = (task.fields['System.IterationPath'] || '').split('\\').pop().trim();
                     if (iterLeaf && iterLeaf.toLowerCase() !== 'casepointara') allIterNames.add(iterLeaf);
-                    featureTaskGroups[featureId].push({
+                    if (!featureReqTaskGroups[featureId]) featureReqTaskGroups[featureId] = {};
+                    if (!featureReqTaskGroups[featureId][parentId]) featureReqTaskGroups[featureId][parentId] = [];
+                    featureReqTaskGroups[featureId][parentId].push({
                         taskId: task.id,
                         taskTitle: task.fields['System.Title'] || '',
                         taskState: task.fields['System.State'] || '',
@@ -5198,19 +5454,30 @@
                     });
                 });
 
-                // Build affectedAreaData
-                affectedAreaData = Object.keys(featureTaskGroups).map(fid => {
+                // Build affectedAreaData with Feature → Reqs → Tasks hierarchy
+                affectedAreaData = Object.keys(featureReqTaskGroups).map(fid => {
                     const feat = featureMap[parseInt(fid)];
                     const fArea = (feat.fields['System.AreaPath'] || '').split('\\').pop();
+                    const reqGroups = featureReqTaskGroups[fid];
+                    const reqs = Object.keys(reqGroups).map(rid => {
+                        const parent = parentDetailMap[parseInt(rid)];
+                        return {
+                            reqId: parseInt(rid),
+                            reqTitle: parent ? (parent.fields['System.Title'] || '') : `#${rid}`,
+                            reqState: parent ? (parent.fields['System.State'] || '') : '-',
+                            reqType: parent ? (parent.fields['System.WorkItemType'] || '') : '-',
+                            tasks: reqGroups[rid]
+                        };
+                    });
                     return {
                         featureId: parseInt(fid),
                         featureTitle: feat.fields['System.Title'] || '',
                         featureArea: feat.fields['System.AreaPath'] || '',
                         featureAreaLeaf: fArea,
                         featureState: feat.fields['System.State'] || '',
-                        tasks: featureTaskGroups[fid]
+                        reqs
                     };
-                }).filter(f => f.tasks.length > 0).sort((a, b) => a.featureId - b.featureId);
+                }).filter(f => f.reqs.some(r => r.tasks.length > 0)).sort((a, b) => a.featureId - b.featureId);
 
                 affectedAreaDataLoaded = true;
                 document.getElementById('affectedAreaCount').textContent = affectedAreaData.length;
@@ -5235,9 +5502,31 @@
                 affectedAreaSortDir = affectedAreaSortDir === 'asc' ? 'desc' : 'asc';
             } else {
                 affectedAreaSortCol = col;
-                affectedAreaSortDir = ['featureId','featureTitle','featureArea','taskId','taskTitle','taskState','assigned','discipline','iteration'].includes(col) ? 'asc' : 'desc';
+                affectedAreaSortDir = ['featureId','featureTitle','featureArea','featureState'].includes(col) ? 'asc' : 'desc';
             }
             renderAffectedAreaTable();
+        }
+
+        function toggleAffectedAreaNode(featureId) {
+            const rows = document.querySelectorAll(`.aa-req-${featureId}`);
+            const btn = document.getElementById(`aa-toggle-${featureId}`);
+            if (!btn) return;
+            const isExpanded = btn.textContent === '−';
+            rows.forEach(r => r.style.display = isExpanded ? 'none' : '');
+            // Also collapse all task sub-rows when collapsing feature
+            if (isExpanded) {
+                document.querySelectorAll(`[class*="aa-task-${featureId}-"]`).forEach(r => r.style.display = 'none');
+                document.querySelectorAll(`[id^="aa-req-toggle-${featureId}-"]`).forEach(b => b.textContent = '+');
+            }
+            btn.textContent = isExpanded ? '+' : '−';
+        }
+        function toggleAffectedAreaReq(featureId, reqId) {
+            const rows = document.querySelectorAll(`.aa-task-${featureId}-${reqId}`);
+            const btn = document.getElementById(`aa-req-toggle-${featureId}-${reqId}`);
+            if (!btn) return;
+            const isExpanded = btn.textContent === '−';
+            rows.forEach(r => r.style.display = isExpanded ? 'none' : '');
+            btn.textContent = isExpanded ? '+' : '−';
         }
 
         function renderAffectedAreaTable() {
@@ -5247,98 +5536,133 @@
             const summaryDiv = document.getElementById('affectedAreaSummary');
             const lt = document.body.classList.contains('light-theme');
 
-            // Flatten data: one row per task, with feature info
-            let rows = [];
-            affectedAreaData.forEach(f => {
-                f.tasks.forEach(t => {
-                    if (iterFilter !== 'all' && t.iteration !== iterFilter) return;
-                    rows.push({
-                        featureId: f.featureId, featureTitle: f.featureTitle,
-                        featureArea: f.featureAreaLeaf, featureAreaFull: f.featureArea,
-                        featureState: f.featureState,
-                        taskId: t.taskId, taskTitle: t.taskTitle, taskState: t.taskState,
-                        assigned: t.assigned, discipline: t.discipline, iteration: t.iteration,
-                        origEst: t.origEst, rem: t.rem, comp: t.comp
-                    });
-                });
-            });
+            // Filter and calculate per-feature totals
+            let filteredFeatures = affectedAreaData.map(f => {
+                let fOrig = 0, fRem = 0, fComp = 0, taskCount = 0;
+                const filteredReqs = f.reqs.map(r => {
+                    const filteredTasks = r.tasks.filter(t => iterFilter === 'all' || t.iteration === iterFilter);
+                    filteredTasks.forEach(t => { fOrig += t.origEst; fRem += t.rem; fComp += t.comp; });
+                    taskCount += filteredTasks.length;
+                    return { ...r, filteredTasks };
+                }).filter(r => r.filteredTasks.length > 0);
+                return { ...f, filteredReqs, fOrig, fRem, fComp, taskCount };
+            }).filter(f => f.filteredReqs.length > 0);
 
-            // Sort
+            // Sort features
             if (affectedAreaSortCol) {
                 const dir = affectedAreaSortDir === 'asc' ? 1 : -1;
-                const strCols = ['featureTitle','featureArea','taskTitle','taskState','assigned','discipline','iteration'];
-                rows.sort((a, b) => {
-                    let va = a[affectedAreaSortCol], vb = b[affectedAreaSortCol];
-                    if (strCols.includes(affectedAreaSortCol)) {
-                        va = (va || '').toLowerCase(); vb = (vb || '').toLowerCase();
-                        return va < vb ? -dir : va > vb ? dir : 0;
+                filteredFeatures.sort((a, b) => {
+                    let va, vb;
+                    switch (affectedAreaSortCol) {
+                        case 'featureId': va = a.featureId; vb = b.featureId; break;
+                        case 'featureTitle': va = a.featureTitle.toLowerCase(); vb = b.featureTitle.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
+                        case 'featureArea': va = a.featureAreaLeaf.toLowerCase(); vb = b.featureAreaLeaf.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
+                        case 'featureState': va = a.featureState.toLowerCase(); vb = b.featureState.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
+                        case 'origEst': va = a.fOrig; vb = b.fOrig; break;
+                        case 'rem': va = a.fRem; vb = b.fRem; break;
+                        case 'comp': va = a.fComp; vb = b.fComp; break;
+                        default: va = a.featureId; vb = b.featureId;
                     }
                     return ((va || 0) - (vb || 0)) * dir;
                 });
             }
 
-            // Summary: unique features count, total tasks, total hours
-            const uniqueFeats = new Set(rows.map(r => r.featureId));
-            const totOrig = rows.reduce((s, r) => s + r.origEst, 0);
-            const totRem = rows.reduce((s, r) => s + r.rem, 0);
-            const totComp = rows.reduce((s, r) => s + r.comp, 0);
-            const boxStyle = lt
-                ? 'background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:0.65rem;'
-                : 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;font-size:0.65rem;';
+            // Summary
+            const totTasks = filteredFeatures.reduce((s, f) => s + f.taskCount, 0);
+            const totOrig = filteredFeatures.reduce((s, f) => s + f.fOrig, 0);
+            const totRem = filteredFeatures.reduce((s, f) => s + f.fRem, 0);
+            const totComp = filteredFeatures.reduce((s, f) => s + f.fComp, 0);
+            const boxStyle = lt ? 'background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:0.65rem;' : 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;font-size:0.65rem;';
             const lblClr = lt ? 'color:#64748b;' : 'color:#94a3b8;';
             const valClr = lt ? 'color:#0f172a;font-weight:700;' : 'color:#e2e8f0;font-weight:700;';
             summaryDiv.innerHTML = `
-                <div style="${boxStyle}"><span style="${lblClr}">Features:</span> <span style="${valClr}">${uniqueFeats.size}</span></div>
-                <div style="${boxStyle}"><span style="${lblClr}">Tasks:</span> <span style="${valClr}">${rows.length}</span></div>
+                <div style="${boxStyle}"><span style="${lblClr}">Features:</span> <span style="${valClr}">${filteredFeatures.length}</span></div>
+                <div style="${boxStyle}"><span style="${lblClr}">Tasks:</span> <span style="${valClr}">${totTasks}</span></div>
                 <div style="${boxStyle}"><span style="${lblClr}">Orig Est:</span> <span style="color:#f97316;font-weight:700;">${fmtH(totOrig)}h</span></div>
                 <div style="${boxStyle}"><span style="${lblClr}">Remaining:</span> <span style="color:#38bdf8;font-weight:700;">${fmtH(totRem)}h</span></div>
                 <div style="${boxStyle}"><span style="${lblClr}">Completed:</span> <span style="color:#34d399;font-weight:700;">${fmtH(totComp)}h</span></div>
             `;
 
-            if (rows.length > 0) {
-                document.getElementById('noAffectedAreaData').style.display = 'none';
-                const pd = 'padding:4px 3px;';
-                const tdClr = lt ? 'color:#334155;' : 'color:#cbd5e1;';
-                const areaClr = lt ? 'color:#0369a1;' : 'color:#38bdf8;';
-                const iterClr = lt ? 'color:#7c3aed;' : 'color:#c084fc;';
-                let prevFeatId = null;
-                tbody.innerHTML = rows.map(r => {
-                    const showFeat = r.featureId !== prevFeatId;
-                    prevFeatId = r.featureId;
-                    const stCls = getStatePillClass(r.taskState);
-                    return `<tr style="${showFeat ? 'border-top:2px solid rgba(16,185,129,0.3);' : ''}">
-                        <td style="${pd}${tdClr}${showFeat ? 'font-weight:600;' : 'opacity:0.3;'}">${showFeat ? `<a href="${tfsUrl}/${project}/_workitems/edit/${r.featureId}" target="_blank" class="wi-link">${r.featureId}</a>` : r.featureId}</td>
-                        <td style="${pd}${tdClr}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${showFeat ? 'font-weight:500;' : 'opacity:0.3;'}" title="${r.featureTitle}">${showFeat ? r.featureTitle : ''}</td>
-                        <td style="${pd}${areaClr}font-weight:500;${showFeat ? '' : 'opacity:0.3;'}" title="${r.featureAreaFull}">${showFeat ? r.featureArea : ''}</td>
-                        <td style="${pd}${tdClr}"><a href="${tfsUrl}/${project}/_workitems/edit/${r.taskId}" target="_blank" class="wi-link" style="font-size:0.6rem;">${r.taskId}</a></td>
-                        <td style="${pd}${tdClr}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.taskTitle}">${r.taskTitle}</td>
-                        <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}" style="font-size:0.5rem;padding:1px 5px;">${r.taskState}</span></td>
-                        <td style="${pd}${tdClr}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.assigned}">${r.assigned}</td>
-                        <td style="${pd}${tdClr}">${r.discipline}</td>
-                        <td style="${pd}${iterClr}font-weight:500;">${r.iteration}</td>
-                        <td style="${pd}text-align:right;color:#f97316;font-weight:600;">${fmtH(r.origEst)}h</td>
-                        <td style="${pd}text-align:right;color:#38bdf8;font-weight:600;">${fmtH(r.rem)}h</td>
-                        <td style="${pd}text-align:right;color:#34d399;font-weight:600;">${fmtH(r.comp)}h</td>
-                    </tr>`;
-                }).join('');
-                const fp = 'padding:5px 3px;';
-                tfoot.innerHTML = `<tr>
-                    <td colspan="9" style="${fp}text-align:right;font-weight:700;${tdClr}">Totals (${rows.length} tasks):</td>
-                    <td style="${fp}text-align:right;font-weight:700;color:#f97316;">${fmtH(totOrig)}h</td>
-                    <td style="${fp}text-align:right;font-weight:700;color:#38bdf8;">${fmtH(totRem)}h</td>
-                    <td style="${fp}text-align:right;font-weight:700;color:#34d399;">${fmtH(totComp)}h</td>
-                </tr>`;
-            } else {
+            if (filteredFeatures.length === 0) {
                 document.getElementById('noAffectedAreaData').style.display = 'block';
-                tbody.innerHTML = '';
-                tfoot.innerHTML = '';
+                tbody.innerHTML = ''; tfoot.innerHTML = '';
+                return;
             }
+            document.getElementById('noAffectedAreaData').style.display = 'none';
+            const pd = 'padding:4px 5px;';
+            const tdClr = lt ? 'color:#334155;' : 'color:#cbd5e1;';
+            const areaClr = lt ? 'color:#0369a1;' : 'color:#38bdf8;';
+            const iterClr = lt ? 'color:#7c3aed;' : 'color:#c084fc;';
+            const reqBg = lt ? 'background:rgba(99,102,241,0.06);' : 'background:rgba(99,102,241,0.08);';
+            const taskBg = lt ? 'background:rgba(0,0,0,0.02);' : 'background:rgba(0,0,0,0.15);';
+
+            let html = '';
+            filteredFeatures.forEach(f => {
+                const stCls = getStatePillClass(f.featureState);
+                // Feature summary row
+                html += `<tr style="border-top:2px solid rgba(16,185,129,0.3);cursor:pointer;" onclick="toggleAffectedAreaNode(${f.featureId})">
+                    <td style="${pd}text-align:center;"><button id="aa-toggle-${f.featureId}" style="background:rgba(16,185,129,0.3);border:1px solid rgba(16,185,129,0.5);color:#6ee7b7;border-radius:4px;width:20px;height:20px;cursor:pointer;font-size:0.7rem;line-height:1;font-weight:700;">+</button></td>
+                    <td style="${pd}${tdClr}font-weight:700;"><a href="${tfsUrl}/${project}/_workitems/edit/${f.featureId}" target="_blank" class="wi-link">${f.featureId}</a></td>
+                    <td style="${pd}${tdClr}font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f.featureTitle}">${f.featureTitle}</td>
+                    <td style="${pd}${areaClr}font-weight:500;" title="${f.featureArea}">${f.featureAreaLeaf}</td>
+                    <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}" style="font-size:0.5rem;padding:1px 5px;">${f.featureState}</span></td>
+                    <td style="${pd}text-align:center;${tdClr}font-weight:600;">${f.taskCount}</td>
+                    <td style="${pd}text-align:right;color:#f97316;font-weight:700;">${fmtH(f.fOrig)}h</td>
+                    <td style="${pd}text-align:right;color:#38bdf8;font-weight:700;">${fmtH(f.fRem)}h</td>
+                    <td style="${pd}text-align:right;color:#34d399;font-weight:700;">${fmtH(f.fComp)}h</td>
+                </tr>`;
+                // Requirement rows (hidden by default, shown on feature expand)
+                f.filteredReqs.forEach(r => {
+                    const rOrig = r.filteredTasks.reduce((s,t) => s + t.origEst, 0);
+                    const rRem = r.filteredTasks.reduce((s,t) => s + t.rem, 0);
+                    const rComp = r.filteredTasks.reduce((s,t) => s + t.comp, 0);
+                    const rStCls = getStatePillClass(r.reqState);
+                    const hasSubTasks = r.filteredTasks.length > 0;
+                    html += `<tr class="aa-req-${f.featureId}" style="display:none;${reqBg}${hasSubTasks?'cursor:pointer;':''}" ${hasSubTasks?`onclick="toggleAffectedAreaReq(${f.featureId},${r.reqId})"`:''}> 
+                        <td style="${pd}text-align:center;">${hasSubTasks ? `<button id="aa-req-toggle-${f.featureId}-${r.reqId}" style="background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);color:#c4b5fd;border-radius:4px;width:18px;height:18px;cursor:pointer;font-size:0.6rem;line-height:1;font-weight:700;">+</button>` : ''}</td>
+                        <td style="${pd}padding-left:14px;${tdClr}font-weight:600;font-size:0.56rem;">
+                            <span style="color:#a78bfa;">📄</span> <a href="${tfsUrl}/${project}/_workitems/edit/${r.reqId}" target="_blank" class="wi-link" style="font-size:0.58rem;" onclick="event.stopPropagation()">${r.reqId}</a>
+                        </td>
+                        <td colspan="2" style="${pd}${tdClr}font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.56rem;" title="${r.reqTitle}">${r.reqTitle} <span style="color:#a78bfa;font-size:0.5rem;">(${r.reqType})</span></td>
+                        <td style="${pd}text-align:center;"><span class="fp-state-pill ${rStCls}" style="font-size:0.45rem;padding:1px 4px;">${r.reqState}</span></td>
+                        <td style="${pd}text-align:center;${tdClr}font-size:0.55rem;">${r.filteredTasks.length}</td>
+                        <td style="${pd}text-align:right;color:#f97316;font-size:0.55rem;">${fmtH(rOrig)}h</td>
+                        <td style="${pd}text-align:right;color:#38bdf8;font-size:0.55rem;">${fmtH(rRem)}h</td>
+                        <td style="${pd}text-align:right;color:#34d399;font-size:0.55rem;">${fmtH(rComp)}h</td>
+                    </tr>`;
+                    // Task rows under each Req (hidden, shown on req expand)
+                    r.filteredTasks.forEach(t => {
+                        const tStCls = getStatePillClass(t.taskState);
+                        html += `<tr class="aa-task-${f.featureId}-${r.reqId}" style="display:none;${taskBg}">
+                            <td style="${pd}"></td>
+                            <td style="${pd}padding-left:28px;font-size:0.52rem;${tdClr}">
+                                <a href="${tfsUrl}/${project}/_workitems/edit/${t.taskId}" target="_blank" class="wi-link" style="font-size:0.52rem;">${t.taskId}</a>
+                            </td>
+                            <td style="${pd}${tdClr}font-size:0.52rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${t.taskTitle}">${t.taskTitle}</td>
+                            <td style="${pd}font-size:0.5rem;" title="${t.assigned}"><span style="${iterClr}">${t.iteration}</span> <span style="${tdClr}opacity:0.7;">| ${t.discipline}</span></td>
+                            <td style="${pd}text-align:center;"><span class="fp-state-pill ${tStCls}" style="font-size:0.42rem;padding:0px 3px;">${t.taskState}</span></td>
+                            <td style="${pd}text-align:center;font-size:0.5rem;${tdClr}" title="${t.assigned}">${t.assigned.split(' ')[0]}</td>
+                            <td style="${pd}text-align:right;color:#f97316;font-size:0.52rem;">${fmtH(t.origEst)}h</td>
+                            <td style="${pd}text-align:right;color:#38bdf8;font-size:0.52rem;">${fmtH(t.rem)}h</td>
+                            <td style="${pd}text-align:right;color:#34d399;font-size:0.52rem;">${fmtH(t.comp)}h</td>
+                        </tr>`;
+                    });
+                });
+            });
+            tbody.innerHTML = html;
+            const fp = 'padding:5px 3px;';
+            tfoot.innerHTML = `<tr>
+                <td colspan="6" style="${fp}text-align:right;font-weight:700;${tdClr}">Totals (${filteredFeatures.length} features, ${totTasks} tasks):</td>
+                <td style="${fp}text-align:right;font-weight:700;color:#f97316;">${fmtH(totOrig)}h</td>
+                <td style="${fp}text-align:right;font-weight:700;color:#38bdf8;">${fmtH(totRem)}h</td>
+                <td style="${fp}text-align:right;font-weight:700;color:#34d399;">${fmtH(totComp)}h</td>
+            </tr>`;
         }
 
         function applyTabPermissions() {
-            const tabNames = { 1: 'Sprint Planning', 2: 'Work Progress', 3: 'AI Usage', 4: 'Feature Progress' };
+            const tabNames = { 1: 'Sprint Planning', 2: 'Work Progress', 3: 'AI Usage', 4: 'Feature Progress', 5: 'Data Lookup' };
             const isAdmin = ['admin', 'super_admin'].includes(currentUserRole);
-            [1, 2, 3, 4].forEach(t => {
+            [1, 2, 3, 4, 5].forEach(t => {
                 const btn = document.getElementById('tabBtn' + t);
                 if (!btn) return;
                 if (currentUserTabs.includes(t)) {
@@ -5349,7 +5673,7 @@
                 }
             });
             // If current visible tab is not allowed, switch to first allowed tab
-            const activeTab = [1,2,3,4].find(t => document.getElementById('tabContent'+t)?.style.display === 'block');
+            const activeTab = [1,2,3,4,5].find(t => document.getElementById('tabContent'+t)?.style.display === 'block');
             if (activeTab && !currentUserTabs.includes(activeTab)) {
                 switchTab(currentUserTabs[0] || 1);
             }
@@ -5371,6 +5695,7 @@
             document.getElementById('tabContent2').style.display = 'none';
             document.getElementById('tabContent3').style.display = 'none';
             document.getElementById('tabContent4').style.display = 'none';
+            document.getElementById('tabContent5').style.display = 'none';
             
             // Reset all tab buttons
             const inactiveStyle = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;';
@@ -5380,6 +5705,7 @@
             document.getElementById('tabBtn2').style.cssText = inactiveStyle;
             document.getElementById('tabBtn3').style.cssText = inactiveStyle;
             document.getElementById('tabBtn4').style.cssText = inactiveStyle;
+            document.getElementById('tabBtn5').style.cssText = inactiveStyle;
             
             // Show selected tab and activate button
             document.getElementById('tabContent' + tabNum).style.display = 'block';
@@ -9053,6 +9379,21 @@
             else if (currentFilter === 'urnMissing') filtered = requirements.filter(r => r.urnTag === 'urnMissing');
             else if (currentFilter === 'noWeeklyTag') filtered = requirements.filter(r => r.category === 'deliverable' && !r.hasWeeklyTag);
 
+            // Populate column filter dropdowns from current tab-filtered data
+            populateReqListFilters(filtered);
+
+            // Apply column filters
+            const stateF = document.getElementById('reqFilterState')?.value || 'all';
+            const assignedF = document.getElementById('reqFilterAssigned')?.value || 'all';
+            const iterF = document.getElementById('reqFilterIteration')?.value || 'all';
+            const catF = document.getElementById('reqFilterCategory')?.value || 'all';
+            const urnF = document.getElementById('reqFilterUrn')?.value || 'all';
+            if (stateF !== 'all') filtered = filtered.filter(r => (r.fields['System.State'] || '') === stateF);
+            if (assignedF !== 'all') filtered = filtered.filter(r => (r.fields['System.AssignedTo']?.displayName || '-') === assignedF);
+            if (iterF !== 'all') filtered = filtered.filter(r => (r.fields['System.IterationPath'] || '').split('\\').pop() === iterF);
+            if (catF !== 'all') filtered = filtered.filter(r => (r.category || '') === catF);
+            if (urnF !== 'all') filtered = filtered.filter(r => (r.urnTag || '') === urnF);
+
             // Sort the filtered data
             const sortedData = [...filtered].sort((a, b) => {
                 let aVal, bVal;
@@ -9064,6 +9405,7 @@
                     case 'assigned': aVal = (a.fields['System.AssignedTo']?.displayName || '').toLowerCase(); bVal = (b.fields['System.AssignedTo']?.displayName || '').toLowerCase(); break;
                     case 'category': aVal = a.category || ''; bVal = b.category || ''; break;
                     case 'urn': aVal = a.urnTag || ''; bVal = b.urnTag || ''; break;
+                    case 'iteration': aVal = (a.fields['System.IterationPath'] || '').toLowerCase(); bVal = (b.fields['System.IterationPath'] || '').toLowerCase(); break;
                     default: aVal = a.id; bVal = b.id;
                 }
                 if (aVal < bVal) return reqListSortDir === 'asc' ? -1 : 1;
@@ -9080,6 +9422,7 @@
                 <th style="${thStyle}" onclick="sortReqList('state')">State${sortIcon('state')}</th>
                 <th style="${thStyle}" onclick="sortReqList('size')">Size${sortIcon('size')}</th>
                 <th style="${thStyle}" onclick="sortReqList('assigned')">Assigned${sortIcon('assigned')}</th>
+                <th style="${thStyle}" onclick="sortReqList('iteration')">Iteration${sortIcon('iteration')}</th>
                 <th style="${thStyle}" onclick="sortReqList('category')">Cat${sortIcon('category')}</th>
                 <th style="${thStyle}" onclick="sortReqList('urn')">URN${sortIcon('urn')}</th>
             </tr>`;
@@ -9092,8 +9435,56 @@
                 const catClass = req.category === 'deliverable' ? 'deliverable' : req.category === 'nonDeliverable' ? 'non-deliverable' : '';
                 const urnLabel = req.urnTag === 'urnIn' ? 'URN-IN' : req.urnTag === 'urnCf' ? 'URN-CF' : '-';
                 const urnClass = req.urnTag === 'urnIn' ? 'urn-in' : req.urnTag === 'urnCf' ? 'urn-cf' : '';
-                return `<tr><td><a href="${tfsUrl}/${project}/_workitems/edit/${req.id}" target="_blank" class="wi-link">${req.id}</a></td><td>${f['System.Title'] || ''}</td><td>${f['System.State'] || ''}</td><td style="text-align:center;">${req.size}</td><td  title="${f['System.AssignedTo']?.displayName || '-'}">${f['System.AssignedTo']?.displayName || '-'}</td><td>${catClass ? `<span class="badge badge-${catClass}">${catLabel}</span>` : '-'}</td><td>${urnClass ? `<span class="badge badge-${urnClass}">${urnLabel}</span>` : '-'}</td></tr>`;
+                const iterLeaf = (f['System.IterationPath'] || '').split('\\').pop();
+                return `<tr><td><a href="${tfsUrl}/${project}/_workitems/edit/${req.id}" target="_blank" class="wi-link">${req.id}</a></td><td>${f['System.Title'] || ''}</td><td>${f['System.State'] || ''}</td><td style="text-align:center;">${req.size}</td><td  title="${f['System.AssignedTo']?.displayName || '-'}">${f['System.AssignedTo']?.displayName || '-'}</td><td style="color:#c084fc;">${iterLeaf}</td><td>${catClass ? `<span class="badge badge-${catClass}">${catLabel}</span>` : '-'}</td><td>${urnClass ? `<span class="badge badge-${urnClass}">${urnLabel}</span>` : '-'}</td></tr>`;
             }).join('');
+        }
+
+        function populateReqListFilters(data) {
+            const stateEl = document.getElementById('reqFilterState');
+            const assignedEl = document.getElementById('reqFilterAssigned');
+            const iterEl = document.getElementById('reqFilterIteration');
+            const catEl = document.getElementById('reqFilterCategory');
+            const urnEl = document.getElementById('reqFilterUrn');
+            if (!stateEl) return;
+            const curState = stateEl.value, curAssigned = assignedEl.value, curIter = iterEl.value;
+            const curCat = catEl ? catEl.value : 'all', curUrn = urnEl ? urnEl.value : 'all';
+
+            const states = [...new Set(data.map(r => r.fields['System.State'] || ''))].filter(Boolean).sort();
+            const assigned = [...new Set(data.map(r => r.fields['System.AssignedTo']?.displayName || '-'))].sort();
+            const iters = [...new Set(data.map(r => (r.fields['System.IterationPath'] || '').split('\\').pop()).filter(Boolean))].sort();
+            const cats = [...new Set(data.map(r => r.category || ''))].filter(Boolean).sort();
+            const urns = [...new Set(data.map(r => r.urnTag || ''))].filter(Boolean).sort();
+
+            const catLabels = { deliverable: 'Deliverable', nonDeliverable: 'Non-Deliverable' };
+            const urnLabels = { urnIn: 'URN-IN', urnCf: 'URN-CF' };
+
+            stateEl.innerHTML = '<option value="all">All States</option>' + states.map(s => `<option value="${s}">${s}</option>`).join('');
+            assignedEl.innerHTML = '<option value="all">All Assigned</option>' + assigned.map(a => `<option value="${a}">${a}</option>`).join('');
+            iterEl.innerHTML = '<option value="all">All Iterations</option>' + iters.map(i => `<option value="${i}">${i}</option>`).join('');
+            if (catEl) catEl.innerHTML = '<option value="all">All Categories</option>' + cats.map(c => `<option value="${c}">${catLabels[c] || c}</option>`).join('');
+            if (urnEl) urnEl.innerHTML = '<option value="all">All URN</option>' + urns.map(u => `<option value="${u}">${urnLabels[u] || u}</option>`).join('');
+
+            // Restore selection if still valid
+            if (states.includes(curState)) stateEl.value = curState;
+            if (assigned.includes(curAssigned)) assignedEl.value = curAssigned;
+            if (iters.includes(curIter)) iterEl.value = curIter;
+            if (catEl && cats.includes(curCat)) catEl.value = curCat;
+            if (urnEl && urns.includes(curUrn)) urnEl.value = curUrn;
+        }
+
+        function resetReqListFilters() {
+            const stateEl = document.getElementById('reqFilterState');
+            const assignedEl = document.getElementById('reqFilterAssigned');
+            const iterEl = document.getElementById('reqFilterIteration');
+            const catEl = document.getElementById('reqFilterCategory');
+            const urnEl = document.getElementById('reqFilterUrn');
+            if (stateEl) stateEl.value = 'all';
+            if (assignedEl) assignedEl.value = 'all';
+            if (iterEl) iterEl.value = 'all';
+            if (catEl) catEl.value = 'all';
+            if (urnEl) urnEl.value = 'all';
+            renderTable();
         }
 
         function sortReqList(field) {
@@ -10201,37 +10592,102 @@
         async function lookupRequirement() {
             const reqId = document.getElementById('reqIdInput').value.trim();
             const resultDiv = document.getElementById('reqLookupResult');
-            if (!reqId) { resultDiv.innerHTML = '<div class="error">Please enter a Requirement ID</div>'; return; }
-            
-            resultDiv.innerHTML = '<div style="color:#94a3b8;">🔄 Loading...</div>';
+            if (!reqId) { resultDiv.innerHTML = '<div class="error" style="font-size:0.75rem;">Please enter a Requirement ID</div>'; return; }
+            resultDiv.innerHTML = '<div style="color:#94a3b8;padding:8px;font-size:0.75rem;">🔄 Loading...</div>';
             try {
                 const resp = await apiFetch(`${tfsUrl}/_apis/wit/workitems/${reqId}?$expand=relations&api-version=5.0`);
                 if (!resp.ok) throw new Error(`Requirement ${reqId} not found`);
                 const data = await resp.json();
-                
-                const f = data.fields, tags = (f['System.Tags'] || '').toLowerCase();
-                let cat = tags.includes('non-deliverable') ? 'Non-Deliverable' : tags.includes('deliverable') ? 'Deliverable' : 'Unclassified';
-                let catCls = cat === 'Deliverable' ? 'deliverable' : cat === 'Non-Deliverable' ? 'non-deliverable' : '';
-                
+                const f = data.fields;
+                const lt = document.body.classList.contains('light-theme');
+                const T = {
+                    card: lt ? 'background:#f8fafc;border:1px solid #e2e8f0;' : 'background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);',
+                    box: lt ? 'background:#f1f5f9;border:1px solid #e2e8f0;' : 'background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.06);',
+                    h: lt ? 'color:#0f172a;' : 'color:#e2e8f0;',
+                    sub: lt ? 'color:#475569;' : 'color:#94a3b8;',
+                    val: lt ? 'color:#1e293b;font-weight:700;' : 'color:#e2e8f0;font-weight:700;',
+                    lbl: lt ? 'color:#64748b;' : 'color:#64748b;',
+                    thBg: lt ? 'background:#e2e8f0;color:#1e293b;' : 'background:rgba(255,255,255,0.08);color:#e2e8f0;',
+                    tdColor: lt ? 'color:#334155;' : 'color:#cbd5e1;',
+                    trBorder: lt ? 'border-bottom:1px solid #e2e8f0;' : 'border-bottom:1px solid rgba(255,255,255,0.06);',
+                    areaClr: lt ? 'color:#0369a1;' : 'color:#38bdf8;',
+                    iterClr: lt ? 'color:#7c3aed;' : 'color:#c084fc;',
+                };
+                const sz = 'font-size:0.7rem;';
+                const tags = f['System.Tags'] || '-';
+                const tagsLower = tags.toLowerCase();
+                let cat = tagsLower.includes('non-deliverable') ? 'Non-Deliverable' : tagsLower.includes('deliverable') ? 'Deliverable' : '-';
+                const stCls = getStatePillClass(f['System.State'] || '');
+                const areaLeaf = (f['System.AreaPath']||'').split('\\').pop();
+                const iterLeaf = (f['System.IterationPath']||'').split('\\').pop();
+
                 const taskIds = (data.relations || []).filter(r => r.rel === 'System.LinkTypes.Hierarchy-Forward').map(r => r.url.split('/').pop());
                 let tasks = [];
                 if (taskIds.length > 0) {
-                    tasks = await batchFetchWorkItems(taskIds, ['System.Id','System.Title','System.State','System.AssignedTo','System.WorkItemType','System.Tags','Microsoft.VSTS.Scheduling.OriginalEstimate','Microsoft.VSTS.Scheduling.RemainingWork','Microsoft.VSTS.Scheduling.CompletedWork','Microsoft.VSTS.Common.Discipline','Casepoint.TFS.CustomFields.TaskExecutionType']);
+                    tasks = await batchFetchWorkItems(taskIds, ['System.Id','System.Title','System.State','System.AssignedTo','System.WorkItemType','System.Tags','Microsoft.VSTS.Scheduling.OriginalEstimate','Microsoft.VSTS.Scheduling.RemainingWork','Microsoft.VSTS.Scheduling.CompletedWork','Microsoft.VSTS.Common.Discipline','Casepoint.TFS.CustomFields.TaskExecutionType','System.IterationPath']);
                     tasks = tasks.filter(t => t.fields['System.WorkItemType'] === 'Task');
                 }
-                
                 const totOrig = tasks.reduce((s, t) => s + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
                 const totRem = tasks.reduce((s, t) => s + (t.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || 0), 0);
                 const totComp = tasks.reduce((s, t) => s + (t.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0), 0);
-                
-                resultDiv.innerHTML = `<div class="req-lookup-card"><h4><a href="${tfsUrl}/${project}/_workitems/edit/${reqId}" target="_blank" class="wi-link">#${reqId}</a>: ${f['System.Title'] || ''}</h4><div class="req-details"><div class="detail-item"><div class="label">Type</div><div class="value">${f['System.WorkItemType'] || '-'}</div></div><div class="detail-item"><div class="label">State</div><div class="value">${f['System.State'] || '-'}</div></div><div class="detail-item"><div class="label">Category</div><div class="value">${catCls ? `<span class="badge badge-${catCls}">${cat}</span>` : cat}</div></div><div class="detail-item"><div class="label">Size</div><div class="value">${f['Microsoft.VSTS.Scheduling.Size'] || 0}</div></div></div><h4 style="margin-top:16px;">📋 Tasks (${tasks.length})</h4>${tasks.length > 0 ? `<div style="background:rgba(0,0,0,0.2);padding:12px;border-radius:8px;margin-bottom:12px;"><div style="display:flex;gap:24px;flex-wrap:wrap;font-size:0.85rem;"><span>📊 Original: <strong>${fmtH(totOrig)}h</strong></span><span>⏳ Remaining: <strong>${fmtH(totRem)}h</strong></span><span>✅ Completed: <strong>${fmtH(totComp)}h</strong></span></div></div><div style="overflow-x:auto;"><table class="tasks-table"><thead><tr><th>ID</th><th>Title</th><th>State</th><th>Assigned</th><th>Discipline</th><th>Task Exec Type</th><th>Orig</th><th>Revised</th><th>Comp</th><th>Tags</th></tr></thead><tbody>${tasks.map(t => {
-                    const discipline = t.fields['Microsoft.VSTS.Common.Discipline'] || '-';
-                    const taskExecType = t.fields['Casepoint.TFS.CustomFields.TaskExecutionType'] || '-';
-                    const taskTags = t.fields['System.Tags'] || '-';
-                    const revisedEst = t.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || 0;
-                    return `<tr><td><a href="${tfsUrl}/${project}/_workitems/edit/${t.id}" target="_blank" class="wi-link">${t.id}</a></td><td>${t.fields['System.Title'] || ''}</td><td>${t.fields['System.State'] || ''}</td><td>${t.fields['System.AssignedTo']?.displayName || '-'}</td><td style="color:#a78bfa;">${discipline}</td><td style="color:#22d3ee;">${taskExecType}</td><td>${fmtH(t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0)}h</td><td style="color:#fbbf24;">${fmtH(revisedEst)}h</td><td>${fmtH(t.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0)}h</td><td style="font-size:0.65rem;max-" title="${taskTags}">${taskTags}</td></tr>`;
-                }).join('')}</tbody></table></div>` : '<div class="no-tasks">No tasks found</div>'}</div>`;
-            } catch (err) { resultDiv.innerHTML = `<div class="error">❌ ${err.message}</div>`; }
+
+                const thS = `${T.thBg}padding:3px 4px;${sz}text-align:left;white-space:nowrap;`;
+                // Build tag badges
+                const tagArr = tags !== '-' ? tags.split(';').map(t => t.trim()).filter(Boolean) : [];
+                const tagBadges = tagArr.map(t => {
+                    const tl = t.toLowerCase();
+                    let bg = 'rgba(100,116,139,0.3)', clr = '#94a3b8';
+                    if (tl.includes('deliverable') && !tl.includes('non-')) { bg = 'rgba(16,185,129,0.3)'; clr = '#6ee7b7'; }
+                    else if (tl.includes('non-deliverable')) { bg = 'rgba(236,72,153,0.3)'; clr = '#f9a8d4'; }
+                    else if (tl.startsWith('week')) { bg = 'rgba(59,130,246,0.3)'; clr = '#93c5fd'; }
+                    return `<span style="background:${bg};color:${clr};padding:1px 5px;border-radius:3px;font-size:0.55rem;">${t}</span>`;
+                }).join('');
+                resultDiv.innerHTML = `<div style="${T.card}border-radius:8px;padding:8px;margin-top:8px;${sz}">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;">
+                        <a href="${tfsUrl}/${project}/_workitems/edit/${reqId}" target="_blank" class="wi-link" style="font-size:0.78rem;font-weight:700;">#${reqId}</a>
+                        <span style="${T.h}font-weight:600;font-size:0.78rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f['System.Title'] || ''}">${f['System.Title'] || ''}</span>
+                        <span class="fp-state-pill ${stCls}" style="font-size:0.55rem;padding:1px 6px;">${f['System.State'] || '-'}</span>
+                    </div>
+                    <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">
+                        <span style="${T.iterClr}font-size:0.62rem;font-weight:600;background:rgba(139,92,246,0.15);padding:1px 6px;border-radius:4px;">📅 ${iterLeaf}</span>
+                        <span style="${T.areaClr}font-size:0.62rem;font-weight:500;">📂 ${areaLeaf}</span>
+                        <span style="${T.sub}font-size:0.6rem;">Type: <b style="${T.val}font-size:0.6rem;">${f['System.WorkItemType'] || '-'}</b></span>
+                        <span style="${T.sub}font-size:0.6rem;">Size: <b style="${T.val}font-size:0.6rem;">${f['Microsoft.VSTS.Scheduling.Size'] || 0}</b></span>
+                        <span style="${T.sub}font-size:0.6rem;">Cat: <b style="${T.val}font-size:0.6rem;">${cat}</b></span>
+                    </div>
+                    ${tagArr.length > 0 ? `<div style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">
+                        <span style="${T.lbl}font-size:0.55rem;font-weight:600;">🏷️</span>${tagBadges}
+                    </div>` : ''}
+                    <div style="${T.box}border-radius:5px;padding:4px 8px;margin-bottom:6px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <span style="${T.lbl}font-size:0.6rem;font-weight:600;">📊 ${tasks.length} tasks</span>
+                        <span style="${T.sub}font-size:0.62rem;">Orig: <b style="color:#f97316;font-weight:700;">${fmtH(totOrig)}h</b></span>
+                        <span style="${T.sub}font-size:0.62rem;">Rem: <b style="color:#38bdf8;font-weight:700;">${fmtH(totRem)}h</b></span>
+                        <span style="${T.sub}font-size:0.62rem;">Comp: <b style="color:#34d399;font-weight:700;">${fmtH(totComp)}h</b></span>
+                    </div>
+                    ${tasks.length > 0 ? `<div style="overflow-x:auto;max-height:350px;overflow-y:auto;border:1px solid ${lt?'#e2e8f0':'rgba(255,255,255,0.08)'};border-radius:6px;">
+                        <table style="width:100%;border-collapse:collapse;${sz}">
+                            <thead style="position:sticky;top:0;z-index:1;"><tr>
+                                <th style="${thS}">ID</th><th style="${thS}">Title</th><th style="${thS}">State</th><th style="${thS}">Assigned</th>
+                                <th style="${thS}">Discipline</th><th style="${thS}">Exec Type</th><th style="${thS}">Iteration</th>
+                                <th style="${thS}text-align:right;">Orig</th><th style="${thS}text-align:right;">Rem</th><th style="${thS}text-align:right;">Comp</th>
+                            </tr></thead><tbody>${tasks.map(t => {
+                                const tSt = getStatePillClass(t.fields['System.State'] || '');
+                                const tIter = (t.fields['System.IterationPath']||'').split('\\').pop();
+                                return `<tr style="${T.trBorder}">
+                                    <td style="padding:3px 5px;${T.tdColor}"><a href="${tfsUrl}/${project}/_workitems/edit/${t.id}" target="_blank" class="wi-link" style="font-size:0.65rem;">${t.id}</a></td>
+                                    <td style="padding:3px 5px;${T.tdColor}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;" title="${t.fields['System.Title']||''}">${t.fields['System.Title']||''}</td>
+                                    <td style="padding:3px 5px;"><span class="fp-state-pill ${tSt}" style="font-size:0.5rem;padding:1px 4px;">${t.fields['System.State']||''}</span></td>
+                                    <td style="padding:3px 5px;${T.tdColor}font-size:0.62rem;" title="${t.fields['System.AssignedTo']?.displayName||'-'}">${(t.fields['System.AssignedTo']?.displayName||'-').split(' ')[0]}</td>
+                                    <td style="padding:3px 5px;color:#a78bfa;font-size:0.62rem;">${t.fields['Microsoft.VSTS.Common.Discipline']||'-'}</td>
+                                    <td style="padding:3px 5px;color:#22d3ee;font-size:0.62rem;">${t.fields['Casepoint.TFS.CustomFields.TaskExecutionType']||'-'}</td>
+                                    <td style="padding:3px 5px;${T.iterClr}font-size:0.62rem;">${tIter}</td>
+                                    <td style="padding:3px 5px;text-align:right;color:#f97316;font-weight:600;">${fmtH(t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate']||0)}h</td>
+                                    <td style="padding:3px 5px;text-align:right;color:#38bdf8;">${fmtH(t.fields['Microsoft.VSTS.Scheduling.RemainingWork']||0)}h</td>
+                                    <td style="padding:3px 5px;text-align:right;color:#34d399;">${fmtH(t.fields['Microsoft.VSTS.Scheduling.CompletedWork']||0)}h</td>
+                                </tr>`;
+                            }).join('')}</tbody></table></div>` : `<div style="text-align:center;padding:8px;${T.sub}">No tasks found</div>`}
+                </div>`;
+            } catch (err) { resultDiv.innerHTML = `<div class="error" style="font-size:0.75rem;">❌ ${err.message}</div>`; }
         }
 
         // ==================== ON-DEMAND CARD REFRESH FUNCTIONS ====================

@@ -3,15 +3,15 @@
 // super_admin = All tabs + All areas + Update Feature Hours + Full access
 // admin = All tabs + All areas + Update Feature Hours
 // normal = Only assigned tabs + Max 3 areas
-// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=Feature Progress
+// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=Feature Progress, 5=Data Lookup
 var ALLOWED_USERS_DATA = {
     "users": [
-        { "name": "Mayur Rana", "role": "super_admin", "tabs": [1, 2, 3, 4] },
-        { "name": "Chetan Sanghani", "role": "admin", "tabs": [1, 2, 3, 4] },
-        { "name": "Tarun R Harkinia", "role": "normal", "tabs": [1, 2, 3, 4] },
-        { "name": "Rahul J Dholaria", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Mayur Rana", "role": "super_admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "Chetan Sanghani", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "Tarun R Harkinia", "role": "normal", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "Rahul J Dholaria", "role": "normal", "tabs": [1, 2, 3, 4, 5] },
         { "name": "Harshit Sharma", "role": "normal", "tabs": [1, 2, 3] },
-        { "name": "Yogesh Siddhapura", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Yogesh Siddhapura", "role": "normal", "tabs": [1, 2, 3, 4, 5] },
         { "name": "Shaishav Patel", "role": "normal", "tabs": [1, 2] },
         { "name": "Raviraj Patgir", "role": "normal", "tabs": [1, 2] },
         { "name": "Priyakant K Patel", "role": "normal", "tabs": [1, 2] },
@@ -21,7 +21,7 @@ var ALLOWED_USERS_DATA = {
         { "name": "Ankur Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
         { "name": "Arpit Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
         { "name": "Dhara Bakrola", "role": "normal", "tabs": [1, 2, 3, 4] },
-        { "name": "Dharmin Desai", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Dharmin Desai", "role": "normal", "tabs": [1, 2, 3] },
         { "name": "Jackie Patel", "role": "normal", "tabs": [1, 2, 3, 4] },
         { "name": "Jainish Jariwala", "role": "normal", "tabs": [1, 2, 3, 4] },
         { "name": "Kailash Suthar", "role": "normal", "tabs": [1, 2, 3, 4] },
