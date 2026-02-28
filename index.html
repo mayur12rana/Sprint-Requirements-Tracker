@@ -926,7 +926,7 @@
             <button class="tab-btn" id="tabBtn3" onclick="switchTab(3)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🤖 AI Usage</button>
             <button class="tab-btn" id="tabBtn4" onclick="switchTab(4)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🚀 Feature Progress</button>
             <button class="tab-btn" id="tabBtn5" onclick="switchTab(5)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🔍 Data Lookup</button>
-            <button class="tab-btn" id="tabBtn6" onclick="switchTab(6)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📅 Weekly Tasks</button>
+            <button class="tab-btn" id="tabBtn6" onclick="switchTab(6)" style="display:none;padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📅 Weekly Tasks</button>
         </div>
 
         <!-- Tab 1: Sprint Planning Check -->
@@ -6126,9 +6126,10 @@
             const aiEfficiency = aiTotalOrigEst > 0 ? Math.round(((aiTotalOrigEst - aiCompleted) / aiTotalOrigEst) * 100) : 0;
             const aiHoursSaved = aiTotalOrigEst - aiCompleted;
             
-            // Manual Efficiency — only pure Manual tasks (NOT AI-Ineff)
-            const manualEfficiency = manualOrigEst > 0 ? Math.round(((manualOrigEst - manualCompleted) / manualOrigEst) * 100) : 0;
-            const manualHoursSaved = manualOrigEst - manualCompleted;
+            // Manual Efficiency = (Manual + AI-Ineff Orig) − (Manual + AI-Ineff Comp) / (Manual + AI-Ineff Orig)
+            const manualEffDenom = manualOrigEst + maiIneffOrigEst;
+            const manualEfficiency = manualEffDenom > 0 ? Math.round(((manualEffDenom - (manualCompleted + maiIneffCompleted)) / manualEffDenom) * 100) : 0;
+            const manualHoursSaved = manualEffDenom - (manualCompleted + maiIneffCompleted);
             
             // Row 1 - Task Counts
             document.getElementById('oasOverallTasks').textContent = totalTasks;
@@ -6445,8 +6446,9 @@
                 grandManualAiIneffCompleted += m.manualAiIneffCompleted;
             });
             
-            // Calculate efficiencies — Manual Eff uses only pure Manual tasks
-            const manualEfficiency = grandManualOrigEst > 0 ? Math.round(((grandManualOrigEst - grandManualCompleted) / grandManualOrigEst) * 100) : 0;
+            // Calculate efficiencies — Manual Eff = (Manual + AI-Ineff Orig − Comp) / (Manual + AI-Ineff Orig)
+            const devGrandManEffDenom = grandManualOrigEst + grandManualAiIneffOrigEst;
+            const manualEfficiency = devGrandManEffDenom > 0 ? Math.round(((devGrandManEffDenom - (grandManualCompleted + grandManualAiIneffCompleted)) / devGrandManEffDenom) * 100) : 0;
             const aiEfficiency = grandAiOrigEst > 0 ? Math.round(((grandAiOrigEst - grandAiCompleted) / grandAiOrigEst) * 100) : 0;
             
             // AI Adoption = hours based: (AI OrigEst + AI-Ineff OrigEst) / (AI + AI-Ineff + Manual) OrigEst
@@ -6489,8 +6491,8 @@
                 // AI Adoption = hours based: (AI OrigEst + AI-Ineff OrigEst) / (AI + AI-Ineff + Manual) OrigEst
                 const mTotalHours = m.aiOrigEst + m.manualAiIneffOrigEst + m.manualOrigEst;
                 const mAiAdoption = mTotalHours > 0 ? Math.round(((m.aiOrigEst + m.manualAiIneffOrigEst) / mTotalHours) * 100) : 0;
-                // Manual Eff = only pure Manual tasks (NOT AI-Ineff)
-                const mManualEff = m.manualOrigEst > 0 ? Math.round(((m.manualOrigEst - m.manualCompleted) / m.manualOrigEst) * 100) : 0;
+                // Manual Eff = (Manual + AI-Ineff Orig - Comp) / (Manual + AI-Ineff Orig)
+                const mManualEff = (m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? Math.round((((m.manualOrigEst + m.manualAiIneffOrigEst) - (m.manualCompleted + m.manualAiIneffCompleted)) / (m.manualOrigEst + m.manualAiIneffOrigEst)) * 100) : 0;
                 const mAiEff = m.aiOrigEst > 0 ? Math.round(((m.aiOrigEst - m.aiCompleted) / m.aiOrigEst) * 100) : 0;
                 const mHourSaved = m.aiOrigEst - m.aiCompleted;
                 return { ...m, _idx: _i, aiAdoption: mAiAdoption, manualEff: mManualEff, aiEff: mAiEff, hourSaved: mHourSaved };
@@ -6632,7 +6634,7 @@
                     <td style="${tdStyle}text-align:center;color:#fbbf24;">${m.manualOrigEst > 0 ? fmtH(m.manualOrigEst) + 'h' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#34d399;">${m.manualCompleted > 0 ? fmtH(m.manualCompleted) + 'h' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#60a5fa;font-weight:600;">${m.aiAdoption + '%'}</td>
-                    <td style="${tdStyle}text-align:center;color:${mManualEffColor};font-weight:600;">${m.manualOrigEst > 0 ? m.manualEff + '%' : '-'}</td>
+                    <td style="${tdStyle}text-align:center;color:${mManualEffColor};font-weight:600;">${(m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? m.manualEff + '%' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:${mAiEffColor};font-weight:600;">${m.aiOrigEst > 0 ? m.aiEff + '%' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:${mHourSavedColor};font-weight:600;">${m.aiOrigEst > 0 ? fmtH(m.hourSaved) + 'h' : '-'}</td>
                 </tr>`;
@@ -6649,7 +6651,8 @@
                 grandManualCompleted = filteredData.reduce((s,m) => s + m.manualCompleted, 0);
                 grandManualAiIneffOrigEst = filteredData.reduce((s,m) => s + m.manualAiIneffOrigEst, 0);
                 grandManualAiIneffCompleted = filteredData.reduce((s,m) => s + m.manualAiIneffCompleted, 0);
-                manualEfficiency = grandManualOrigEst > 0 ? Math.round(((grandManualOrigEst - grandManualCompleted) / grandManualOrigEst) * 100) : 0;
+                const footManEffDenom = grandManualOrigEst + grandManualAiIneffOrigEst;
+                manualEfficiency = footManEffDenom > 0 ? Math.round(((footManEffDenom - (grandManualCompleted + grandManualAiIneffCompleted)) / footManEffDenom) * 100) : 0;
                 aiEfficiency = grandAiOrigEst > 0 ? Math.round(((grandAiOrigEst - grandAiCompleted) / grandAiOrigEst) * 100) : 0;
             }
             const totalTasks = filteredData.reduce((sum, m) => sum + m.taskCount, 0);
@@ -6754,7 +6757,7 @@
                 return {
                     ...a,
                     aiAdoption: totalOrig > 0 ? Math.round(((a.aiOrigEst + a.manualAiIneffOrigEst) / totalOrig) * 100) : 0,
-                    manualEff: a.manualOrigEst > 0 ? Math.round(((a.manualOrigEst - a.manualCompleted) / a.manualOrigEst) * 100) : 0,
+                    manualEff: (a.manualOrigEst + a.manualAiIneffOrigEst) > 0 ? Math.round((((a.manualOrigEst + a.manualAiIneffOrigEst) - (a.manualCompleted + a.manualAiIneffCompleted)) / (a.manualOrigEst + a.manualAiIneffOrigEst)) * 100) : 0,
                     aiEff: a.aiOrigEst > 0 ? Math.round(((a.aiOrigEst - a.aiCompleted) / a.aiOrigEst) * 100) : 0,
                     hourSaved: a.aiOrigEst - a.aiCompleted
                 };
@@ -6921,7 +6924,7 @@
             Object.values(projectTotals).forEach(p => {
                 const pTotalOrig = p.aiOrigEst + p.manualAiIneffOrigEst + p.manualOrigEst;
                 const pAiAdoption = pTotalOrig > 0 ? Math.round(((p.aiOrigEst + p.manualAiIneffOrigEst) / pTotalOrig) * 100) : 0;
-                const pManualEff = p.manualOrigEst > 0 ? Math.round(((p.manualOrigEst - p.manualCompleted) / p.manualOrigEst) * 100) : 0;
+                const pManualEff = (p.manualOrigEst + p.manualAiIneffOrigEst) > 0 ? Math.round((((p.manualOrigEst + p.manualAiIneffOrigEst) - (p.manualCompleted + p.manualAiIneffCompleted)) / (p.manualOrigEst + p.manualAiIneffOrigEst)) * 100) : 0;
                 const pAiEff = p.aiOrigEst > 0 ? Math.round(((p.aiOrigEst - p.aiCompleted) / p.aiOrigEst) * 100) : 0;
                 const pHourSaved = p.aiOrigEst - p.aiCompleted;
                 const pHourSavedColor = pHourSaved >= 0 ? '#f472b6' : '#f87171';
@@ -7328,8 +7331,9 @@
                 grandManualAiIneffCompleted += m.manualAiIneffCompleted;
             });
             
-            // Calculate efficiencies — Manual Eff uses only pure Manual tasks
-            const manualEfficiency = grandManualOrigEst > 0 ? Math.round(((grandManualOrigEst - grandManualCompleted) / grandManualOrigEst) * 100) : 0;
+            // Calculate efficiencies — Manual Eff = (Manual + AI-Ineff Orig − Comp) / (Manual + AI-Ineff Orig)
+            const qaGrandManEffDenom = grandManualOrigEst + grandManualAiIneffOrigEst;
+            const manualEfficiency = qaGrandManEffDenom > 0 ? Math.round(((qaGrandManEffDenom - (grandManualCompleted + grandManualAiIneffCompleted)) / qaGrandManEffDenom) * 100) : 0;
             const aiEfficiency = grandAiOrigEst > 0 ? Math.round(((grandAiOrigEst - grandAiCompleted) / grandAiOrigEst) * 100) : 0;
             
             // Update summary stats
@@ -7364,7 +7368,7 @@
             qaAIAdoptionMemberData = memberResults.map(m => {
                 const mTotalHours = m.aiOrigEst + m.manualAiIneffOrigEst + m.manualOrigEst;
                 const mAiAdoption = mTotalHours > 0 ? Math.round(((m.aiOrigEst + m.manualAiIneffOrigEst) / mTotalHours) * 100) : 0;
-                const mManualEff = m.manualOrigEst > 0 ? Math.round(((m.manualOrigEst - m.manualCompleted) / m.manualOrigEst) * 100) : 0;
+                const mManualEff = (m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? Math.round((((m.manualOrigEst + m.manualAiIneffOrigEst) - (m.manualCompleted + m.manualAiIneffCompleted)) / (m.manualOrigEst + m.manualAiIneffOrigEst)) * 100) : 0;
                 const mAiEff = m.aiOrigEst > 0 ? Math.round(((m.aiOrigEst - m.aiCompleted) / m.aiOrigEst) * 100) : 0;
                 const mHourSaved = m.aiOrigEst - m.aiCompleted;
                 return { ...m, aiAdoption: mAiAdoption, manualEff: mManualEff, aiEff: mAiEff, hourSaved: mHourSaved };
@@ -7460,7 +7464,7 @@
                     <td style="${tdStyle}text-align:center;color:#fbbf24;">${m.manualOrigEst > 0 ? fmtH(m.manualOrigEst) + 'h' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#34d399;">${m.manualCompleted > 0 ? fmtH(m.manualCompleted) + 'h' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#60a5fa;font-weight:600;">${m.aiAdoption + '%'}</td>
-                    <td style="${tdStyle}text-align:center;color:${mManualEffColor};font-weight:600;">${m.manualOrigEst > 0 ? m.manualEff + '%' : '-'}</td>
+                    <td style="${tdStyle}text-align:center;color:${mManualEffColor};font-weight:600;">${(m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? m.manualEff + '%' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:${mAiEffColor};font-weight:600;">${m.aiOrigEst > 0 ? m.aiEff + '%' : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:${mHourSavedColor};font-weight:600;">${m.aiOrigEst > 0 ? fmtH(m.hourSaved) + 'h' : '-'}</td>
                 </tr>`;
@@ -7563,7 +7567,7 @@
             const areaData = Object.values(areaMap).map(a => {
                 const totalOrig = a.aiOrigEst + a.manualAiIneffOrigEst + a.manualOrigEst;
                 const aiAdoption = totalOrig > 0 ? Math.round(((a.aiOrigEst + a.manualAiIneffOrigEst) / totalOrig) * 100) : 0;
-                const manualEff = a.manualOrigEst > 0 ? Math.round(((a.manualOrigEst - a.manualCompleted) / a.manualOrigEst) * 100) : 0;
+                const manualEff = (a.manualOrigEst + a.manualAiIneffOrigEst) > 0 ? Math.round((((a.manualOrigEst + a.manualAiIneffOrigEst) - (a.manualCompleted + a.manualAiIneffCompleted)) / (a.manualOrigEst + a.manualAiIneffOrigEst)) * 100) : 0;
                 const aiEff = a.aiOrigEst > 0 ? Math.round(((a.aiOrigEst - a.aiCompleted) / a.aiOrigEst) * 100) : 0;
                 const hourSaved = a.aiOrigEst - a.aiCompleted;
                 return { ...a, aiAdoption, manualEff, aiEff, hourSaved };
@@ -7674,7 +7678,7 @@
             const projectData = Object.values(projectMap).map(p => {
                 const totalOrig = p.aiOrigEst + p.manualAiIneffOrigEst + p.manualOrigEst;
                 const aiAdoption = totalOrig > 0 ? Math.round(((p.aiOrigEst + p.manualAiIneffOrigEst) / totalOrig) * 100) : 0;
-                const manualEff = p.manualOrigEst > 0 ? Math.round(((p.manualOrigEst - p.manualCompleted) / p.manualOrigEst) * 100) : 0;
+                const manualEff = (p.manualOrigEst + p.manualAiIneffOrigEst) > 0 ? Math.round((((p.manualOrigEst + p.manualAiIneffOrigEst) - (p.manualCompleted + p.manualAiIneffCompleted)) / (p.manualOrigEst + p.manualAiIneffOrigEst)) * 100) : 0;
                 const aiEff = p.aiOrigEst > 0 ? Math.round(((p.aiOrigEst - p.aiCompleted) / p.aiOrigEst) * 100) : 0;
                 const hourSaved = p.aiOrigEst - p.aiCompleted;
                 return { ...p, aiAdoption, manualEff, aiEff, hourSaved };
@@ -9819,9 +9823,11 @@
             const manOrig = d.manualOrigEst || 0;
             const totalHours = aiOrig + aiIneffOrig + manOrig;
             const manComp = d.manualCompleted || 0;
+            const aiIneffComp = d.manualAiIneffCompleted || 0;
+            const manEffDenom = manOrig + aiIneffOrig;
             return {
                 aiAdoption: totalHours > 0 ? Math.round(((aiOrig + aiIneffOrig) / totalHours) * 100) : 0,
-                manualEff: manOrig > 0 ? Math.round(((manOrig - manComp) / manOrig) * 100) : 0,
+                manualEff: manEffDenom > 0 ? Math.round(((manEffDenom - (manComp + aiIneffComp)) / manEffDenom) * 100) : 0,
                 aiEff: aiOrig > 0 ? Math.round(((aiOrig - (d.aiCompleted||0)) / aiOrig) * 100) : 0,
                 hourSaved: aiOrig - (d.aiCompleted||0)
             };
