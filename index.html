@@ -494,6 +494,14 @@
         body.light-theme .dashboard-card[style*="rgba(139,92,246"] h3 {
             color: #7c3aed !important;
         }
+        /* Project-wise AI Adoption - Cyan theme in light mode */
+        body.light-theme .dashboard-card[style*="rgba(6,182,212"] {
+            background: linear-gradient(135deg, rgba(6,182,212,0.12), rgba(34,211,238,0.08)) !important;
+            border: 1px solid rgba(6,182,212,0.4) !important;
+        }
+        body.light-theme .dashboard-card[style*="rgba(6,182,212"] h3 {
+            color: #0891b2 !important;
+        }
         /* Fix checkbox containers */
         body.light-theme [id*="CheckboxContainer"] {
             background: #f8fafc !important;
@@ -546,6 +554,11 @@
         body.light-theme thead th {
             color: #1e293b !important;
         }
+        body.light-theme #tabContent3 table thead { background: #e2e8f0 !important; }
+        body.light-theme #tabContent3 table th { color: #1e293b !important; background: #e2e8f0 !important; }
+        body.light-theme #tabContent3 table td { color: #334155 !important; }
+        body.light-theme #tabContent3 table tfoot td,
+        body.light-theme #tabContent3 table tfoot th { color: #1e293b !important; background: #dbeafe !important; }
         /* Fix detail items */
         body.light-theme .detail-item,
         body.light-theme [style*="background: rgba(0,0,0,0.2)"],
@@ -594,6 +607,8 @@
         .fs-sm-bold { font-size: 0.7rem; font-weight: 600; }
         .btn-compact { padding: 4px 12px; font-size: 0.75rem; }
         .bg-overlay { background: rgba(0,0,0,0.3); }
+        body.light-theme .bg-overlay { background: #e2e8f0 !important; }
+        body.light-theme .bg-overlay th { color: #1e293b !important; border-bottom-color: #cbd5e1 !important; }
         body.light-theme .c-muted { color: #64748b; }
 
         /* Requirements List filter dropdowns */
@@ -1875,6 +1890,280 @@
             </div>
         </div>
         </div><!-- End Dev & QA AI Adoption Block -->
+
+        <!-- Dev Overall AI Adoption Summary -->
+        <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(59,130,246,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h3 style="color: #93c5fd; font-size: 1rem; margin: 0;">🤖 Dev Overall AI Adoption Summary</h3>
+                <button class="btn btn-primary btn-compact" id="loadDevOverallSummaryBtn" onclick="toggleDevOverallAISummary()" >📊 Show</button>
+            </div>
+            <div id="devOverallAISummaryContent" style="display: none;">
+                
+                <!-- Query Criteria -->
+                <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; margin-bottom: 12px; font-size: 0.7rem;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+                        <span class="c-muted">📋 Criteria:</span>
+                        <span style="background: rgba(59,130,246,0.3); padding: 2px 8px; border-radius: 4px; color: #93c5fd;">Discipline = Development</span>
+                        <span class="c-dim">→</span>
+                        <span style="background: rgba(245,158,11,0.3); padding: 2px 8px; border-radius: 4px; color: #fcd34d;">Task</span>
+                        <span class="c-dim">+</span>
+                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Resolved/Closed</span>
+                        <span class="c-dim">+</span>
+                        <span style="background: rgba(236,72,153,0.3); padding: 2px 8px; border-radius: 4px; color: #f9a8d4;">Reason ≠ Rejected</span>
+                        <span class="c-dim">+</span>
+                        <span style="background: rgba(6,182,212,0.3); padding: 2px 8px; border-radius: 4px; color: #67e8f9;">Orig Est > 0</span>
+                        <span style="color: #64748b; margin-left: 8px;">|</span>
+                        <span class="c-muted">📌 Req/Chr:</span>
+                        <span style="background: rgba(59,130,246,0.3); padding: 2px 8px; border-radius: 4px; color: #93c5fd;">Deliverable</span>
+                        <span style="background: rgba(168,85,247,0.3); padding: 2px 8px; border-radius: 4px; color: #d8b4fe;">Deliverables Adhoc</span>
+                        <span style="background: rgba(245,158,11,0.3); padding: 2px 8px; border-radius: 4px; color: #fcd34d;">Deliverables OnHold</span>
+                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Non-Deliverable</span>
+                    </div>
+                </div>
+                
+                <!-- Row 1: Task Counts & AI Adoption Rate -->
+                <div style="margin-bottom: 8px;">
+                    <div style="color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">📋 Task Overview</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); padding: 14px;">
+                            <div class="value" id="devOasOverallTasks" style="font-size: 1.4rem; color: #60a5fa;">0</div>
+                            <div class="label fs-sm-bold">Overall Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiTasks" style="font-size: 1.4rem; color: #a78bfa;">0</div>
+                            <div class="label fs-sm-bold">AI Adopted Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); padding: 14px;">
+                            <div class="value" id="devOasManualTasks" style="font-size: 1.4rem; color: #fbbf24;">0</div>
+                            <div class="label fs-sm-bold">Manual Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="devOasMaiIneffTasks" style="font-size: 1.4rem; color: #fca5a5;">0</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiAdoptionRate" style="font-size: 1.4rem; color: #34d399;">0%</div>
+                            <div class="label fs-sm-bold">AI Adoption Rate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Row 2: AI Hours -->
+                <div style="margin-bottom: 8px;">
+                    <div style="color: #c4b5fd; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">🤖 AI Hours Breakdown</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiOrigEst" style="font-size: 1.3rem; color: #c4b5fd;">0h</div>
+                            <div class="label fs-sm-bold">AI Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiRevisedEst" style="font-size: 1.3rem; color: #d8b4fe;">0h</div>
+                            <div class="label fs-sm-bold">AI Revised Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiTotalOrigEst" style="font-size: 1.3rem; color: #60a5fa;">0h</div>
+                            <div class="label fs-sm-bold">Total AI Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiCompleted" style="font-size: 1.3rem; color: #34d399;">0h</div>
+                            <div class="label fs-sm-bold">AI Completed</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiEfficiency" style="font-size: 1.3rem; color: #22d3ee;">0%</div>
+                            <div class="label fs-sm-bold">AI Efficiency</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); padding: 14px;">
+                            <div class="value" id="devOasAiHoursSaved" style="font-size: 1.3rem; color: #f472b6;">0h</div>
+                            <div class="label fs-sm-bold">Hours Saved</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Row 3: MAI-Ineff Hours -->
+                <div style="margin-bottom: 8px;">
+                    <div style="color: #fca5a5; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">⚠️ Manual-AI-Ineffective Hours Breakdown</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="devOasMaiIneffOrigEst" style="font-size: 1.3rem; color: #fca5a5;">0h</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="devOasMaiIneffCompleted" style="font-size: 1.3rem; color: #fb7185;">0h</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Completed</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="devOasMaiIneffEfficiency" style="font-size: 1.3rem; color: #22d3ee;">0%</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Efficiency</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="devOasMaiIneffHoursSaved" style="font-size: 1.3rem; color: #f472b6;">0h</div>
+                            <div class="label fs-sm-bold">Hours Saved</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Row 4: Manual Hours -->
+                <div>
+                    <div style="color: #fcd34d; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">🔧 Manual Hours Breakdown</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.3); padding: 14px;">
+                            <div class="value" id="devOasManualOrigEst" style="font-size: 1.3rem; color: #fbbf24;">0h</div>
+                            <div class="label fs-sm-bold">Manual Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); padding: 14px;">
+                            <div class="value" id="devOasManualCompleted" style="font-size: 1.3rem; color: #34d399;">0h</div>
+                            <div class="label fs-sm-bold">Manual Completed</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); padding: 14px;">
+                            <div class="value" id="devOasManualEfficiency" style="font-size: 1.3rem; color: #22d3ee;">0%</div>
+                            <div class="label fs-sm-bold">Manual Efficiency</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); padding: 14px;">
+                            <div class="value" id="devOasManualHoursSaved" style="font-size: 1.3rem; color: #f472b6;">0h</div>
+                            <div class="label fs-sm-bold">Hours Saved</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- QA Overall AI Adoption Summary -->
+        <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1)); border: 1px solid rgba(16,185,129,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h3 style="color: #6ee7b7; font-size: 1rem; margin: 0;">🧪 QA Overall AI Adoption Summary</h3>
+                <button class="btn btn-primary btn-compact" id="loadQAOverallSummaryBtn" onclick="toggleQAOverallAISummary()" >📊 Show</button>
+            </div>
+            <div id="qaOverallAISummaryContent" style="display: none;">
+                
+                <!-- Query Criteria -->
+                <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; margin-bottom: 12px; font-size: 0.7rem;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+                        <span class="c-muted">📋 Criteria:</span>
+                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Discipline = Test</span>
+                        <span class="c-dim">→</span>
+                        <span style="background: rgba(245,158,11,0.3); padding: 2px 8px; border-radius: 4px; color: #fcd34d;">Task</span>
+                        <span class="c-dim">+</span>
+                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Resolved/Closed</span>
+                        <span class="c-dim">+</span>
+                        <span style="background: rgba(236,72,153,0.3); padding: 2px 8px; border-radius: 4px; color: #f9a8d4;">Reason ≠ Rejected</span>
+                        <span class="c-dim">+</span>
+                        <span style="background: rgba(6,182,212,0.3); padding: 2px 8px; border-radius: 4px; color: #67e8f9;">Orig Est > 0</span>
+                        <span style="color: #64748b; margin-left: 8px;">|</span>
+                        <span class="c-muted">📌 Req/Chr:</span>
+                        <span style="background: rgba(59,130,246,0.3); padding: 2px 8px; border-radius: 4px; color: #93c5fd;">Deliverable</span>
+                        <span style="background: rgba(168,85,247,0.3); padding: 2px 8px; border-radius: 4px; color: #d8b4fe;">Deliverables Adhoc</span>
+                        <span style="background: rgba(245,158,11,0.3); padding: 2px 8px; border-radius: 4px; color: #fcd34d;">Deliverables OnHold</span>
+                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Non-Deliverable</span>
+                    </div>
+                </div>
+                
+                <!-- Row 1: Task Counts & AI Adoption Rate -->
+                <div style="margin-bottom: 8px;">
+                    <div style="color: #94a3b8; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">📋 Task Overview</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); padding: 14px;">
+                            <div class="value" id="qaOasOverallTasks" style="font-size: 1.4rem; color: #60a5fa;">0</div>
+                            <div class="label fs-sm-bold">Overall Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiTasks" style="font-size: 1.4rem; color: #a78bfa;">0</div>
+                            <div class="label fs-sm-bold">AI Adopted Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); padding: 14px;">
+                            <div class="value" id="qaOasManualTasks" style="font-size: 1.4rem; color: #fbbf24;">0</div>
+                            <div class="label fs-sm-bold">Manual Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="qaOasMaiIneffTasks" style="font-size: 1.4rem; color: #fca5a5;">0</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Tasks</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiAdoptionRate" style="font-size: 1.4rem; color: #34d399;">0%</div>
+                            <div class="label fs-sm-bold">AI Adoption Rate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Row 2: AI Hours -->
+                <div style="margin-bottom: 8px;">
+                    <div style="color: #c4b5fd; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">🤖 AI Hours Breakdown</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiOrigEst" style="font-size: 1.3rem; color: #c4b5fd;">0h</div>
+                            <div class="label fs-sm-bold">AI Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiRevisedEst" style="font-size: 1.3rem; color: #d8b4fe;">0h</div>
+                            <div class="label fs-sm-bold">AI Revised Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiTotalOrigEst" style="font-size: 1.3rem; color: #60a5fa;">0h</div>
+                            <div class="label fs-sm-bold">Total AI Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiCompleted" style="font-size: 1.3rem; color: #34d399;">0h</div>
+                            <div class="label fs-sm-bold">AI Completed</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiEfficiency" style="font-size: 1.3rem; color: #22d3ee;">0%</div>
+                            <div class="label fs-sm-bold">AI Efficiency</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); padding: 14px;">
+                            <div class="value" id="qaOasAiHoursSaved" style="font-size: 1.3rem; color: #f472b6;">0h</div>
+                            <div class="label fs-sm-bold">Hours Saved</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Row 3: MAI-Ineff Hours -->
+                <div style="margin-bottom: 8px;">
+                    <div style="color: #fca5a5; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">⚠️ Manual-AI-Ineffective Hours Breakdown</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="qaOasMaiIneffOrigEst" style="font-size: 1.3rem; color: #fca5a5;">0h</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="qaOasMaiIneffCompleted" style="font-size: 1.3rem; color: #fb7185;">0h</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Completed</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="qaOasMaiIneffEfficiency" style="font-size: 1.3rem; color: #22d3ee;">0%</div>
+                            <div class="label fs-sm-bold">MAI-Ineff Efficiency</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); padding: 14px;">
+                            <div class="value" id="qaOasMaiIneffHoursSaved" style="font-size: 1.3rem; color: #f472b6;">0h</div>
+                            <div class="label fs-sm-bold">Hours Saved</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Row 4: Manual Hours -->
+                <div>
+                    <div style="color: #fcd34d; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-left: 4px;">🔧 Manual Hours Breakdown</div>
+                    <div class="summary-row" style="gap: 10px;">
+                        <div class="summary-stat" style="background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.3); padding: 14px;">
+                            <div class="value" id="qaOasManualOrigEst" style="font-size: 1.3rem; color: #fbbf24;">0h</div>
+                            <div class="label fs-sm-bold">Manual Orig Est</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); padding: 14px;">
+                            <div class="value" id="qaOasManualCompleted" style="font-size: 1.3rem; color: #34d399;">0h</div>
+                            <div class="label fs-sm-bold">Manual Completed</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); padding: 14px;">
+                            <div class="value" id="qaOasManualEfficiency" style="font-size: 1.3rem; color: #22d3ee;">0%</div>
+                            <div class="label fs-sm-bold">Manual Efficiency</div>
+                        </div>
+                        <div class="summary-stat" style="background: rgba(236,72,153,0.15); border-color: rgba(236,72,153,0.3); padding: 14px;">
+                            <div class="value" id="qaOasManualHoursSaved" style="font-size: 1.3rem; color: #f472b6;">0h</div>
+                            <div class="label fs-sm-bold">Hours Saved</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
 
         <!-- AI Analytics & Summary Block -->
         <div style="border:2px solid rgba(245,158,11,0.3);border-radius:10px;padding:12px;margin-bottom:16px;background:rgba(245,158,11,0.03);">
@@ -4148,6 +4437,26 @@
                 oasBtn.style.borderColor = '';
             }
             overallAISummaryLoaded = false;
+            // Reset Dev Overall AI Adoption Summary
+            const devOasContent = document.getElementById('devOverallAISummaryContent');
+            const devOasBtn = document.getElementById('loadDevOverallSummaryBtn');
+            if (devOasContent) devOasContent.style.display = 'none';
+            if (devOasBtn) {
+                devOasBtn.textContent = '📊 Show';
+                devOasBtn.style.background = '';
+                devOasBtn.style.borderColor = '';
+            }
+            devOverallAISummaryLoaded = false;
+            // Reset QA Overall AI Adoption Summary
+            const qaOasContent = document.getElementById('qaOverallAISummaryContent');
+            const qaOasBtn = document.getElementById('loadQAOverallSummaryBtn');
+            if (qaOasContent) qaOasContent.style.display = 'none';
+            if (qaOasBtn) {
+                qaOasBtn.textContent = '📊 Show';
+                qaOasBtn.style.background = '';
+                qaOasBtn.style.borderColor = '';
+            }
+            qaOverallAISummaryLoaded = false;
             // Reset Discipline Verification Data
             const dvContent = document.getElementById('disciplineVerifyContent');
             const dvBtn = document.getElementById('loadDisciplineVerifyBtn');
@@ -6169,6 +6478,176 @@
             manEffEl.textContent = manualEfficiency + '%';
             manEffEl.style.color = manualEfficiency >= 0 ? '#22d3ee' : '#f87171';
             const manSavedEl = document.getElementById('oasManualHoursSaved');
+            manSavedEl.textContent = fmtH(manualHoursSaved) + 'h';
+            manSavedEl.style.color = manualHoursSaved >= 0 ? '#f472b6' : '#f87171';
+        }
+
+        // ========== DEV OVERALL AI ADOPTION SUMMARY ==========
+        let devOverallAISummaryLoaded = false;
+        
+        function toggleDevOverallAISummary() {
+            const btn = document.getElementById('loadDevOverallSummaryBtn');
+            const content = document.getElementById('devOverallAISummaryContent');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                btn.textContent = '🔼 Hide';
+                btn.style.background = 'rgba(239,68,68,0.3)';
+                btn.style.borderColor = 'rgba(239,68,68,0.5)';
+                
+                if (!devOverallAISummaryLoaded) {
+                    loadDisciplineOverallAISummary('Development', 'devOas');
+                    devOverallAISummaryLoaded = true;
+                }
+            } else {
+                content.style.display = 'none';
+                btn.textContent = '📊 Show';
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                devOverallAISummaryLoaded = false;
+            }
+        }
+        
+        // ========== QA OVERALL AI ADOPTION SUMMARY ==========
+        let qaOverallAISummaryLoaded = false;
+        
+        function toggleQAOverallAISummary() {
+            const btn = document.getElementById('loadQAOverallSummaryBtn');
+            const content = document.getElementById('qaOverallAISummaryContent');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                btn.textContent = '🔼 Hide';
+                btn.style.background = 'rgba(239,68,68,0.3)';
+                btn.style.borderColor = 'rgba(239,68,68,0.5)';
+                
+                if (!qaOverallAISummaryLoaded) {
+                    loadDisciplineOverallAISummary('Test', 'qaOas');
+                    qaOverallAISummaryLoaded = true;
+                }
+            } else {
+                content.style.display = 'none';
+                btn.textContent = '📊 Show';
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                qaOverallAISummaryLoaded = false;
+            }
+        }
+        
+        // ========== SHARED DISCIPLINE-FILTERED OVERALL AI SUMMARY LOADER ==========
+        function loadDisciplineOverallAISummary(disciplineFilter, prefix) {
+            // Valid requirement IDs: Deliverable, Deliverables Adhoc, Deliverables OnHold, Non-Deliverable
+            const validReqIds = new Set();
+            requirements.forEach(req => {
+                const tags = (req.fields['System.Tags'] || '').split(';').map(t => t.trim().toLowerCase());
+                if (tags.includes('deliverable') || tags.includes('deliverables adhoc') || 
+                    tags.includes('deliverables onhold') || tags.includes('non-deliverable')) {
+                    validReqIds.add(req.id);
+                }
+            });
+            
+            // Accumulators
+            let aiTaskCount = 0, manualTaskCount = 0, maiIneffTaskCount = 0;
+            let aiOrigEst = 0, aiRevisedEst = 0, aiTotalOrigEst = 0, aiCompleted = 0;
+            let maiIneffOrigEst = 0, maiIneffCompleted = 0;
+            let manualOrigEst = 0, manualCompleted = 0;
+            
+            tasks.forEach(t => {
+                if (!t.fields) return;
+                const parentReqId = taskParentMap[t.id];
+                if (!parentReqId || !validReqIds.has(parentReqId)) return;
+                
+                const taskAreaPath = t.fields['System.AreaPath'] || '';
+                if (!isTaskAreaMatchingSelection(taskAreaPath)) return;
+                
+                // Discipline filter
+                const discipline = t.fields['Microsoft.VSTS.Common.Discipline'] || '';
+                if (discipline !== disciplineFilter) return;
+                
+                const state = t.fields['System.State'] || '';
+                const reason = t.fields['System.Reason'] || '';
+                if (!['Resolved', 'Closed'].includes(state)) return;
+                if (reason === 'Rejected') return;
+                
+                const revisedEst = t.fields['Casepoint.TFS.CustomFields.RevisedEstimate'] || 0;
+                const originalEst = t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                const origEst = (revisedEst > 0) ? revisedEst : originalEst;
+                const compWork = t.fields['Microsoft.VSTS.Scheduling.CompletedWork'] || 0;
+                if (origEst <= 0) return;
+                
+                const execType = t.fields['Casepoint.TFS.CustomFields.TaskExecutionType'] || '';
+                const isAiType = execType.startsWith('AI-');
+                const isManualType = execType === 'Manual';
+                const isManualAiIneff = execType === 'Manual-AI-Ineffective';
+                
+                if (!isAiType && !isManualType && !isManualAiIneff) return;
+                
+                if (isAiType) {
+                    aiTaskCount++;
+                    if (revisedEst <= 0) aiOrigEst += originalEst;
+                    aiRevisedEst += revisedEst;
+                    aiTotalOrigEst += origEst;
+                    aiCompleted += compWork;
+                } else if (isManualAiIneff) {
+                    maiIneffTaskCount++;
+                    maiIneffOrigEst += origEst;
+                    maiIneffCompleted += compWork;
+                } else {
+                    manualTaskCount++;
+                    manualOrigEst += origEst;
+                    manualCompleted += compWork;
+                }
+            });
+            
+            const totalTasks = aiTaskCount + maiIneffTaskCount + manualTaskCount;
+            const totalAdoptionHours = aiTotalOrigEst + maiIneffOrigEst + manualOrigEst;
+            const aiAdoptionRate = totalAdoptionHours > 0 ? Math.round(((aiTotalOrigEst + maiIneffOrigEst) / totalAdoptionHours) * 100) : 0;
+            
+            const aiEfficiency = aiTotalOrigEst > 0 ? Math.round(((aiTotalOrigEst - aiCompleted) / aiTotalOrigEst) * 100) : 0;
+            const aiHoursSaved = aiTotalOrigEst - aiCompleted;
+            
+            const manualEffDenom = manualOrigEst + maiIneffOrigEst;
+            const manualEfficiency = manualEffDenom > 0 ? Math.round(((manualEffDenom - (manualCompleted + maiIneffCompleted)) / manualEffDenom) * 100) : 0;
+            const manualHoursSaved = manualEffDenom - (manualCompleted + maiIneffCompleted);
+            
+            // Row 1 - Task Counts
+            document.getElementById(prefix + 'OverallTasks').textContent = totalTasks;
+            document.getElementById(prefix + 'AiTasks').textContent = aiTaskCount;
+            document.getElementById(prefix + 'ManualTasks').textContent = manualTaskCount;
+            document.getElementById(prefix + 'MaiIneffTasks').textContent = maiIneffTaskCount;
+            document.getElementById(prefix + 'AiAdoptionRate').textContent = aiAdoptionRate + '%';
+            
+            // Row 2 - AI Hours
+            document.getElementById(prefix + 'AiOrigEst').textContent = fmtH(aiOrigEst) + 'h';
+            document.getElementById(prefix + 'AiRevisedEst').textContent = fmtH(aiRevisedEst) + 'h';
+            document.getElementById(prefix + 'AiTotalOrigEst').textContent = fmtH(aiTotalOrigEst) + 'h';
+            document.getElementById(prefix + 'AiCompleted').textContent = fmtH(aiCompleted) + 'h';
+            const aiEffEl = document.getElementById(prefix + 'AiEfficiency');
+            aiEffEl.textContent = aiEfficiency + '%';
+            aiEffEl.style.color = aiEfficiency >= 0 ? '#22d3ee' : '#f87171';
+            const aiSavedEl = document.getElementById(prefix + 'AiHoursSaved');
+            aiSavedEl.textContent = fmtH(aiHoursSaved) + 'h';
+            aiSavedEl.style.color = aiHoursSaved >= 0 ? '#f472b6' : '#f87171';
+            
+            // Row 3 - MAI-Ineff Hours
+            document.getElementById(prefix + 'MaiIneffOrigEst').textContent = fmtH(maiIneffOrigEst) + 'h';
+            document.getElementById(prefix + 'MaiIneffCompleted').textContent = fmtH(maiIneffCompleted) + 'h';
+            const maiIneffEfficiency = maiIneffOrigEst > 0 ? Math.round(((maiIneffOrigEst - maiIneffCompleted) / maiIneffOrigEst) * 100) : 0;
+            const maiIneffHoursSaved = maiIneffOrigEst - maiIneffCompleted;
+            const maiIneffEffEl = document.getElementById(prefix + 'MaiIneffEfficiency');
+            maiIneffEffEl.textContent = maiIneffEfficiency + '%';
+            maiIneffEffEl.style.color = maiIneffEfficiency >= 0 ? '#22d3ee' : '#f87171';
+            const maiIneffSavedEl = document.getElementById(prefix + 'MaiIneffHoursSaved');
+            maiIneffSavedEl.textContent = fmtH(maiIneffHoursSaved) + 'h';
+            maiIneffSavedEl.style.color = maiIneffHoursSaved >= 0 ? '#f472b6' : '#f87171';
+            
+            // Row 4 - Manual Hours
+            document.getElementById(prefix + 'ManualOrigEst').textContent = fmtH(manualOrigEst) + 'h';
+            document.getElementById(prefix + 'ManualCompleted').textContent = fmtH(manualCompleted) + 'h';
+            const manEffEl = document.getElementById(prefix + 'ManualEfficiency');
+            manEffEl.textContent = manualEfficiency + '%';
+            manEffEl.style.color = manualEfficiency >= 0 ? '#22d3ee' : '#f87171';
+            const manSavedEl = document.getElementById(prefix + 'ManualHoursSaved');
             manSavedEl.textContent = fmtH(manualHoursSaved) + 'h';
             manSavedEl.style.color = manualHoursSaved >= 0 ? '#f472b6' : '#f87171';
         }
