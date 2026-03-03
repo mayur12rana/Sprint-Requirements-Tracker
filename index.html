@@ -358,6 +358,8 @@
         /* Overall Discipline-wise Data: Indigo gradient header */
         body.light-theme #disciplineWiseTableHead th { background: linear-gradient(135deg, #4338ca, #4f46e5) !important; color: #ffffff !important; border-bottom-color: #4338ca !important; }
         body.light-theme #disciplineWiseTableFoot td, body.light-theme #disciplineWiseTableFoot th { background: linear-gradient(135deg, #e0e7ff, #c7d2fe) !important; color: #312e81 !important; }
+        body.light-theme #dwAiIneffToggleBtn { background: rgba(239,68,68,0.1) !important; border-color: rgba(239,68,68,0.3) !important; color: #dc2626 !important; }
+        body.light-theme #dwCalcModeLabel { color: #dc2626 !important; }
         /* TaskExecutionType: Violet gradient header */
         body.light-theme #execTypeAIAdoptionTableHead th { background: linear-gradient(135deg, #7c3aed, #8b5cf6) !important; color: #ffffff !important; border-bottom-color: #7c3aed !important; }
         body.light-theme #execTypeAIAdoptionTableFoot td, body.light-theme #execTypeAIAdoptionTableFoot th { background: linear-gradient(135deg, #ede9fe, #ddd6fe) !important; color: #4c1d95 !important; }
@@ -938,7 +940,10 @@
         </div>
         <div class="config-field">
             <label>Personal Access Token</label>
-            <input type="password" id="pat" placeholder="Enter your PAT" onblur="autoFetchProjects()">
+            <div style="position:relative;">
+                <input type="password" id="pat" placeholder="Enter your PAT" onblur="autoFetchProjects()" style="padding-right:36px;">
+                <button type="button" onclick="togglePatVisibility()" id="patEyeBtn" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#94a3b8;font-size:1rem;padding:2px 4px;line-height:1;" title="Show/Hide PAT">👁️</button>
+            </div>
             <div id="patUserInfo" style="display:none; margin-top:6px; padding:8px 10px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:6px; font-size:0.75rem;">
                 <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                     <span style="color:#34d399; font-weight:600;">✅ Authenticated as:</span>
@@ -1722,8 +1727,12 @@
 
         <!-- Dev & QA AI Adoption Block -->
         <div style="border:2px solid rgba(59,130,246,0.3);border-radius:10px;padding:12px;margin-bottom:16px;background:rgba(59,130,246,0.03);">
-        <div style="margin-bottom:10px;padding:6px 12px;border-left:3px solid #3b82f6;background:rgba(59,130,246,0.08);border-radius:0 6px 6px 0;">
+        <div style="margin-bottom:10px;padding:6px 12px;border-left:3px solid #3b82f6;background:rgba(59,130,246,0.08);border-radius:0 6px 6px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
             <span style="color:#93c5fd;font-size:0.8rem;font-weight:700;">📋 Team AI Adoption Reports</span>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.7rem;color:#fbbf24;user-select:none;" title="When enabled, Adhoc Support tasks are included in AI Adoption % and AI Efficiency % calculations across all AI reports">
+                <input type="checkbox" id="includeAdhocToggle" checked onchange="toggleAdhocInAI(this.checked)" style="width:15px;height:15px;cursor:pointer;accent-color:#f59e0b;">
+                <span>Include <span style="background:rgba(251,146,60,0.3);padding:1px 6px;border-radius:3px;color:#fdba74;">Adhoc Support</span> in AI Calculations</span>
+            </label>
         </div>
 
         <!-- Dev AI Adoption Data Dashboard -->
@@ -2432,6 +2441,12 @@
                         <span style="background: rgba(251,146,60,0.3); padding: 2px 8px; border-radius: 4px; color: #fdba74;">Adhoc Support</span>
                     </div>
                 </div>
+                <!-- AI-Ineff Calculation Toggle -->
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 8px 12px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 8px;">
+                    <span style="color: #94a3b8; font-size: 0.72rem; font-weight: 600;">📐 AI Adoption Calc:</span>
+                    <span id="dwCalcModeLabel" style="color: #fca5a5; font-size: 0.7rem;">AI-Ineff counted as <strong>AI Adoption</strong></span>
+                    <button id="dwAiIneffToggleBtn" onclick="toggleDisciplineWiseAiIneffMode()" style="padding: 4px 14px; font-size: 0.68rem; border-radius: 12px; cursor: pointer; border: 1px solid rgba(239,68,68,0.4); background: rgba(239,68,68,0.15); color: #fca5a5; transition: all 0.3s; font-weight: 600;">🔄 Switch to Manual</button>
+                </div>
                 <!-- Summary Table -->
                 <div id="disciplineWiseTableContainer" style="max-height: 780px; overflow-y: auto; overflow-x: auto;">
                     <table id="disciplineWiseTable" style="width: 100%; border-collapse: collapse; font-size: 0.75rem; table-layout: fixed;">
@@ -2981,6 +2996,7 @@
         let aiAdoptionAreaFilter = 'All'; // Area filter for Dev AI pagination
         let aiAdoptionGrandTotals = {}; // Store grand totals for footer
         let aiAdoptionWeekFilter = 'All'; // Week filter for Dev AI
+        let includeAdhocInAI = true; // Toggle: include Adhoc Support tasks in AI adoption/efficiency calculations
         
         // QA AI Adoption sorting state
         let qaAIAdoptionMemberData = []; // Store QA member results for sorting
@@ -3108,6 +3124,20 @@
         let currentUserTabs = [1, 2, 3, 4, 5]; // Tab permissions - loaded from allowed_users.json (Tab 7 = super_admin only)
         let selectedProjects = [];
         
+        function togglePatVisibility() {
+            const inp = document.getElementById('pat');
+            const btn = document.getElementById('patEyeBtn');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                btn.textContent = '🙈';
+                btn.title = 'Hide PAT';
+            } else {
+                inp.type = 'password';
+                btn.textContent = '👁️';
+                btn.title = 'Show PAT';
+            }
+        }
+
         async function autoFetchProjects() {
             const tfsUrlVal = document.getElementById('tfsUrl').value.trim().replace(/\/$/, '');
             const pat = document.getElementById('pat').value.trim();
@@ -5807,8 +5837,8 @@
             }
             const filteredData = getFilteredFeatureData().filter(f => fpSelectedIds.has(f.id));
             if (filteredData.length === 0) { alert('⚠️ No features selected. Please check features in the table first.'); return; }
-            const states = featureFilters.states.length > 0 ? featureFilters.states : ['Proposed','Active','Resolved','Closed'];
-            const statuses = featureFilters.statuses.length > 0 ? featureFilters.statuses : [];
+            const states = ['Active', 'Closed', 'Proposed', 'Resolved'];
+            const statuses = ['Under Consideration', 'In Dev', 'In QA', 'In PT', 'On Hold', 'Ready to Ship', 'Shipped', 'Will not implement', 'Discovery Done'];
             const isLight = document.body.classList.contains('light-theme');
             const totalFiltered = getFilteredFeatureData().length;
 
@@ -6549,10 +6579,10 @@
                     tags.includes('deliverables onhold') || tags.includes('non-deliverable')) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             // Accumulators
             let aiTaskCount = 0, manualTaskCount = 0, maiIneffTaskCount = 0;
@@ -6721,10 +6751,10 @@
                     tags.includes('deliverables onhold') || tags.includes('non-deliverable')) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             // Accumulators
             let aiTaskCount = 0, manualTaskCount = 0, maiIneffTaskCount = 0;
@@ -6916,10 +6946,10 @@
                     tags.includes('deliverables onhold') || tags.includes('non-deliverable')) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             const completedStates = ['resolved', 'closed'];
             
@@ -7242,6 +7272,21 @@
             renderAIAdoptionTableRows();
         }
         
+        // Toggle Adhoc Support inclusion in AI calculations
+        function toggleAdhocInAI(checked) {
+            includeAdhocInAI = checked;
+            // Re-render all loaded AI adoption/efficiency sections
+            if (aiAdoptionDataLoaded) renderAIAdoptionData();
+            if (qaAIAdoptionDataLoaded) renderQAAIAdoptionData();
+            if (overallAISummaryLoaded) { overallAISummaryLoaded = false; loadOverallAISummary(); }
+            if (devOverallAISummaryLoaded) { devOverallAISummaryLoaded = false; loadDisciplineOverallAISummary('Development', 'devOas'); }
+            if (qaOverallAISummaryLoaded) { qaOverallAISummaryLoaded = false; loadDisciplineOverallAISummary('Testing', 'qaOas'); }
+            if (overallAIAdoptionDataLoaded) { overallAIAdoptionDataLoaded = false; loadOverallAIAdoptionData(); }
+            if (execTypeAIAdoptionDataLoaded) { execTypeAIAdoptionDataLoaded = false; loadExecTypeAIAdoptionData(); }
+            if (projectAIAdoptionDataLoaded) { projectAIAdoptionDataLoaded = false; loadProjectAIAdoptionData(); }
+            if (wbDataLoaded) { buildWeeklyBreakdownData(); }
+        }
+
         function filterAIAdoptionByWeek(week) {
             aiAdoptionWeekFilter = week;
             renderAIAdoptionData();
@@ -7907,10 +7952,10 @@
                     tags.includes('deliverables onhold') || tags.includes('non-deliverable')) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             // Filter tasks based on criteria: Resolved/Closed + Reason != Rejected + OrigEst > 0
             const completedStates = ['resolved', 'closed'];
@@ -8834,6 +8879,7 @@
         
         // ========== OVERALL DISCIPLINE-WISE DATA ==========
         let disciplineWiseDataLoaded = false;
+        let dwAiIneffAsManual = false;
         let disciplineWiseData = [];
         let disciplineWiseGrandTotals = {};
         let disciplineWiseSortField = 'discipline';
@@ -8857,9 +8903,9 @@
             requirements.forEach(req => {
                 const tags = (req.fields['System.Tags'] || '').split(';').map(t => t.trim().toLowerCase());
                 if (tags.includes('deliverable') || tags.includes('deliverables adhoc') || tags.includes('deliverables onhold') || tags.includes('non-deliverable')) validReqIds.add(req.id);
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             const allDisciplines = ['Analysis', 'Development', 'Documentation', 'Test', 'User Education', 'User Experience'];
             const dataMap = {};
@@ -8926,34 +8972,12 @@
             
             // Convert to array, compute derived fields, filter out zero-task disciplines
             disciplineWiseData = Object.values(dataMap).filter(d => d.taskCount > 0).map(d => {
-                const totalAiOrig = d.aiOrigEst + d.manualAiIneffOrigEst;
-                const aiAdoption = (totalAiOrig + d.manualOrigEst) > 0 ? Math.round((totalAiOrig / (totalAiOrig + d.manualOrigEst)) * 100) : 0;
-                const manEffDenom = d.manualOrigEst + d.manualAiIneffOrigEst;
-                const manualEff = manEffDenom > 0 ? Math.round(((manEffDenom - (d.manualCompleted + d.manualAiIneffCompleted)) / manEffDenom) * 100) : 0;
-                const aiEff = d.aiOrigEst > 0 ? Math.round(((d.aiOrigEst - d.aiCompleted) / d.aiOrigEst) * 100) : 0;
-                const hourSaved = d.aiOrigEst - d.aiCompleted;
                 return { ...d, project: [...d.projects].join(', ') || '-', area: d.areas.size > 1 ? `${d.areas.size} areas` : ([...d.areas][0] || '-'),
-                    aiAdoption, manualEff, aiEff, hourSaved };
+                    aiAdoption: 0, manualEff: 0, aiEff: 0, hourSaved: 0 };
             });
             
-            // Grand totals
-            const gt = disciplineWiseData.reduce((acc, d) => {
-                acc.taskCount += d.taskCount; acc.claudeAiCount += d.claudeAiCount; acc.copilotCount += d.copilotCount;
-                acc.manualAiIneffCount += d.manualAiIneffCount; acc.manualCount += d.manualCount;
-                acc.aiOrigEst += d.aiOrigEst; acc.aiCompleted += d.aiCompleted;
-                acc.manualAiIneffOrigEst += d.manualAiIneffOrigEst; acc.manualAiIneffCompleted += d.manualAiIneffCompleted;
-                acc.manualOrigEst += d.manualOrigEst; acc.manualCompleted += d.manualCompleted;
-                return acc;
-            }, { taskCount:0, claudeAiCount:0, copilotCount:0, manualAiIneffCount:0, manualCount:0,
-                aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
-            const gtTotalOrig = gt.aiOrigEst + gt.manualAiIneffOrigEst;
-            const gtManEffDenom = gt.manualOrigEst + gt.manualAiIneffOrigEst;
-            disciplineWiseGrandTotals = { ...gt,
-                aiAdoption: (gtTotalOrig + gt.manualOrigEst) > 0 ? Math.round((gtTotalOrig / (gtTotalOrig + gt.manualOrigEst)) * 100) : 0,
-                manualEff: gtManEffDenom > 0 ? Math.round(((gtManEffDenom - (gt.manualCompleted + gt.manualAiIneffCompleted)) / gtManEffDenom) * 100) : 0,
-                aiEff: gt.aiOrigEst > 0 ? Math.round(((gt.aiOrigEst - gt.aiCompleted) / gt.aiOrigEst) * 100) : 0,
-                hourSaved: gt.aiOrigEst - gt.aiCompleted
-            };
+            // Calculate derived fields (AI Adoption %, Manual Eff, AI Eff, Hr Saved) using toggle-aware helper
+            dwRecalcDerived();
             
             renderDisciplineWiseTable();
         }
@@ -8966,6 +8990,61 @@
                 disciplineWiseSortDir = typeof disciplineWiseData[0]?.[field] === 'string' ? 'asc' : 'desc';
             }
             renderDisciplineWiseTable();
+        }
+        
+        function toggleDisciplineWiseAiIneffMode() {
+            dwAiIneffAsManual = !dwAiIneffAsManual;
+            const label = document.getElementById('dwCalcModeLabel');
+            const btn = document.getElementById('dwAiIneffToggleBtn');
+            if (dwAiIneffAsManual) {
+                label.innerHTML = 'AI-Ineff counted as <strong style="color:#fcd34d;">Manual</strong>';
+                btn.textContent = '🔄 Switch to AI Adoption';
+                btn.style.background = 'rgba(245,158,11,0.2)';
+                btn.style.borderColor = 'rgba(245,158,11,0.5)';
+                btn.style.color = '#fcd34d';
+            } else {
+                label.innerHTML = 'AI-Ineff counted as <strong>AI Adoption</strong>';
+                btn.textContent = '🔄 Switch to Manual';
+                btn.style.background = 'rgba(239,68,68,0.15)';
+                btn.style.borderColor = 'rgba(239,68,68,0.4)';
+                btn.style.color = '#fca5a5';
+            }
+            // Recalculate derived fields and grand totals, then re-render
+            dwRecalcDerived();
+            renderDisciplineWiseTable();
+        }
+        
+        function dwCalcAiAdopt(aiOrig, aiIneffOrig, manOrig) {
+            const totalDenom = aiOrig + aiIneffOrig + manOrig;
+            if (totalDenom <= 0) return 0;
+            const numerator = dwAiIneffAsManual ? aiOrig : (aiOrig + aiIneffOrig);
+            return Math.round((numerator / totalDenom) * 100);
+        }
+        
+        function dwRecalcDerived() {
+            disciplineWiseData.forEach(d => {
+                d.aiAdoption = dwCalcAiAdopt(d.aiOrigEst, d.manualAiIneffOrigEst, d.manualOrigEst);
+                const manEffDenom = d.manualOrigEst + d.manualAiIneffOrigEst;
+                d.manualEff = manEffDenom > 0 ? Math.round(((manEffDenom - (d.manualCompleted + d.manualAiIneffCompleted)) / manEffDenom) * 100) : 0;
+                d.aiEff = d.aiOrigEst > 0 ? Math.round(((d.aiOrigEst - d.aiCompleted) / d.aiOrigEst) * 100) : 0;
+                d.hourSaved = d.aiOrigEst - d.aiCompleted;
+            });
+            const gt = disciplineWiseData.reduce((acc, d) => {
+                acc.taskCount += d.taskCount; acc.claudeAiCount += d.claudeAiCount; acc.copilotCount += d.copilotCount;
+                acc.manualAiIneffCount += d.manualAiIneffCount; acc.manualCount += d.manualCount;
+                acc.aiOrigEst += d.aiOrigEst; acc.aiCompleted += d.aiCompleted;
+                acc.manualAiIneffOrigEst += d.manualAiIneffOrigEst; acc.manualAiIneffCompleted += d.manualAiIneffCompleted;
+                acc.manualOrigEst += d.manualOrigEst; acc.manualCompleted += d.manualCompleted;
+                return acc;
+            }, { taskCount:0, claudeAiCount:0, copilotCount:0, manualAiIneffCount:0, manualCount:0,
+                aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
+            const gtManEffDenom = gt.manualOrigEst + gt.manualAiIneffOrigEst;
+            disciplineWiseGrandTotals = { ...gt,
+                aiAdoption: dwCalcAiAdopt(gt.aiOrigEst, gt.manualAiIneffOrigEst, gt.manualOrigEst),
+                manualEff: gtManEffDenom > 0 ? Math.round(((gtManEffDenom - (gt.manualCompleted + gt.manualAiIneffCompleted)) / gtManEffDenom) * 100) : 0,
+                aiEff: gt.aiOrigEst > 0 ? Math.round(((gt.aiOrigEst - gt.aiCompleted) / gt.aiOrigEst) * 100) : 0,
+                hourSaved: gt.aiOrigEst - gt.aiCompleted
+            };
         }
         
         function renderDisciplineWiseTable() {
@@ -8993,6 +9072,9 @@
             const thNc = th.replace('cursor:pointer;','');
             const subTh = 'padding:6px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);font-size:0.68rem;cursor:pointer;';
             
+            // AI Adopt header color changes based on toggle mode
+            const aiAdoptBg = dwAiIneffAsManual ? 'background:rgba(245,158,11,0.25);color:#fcd34d;' : 'background:rgba(59,130,246,0.25);color:#60a5fa;';
+            
             thead.innerHTML = `<tr>
                 <th rowspan="2" style="${th}text-align:left;width:14%;" onclick="sortDisciplineWiseTable('discipline')">Discipline${sI('discipline')}</th>
                 <th rowspan="2" style="${th}width:5%;" onclick="sortDisciplineWiseTable('taskCount')">Tasks${sI('taskCount')}</th>
@@ -9003,7 +9085,7 @@
                 <th colspan="2" style="${thNc}background:rgba(139,92,246,0.25);color:#c4b5fd;width:9%;">AI Total</th>
                 <th colspan="2" style="${thNc}background:rgba(239,68,68,0.25);color:#fca5a5;width:9%;">AI-Ineff Hours</th>
                 <th colspan="2" style="${thNc}background:rgba(245,158,11,0.25);color:#fcd34d;width:9%;">Manual Hours</th>
-                <th rowspan="2" style="${th}background:rgba(59,130,246,0.25);color:#60a5fa;width:5%;" onclick="sortDisciplineWiseTable('aiAdoption')">AI Adopt${sI('aiAdoption')}</th>
+                <th rowspan="2" style="${th}${aiAdoptBg}width:5%;" onclick="sortDisciplineWiseTable('aiAdoption')">AI Adopt${sI('aiAdoption')}</th>
                 <th rowspan="2" style="${th}background:rgba(245,158,11,0.25);color:#fcd34d;width:5%;" onclick="sortDisciplineWiseTable('manualEff')">Man Eff${sI('manualEff')}</th>
                 <th rowspan="2" style="${th}background:rgba(16,185,129,0.25);color:#34d399;width:5%;" onclick="sortDisciplineWiseTable('aiEff')">AI Eff${sI('aiEff')}</th>
                 <th rowspan="2" style="${th}background:rgba(236,72,153,0.25);color:#f472b6;width:5%;" onclick="sortDisciplineWiseTable('hourSaved')">Hr Save${sI('hourSaved')}</th>
@@ -9017,6 +9099,7 @@
             </tr>`;
             
             const td = 'padding:10px 6px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.8rem;';
+            const aiAdoptColor = dwAiIneffAsManual ? '#fcd34d' : '#60a5fa';
             tbody.innerHTML = sorted.map(d => {
                 const mEffC = d.manualEff >= 0 ? '#34d399' : '#f87171';
                 const aEffC = d.aiEff >= 0 ? '#34d399' : '#f87171';
@@ -9034,7 +9117,7 @@
                     <td style="${td}text-align:center;color:#fb7185;">${d.manualAiIneffCompleted > 0 ? fmtH(d.manualAiIneffCompleted)+'h' : '-'}</td>
                     <td style="${td}text-align:center;color:#fbbf24;">${d.manualOrigEst > 0 ? fmtH(d.manualOrigEst)+'h' : '-'}</td>
                     <td style="${td}text-align:center;color:#34d399;">${d.manualCompleted > 0 ? fmtH(d.manualCompleted)+'h' : '-'}</td>
-                    <td style="${td}text-align:center;color:#60a5fa;font-weight:600;">${d.aiAdoption}%</td>
+                    <td style="${td}text-align:center;color:${aiAdoptColor};font-weight:600;">${d.aiAdoption}%</td>
                     <td style="${td}text-align:center;color:${mEffC};font-weight:600;">${(d.manualOrigEst+d.manualAiIneffOrigEst)>0 ? d.manualEff+'%' : '-'}</td>
                     <td style="${td}text-align:center;color:${aEffC};font-weight:600;">${d.aiOrigEst>0 ? d.aiEff+'%' : '-'}</td>
                     <td style="${td}text-align:center;color:${hSC};font-weight:600;">${d.aiOrigEst>0 ? fmtH(d.hourSaved)+'h' : '-'}</td>
@@ -9059,7 +9142,7 @@
                 <td style="${tf}text-align:center;color:#fb7185;font-weight:700;">${fmtH(g.manualAiIneffCompleted)}h</td>
                 <td style="${tf}text-align:center;color:#fbbf24;font-weight:700;">${fmtH(g.manualOrigEst)}h</td>
                 <td style="${tf}text-align:center;color:#34d399;font-weight:700;">${fmtH(g.manualCompleted)}h</td>
-                <td style="${tf}text-align:center;color:#60a5fa;font-weight:700;">${g.aiAdoption}%</td>
+                <td style="${tf}text-align:center;color:${aiAdoptColor};font-weight:700;">${g.aiAdoption}%</td>
                 <td style="${tf}text-align:center;color:${gMEffC};font-weight:700;">${g.manualEff}%</td>
                 <td style="${tf}text-align:center;color:${gAEffC};font-weight:700;">${g.aiEff}%</td>
                 <td style="${tf}text-align:center;color:${gHSC};font-weight:700;">${fmtH(g.hourSaved)}h</td>
@@ -9100,10 +9183,10 @@
                 if (hasDeliverable || hasDeliverablesAdhoc || hasDeliverablesOnHold || hasNonDeliverable) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             // Define all known TFS Disciplines - these will always show in the table
             const allDisciplines = [
@@ -9497,10 +9580,10 @@
                 if (hasDeliverable || hasDeliverablesAdhoc || hasDeliverablesOnHold || hasNonDeliverable) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             // Define all known AI-* TaskExecutionType values
             const allAIExecTypes = [
@@ -9850,10 +9933,10 @@
                 if (hasDeliverable || hasDeliverablesAdhoc || hasDeliverablesOnHold || hasNonDeliverable) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
             // Initialize project data map
             const projectDataMap = new Map();
@@ -10184,9 +10267,9 @@
             requirements.forEach(req => {
                 const tags = (req.fields['System.Tags'] || '').split(';').map(t => t.trim().toLowerCase());
                 if (tags.includes('deliverable') || tags.includes('deliverables adhoc') || tags.includes('deliverables onhold') || tags.includes('non-deliverable')) dvValidReqIds.add(req.id);
-                if (req.isAdhocSupport) dvValidReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) dvValidReqIds.add(req.id);
             });
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) dvValidReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) dvValidReqIds.add(b.id); });
             
             tasks.forEach(t => {
                 if (!t.fields) return;
@@ -10438,12 +10521,12 @@
 
             const validReqIds = new Set();
             requirements.forEach(req => {
-                if (req.category === 'deliverable' || req.category === 'nonDeliverable' || req.isAdhocSupport) {
+                if (req.category === 'deliverable' || req.category === 'nonDeliverable' || (includeAdhocInAI && req.isAdhocSupport)) {
                     validReqIds.add(req.id);
                 }
             });
             // Also include Adhoc Support bugs as valid parents
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
 
             // Find CLOSED tasks with mismatched Discipline and Task Execution Type
             const mismatchedTasks = tasks.filter(t => {
@@ -10497,9 +10580,10 @@
                     <th style="${thStyle}text-align:left;width:5%;" onclick="sortMismatchTable('id')">ID${sortIcon('id')}</th>
                     <th style="${thStyle}text-align:left;" onclick="sortMismatchTable('title')">Title${sortIcon('title')}</th>
                     <th style="${thStyle}text-align:left;width:8%;" onclick="sortMismatchTable('state')">State${sortIcon('state')}</th>
-                    <th style="${thStyle}text-align:left;width:14%;" onclick="sortMismatchTable('assigned')">Assigned${sortIcon('assigned')}</th>
+                    <th style="${thStyle}text-align:left;width:12%;" onclick="sortMismatchTable('assigned')">Assigned${sortIcon('assigned')}</th>
+                    <th style="${thStyle}text-align:left;width:10%;" onclick="sortMismatchTable('areaPath')">Area${sortIcon('areaPath')}</th>
                     <th style="${thStyle}text-align:center;width:10%;" onclick="sortMismatchTable('discipline')">Discipline${sortIcon('discipline')}</th>
-                    <th style="${thStyle}text-align:center;width:15%;" onclick="sortMismatchTable('execType')">Task Exec Type${sortIcon('execType')}</th>
+                    <th style="${thStyle}text-align:center;width:14%;" onclick="sortMismatchTable('execType')">Task Exec Type${sortIcon('execType')}</th>
                 </tr>`;
             }
 
@@ -10529,11 +10613,14 @@
                     
                     tbody.innerHTML = sorted.map(t => {
                         const execType = t.fields['Casepoint.TFS.CustomFields.TaskExecutionType'] || '-';
+                        const areaPath = t.fields['System.AreaPath'] || '';
+                        const areaName = areaPath.split('\\').pop() || '-';
                         return `<tr>
                             <td style="${tdStyle}"><a href="${tfsUrl}/${project}/_workitems/edit/${t.id}" target="_blank" class="wi-link">${t.id}</a></td>
                             <td style="${tdStyle}">${t.fields['System.Title'] || ''}</td>
                             <td style="${tdStyle}">${t.fields['System.State'] || ''}</td>
                             <td style="${tdStyle}">${t.fields['System.AssignedTo']?.displayName || '-'}</td>
+                            <td style="${tdStyle}" title="${areaPath}">${areaName}</td>
                             <td style="${tdStyle}text-align:center;">${t.fields['Microsoft.VSTS.Common.Discipline'] || '-'}</td>
                             <td style="${tdStyle}text-align:center;">${execType}</td>
                         </tr>`;
@@ -10951,9 +11038,9 @@
                     tags.includes('deliverables onhold') || tags.includes('non-deliverable')) {
                     validReqIds.add(req.id);
                 }
-                if (req.isAdhocSupport) validReqIds.add(req.id);
+                if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             const completedStates = ['resolved', 'closed'];
             const validTasks = tasks.filter(t => {
                 const parentReqId = taskParentMap[t.id];
@@ -11418,9 +11505,9 @@
         function buildWeeklyBreakdownData() {
             const validReqIds = new Set();
             requirements.forEach(req => {
-                if (req.category === 'deliverable' || req.category === 'nonDeliverable' || req.isAdhocSupport) validReqIds.add(req.id);
+                if (req.category === 'deliverable' || req.category === 'nonDeliverable' || (includeAdhocInAI && req.isAdhocSupport)) validReqIds.add(req.id);
             });
-            bugs.forEach(b => { if ((b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
+            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             const completedStates = ['resolved', 'closed'];
             wbAllTasks = tasks.filter(t => {
                 const parentReqId = taskParentMap[t.id];
