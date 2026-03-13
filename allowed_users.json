@@ -30,6 +30,7 @@ var ALLOWED_USERS_DATA = {
         { "name": "BRkYCBdUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "EhsTGgZUFgAdCQ==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "HRkACARUCQ4XAQ==", "role": "normal", "tabs": [1, 4] },
-        { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 4] }
+        { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 4] },
+        { "name": "GxEADQcfZCMbAVxXQFVFKVoy", "role": "normal", "tabs": [1, 2, 3, 4, 5] }
     ]
 };
