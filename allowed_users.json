@@ -1,34 +1,35 @@
 // Dashboard Access Control - Allowed Users
 // Roles: super_admin | admin | normal
-// super_admin = All tabs + All areas + Update Feature Hours + Full access
-// admin = All tabs + All areas + Update Feature Hours
+// super_admin = All tabs + All areas + Update Feature Hours + Full access + Encrypt Username tab
+// admin = Only assigned tabs + All areas + Update Feature Hours
 // normal = Only assigned tabs + Max 3 areas
-// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Weekly Tasks
+// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only)
+// Note: User names are encrypted using XOR cipher for security
 var ALLOWED_USERS_DATA = {
     "users": [
-        { "name": "Mayur Rana", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
-        { "name": "Chetan Sanghani", "role": "admin", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "Tarun R Harkinia", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "Rahul J Dholaria", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "Harshit Sharma", "role": "normal", "tabs": [1, 2, 3, 4] },
-        { "name": "Yogesh Siddhapura", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "Shaishav Patel", "role": "normal", "tabs": [1, 2, 4] },
-        { "name": "Raviraj Patgir", "role": "normal", "tabs": [1, 2, 4] },
-        { "name": "Priyakant K Patel", "role": "normal", "tabs": [1, 2, 4] },
-        { "name": "Hardik B Chauhan", "role": "normal", "tabs": [1, 2, 4] },
-        { "name": "Ankur Mistry", "role": "normal", "tabs": [1, 2, 4] },
-        { "name": "Ankil Patel", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Ankur Patel", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Arpit Patel", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Dhara Bakrola", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Dharmin Desai", "role": "normal", "tabs": [1, 2, 3, 4] },
-        { "name": "Jackie Patel", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Jainish Jariwala", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Kailash Suthar", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Rahul Jain", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Vijay Patel", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Akash Rana", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "Niraj Modi", "role": "normal", "tabs": [1, 4] },
-        { "name": "Jigar Patel", "role": "normal", "tabs": [1, 4] }
+        { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
+        { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "admin", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "BxEAHABUFkE7CUBbW1pIIQ==", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "AREaHAJUDkE3AF1cU0ZIIQ==", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "GxEAGgYdMEEgAFNCX1U=", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "Ch8VDB0cZDIaDFZYU0RUMkI=", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "ABgTAB0cJRdTOFNEV1g=", "role": "normal", "tabs": [1, 2, 4] },
+        { "name": "AREEABwVLkEjCUZXW0Y=", "role": "normal", "tabs": [1, 2, 4] },
+        { "name": "AwIbEA8fJQ8HSHkQYlVVJU8=", "role": "normal", "tabs": [1, 2, 4] },
+        { "name": "GxEADQcfZCNTK1pRR1xALg==", "role": "normal", "tabs": [1, 2, 4] },
+        { "name": "Eh4ZHBxUCQgAHEBJ", "role": "normal", "tabs": [1, 2, 4] },
+        { "name": "Eh4ZAAJUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "Eh4ZHBxUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "EgICABpUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "FxgTGw9UBgAYGl1cUw==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "FxgTGwMdKkE3DUFRWw==", "role": "normal", "tabs": [1, 2, 3, 4] },
+        { "name": "GRERAgcRZDESHFdc", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "GREbBwcHLEE5CUBZRVVNIQ==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "GBEbBQ8HLEEgHUZYU0Y=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "AREaHAJUDgAaBg==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "BRkYCBdUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "EhsTGgZUFgAdCQ==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "HRkACARUCQ4XAQ==", "role": "normal", "tabs": [1, 4] },
+        { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 4] }
     ]
 };

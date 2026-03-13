@@ -311,36 +311,35 @@
 
         /* Data Lookup Tab - Light theme for both sections */
         body.light-theme #reqTaskLookupSection input[type="text"] { background: #ffffff !important; color: #0f172a !important; border-color: #94a3b8 !important; }
+        body.light-theme #reqTaskLookupSection { color: #1e293b; }
+        body.light-theme #reqTaskLookupSection h3 { color: #0f172a !important; }
+        body.light-theme #reqTaskLookupSection .btn { color: #ffffff !important; }
+        body.light-theme #reqLookupResult { color: #1e293b; }
+        body.light-theme #reqLookupResult a.wi-link { color: #2563eb !important; }
+        body.light-theme #reqLookupResult table th { background: #e2e8f0 !important; color: #1e293b !important; }
+        body.light-theme #reqLookupResult table td { color: #334155 !important; border-bottom-color: #e2e8f0 !important; }
+        body.light-theme #reqLookupResult .fp-state-pill { filter: brightness(0.85) saturate(1.2); }
         body.light-theme #tabContent6 .table-section h3 { color: #0f172a; }
         body.light-theme #tabContent6 select { background: #ffffff; color: #1e293b; border-color: #cbd5e1; }
         body.light-theme #tabContent6 .fl-card th { background: #e2e8f0; color: #1e293b; }
         body.light-theme #tabContent6 .fl-card td { color: #334155; border-bottom-color: #e2e8f0; }
+        body.light-theme #taskLookupSection input[type="text"] { background: #ffffff !important; color: #0f172a !important; border-color: #94a3b8 !important; }
+        body.light-theme #taskLookupSection h3 { color: #0f172a !important; }
+        body.light-theme #taskLookupResult { color: #1e293b; }
+        body.light-theme #taskLookupResult a.wi-link { color: #2563eb !important; }
 
-        /* Tab 7: Weekly Task Breakdown - Light theme */
-        body.light-theme #tabContent7 .dashboard-card { background: #ffffff !important; border-color: #cbd5e1 !important; }
-        body.light-theme #tabContent7 h3 { color: #1e293b !important; }
+        /* Tab 7 removed */
+        /* Tab 7: Encrypt Username - Light theme */
+        body.light-theme #tabContent7 .dashboard-card { background: linear-gradient(135deg, rgba(239,68,68,0.06), rgba(220,38,38,0.04)) !important; border-color: rgba(239,68,68,0.2) !important; }
+        body.light-theme #tabContent7 h3 { color: #991b1b !important; }
         body.light-theme #tabContent7 h4 { color: #1e293b !important; }
-        body.light-theme #tabContent7 th { background: #e2e8f0 !important; color: #1e293b !important; }
-        body.light-theme #tabContent7 td { color: #334155; border-bottom-color: #e2e8f0 !important; }
-        body.light-theme #tabContent7 .summary-stat { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
-        body.light-theme #tabContent7 .summary-stat .value { filter: brightness(0.7) saturate(1.3); }
-        body.light-theme #tabContent7 .summary-stat .label { color: #475569 !important; }
-        body.light-theme #tabContent7 button { color: #334155 !important; }
-        body.light-theme #loadWeeklyBreakdownBtn { color: #1e40af !important; border-color: rgba(59,130,246,0.4) !important; background: rgba(59,130,246,0.1) !important; }
-        body.light-theme #tabContent7 #wbWeekFilterBar,
-        body.light-theme #tabContent7 #wbAiDiscBar,
-        body.light-theme #tabContent7 #wbManualDiscBar { background: #f1f5f9 !important; }
-        body.light-theme #tabContent7 #wbWeekFilterBar span,
-        body.light-theme #tabContent7 #wbAiDiscBar span,
-        body.light-theme #tabContent7 #wbManualDiscBar span { color: #475569 !important; }
-        body.light-theme #tabContent7 a.wi-link { color: #2563eb !important; }
-        body.light-theme #tabContent7 div[style*="rgba(0,0,0,0.2)"],
-        body.light-theme #tabContent7 div[style*="rgba(0,0,0,0.15)"] { background: #f1f5f9 !important; }
-        body.light-theme #tabContent7 div[style*="rgba(16,185,129,0.08)"] { background: rgba(16,185,129,0.06) !important; border-color: rgba(16,185,129,0.2) !important; }
-        body.light-theme #tabContent7 div[style*="rgba(245,158,11,0.08)"] { background: rgba(245,158,11,0.06) !important; border-color: rgba(245,158,11,0.2) !important; }
-        body.light-theme #tabContent7 span.c-muted, body.light-theme #tabContent7 span.c-dim { color: #475569 !important; }
-        body.light-theme #tabContent7 .fp-state-pill { filter: brightness(0.85) saturate(1.2); }
-        body.light-theme #tabContent7 span[style*="border-radius:4px"] { filter: brightness(0.75) saturate(1.4); }
+        body.light-theme #tabContent7 p { color: #475569 !important; }
+        body.light-theme #tabContent7 input[type="text"] { background: #ffffff !important; color: #0f172a !important; border-color: #94a3b8 !important; }
+        body.light-theme #tabContent7 table th { background: rgba(139,92,246,0.1) !important; color: #1e293b !important; }
+        body.light-theme #tabContent7 table td { color: #334155 !important; border-bottom-color: #e2e8f0 !important; }
+        body.light-theme #tabContent7 table td:nth-child(2) { color: #475569 !important; }
+        body.light-theme #encryptedValueLabel { color: #047857 !important; background: rgba(16,185,129,0.08) !important; }
+        body.light-theme #decryptedValueLabel { color: #1d4ed8 !important; background: rgba(59,130,246,0.08) !important; }
 
         /* Tab 4: AI Analytics - light theme */
         body.light-theme #tabContent4 .dashboard-card { background: #ffffff !important; border-color: #cbd5e1 !important; }
@@ -1021,7 +1020,8 @@
             <button class="tab-btn" id="tabBtn4" onclick="switchTab(4)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📊 AI Analytics</button>
             <button class="tab-btn" id="tabBtn5" onclick="switchTab(5)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🚀 Feature Progress</button>
             <button class="tab-btn" id="tabBtn6" onclick="switchTab(6)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🔍 Data Lookup</button>
-            <button class="tab-btn" id="tabBtn7" onclick="switchTab(7)" style="display:none;padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📅 Weekly Tasks</button>
+            <button class="tab-btn" id="tabBtn7" onclick="switchTab(7)" style="display:none;padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🔐 Encrypt Username</button>
+
         </div>
 
         <!-- Tab 1: Sprint Planning Check -->
@@ -1274,9 +1274,53 @@
                     <span id="devFormulaOverPlanPct">0%</span>
                 </div>
             </div>
-        </div>
 
-        <!-- Sprint Goal Dashboard -->
+            <!-- QA Only Section (Discipline = Test) -->
+            <div style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(59,130,246,0.4); border-radius: 10px; padding: 12px; margin-top: 12px;">
+                <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 8px;">🧪 QA Only <span style="font-size: 0.7rem; color: #94a3b8; font-weight: normal;">(Discipline = Test)</span></h4>
+                <div class="summary-row" style="margin-bottom: 0; flex-wrap: wrap; gap: 6px;">
+                    <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); min-width: 80px; flex: 1; padding: 8px;">
+                        <div class="value" id="qaTeamCapacity" style="color: #60a5fa; font-size: 0.95rem;">0h</div>
+                        <div class="label" style="font-size: 0.55rem;">Team Capacity</div>
+                    </div>
+                    <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); min-width: 80px; flex: 1; padding: 8px;">
+                        <div class="value" id="qaTotalPlanned" style="color: #fbbf24; font-size: 0.95rem;">0h</div>
+                        <div class="label" style="font-size: 0.55rem;">Total Planned</div>
+                    </div>
+                    <div class="summary-stat" style="background: rgba(6,182,212,0.2); border-color: rgba(6,182,212,0.3); min-width: 80px; flex: 1; padding: 8px;">
+                        <div class="value" id="qaAvailableCapacity" style="color: #22d3ee; font-size: 0.95rem;">0h</div>
+                        <div class="label" style="font-size: 0.55rem;">Available</div>
+                    </div>
+                    <div class="summary-stat" style="background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.3); min-width: 80px; flex: 1; padding: 8px;">
+                        <div class="value" id="qaPlannedCapacity" style="color: #c4b5fd; font-size: 0.95rem;">0h</div>
+                        <div class="label" style="font-size: 0.55rem;">Planned</div>
+                    </div>
+                    <div class="summary-stat" id="qaOverPlanPctStat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); min-width: 80px; flex: 1; padding: 8px;">
+                        <div class="value" id="qaOverPlanPct" style="color: #f87171; font-size: 0.95rem;">0%</div>
+                        <div class="label" style="font-size: 0.55rem;">Over Plan %</div>
+                    </div>
+                </div>
+                
+                <!-- Unclassified Category Blocks for QA -->
+                <div style="margin-top: 10px;">
+                    <p style="color: #94a3b8; font-size: 0.65rem; margin-bottom: 6px;">📊 Breakdown by Requirement Category:</p>
+                    <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 6px 8px; margin-bottom: 8px; font-size: 0.58rem; color: #64748b; line-height: 1.5;">
+                        <span style="color: #94a3b8; font-weight: 600;">ℹ️ Considered:</span>
+                        <span style="color: #6ee7b7;">Deliverable</span> or <span style="color: #60a5fa;">Non-Deliverable</span> Requirements only with child tasks where <span style="color: #93c5fd;">Discipline = Test</span>.
+                        <br><span style="color: #94a3b8; font-weight: 600;">Grouped by:</span> <span style="color: #fbbf24;">Adhoc Support</span> tag → "Adhoc Support", otherwise by <span style="color: #22d3ee;">first word</span> of requirement title.
+                    </div>
+                    <div id="qaCategoryBlocks" class="summary-row" style="margin-bottom: 0; flex-wrap: wrap; gap: 6px;"></div>
+                    <div style="margin-top: 6px; font-size: 0.65rem; color: #94a3b8;">
+                        <span>Total Unclassified: <strong id="qaUnclassifiedTotal" style="color: #93c5fd;">0h</strong></span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 8px; font-size: 0.7rem; color: #94a3b8;">
+                    <span style="margin-right: 12px;">👥 QA Members: <strong id="qaMemberCount" style="color: #60a5fa;">0</strong></span>
+                    <span>📋 QA Tasks: <strong id="qaTaskCount" style="color: #93c5fd;">0</strong></span>
+                </div>
+            </div>
+        </div>
         <div class="dashboard-card" style="margin-bottom: 16px; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1)); border: 1px solid rgba(16,185,129,0.3); padding: 12px;">
             <h3 style="color: #6ee7b7; font-size: 1rem; margin-bottom: 8px;">🎯 Sprint Goal Requirements</h3>
             <div class="summary-row" style="margin-bottom: 10px; gap: 6px;">
@@ -1539,17 +1583,8 @@
                     </div>
                     <div style="max-height: 350px; overflow-y: auto;">
                         <table id="weekFocusTable" style="width: 100%; border-collapse: collapse; font-size: 0.75rem;">
-                            <thead style="background: #0f172a; position: sticky; top: 0; z-index: 1;"><tr>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">ID</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Title</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">State</th>
-                                <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Week</th>
-                                <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Original</th>
-                                <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Remaining</th>
-                                <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Completed</th>
-                                <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Progress</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Assigned</th>
-                            </tr></thead>
+                            <thead id="weekFocusTableHead" style="background: #0f172a; position: sticky; top: 0; z-index: 1;">
+                            </thead>
                             <tbody id="weekFocusTableBody"></tbody>
                         </table>
                     </div>
@@ -1605,18 +1640,16 @@
                     </div>
                 </div>
                 
+                <!-- Bug Count by Member Card -->
+                <div id="bugMemberCard" style="margin-bottom: 10px; display:none;">
+                    <p style="color:#94a3b8;font-size:0.7rem;margin-bottom:6px;font-weight:600;">👥 Bug Count by Member:</p>
+                    <div id="bugMemberBlocks" class="summary-row" style="flex-wrap:wrap;gap:6px;"></div>
+                </div>
+                
                 <!-- Bugs Table -->
                 <div style="max-height: 280px; overflow-y: auto;">
                     <table id="bugsTable" style="width: 100%; border-collapse: collapse; font-size: 0.75rem;">
-                        <thead style="background: #0f172a; position: sticky; top: 0; z-index: 1;">
-                            <tr>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">ID</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Title</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">State</th>
-                                <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Tags</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Severity</th>
-                                <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Assigned</th>
-                            </tr>
+                        <thead id="bugsTableHead" style="background: #0f172a; position: sticky; top: 0; z-index: 1;">
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -2812,77 +2845,72 @@
                 <div id="reqLookupResult"></div>
             </div>
 
+            <!-- Task Lookup -->
+            <div class="table-section" id="taskLookupSection" style="padding: 12px;">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <h3 style="font-size: 0.85rem; margin: 0;">🔍 Task Lookup</h3>
+                    <input type="text" id="taskIdInput" placeholder="Enter Task ID" style="padding: 6px 10px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; background: rgba(0,0,0,0.3); color: #fff; width: 150px; height:32px; font-size: 0.75rem;" onkeydown="if(event.key==='Enter')lookupTask()">
+                    <button class="btn btn-primary" onclick="lookupTask()" style="padding: 6px 12px; font-size: 0.7rem;">🔍 Lookup</button>
+                </div>
+                <div id="taskLookupResult"></div>
+            </div>
+
         </div><!-- End Tab 6 -->
 
-        <!-- Tab 7: Weekly Task Breakdown -->
+        <!-- Tab 7: Encrypt Username (super_admin only) -->
         <div class="tab-content" id="tabContent7" style="display:none;">
-            <div class="dashboard-card" style="margin-bottom:16px;padding:12px;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(99,102,241,0.1));border:1px solid rgba(139,92,246,0.3);">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                    <h3 style="color:#c4b5fd;font-size:1rem;margin:0;">📅 Weekly Task Breakdown — AI vs Manual</h3>
-                    <button class="btn btn-primary btn-compact" id="loadWeeklyBreakdownBtn" onclick="loadWeeklyTaskBreakdown()">📊 Show</button>
+            <div class="dashboard-card" style="margin-bottom:16px;padding:16px;background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(220,38,38,0.08));border:1px solid rgba(239,68,68,0.35);">
+                <h3 style="color:#fca5a5;font-size:1.1rem;margin:0 0 6px 0;">🔐 Encrypt Username</h3>
+                <p style="color:#94a3b8;font-size:0.7rem;margin:0 0 16px 0;">Encrypt usernames using XOR cipher + Base64 encoding for secure storage in <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;color:#fbbf24;">allowed_users.json</code>. Only <span style="color:#f87171;font-weight:600;">Super Admin</span> can access this tool.</p>
+                
+                <!-- Encrypt Section -->
+                <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;margin-bottom:16px;">
+                    <h4 style="color:#93c5fd;font-size:0.9rem;margin:0 0 12px 0;">🔒 Encrypt</h4>
+                    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+                        <input type="text" id="encryptUsernameInput" placeholder="Enter username (e.g., John Doe)" style="padding:8px 12px;border:1px solid rgba(59,130,246,0.4);border-radius:8px;background:rgba(0,0,0,0.3);color:#fff;width:300px;height:38px;font-size:0.82rem;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='rgba(59,130,246,0.8)'" onblur="this.style.borderColor='rgba(59,130,246,0.4)'" onkeydown="if(event.key==='Enter')encryptUsername()">
+                        <button onclick="encryptUsername()" style="padding:8px 20px;background:linear-gradient(135deg,#3b82f6,#6366f1);border:none;border-radius:8px;color:#fff;font-size:0.8rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;height:38px;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">🔒 Encrypt</button>
+                        <button onclick="clearEncryptFields()" style="padding:8px 14px;background:rgba(100,116,139,0.3);border:1px solid rgba(100,116,139,0.4);border-radius:8px;color:#94a3b8;font-size:0.75rem;cursor:pointer;height:38px;" title="Clear fields">🗑️ Clear</button>
+                    </div>
+                    <div id="encryptResult" style="display:none;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:12px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="color:#6ee7b7;font-size:0.72rem;font-weight:600;">✅ Encrypted Value:</span>
+                            <button onclick="copyEncryptedValue()" id="copyEncBtn" style="padding:3px 10px;background:rgba(59,130,246,0.3);border:1px solid rgba(59,130,246,0.5);border-radius:5px;color:#93c5fd;font-size:0.65rem;cursor:pointer;">📋 Copy</button>
+                        </div>
+                        <div id="encryptedValueLabel" style="background:rgba(0,0,0,0.3);border-radius:6px;padding:10px;font-family:monospace;font-size:0.82rem;color:#34d399;word-break:break-all;user-select:all;"></div>
+                    </div>
                 </div>
-                <div id="weeklyBreakdownContent" style="display:none;">
-                    <!-- Criteria -->
-                    <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;margin-bottom:12px;font-size:0.7rem;">
-                        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
-                            <span class="c-muted">📋 Criteria:</span>
-                            <span style="background:rgba(16,185,129,0.3);padding:2px 8px;border-radius:4px;color:#6ee7b7;">Resolved/Closed</span>
-                            <span class="c-dim">+</span>
-                            <span style="background:rgba(236,72,153,0.3);padding:2px 8px;border-radius:4px;color:#f9a8d4;">Reason ≠ Rejected</span>
-                            <span class="c-dim">+</span>
-                            <span style="background:rgba(6,182,212,0.3);padding:2px 8px;border-radius:4px;color:#67e8f9;">Orig Est > 0</span>
-                            <span class="c-dim">+</span>
-                            <span style="background:rgba(139,92,246,0.3);padding:2px 8px;border-radius:4px;color:#c4b5fd;">TaskExecutionType = AI-* | Manual | Manual-AI-Ineffective</span>
-                            <span style="color:#64748b;margin-left:8px;">|</span>
-                            <span class="c-muted">📅 Week:</span>
-                            <span style="background:rgba(245,158,11,0.3);padding:2px 8px;border-radius:4px;color:#fcd34d;">StateChangeDate → 7 cal days per week from sprint start</span>
-                        </div>
+                
+                <!-- Decrypt / Verify Section -->
+                <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;margin-bottom:16px;">
+                    <h4 style="color:#fbbf24;font-size:0.9rem;margin:0 0 12px 0;">🔓 Decrypt / Verify</h4>
+                    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+                        <input type="text" id="decryptUsernameInput" placeholder="Enter encrypted value to verify" style="padding:8px 12px;border:1px solid rgba(245,158,11,0.4);border-radius:8px;background:rgba(0,0,0,0.3);color:#fff;width:350px;height:38px;font-size:0.82rem;outline:none;font-family:monospace;transition:border 0.2s;" onfocus="this.style.borderColor='rgba(245,158,11,0.8)'" onblur="this.style.borderColor='rgba(245,158,11,0.4)'" onkeydown="if(event.key==='Enter')decryptUsername()">
+                        <button onclick="decryptUsername()" style="padding:8px 20px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:8px;color:#fff;font-size:0.8rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;height:38px;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">🔓 Decrypt</button>
                     </div>
-                    <!-- Summary Cards -->
-                    <div class="summary-row" id="wbSummaryRow" style="margin-bottom:12px;gap:10px;"></div>
-                    <!-- Sprint Date Info -->
-                    <div id="wbSprintDateInfo" style="margin-bottom:6px;"></div>
-                    <!-- Week Filters -->
-                    <div id="wbWeekFilterBar" style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px 10px;margin-bottom:10px;">
-                        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                            <span style="color:#94a3b8;font-size:0.7rem;margin-right:4px;">📅 Week:</span>
-                            <div id="wbWeekFilterBtns" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
-                        </div>
+                    <div id="decryptResult" style="display:none;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:12px;">
+                        <span style="color:#93c5fd;font-size:0.72rem;font-weight:600;">🔓 Decrypted Username:</span>
+                        <div id="decryptedValueLabel" style="background:rgba(0,0,0,0.3);border-radius:6px;padding:10px;margin-top:6px;font-size:0.85rem;color:#60a5fa;font-weight:600;"></div>
                     </div>
-                    <!-- AI Tasks Section -->
-                    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px;margin-bottom:12px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                            <h4 style="color:#6ee7b7;font-size:0.85rem;margin:0;">🤖 AI Tasks (<span id="wbAiCount">0</span>)</h4>
-                            <span style="color:#34d399;font-size:0.7rem;font-weight:600;" id="wbAiHours">0h orig / 0h comp</span>
-                        </div>
-                        <div id="wbAiDiscBar" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;background:rgba(0,0,0,0.15);border-radius:6px;padding:5px 8px;">
-                            <span style="color:#6ee7b7;font-size:0.65rem;margin-right:2px;">🏷️ Discipline:</span>
-                            <div id="wbAiDiscBtns" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
-                        </div>
-                        <div style="max-height:320px;overflow-y:auto;">
-                            <table id="wbAiTable" style="width:100%;border-collapse:collapse;font-size:0.72rem;table-layout:auto;">
-                                <thead id="wbAiTableHead" style="position:sticky;top:0;z-index:1;"></thead>
-                                <tbody id="wbAiTableBody"></tbody>
+                </div>
+
+                <!-- Bulk View: All Users from JSON (encrypted → decrypted) -->
+                <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <h4 style="color:#c4b5fd;font-size:0.9rem;margin:0;">👥 All Registered Users (Encrypted ↔ Decrypted)</h4>
+                        <button onclick="toggleEncryptedUserList()" id="toggleEncUserListBtn" style="padding:5px 14px;background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);border-radius:6px;color:#c4b5fd;font-size:0.7rem;cursor:pointer;">📋 Show</button>
+                    </div>
+                    <div id="encryptedUserListContent" style="display:none;">
+                        <div style="max-height:350px;overflow-y:auto;">
+                            <table id="encryptedUserTable" style="width:100%;border-collapse:collapse;font-size:0.72rem;">
+                                <thead style="background:rgba(139,92,246,0.2);position:sticky;top:0;z-index:1;"><tr>
+                                    <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(139,92,246,0.3);color:#c4b5fd;font-size:0.68rem;">#</th>
+                                    <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(139,92,246,0.3);color:#c4b5fd;font-size:0.68rem;">Encrypted Name (in JSON)</th>
+                                    <th style="padding:8px;text-align:left;border-bottom:1px solid rgba(139,92,246,0.3);color:#c4b5fd;font-size:0.68rem;">Decrypted Name</th>
+                                    <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(139,92,246,0.3);color:#c4b5fd;font-size:0.68rem;">Role</th>
+                                    <th style="padding:8px;text-align:center;border-bottom:1px solid rgba(139,92,246,0.3);color:#c4b5fd;font-size:0.68rem;">Tabs</th>
+                                </tr></thead>
+                                <tbody id="encryptedUserTableBody"></tbody>
                             </table>
-                            <div id="wbAiNoData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No AI tasks found</div>
-                        </div>
-                    </div>
-                    <!-- Manual Tasks Section -->
-                    <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px;margin-bottom:12px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                            <h4 style="color:#fcd34d;font-size:0.85rem;margin:0;">🔧 Manual Tasks (<span id="wbManualCount">0</span>)</h4>
-                            <span style="color:#fbbf24;font-size:0.7rem;font-weight:600;" id="wbManualHours">0h orig / 0h comp</span>
-                        </div>
-                        <div id="wbManualDiscBar" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;background:rgba(0,0,0,0.15);border-radius:6px;padding:5px 8px;">
-                            <span style="color:#fcd34d;font-size:0.65rem;margin-right:2px;">🏷️ Discipline:</span>
-                            <div id="wbManualDiscBtns" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
-                        </div>
-                        <div style="max-height:320px;overflow-y:auto;">
-                            <table id="wbManualTable" style="width:100%;border-collapse:collapse;font-size:0.72rem;table-layout:auto;">
-                                <thead id="wbManualTableHead" style="position:sticky;top:0;z-index:1;"></thead>
-                                <tbody id="wbManualTableBody"></tbody>
-                            </table>
-                            <div id="wbManualNoData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No Manual tasks found</div>
                         </div>
                     </div>
                 </div>
@@ -3121,8 +3149,32 @@
         let projectsFetched = false;
         let isAuthorizedUser = false;
         let currentUserRole = 'normal'; // 'super_admin', 'admin' or 'normal' - loaded from allowed_users.json
-        let currentUserTabs = [1, 2, 3, 4, 5]; // Tab permissions - loaded from allowed_users.json (Tab 7 = super_admin only)
+        let currentUserTabs = [1, 2, 3, 4, 5]; // Tab permissions - loaded from allowed_users.json
         let selectedProjects = [];
+        
+        // ========== XOR CIPHER FOR USERNAME ENCRYPTION ==========
+        const _CIPHER_KEY = 'SprintDash2024!@#SecureKey';
+        
+        function xorEncrypt(text) {
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                result += String.fromCharCode(text.charCodeAt(i) ^ _CIPHER_KEY.charCodeAt(i % _CIPHER_KEY.length));
+            }
+            return btoa(result);
+        }
+        
+        function xorDecrypt(encoded) {
+            try {
+                const text = atob(encoded);
+                let result = '';
+                for (let i = 0; i < text.length; i++) {
+                    result += String.fromCharCode(text.charCodeAt(i) ^ _CIPHER_KEY.charCodeAt(i % _CIPHER_KEY.length));
+                }
+                return result;
+            } catch (e) {
+                return encoded; // fallback: return as-is if not valid base64 (plain text name)
+            }
+        }
         
         function togglePatVisibility() {
             const inp = document.getElementById('pat');
@@ -3176,21 +3228,19 @@
                         document.getElementById('patUserId').textContent = `ID: ${userId}`;
                         
                         // Access control - check user against allowed_users.json (loaded via script tag)
+                        // Names in JSON are encrypted with XOR cipher - decrypt for comparison
                         const userNameLower = userName.toLowerCase().replace(/\s+/g, ' ').trim();
                         let accessAllowed = false;
                         if (typeof ALLOWED_USERS_DATA !== 'undefined') {
-                            const matchedUser = (ALLOWED_USERS_DATA.users || []).find(u => 
-                                u.name.toLowerCase().replace(/\s+/g, ' ').trim() === userNameLower
-                            );
+                            const matchedUser = (ALLOWED_USERS_DATA.users || []).find(u => {
+                                const decryptedName = xorDecrypt(u.name);
+                                return decryptedName.toLowerCase().replace(/\s+/g, ' ').trim() === userNameLower;
+                            });
                             if (matchedUser) {
                                 accessAllowed = true;
                                 currentUserRole = (matchedUser.role || 'normal').toLowerCase();
-                                // super_admin & admin always get all tabs
-                                if (['super_admin', 'admin'].includes(currentUserRole)) {
-                                    currentUserTabs = currentUserRole === 'super_admin' ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5];
-                                } else {
-                                    currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
-                                }
+                                // All roles (super_admin, admin, normal) use tabs from JSON config
+                                currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
                             }
                         }
                         
@@ -4144,7 +4194,7 @@
                             const memberUniqueName = member.teamMember?.uniqueName || member.teamMember?.id || '';
                             const mapKey = `${memberName}|${teamName}`;
                             
-                            let memberCapacityPerDay = 0, memberDevCapacityPerDay = 0;
+                            let memberCapacityPerDay = 0, memberDevCapacityPerDay = 0, memberTestCapacityPerDay = 0;
                             const disciplineList = [];
                             
                             (member.activities || []).forEach(activity => {
@@ -4153,6 +4203,7 @@
                                 if (activity.name) {
                                     disciplineList.push(activity.name);
                                     if (activity.name.toLowerCase() === 'development') memberDevCapacityPerDay += cap;
+                                    if (activity.name.toLowerCase() === 'test') memberTestCapacityPerDay += cap;
                                 }
                             });
                             
@@ -4172,6 +4223,7 @@
                             const memberWorkDays = Math.max(0, iterWorkDays - memberDaysOff);
                             const memberTotalCapacity = memberCapacityPerDay * memberWorkDays;
                             const memberDevTotalCapacity = memberDevCapacityPerDay * memberWorkDays;
+                            const memberTestTotalCapacity = memberTestCapacityPerDay * memberWorkDays;
                             
                             if (memberCapMap[mapKey]) {
                                 // Aggregate across iterations
@@ -4179,15 +4231,16 @@
                                 memberCapMap[mapKey].workDays += memberWorkDays;
                                 memberCapMap[mapKey].totalCapacity += memberTotalCapacity;
                                 memberCapMap[mapKey].devTotalCapacity += memberDevTotalCapacity;
+                                memberCapMap[mapKey].testTotalCapacity += memberTestTotalCapacity;
                                 totalMemberDaysOff += memberDaysOff;
                             } else {
                                 totalMemberDaysOff += memberDaysOff;
                                 memberCapMap[mapKey] = {
                                     name: memberName, uniqueName: memberUniqueName, discipline: disciplineList.join(', ') || '-',
                                     team: teamName, project: projName,
-                                    capacityPerDay: memberCapacityPerDay, devCapacityPerDay: memberDevCapacityPerDay,
+                                    capacityPerDay: memberCapacityPerDay, devCapacityPerDay: memberDevCapacityPerDay, testCapacityPerDay: memberTestCapacityPerDay,
                                     daysOff: memberDaysOff, workDays: memberWorkDays,
-                                    totalCapacity: memberTotalCapacity, devTotalCapacity: memberDevTotalCapacity
+                                    totalCapacity: memberTotalCapacity, devTotalCapacity: memberDevTotalCapacity, testTotalCapacity: memberTestTotalCapacity
                                 };
                             }
                         });
@@ -4254,6 +4307,46 @@
                 const devPlannedCapacity = devTotalPlanned - devUnclassifiedTotal;
                 const devOverPlanPct = devAvailableCapacity > 0 ? ((devPlannedCapacity - devAvailableCapacity) / devAvailableCapacity) * 100 : (devPlannedCapacity > 0 ? 100 : 0);
                 
+                // QA Only calculations (same structure as Development)
+                const qaTeamCapacity = memberCapacities.reduce((sum, m) => sum + (m.testTotalCapacity || 0), 0);
+                const qaMemberCount = memberCapacities.filter(m => m.testCapacityPerDay > 0).length;
+                
+                // Filter Test tasks (Discipline = Test)
+                const qaTasks = tasks.filter(t => t.fields['Microsoft.VSTS.Common.Discipline'] === 'Test');
+                const qaTaskCount = qaTasks.length;
+                const qaTotalPlanned = qaTasks.reduce((sum, t) => sum + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
+                
+                // Group unclassified requirements by first word for QA
+                const qaCategoryBreakdown = {};
+                let qaUnclassifiedTotal = 0;
+                requirements.filter(r => r.category === 'unclassified').forEach(req => {
+                    const childIds = reqTasksMap[req.id] || [];
+                    const childTasks = childIds.map(id => taskLookup[id]).filter(t => {
+                        return t && t.fields['Microsoft.VSTS.Common.Discipline'] === 'Test';
+                    });
+                    const taskHours = childTasks.reduce((sum, t) => sum + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
+                    if (taskHours > 0) {
+                        let categoryKey;
+                        if (req.isAdhocSupport) {
+                            categoryKey = 'Adhoc Support';
+                        } else {
+                            const reqTitle = req.fields['System.Title'] || '';
+                            categoryKey = reqTitle.split(/[\s\-:]+/)[0] || 'Other';
+                        }
+                        if (!qaCategoryBreakdown[categoryKey]) {
+                            qaCategoryBreakdown[categoryKey] = { hours: 0, taskCount: 0, reqCount: 0 };
+                        }
+                        qaCategoryBreakdown[categoryKey].hours += taskHours;
+                        qaCategoryBreakdown[categoryKey].taskCount += childTasks.length;
+                        qaCategoryBreakdown[categoryKey].reqCount++;
+                        qaUnclassifiedTotal += taskHours;
+                    }
+                });
+                
+                const qaAvailableCapacity = Math.max(0, qaTeamCapacity - qaUnclassifiedTotal);
+                const qaPlannedCapacity = qaTotalPlanned - qaUnclassifiedTotal;
+                const qaOverPlanPct = qaAvailableCapacity > 0 ? ((qaPlannedCapacity - qaAvailableCapacity) / qaAvailableCapacity) * 100 : (qaPlannedCapacity > 0 ? 100 : 0);
+
                 // Store sprint start date for later use
                 storedSprintStartDate = sprintStartDate;
                 storedSprintEndDate = sprintEndDate;
@@ -4275,6 +4368,14 @@
                     devAvailableCapacity: Math.round(devAvailableCapacity * 100) / 100,
                     devPlannedCapacity: Math.round(devPlannedCapacity * 100) / 100,
                     devOverPlanPct: Math.round(devOverPlanPct * 100) / 100,
+                    qaTeamCapacity: Math.round(qaTeamCapacity * 100) / 100,
+                    qaMemberCount, qaTaskCount,
+                    qaTotalPlanned: Math.round(qaTotalPlanned * 100) / 100,
+                    qaCategoryBreakdown,
+                    qaUnclassifiedTotal: Math.round(qaUnclassifiedTotal * 100) / 100,
+                    qaAvailableCapacity: Math.round(qaAvailableCapacity * 100) / 100,
+                    qaPlannedCapacity: Math.round(qaPlannedCapacity * 100) / 100,
+                    qaOverPlanPct: Math.round(qaOverPlanPct * 100) / 100,
                     sprintCalendarDays, teamDaysOff: teamDaysOffCount, teamDaysOffDates,
                     memberDaysOff: totalMemberDaysOff, sprintWorkDays, members: memberCapacities
                 };
@@ -4701,15 +4802,6 @@
             if (document.getElementById('affectedAreaContent')) document.getElementById('affectedAreaContent').style.display = 'none';
             if (document.getElementById('toggleAffectedAreaBtn')) document.getElementById('toggleAffectedAreaBtn').textContent = '📊 Show';
             if (document.getElementById('affectedAreaCount')) document.getElementById('affectedAreaCount').textContent = '0';
-            // Reset Weekly Task Breakdown (Tab 7)
-            wbDataLoaded = false;
-            wbAllTasks = [];
-            wbWeekFilter = 'All';
-            wbAiDiscFilter = 'All'; wbManualDiscFilter = 'All';
-            wbAiSortField = 'id'; wbAiSortDir = 'asc';
-            wbManualSortField = 'id'; wbManualSortDir = 'asc';
-            if (document.getElementById('weeklyBreakdownContent')) document.getElementById('weeklyBreakdownContent').style.display = 'none';
-            if (document.getElementById('loadWeeklyBreakdownBtn')) document.getElementById('loadWeeklyBreakdownBtn').textContent = '📊 Show';
         }
 
         function updateDoughnut(elementId, value1, value2, color1, color2, pctElementId) {
@@ -4857,6 +4949,55 @@
             } else {
                 devStat.style.background = 'rgba(16,185,129,0.2)';
                 devStat.querySelector('.value').style.color = '#34d399';
+            }
+            
+            // QA Only stats
+            document.getElementById('qaTeamCapacity').textContent = fmtH(c.qaTeamCapacity) + 'h';
+            document.getElementById('qaTotalPlanned').textContent = fmtH(c.qaTotalPlanned) + 'h';
+            document.getElementById('qaAvailableCapacity').textContent = fmtH(c.qaAvailableCapacity) + 'h';
+            document.getElementById('qaPlannedCapacity').textContent = fmtH(c.qaPlannedCapacity) + 'h';
+            document.getElementById('qaOverPlanPct').textContent = c.qaOverPlanPct.toFixed(2) + '%';
+            document.getElementById('qaMemberCount').textContent = c.qaMemberCount;
+            document.getElementById('qaTaskCount').textContent = c.qaTaskCount;
+            document.getElementById('qaUnclassifiedTotal').textContent = fmtH(c.qaUnclassifiedTotal) + 'h';
+            
+            // Render QA category blocks
+            const qaCategoryBlocksContainer = document.getElementById('qaCategoryBlocks');
+            if (qaCategoryBlocksContainer && c.qaCategoryBreakdown) {
+                const qaCategories = Object.entries(c.qaCategoryBreakdown);
+                qaCategories.sort((a, b) => {
+                    if (a[0] === 'Adhoc Support') return -1;
+                    if (b[0] === 'Adhoc Support') return 1;
+                    return b[1].hours - a[1].hours;
+                });
+                const qaColors = [
+                    { bg: 'rgba(245,158,11,0.2)', border: 'rgba(245,158,11,0.3)', text: '#fbbf24' },
+                    { bg: 'rgba(99,102,241,0.2)', border: 'rgba(99,102,241,0.3)', text: '#818cf8' },
+                    { bg: 'rgba(16,185,129,0.2)', border: 'rgba(16,185,129,0.3)', text: '#34d399' },
+                    { bg: 'rgba(239,68,68,0.2)', border: 'rgba(239,68,68,0.3)', text: '#f87171' },
+                    { bg: 'rgba(168,85,247,0.2)', border: 'rgba(168,85,247,0.3)', text: '#c4b5fd' },
+                    { bg: 'rgba(6,182,212,0.2)', border: 'rgba(6,182,212,0.3)', text: '#22d3ee' },
+                    { bg: 'rgba(236,72,153,0.2)', border: 'rgba(236,72,153,0.3)', text: '#f472b6' },
+                    { bg: 'rgba(148,163,184,0.2)', border: 'rgba(148,163,184,0.3)', text: '#94a3b8' }
+                ];
+                qaCategoryBlocksContainer.innerHTML = qaCategories.map(([name, data], idx) => {
+                    const color = name === 'Adhoc Support' ? qaColors[0] : qaColors[(idx % (qaColors.length - 1)) + 1];
+                    const icon = name === 'Adhoc Support' ? '🎫' : '📁';
+                    return `<div class="summary-stat" style="background: ${color.bg}; border-color: ${color.border}; min-width: 70px; flex: 1; padding: 6px;">
+                        <div class="value" style="color: ${color.text}; font-size: 0.85rem;">${fmtH(data.hours)}h</div>
+                        <div class="label" style="font-size: 0.5rem;">${icon} ${name}</div>
+                        <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;">${data.taskCount} tasks</div>
+                    </div>`;
+                }).join('');
+            }
+            
+            const qaStat = document.getElementById('qaOverPlanPctStat');
+            if (c.qaOverPlanPct > 0) {
+                qaStat.style.background = 'rgba(239,68,68,0.2)';
+                qaStat.querySelector('.value').style.color = '#f87171';
+            } else {
+                qaStat.style.background = 'rgba(16,185,129,0.2)';
+                qaStat.querySelector('.value').style.color = '#34d399';
             }
         }
 
@@ -5011,6 +5152,15 @@
             4: { bg: 'rgba(236,72,153,0.3)', border: 'rgba(236,72,153,0.6)', color: '#f9a8d4' }
         };
         
+        let focusSortField = 'weekNum';
+        let focusSortDir = 'asc';
+        
+        function sortFocusBy(col) {
+            if (focusSortField === col) { focusSortDir = focusSortDir === 'asc' ? 'desc' : 'asc'; }
+            else { focusSortField = col; focusSortDir = 'asc'; }
+            renderFocusItemsTable(window.currentFocusFilter || 'all');
+        }
+
         function renderFocusItemsTable(filter) {
             const allItems = window.allFocusItems || [];
             const doneStates = ['closed', 'resolved', 'done', 'removed'];
@@ -5041,11 +5191,54 @@
                 }
             });
             
+            // Sort items
+            const sortedItems = [...filteredItems].sort((a, b) => {
+                let aV, bV;
+                switch(focusSortField) {
+                    case 'id': aV = a.id; bV = b.id; break;
+                    case 'title': aV = (a.fields['System.Title']||'').toLowerCase(); bV = (b.fields['System.Title']||'').toLowerCase(); break;
+                    case 'state': aV = (a.fields['System.State']||'').toLowerCase(); bV = (b.fields['System.State']||'').toLowerCase(); break;
+                    case 'weekNum': aV = a.weekNum; bV = b.weekNum; break;
+                    case 'origEst': aV = a.taskEstimate || 0; bV = b.taskEstimate || 0; break;
+                    case 'remaining': aV = a.taskRemainingWork || 0; bV = b.taskRemainingWork || 0; break;
+                    case 'completed': aV = a.taskCompletedWork || 0; bV = b.taskCompletedWork || 0; break;
+                    case 'progress': {
+                        const aOrig = a.taskEstimate || 0; const aComp = a.taskCompletedWork || 0;
+                        aV = aOrig > 0 ? aComp / aOrig : 0;
+                        const bOrig = b.taskEstimate || 0; const bComp = b.taskCompletedWork || 0;
+                        bV = bOrig > 0 ? bComp / bOrig : 0; break;
+                    }
+                    case 'assigned': aV = (a.fields['System.AssignedTo']?.displayName||'').toLowerCase(); bV = (b.fields['System.AssignedTo']?.displayName||'').toLowerCase(); break;
+                    default: aV = a.weekNum; bV = b.weekNum;
+                }
+                if (aV < bV) return focusSortDir === 'asc' ? -1 : 1;
+                if (aV > bV) return focusSortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+            
+            // Render sortable headers
+            const thS = `padding:8px;border-bottom:1px solid rgba(255,255,255,0.15);cursor:pointer;user-select:none;`;
+            const si = (col) => focusSortField === col ? (focusSortDir === 'asc' ? ' ▲' : ' ▼') : '';
+            const focusHead = document.getElementById('weekFocusTableHead');
+            if (focusHead) {
+                focusHead.innerHTML = `<tr>
+                    <th style="${thS}text-align:left;" onclick="sortFocusBy('id')">ID${si('id')}</th>
+                    <th style="${thS}text-align:left;" onclick="sortFocusBy('title')">Title${si('title')}</th>
+                    <th style="${thS}text-align:left;" onclick="sortFocusBy('state')">State${si('state')}</th>
+                    <th style="${thS}text-align:center;" onclick="sortFocusBy('weekNum')">Week${si('weekNum')}</th>
+                    <th style="${thS}text-align:center;" onclick="sortFocusBy('origEst')">Original${si('origEst')}</th>
+                    <th style="${thS}text-align:center;" onclick="sortFocusBy('remaining')">Remaining${si('remaining')}</th>
+                    <th style="${thS}text-align:center;" onclick="sortFocusBy('completed')">Completed${si('completed')}</th>
+                    <th style="${thS}text-align:center;" onclick="sortFocusBy('progress')">Progress${si('progress')}</th>
+                    <th style="${thS}text-align:left;" onclick="sortFocusBy('assigned')">Assigned${si('assigned')}</th>
+                </tr>`;
+            }
+            
             // Render rows
             const tdStyle = 'padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);';
             const focusTableBody = document.getElementById('weekFocusTableBody');
             
-            if (filteredItems.length === 0) {
+            if (sortedItems.length === 0) {
                 document.getElementById('noFocusItems').style.display = 'block';
                 focusTableBody.innerHTML = '';
                 return;
@@ -5053,7 +5246,7 @@
             
             document.getElementById('noFocusItems').style.display = 'none';
             
-            focusTableBody.innerHTML = filteredItems.map(req => {
+            focusTableBody.innerHTML = sortedItems.map(req => {
                 const state = req.fields['System.State'] || '';
                 const isDone = doneStates.includes(state.toLowerCase());
                 const stateColor = isDone ? '#10b981' : (state.toLowerCase() === 'active' ? '#60a5fa' : '#f59e0b');
@@ -6346,7 +6539,7 @@
         }
 
         function applyTabPermissions() {
-            const tabNames = { 1: 'Sprint Planning', 2: 'Work Progress', 3: 'AI Usage', 4: 'AI Analytics', 5: 'Feature Progress', 6: 'Data Lookup', 7: 'Weekly Tasks' };
+            const tabNames = { 1: 'Sprint Planning', 2: 'Work Progress', 3: 'AI Usage', 4: 'AI Analytics', 5: 'Feature Progress', 6: 'Data Lookup', 7: 'Encrypt Username' };
             const isAdmin = ['admin', 'super_admin'].includes(currentUserRole);
             [1, 2, 3, 4, 5, 6, 7].forEach(t => {
                 const btn = document.getElementById('tabBtn' + t);
@@ -6395,7 +6588,8 @@
             document.getElementById('tabBtn4').style.cssText = inactiveStyle;
             document.getElementById('tabBtn5').style.cssText = inactiveStyle;
             document.getElementById('tabBtn6').style.cssText = inactiveStyle;
-            document.getElementById('tabBtn7').style.cssText = inactiveStyle;
+            const tabBtn7 = document.getElementById('tabBtn7');
+            if (tabBtn7) tabBtn7.style.cssText = inactiveStyle;
             
             // Show selected tab and activate button
             document.getElementById('tabContent' + tabNum).style.display = 'block';
@@ -6419,6 +6613,15 @@
             }
         }
         
+        let bugsSortField = 'id';
+        let bugsSortDir = 'asc';
+        
+        function sortBugsBy(col) {
+            if (bugsSortField === col) { bugsSortDir = bugsSortDir === 'asc' ? 'desc' : 'asc'; }
+            else { bugsSortField = col; bugsSortDir = 'asc'; }
+            renderBugsTable(window.currentBugFilter || 'all');
+        }
+
         function renderBugsTable(filter) {
             const allBugs = window.allBugs || [];
             
@@ -6468,13 +6671,67 @@
             document.getElementById('bugCSCount').textContent = csCount;
             document.getElementById('bugProductionCount').textContent = prodCount;
             
+            // Bug count by member card
+            const memberBugMap = {};
+            filteredBugs.forEach(b => {
+                const name = b.fields['System.AssignedTo']?.displayName || 'Unassigned';
+                memberBugMap[name] = (memberBugMap[name] || 0) + 1;
+            });
+            const memberCard = document.getElementById('bugMemberCard');
+            const memberBlocks = document.getElementById('bugMemberBlocks');
+            if (filteredBugs.length > 0 && memberCard && memberBlocks) {
+                memberCard.style.display = 'block';
+                const sorted = Object.entries(memberBugMap).sort((a,b) => b[1] - a[1]);
+                const mColors = ['#f87171','#fbbf24','#60a5fa','#34d399','#c4b5fd','#f472b6','#22d3ee','#818cf8','#94a3b8'];
+                memberBlocks.innerHTML = sorted.map(([name, count], i) => {
+                    const clr = mColors[i % mColors.length];
+                    const firstName = name === 'Unassigned' ? 'Unassigned' : name.split(' ')[0];
+                    return `<div class="summary-stat" style="padding:6px 8px;min-width:60px;flex:0 0 auto;background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);">
+                        <div class="value" style="font-size:0.9rem;color:${clr};">${count}</div>
+                        <div class="label" style="font-size:0.5rem;" title="${name}">${firstName}</div>
+                    </div>`;
+                }).join('');
+            } else if (memberCard) { memberCard.style.display = 'none'; }
+            
+            // Sort bugs
+            const sortedBugs = [...filteredBugs].sort((a, b) => {
+                let aV, bV;
+                switch(bugsSortField) {
+                    case 'id': aV = a.id; bV = b.id; break;
+                    case 'title': aV = (a.fields['System.Title']||'').toLowerCase(); bV = (b.fields['System.Title']||'').toLowerCase(); break;
+                    case 'state': aV = (a.fields['System.State']||'').toLowerCase(); bV = (b.fields['System.State']||'').toLowerCase(); break;
+                    case 'severity': aV = (a.fields['Microsoft.VSTS.Common.Severity']||'').toLowerCase(); bV = (b.fields['Microsoft.VSTS.Common.Severity']||'').toLowerCase(); break;
+                    case 'assigned': aV = (a.fields['System.AssignedTo']?.displayName||'').toLowerCase(); bV = (b.fields['System.AssignedTo']?.displayName||'').toLowerCase(); break;
+                    default: aV = a.id; bV = b.id;
+                }
+                if (aV < bV) return bugsSortDir === 'asc' ? -1 : 1;
+                if (aV > bV) return bugsSortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+            
+            // Render sortable table headers
+            const lt = document.body.classList.contains('light-theme');
+            const thS = `padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);cursor:pointer;user-select:none;`;
+            const si = (col) => bugsSortField === col ? (bugsSortDir === 'asc' ? ' ▲' : ' ▼') : '';
+            const bugsHead = document.getElementById('bugsTableHead');
+            if (bugsHead) {
+                bugsHead.innerHTML = `<tr>
+                    <th style="${thS}" onclick="sortBugsBy('id')">ID${si('id')}</th>
+                    <th style="${thS}" onclick="sortBugsBy('title')">Title${si('title')}</th>
+                    <th style="${thS}" onclick="sortBugsBy('state')">State${si('state')}</th>
+                    <th style="${thS}text-align:center;">Tags</th>
+                    <th style="${thS}" onclick="sortBugsBy('severity')">Severity${si('severity')}</th>
+                    <th style="${thS}" onclick="sortBugsBy('assigned')">Assigned${si('assigned')}</th>
+                </tr>`;
+            }
+            
             // Render table
             const bugsBody = document.querySelector('#bugsTable tbody');
             const tdStyle = 'padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);';
             
-            if (filteredBugs.length > 0) {
+            if (sortedBugs.length > 0) {
                 document.getElementById('noBugs').style.display = 'none';
-                bugsBody.innerHTML = filteredBugs.map(b => {
+                bugsBody.innerHTML = sortedBugs.map(b => {
                     const state = b.fields['System.State'] || '';
                     const stateColor = state === 'Closed' ? '#34d399' : (state === 'Resolved' ? '#60a5fa' : '#fbbf24');
                     const severity = b.fields['Microsoft.VSTS.Common.Severity'] || '-';
@@ -6933,6 +7190,21 @@
             }
         }
         
+        // Sprint week calculation helper (used by AI Adoption dashboards)
+        function getSprintWeek(task) {
+            const sDate = storedSprintStartDate;
+            if (!sDate) return null;
+            const stateChangeStr = task.fields['Microsoft.VSTS.Common.StateChangeDate'];
+            if (!stateChangeStr) return null;
+            const stateDate = new Date(stateChangeStr);
+            if (isNaN(stateDate.getTime())) return null;
+            const diffMs = stateDate - sDate;
+            if (diffMs < 0) return null;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const week = Math.min(4, Math.floor(diffDays / 7) + 1);
+            return 'week' + week;
+        }
+
         function renderAIAdoptionData() {
             // Get Development members from capacity data
             const devMembers = (capacityData.members || []).filter(m => 
@@ -7284,7 +7556,6 @@
             if (overallAIAdoptionDataLoaded) { overallAIAdoptionDataLoaded = false; loadOverallAIAdoptionData(); }
             if (execTypeAIAdoptionDataLoaded) { execTypeAIAdoptionDataLoaded = false; loadExecTypeAIAdoptionData(); }
             if (projectAIAdoptionDataLoaded) { projectAIAdoptionDataLoaded = false; loadProjectAIAdoptionData(); }
-            if (wbDataLoaded) { buildWeeklyBreakdownData(); }
         }
 
         function filterAIAdoptionByWeek(week) {
@@ -11463,274 +11734,6 @@
             return clone.outerHTML;
         }
 
-        // ==================== TAB 6: WEEKLY TASK BREAKDOWN ====================
-        let wbWeekFilter = 'All';
-        let wbAiDiscFilter = 'All', wbManualDiscFilter = 'All';
-        let wbDataLoaded = false;
-        let wbAllTasks = [];
-        let wbAiSortField = 'id', wbAiSortDir = 'asc';
-        let wbManualSortField = 'id', wbManualSortDir = 'asc';
-
-        function loadWeeklyTaskBreakdown() {
-            const content = document.getElementById('weeklyBreakdownContent');
-            const btn = document.getElementById('loadWeeklyBreakdownBtn');
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                btn.textContent = '🔼 Hide';
-                if (!wbDataLoaded) {
-                    wbDataLoaded = true;
-                    buildWeeklyBreakdownData();
-                }
-            } else {
-                content.style.display = 'none';
-                btn.textContent = '📊 Show';
-            }
-        }
-
-        function getSprintWeek(task) {
-            // Determine which week of the sprint this task was resolved/closed
-            const sDate = storedSprintStartDate;
-            if (!sDate) return null;
-            const stateChangeStr = task.fields['Microsoft.VSTS.Common.StateChangeDate'];
-            if (!stateChangeStr) return null;
-            const stateDate = new Date(stateChangeStr);
-            if (isNaN(stateDate.getTime())) return null;
-            const diffMs = stateDate - sDate;
-            if (diffMs < 0) return null; // before sprint start
-            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-            const week = Math.min(4, Math.floor(diffDays / 7) + 1);
-            return 'week' + week;
-        }
-
-        function buildWeeklyBreakdownData() {
-            const validReqIds = new Set();
-            requirements.forEach(req => {
-                if (req.category === 'deliverable' || req.category === 'nonDeliverable' || (includeAdhocInAI && req.isAdhocSupport)) validReqIds.add(req.id);
-            });
-            bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
-            const completedStates = ['resolved', 'closed'];
-            wbAllTasks = tasks.filter(t => {
-                const parentReqId = taskParentMap[t.id];
-                if (!parentReqId || !validReqIds.has(parentReqId)) return false;
-                const state = (t.fields['System.State'] || '').toLowerCase();
-                const reason = (t.fields['System.Reason'] || '').toLowerCase();
-                const revisedEst = t.fields['Casepoint.TFS.CustomFields.RevisedEstimate'] || 0;
-                const originalEst = t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
-                const origEst = (revisedEst > 0) ? revisedEst : originalEst;
-                const taskAreaPath = t.fields['System.AreaPath'] || '';
-                if (!isTaskAreaMatchingSelection(taskAreaPath)) return false;
-                const execType = t.fields['Casepoint.TFS.CustomFields.TaskExecutionType'] || '';
-                const isAiType = execType.startsWith('AI-Dev') || execType.startsWith('AI-Test');
-                const isManualType = execType === 'Manual' || execType === 'Manual-AI-Ineffective';
-                if (!isAiType && !isManualType) return false;
-                return completedStates.includes(state) && reason !== 'rejected' && origEst > 0;
-            });
-            // Calculate sprint week for each task
-            wbAllTasks.forEach(t => { t._sprintWeek = getSprintWeek(t); });
-            renderWeeklyBreakdown();
-        }
-
-        function filterWbByWeek(week) {
-            wbWeekFilter = week;
-            renderWeeklyBreakdown();
-        }
-
-        function filterWbAiDisc(disc) {
-            wbAiDiscFilter = disc;
-            renderWeeklyBreakdown();
-        }
-
-        function filterWbManualDisc(disc) {
-            wbManualDiscFilter = disc;
-            renderWeeklyBreakdown();
-        }
-
-        function renderWeeklyBreakdown() {
-            const lt = document.body.classList.contains('light-theme');
-            const filtered = wbWeekFilter === 'All' ? wbAllTasks : wbAllTasks.filter(t => t._sprintWeek === wbWeekFilter);
-            const aiTasksAll = filtered.filter(t => { const et = t.fields['Casepoint.TFS.CustomFields.TaskExecutionType'] || ''; return et.startsWith('AI-Dev') || et.startsWith('AI-Test'); });
-            const manualTasksAll = filtered.filter(t => { const et = t.fields['Casepoint.TFS.CustomFields.TaskExecutionType'] || ''; return et === 'Manual' || et === 'Manual-AI-Ineffective'; });
-
-            // Apply discipline filters
-            const aiTasks = wbAiDiscFilter === 'All' ? aiTasksAll : aiTasksAll.filter(t => (t.fields['Microsoft.VSTS.Common.Discipline']||'') === wbAiDiscFilter);
-            const manualTasks = wbManualDiscFilter === 'All' ? manualTasksAll : manualTasksAll.filter(t => (t.fields['Microsoft.VSTS.Common.Discipline']||'') === wbManualDiscFilter);
-
-            // Week counts
-            const weekCounts = {};
-            wbAllTasks.forEach(t => { if (t._sprintWeek) weekCounts[t._sprintWeek] = (weekCounts[t._sprintWeek] || 0) + 1; });
-            const weekTagKeys = ['week1','week2','week3','week4'].filter(w => weekCounts[w]);
-            const wLabels = { week1: 'Week 1', week2: 'Week 2', week3: 'Week 3', week4: 'Week 4' };
-            const wRgb = { week1: '59,130,246', week2: '16,185,129', week3: '245,158,11', week4: '236,72,153' };
-            const wClr = { week1: '#93c5fd', week2: '#6ee7b7', week3: '#fcd34d', week4: '#f9a8d4' };
-            const btnS = 'padding:3px 10px;border-radius:4px;font-size:0.65rem;cursor:pointer;border:1px solid;transition:all 0.2s;';
-            const btnsEl = document.getElementById('wbWeekFilterBtns');
-            btnsEl.innerHTML = `<button onclick="filterWbByWeek('All')" style="${btnS}background:${wbWeekFilter==='All'?'rgba(139,92,246,0.5)':'rgba(255,255,255,0.08)'};border-color:${wbWeekFilter==='All'?'rgba(139,92,246,0.7)':'rgba(255,255,255,0.15)'};color:${wbWeekFilter==='All'?'#c4b5fd':'#94a3b8'};">All (${wbAllTasks.length})</button>` +
-                weekTagKeys.map(wt => {
-                    const isAct = wbWeekFilter === wt;
-                    const rgb = wRgb[wt] || '100,116,139'; const clr = wClr[wt] || '#94a3b8';
-                    return `<button onclick="filterWbByWeek('${wt}')" style="${btnS}background:${isAct?`rgba(${rgb},0.5)`:'rgba(255,255,255,0.08)'};border-color:${isAct?`rgba(${rgb},0.7)`:'rgba(255,255,255,0.15)'};color:${isAct?clr:'#94a3b8'};">${wLabels[wt]||wt} (${weekCounts[wt]})</button>`;
-                }).join('');
-
-            // Sprint date range info
-            const dateInfoEl = document.getElementById('wbSprintDateInfo');
-            if (storedSprintStartDate && storedSprintEndDate) {
-                const fmt = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                dateInfoEl.innerHTML = `<span style="color:${lt?'#475569':'#94a3b8'};font-size:0.65rem;">📅 Sprint: ${fmt(storedSprintStartDate)} — ${fmt(storedSprintEndDate)} &nbsp;|&nbsp; Week = 7 calendar days from start</span>`;
-            } else {
-                dateInfoEl.innerHTML = `<span style="color:#f87171;font-size:0.65rem;">⚠️ Sprint dates not available — week calculation unavailable</span>`;
-            }
-
-            // Summary cards
-            const getOrig = t => { const re = t.fields['Casepoint.TFS.CustomFields.RevisedEstimate']||0; const oe = t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate']||0; return re>0?re:oe; };
-            const aiOrigH = aiTasks.reduce((s,t) => s + getOrig(t), 0);
-            const aiCompH = aiTasks.reduce((s,t) => s + (t.fields['Microsoft.VSTS.Scheduling.CompletedWork']||0), 0);
-            const manOrigH = manualTasks.reduce((s,t) => s + getOrig(t), 0);
-            const manCompH = manualTasks.reduce((s,t) => s + (t.fields['Microsoft.VSTS.Scheduling.CompletedWork']||0), 0);
-            // AI Adoption = hours based: (AI + AI-Ineff) OrigEst / (AI + AI-Ineff + Manual) OrigEst
-            const aiAllOrigH = aiTasksAll.reduce((s,t) => s + getOrig(t), 0);
-            const aiIneffAllOrigH = manualTasksAll.filter(t => (t.fields['Casepoint.TFS.CustomFields.TaskExecutionType']||'') === 'Manual-AI-Ineffective').reduce((s,t) => s + getOrig(t), 0);
-            const manAllOrigH = manualTasksAll.filter(t => (t.fields['Casepoint.TFS.CustomFields.TaskExecutionType']||'') === 'Manual').reduce((s,t) => s + getOrig(t), 0);
-            const totalAdoptH = aiAllOrigH + aiIneffAllOrigH + manAllOrigH;
-            const aiAdoptRate = totalAdoptH > 0 ? Math.round(((aiAllOrigH + aiIneffAllOrigH) / totalAdoptH) * 100) : 0;
-            const aiEff = aiOrigH > 0 ? Math.round(((aiOrigH - aiCompH) / aiOrigH) * 100) : 0;
-            const manEff = manOrigH > 0 ? Math.round(((manOrigH - manCompH) / manOrigH) * 100) : 0;
-            document.getElementById('wbSummaryRow').innerHTML = `
-                <div class="summary-stat" style="background:rgba(59,130,246,0.2);border-color:rgba(59,130,246,0.3);padding:12px;"><div class="value" style="font-size:1.2rem;color:#60a5fa;">${filtered.length}</div><div class="label fs-sm-bold">Total Tasks</div></div>
-                <div class="summary-stat" style="background:rgba(16,185,129,0.2);border-color:rgba(16,185,129,0.3);padding:12px;"><div class="value" style="font-size:1.2rem;color:#34d399;">${aiTasksAll.length}</div><div class="label fs-sm-bold">AI Tasks</div></div>
-                <div class="summary-stat" style="background:rgba(245,158,11,0.2);border-color:rgba(245,158,11,0.3);padding:12px;"><div class="value" style="font-size:1.2rem;color:#fbbf24;">${manualTasksAll.length}</div><div class="label fs-sm-bold">Manual Tasks</div></div>
-                <div class="summary-stat" style="background:rgba(139,92,246,0.2);border-color:rgba(139,92,246,0.3);padding:12px;"><div class="value" style="font-size:1.2rem;color:#c4b5fd;">${aiAdoptRate}%</div><div class="label fs-sm-bold">AI Adoption</div></div>
-                <div class="summary-stat" style="background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.25);padding:12px;"><div class="value" style="font-size:1.2rem;color:${aiEff>=0?'#34d399':'#f87171'};">${aiEff}%</div><div class="label fs-sm-bold">AI Eff.</div></div>
-                <div class="summary-stat" style="background:rgba(245,158,11,0.15);border-color:rgba(245,158,11,0.25);padding:12px;"><div class="value" style="font-size:1.2rem;color:${manEff>=0?'#fcd34d':'#f87171'};">${manEff}%</div><div class="label fs-sm-bold">Manual Eff.</div></div>`;
-
-            // Discipline filters for AI section
-            const aiDiscs = [...new Set(aiTasksAll.map(t => t.fields['Microsoft.VSTS.Common.Discipline']||'-'))].sort();
-            const aiDiscEl = document.getElementById('wbAiDiscBtns');
-            if (aiDiscs.length > 1) {
-                document.getElementById('wbAiDiscBar').style.display = 'flex';
-                aiDiscEl.innerHTML = `<button onclick="filterWbAiDisc('All')" style="${btnS}background:${wbAiDiscFilter==='All'?'rgba(16,185,129,0.5)':'rgba(255,255,255,0.08)'};border-color:${wbAiDiscFilter==='All'?'rgba(16,185,129,0.7)':'rgba(255,255,255,0.15)'};color:${wbAiDiscFilter==='All'?'#6ee7b7':'#94a3b8'};">All (${aiTasksAll.length})</button>` +
-                    aiDiscs.map(d => {
-                        const cnt = aiTasksAll.filter(t => (t.fields['Microsoft.VSTS.Common.Discipline']||'-') === d).length;
-                        const isA = wbAiDiscFilter === d;
-                        return `<button onclick="filterWbAiDisc('${d.replace(/'/g,"\\'")}')" style="${btnS}background:${isA?'rgba(16,185,129,0.5)':'rgba(255,255,255,0.08)'};border-color:${isA?'rgba(16,185,129,0.7)':'rgba(255,255,255,0.15)'};color:${isA?'#6ee7b7':'#94a3b8'};">${d} (${cnt})</button>`;
-                    }).join('');
-            } else { document.getElementById('wbAiDiscBar').style.display = 'none'; }
-
-            // Discipline filters for Manual section
-            const manDiscs = [...new Set(manualTasksAll.map(t => t.fields['Microsoft.VSTS.Common.Discipline']||'-'))].sort();
-            const manDiscEl = document.getElementById('wbManualDiscBtns');
-            if (manDiscs.length > 1) {
-                document.getElementById('wbManualDiscBar').style.display = 'flex';
-                manDiscEl.innerHTML = `<button onclick="filterWbManualDisc('All')" style="${btnS}background:${wbManualDiscFilter==='All'?'rgba(245,158,11,0.5)':'rgba(255,255,255,0.08)'};border-color:${wbManualDiscFilter==='All'?'rgba(245,158,11,0.7)':'rgba(255,255,255,0.15)'};color:${wbManualDiscFilter==='All'?'#fcd34d':'#94a3b8'};">All (${manualTasksAll.length})</button>` +
-                    manDiscs.map(d => {
-                        const cnt = manualTasksAll.filter(t => (t.fields['Microsoft.VSTS.Common.Discipline']||'-') === d).length;
-                        const isA = wbManualDiscFilter === d;
-                        return `<button onclick="filterWbManualDisc('${d.replace(/'/g,"\\'")}')" style="${btnS}background:${isA?'rgba(245,158,11,0.5)':'rgba(255,255,255,0.08)'};border-color:${isA?'rgba(245,158,11,0.7)':'rgba(255,255,255,0.15)'};color:${isA?'#fcd34d':'#94a3b8'};">${d} (${cnt})</button>`;
-                    }).join('');
-            } else { document.getElementById('wbManualDiscBar').style.display = 'none'; }
-
-            // Counts and hours
-            document.getElementById('wbAiCount').textContent = aiTasks.length;
-            document.getElementById('wbManualCount').textContent = manualTasks.length;
-            document.getElementById('wbAiHours').textContent = `${fmtH(aiOrigH)}h orig / ${fmtH(aiCompH)}h comp`;
-            document.getElementById('wbManualHours').textContent = `${fmtH(manOrigH)}h orig / ${fmtH(manCompH)}h comp`;
-
-            // Render tables
-            renderWbTable('Ai', aiTasks, wbAiSortField, wbAiSortDir, lt);
-            renderWbTable('Manual', manualTasks, wbManualSortField, wbManualSortDir, lt);
-        }
-
-        function renderWbTable(type, taskList, sortField, sortDir, lt) {
-            const thead = document.getElementById(`wb${type}TableHead`);
-            const tbody = document.getElementById(`wb${type}TableBody`);
-            const noData = document.getElementById(`wb${type}NoData`);
-            const thBg = lt ? 'background:#e2e8f0;color:#1e293b;' : 'background:rgba(255,255,255,0.08);color:#e2e8f0;';
-            const thS = `${thBg}padding:6px 5px;cursor:pointer;user-select:none;font-size:0.68rem;white-space:nowrap;`;
-            const si = (col) => sortField === col ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '';
-            const pfx = type === 'Ai' ? 'wbAi' : 'wbManual';
-            thead.innerHTML = `<tr>
-                <th style="${thS}text-align:left;width:5%;" onclick="sortWbTable('${pfx}','id')">ID${si('id')}</th>
-                <th style="${thS}text-align:left;" onclick="sortWbTable('${pfx}','title')">Title${si('title')}</th>
-                <th style="${thS}text-align:left;width:10%;" onclick="sortWbTable('${pfx}','assigned')">Assigned${si('assigned')}</th>
-                <th style="${thS}text-align:center;width:8%;" onclick="sortWbTable('${pfx}','discipline')">Discipline${si('discipline')}</th>
-                <th style="${thS}text-align:center;width:12%;" onclick="sortWbTable('${pfx}','execType')">Exec Type${si('execType')}</th>
-                <th style="${thS}text-align:center;width:6%;" onclick="sortWbTable('${pfx}','state')">State${si('state')}</th>
-                <th style="${thS}text-align:right;width:5%;" onclick="sortWbTable('${pfx}','origEst')">Orig${si('origEst')}</th>
-                <th style="${thS}text-align:right;width:5%;" onclick="sortWbTable('${pfx}','comp')">Comp${si('comp')}</th>
-                <th style="${thS}text-align:center;width:6%;" onclick="sortWbTable('${pfx}','week')">Week${si('week')}</th>
-                <th style="${thS}text-align:center;width:8%;" onclick="sortWbTable('${pfx}','stateDate')">Resolved${si('stateDate')}</th>
-                <th style="${thS}text-align:left;width:8%;" onclick="sortWbTable('${pfx}','area')">Area${si('area')}</th>
-            </tr>`;
-            if (taskList.length === 0) { noData.style.display = 'block'; tbody.innerHTML = ''; return; }
-            noData.style.display = 'none';
-            const sorted = [...taskList].sort((a, b) => {
-                let aV, bV;
-                switch(sortField) {
-                    case 'id': aV = a.id; bV = b.id; break;
-                    case 'title': aV = (a.fields['System.Title']||'').toLowerCase(); bV = (b.fields['System.Title']||'').toLowerCase(); break;
-                    case 'assigned': aV = (a.fields['System.AssignedTo']?.displayName||'').toLowerCase(); bV = (b.fields['System.AssignedTo']?.displayName||'').toLowerCase(); break;
-                    case 'discipline': aV = (a.fields['Microsoft.VSTS.Common.Discipline']||'').toLowerCase(); bV = (b.fields['Microsoft.VSTS.Common.Discipline']||'').toLowerCase(); break;
-                    case 'execType': aV = (a.fields['Casepoint.TFS.CustomFields.TaskExecutionType']||'').toLowerCase(); bV = (b.fields['Casepoint.TFS.CustomFields.TaskExecutionType']||'').toLowerCase(); break;
-                    case 'state': aV = (a.fields['System.State']||'').toLowerCase(); bV = (b.fields['System.State']||'').toLowerCase(); break;
-                    case 'origEst': { const ra = a.fields['Casepoint.TFS.CustomFields.RevisedEstimate']||0; const oa = a.fields['Microsoft.VSTS.Scheduling.OriginalEstimate']||0; aV = ra>0?ra:oa; const rb = b.fields['Casepoint.TFS.CustomFields.RevisedEstimate']||0; const ob = b.fields['Microsoft.VSTS.Scheduling.OriginalEstimate']||0; bV = rb>0?rb:ob; break; }
-                    case 'comp': aV = a.fields['Microsoft.VSTS.Scheduling.CompletedWork']||0; bV = b.fields['Microsoft.VSTS.Scheduling.CompletedWork']||0; break;
-                    case 'week': aV = a._sprintWeek||'zz'; bV = b._sprintWeek||'zz'; break;
-                    case 'stateDate': aV = a.fields['Microsoft.VSTS.Common.StateChangeDate']||''; bV = b.fields['Microsoft.VSTS.Common.StateChangeDate']||''; break;
-                    case 'area': aV = (a.fields['System.AreaPath']||'').toLowerCase(); bV = (b.fields['System.AreaPath']||'').toLowerCase(); break;
-                    default: aV = a.id; bV = b.id;
-                }
-                if (aV < bV) return sortDir === 'asc' ? -1 : 1;
-                if (aV > bV) return sortDir === 'asc' ? 1 : -1;
-                return 0;
-            });
-            const tdBorder = lt ? 'border-bottom:1px solid #e2e8f0;' : 'border-bottom:1px solid rgba(255,255,255,0.06);';
-            const tdClr = lt ? 'color:#334155;' : 'color:#cbd5e1;';
-            const discClr = lt ? 'color:#6d28d9;' : 'color:#a78bfa;';
-            const execClr = lt ? 'color:#0e7490;' : 'color:#22d3ee;';
-            const origClr = lt ? 'color:#c2410c;' : 'color:#f97316;';
-            const compClr = lt ? 'color:#047857;' : 'color:#34d399;';
-            const areaClr = lt ? 'color:#0369a1;' : 'color:#38bdf8;';
-            const dateClr = lt ? 'color:#475569;' : 'color:#94a3b8;';
-            const wLabels = { week1: 'W1', week2: 'W2', week3: 'W3', week4: 'W4' };
-            const wClr = { week1: '#93c5fd', week2: '#6ee7b7', week3: '#fcd34d', week4: '#f9a8d4' };
-            tbody.innerHTML = sorted.map(t => {
-                const f = t.fields;
-                const re = f['Casepoint.TFS.CustomFields.RevisedEstimate']||0;
-                const oe = f['Microsoft.VSTS.Scheduling.OriginalEstimate']||0;
-                const orig = re > 0 ? re : oe;
-                const comp = f['Microsoft.VSTS.Scheduling.CompletedWork']||0;
-                const tArea = (f['System.AreaPath']||'').split('\\').pop();
-                const wt = t._sprintWeek;
-                const wColor = wClr[wt] || (lt?'#64748b':'#94a3b8');
-                const stCls = getStatePillClass(f['System.State']||'');
-                const scd = f['Microsoft.VSTS.Common.StateChangeDate'];
-                const scdFmt = scd ? new Date(scd).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '-';
-                return `<tr style="${tdBorder}">
-                    <td style="padding:4px 5px;${tdClr}"><a href="${tfsUrl}/${project}/_workitems/edit/${t.id}" target="_blank" class="wi-link" style="font-size:0.68rem;">${t.id}</a></td>
-                    <td style="padding:4px 5px;${tdClr}max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f['System.Title']||''}">${f['System.Title']||''}</td>
-                    <td style="padding:4px 5px;${tdClr}font-size:0.66rem;" title="${f['System.AssignedTo']?.displayName||'-'}">${(f['System.AssignedTo']?.displayName||'-').split(' ')[0]}</td>
-                    <td style="padding:4px 5px;${discClr}text-align:center;font-size:0.66rem;">${f['Microsoft.VSTS.Common.Discipline']||'-'}</td>
-                    <td style="padding:4px 5px;${execClr}text-align:center;font-size:0.66rem;">${f['Casepoint.TFS.CustomFields.TaskExecutionType']||'-'}</td>
-                    <td style="padding:4px 5px;text-align:center;"><span class="fp-state-pill ${stCls}" style="font-size:0.5rem;padding:1px 5px;">${f['System.State']||''}</span></td>
-                    <td style="padding:4px 5px;text-align:right;${origClr}font-weight:600;">${fmtH(orig)}h</td>
-                    <td style="padding:4px 5px;text-align:right;${compClr}">${fmtH(comp)}h</td>
-                    <td style="padding:4px 5px;text-align:center;color:${wColor};font-weight:600;font-size:0.66rem;">${wLabels[wt]||'-'}</td>
-                    <td style="padding:4px 5px;text-align:center;${dateClr}font-size:0.62rem;">${scdFmt}</td>
-                    <td style="padding:4px 5px;${areaClr}font-size:0.66rem;" title="${f['System.AreaPath']||''}">${tArea}</td>
-                </tr>`;
-            }).join('');
-        }
-
-        function sortWbTable(pfx, col) {
-            if (pfx === 'wbAi') {
-                if (wbAiSortField === col) wbAiSortDir = wbAiSortDir === 'asc' ? 'desc' : 'asc';
-                else { wbAiSortField = col; wbAiSortDir = 'asc'; }
-            } else {
-                if (wbManualSortField === col) wbManualSortDir = wbManualSortDir === 'asc' ? 'desc' : 'asc';
-                else { wbManualSortField = col; wbManualSortDir = 'asc'; }
-            }
-            renderWeeklyBreakdown();
-        }
-
         async function lookupFeature() {
             const featureId = document.getElementById('featureIdInput').value.trim();
             const resultDiv = document.getElementById('featureLookupResult');
@@ -12189,6 +12192,207 @@
                             }).join('')}</tbody></table></div>` : `<div style="text-align:center;padding:8px;${T.sub}">No tasks found</div>`}
                 </div>`;
             } catch (err) { resultDiv.innerHTML = `<div class="error" style="font-size:0.75rem;">❌ ${err.message}</div>`; }
+        }
+
+        async function lookupTask() {
+            const taskId = document.getElementById('taskIdInput').value.trim();
+            const resultDiv = document.getElementById('taskLookupResult');
+            if (!taskId) { resultDiv.innerHTML = '<div class="error" style="font-size:0.75rem;">Please enter a Task ID</div>'; return; }
+            resultDiv.innerHTML = '<div style="color:#94a3b8;padding:8px;font-size:0.75rem;">🔄 Loading task...</div>';
+            try {
+                const resp = await apiFetch(`${tfsUrl}/_apis/wit/workitems/${taskId}?$expand=relations&api-version=5.0`);
+                if (!resp.ok) throw new Error(`Task ${taskId} not found`);
+                const data = await resp.json();
+                const f = data.fields;
+                const lt = document.body.classList.contains('light-theme');
+                const T = {
+                    card: lt ? 'background:#f8fafc;border:1px solid #e2e8f0;' : 'background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);',
+                    box: lt ? 'background:#f1f5f9;border:1px solid #e2e8f0;' : 'background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.06);',
+                    h: lt ? 'color:#0f172a;' : 'color:#e2e8f0;',
+                    sub: lt ? 'color:#475569;' : 'color:#94a3b8;',
+                    val: lt ? 'color:#1e293b;font-weight:700;' : 'color:#e2e8f0;font-weight:700;',
+                    lbl: lt ? 'color:#64748b;' : 'color:#64748b;',
+                    disc: lt ? 'color:#6d28d9;' : 'color:#a78bfa;',
+                    exec: lt ? 'color:#0e7490;' : 'color:#22d3ee;',
+                    orig: lt ? 'color:#c2410c;' : 'color:#f97316;',
+                    rem: lt ? 'color:#0369a1;' : 'color:#38bdf8;',
+                    comp: lt ? 'color:#047857;' : 'color:#34d399;',
+                    areaClr: lt ? 'color:#0369a1;' : 'color:#38bdf8;',
+                    iterClr: lt ? 'color:#7c3aed;' : 'color:#c084fc;',
+                };
+                const sz = 'font-size:0.7rem;';
+                const stCls = getStatePillClass(f['System.State'] || '');
+                const areaLeaf = (f['System.AreaPath']||'').split('\\').pop();
+                const iterLeaf = (f['System.IterationPath']||'').split('\\').pop();
+                const assignedTo = f['System.AssignedTo']?.displayName || '-';
+                const discipline = f['Microsoft.VSTS.Common.Discipline'] || '-';
+                const execType = f['Casepoint.TFS.CustomFields.TaskExecutionType'] || '-';
+                const origEst = f['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                const remWork = f['Microsoft.VSTS.Scheduling.RemainingWork'] || 0;
+                const compWork = f['Microsoft.VSTS.Scheduling.CompletedWork'] || 0;
+                const revisedEst = f['Casepoint.TFS.CustomFields.RevisedEstimate'] || 0;
+                const reason = f['System.Reason'] || '-';
+                const workItemType = f['System.WorkItemType'] || '-';
+                const tags = f['System.Tags'] || '-';
+                const description = f['System.Description'] || '';
+                const descPreview = description.replace(/<[^>]*>/g, '').substring(0, 200);
+                
+                // Find parent work item
+                const parentRel = (data.relations || []).find(r => r.rel === 'System.LinkTypes.Hierarchy-Reverse');
+                const parentId = parentRel ? parentRel.url.split('/').pop() : null;
+                let parentInfo = '';
+                if (parentId) {
+                    try {
+                        const pResp = await apiFetch(`${tfsUrl}/_apis/wit/workitems/${parentId}?api-version=5.0`);
+                        if (pResp.ok) {
+                            const pData = await pResp.json();
+                            const pTitle = pData.fields['System.Title'] || '';
+                            const pType = pData.fields['System.WorkItemType'] || '';
+                            parentInfo = `<div style="${T.box}border-radius:5px;padding:4px 8px;margin-bottom:6px;display:flex;gap:8px;align-items:center;">
+                                <span style="${T.lbl}font-size:0.6rem;font-weight:600;">👆 Parent ${pType}:</span>
+                                <a href="${tfsUrl}/${project}/_workitems/edit/${parentId}" target="_blank" class="wi-link" style="font-size:0.68rem;font-weight:600;">#${parentId}</a>
+                                <span style="${T.h}font-size:0.65rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${pTitle}">${pTitle}</span>
+                            </div>`;
+                        }
+                    } catch(e) {}
+                }
+
+                // Tag badges
+                const tagArr = tags !== '-' ? tags.split(';').map(t => t.trim()).filter(Boolean) : [];
+                const tagBadges = tagArr.map(t => {
+                    const bg = lt ? 'rgba(100,116,139,0.12)' : 'rgba(100,116,139,0.3)';
+                    const clr = lt ? '#475569' : '#94a3b8';
+                    return `<span style="background:${bg};color:${clr};padding:1px 5px;border-radius:3px;font-size:0.55rem;">${t}</span>`;
+                }).join('');
+
+                resultDiv.innerHTML = `<div style="${T.card}border-radius:8px;padding:8px;margin-top:8px;${sz}">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;">
+                        <a href="${tfsUrl}/${project}/_workitems/edit/${taskId}" target="_blank" class="wi-link" style="font-size:0.78rem;font-weight:700;">#${taskId}</a>
+                        <span style="background:rgba(59,130,246,0.2);color:#60a5fa;padding:1px 6px;border-radius:4px;font-size:0.55rem;">${workItemType}</span>
+                        <span style="${T.h}font-weight:600;font-size:0.78rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f['System.Title'] || ''}">${f['System.Title'] || ''}</span>
+                        <span class="fp-state-pill ${stCls}" style="font-size:0.55rem;padding:1px 6px;">${f['System.State'] || '-'}</span>
+                    </div>
+                    ${parentInfo}
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">
+                        <span style="${T.iterClr}font-size:0.62rem;font-weight:600;background:rgba(139,92,246,0.15);padding:1px 6px;border-radius:4px;">📅 ${iterLeaf}</span>
+                        <span style="${T.areaClr}font-size:0.62rem;font-weight:500;">📂 ${areaLeaf}</span>
+                        <span style="${T.sub}font-size:0.6rem;">Assigned: <b style="${T.val}font-size:0.6rem;">${assignedTo}</b></span>
+                        <span style="${T.sub}font-size:0.6rem;">Reason: <b style="${T.val}font-size:0.6rem;">${reason}</b></span>
+                    </div>
+                    <div style="${T.box}border-radius:5px;padding:4px 8px;margin-bottom:6px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <span style="${T.disc}font-size:0.62rem;font-weight:600;">🏷️ ${discipline}</span>
+                        <span style="${T.exec}font-size:0.62rem;font-weight:600;">⚡ ${execType}</span>
+                        <span style="${T.sub}font-size:0.62rem;">Orig: <b style="${T.orig}font-weight:700;">${fmtH(origEst)}h</b></span>
+                        ${revisedEst > 0 ? `<span style="${T.sub}font-size:0.62rem;">Revised: <b style="color:#e879f9;font-weight:700;">${fmtH(revisedEst)}h</b></span>` : ''}
+                        <span style="${T.sub}font-size:0.62rem;">Rem: <b style="${T.rem}font-weight:700;">${fmtH(remWork)}h</b></span>
+                        <span style="${T.sub}font-size:0.62rem;">Comp: <b style="${T.comp}font-weight:700;">${fmtH(compWork)}h</b></span>
+                    </div>
+                    ${tagArr.length > 0 ? `<div style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">
+                        <span style="${T.lbl}font-size:0.55rem;font-weight:600;">🏷️</span>${tagBadges}
+                    </div>` : ''}
+                    ${descPreview ? `<div style="${T.box}border-radius:5px;padding:4px 8px;margin-top:4px;">
+                        <span style="${T.lbl}font-size:0.55rem;font-weight:600;">📝 Description:</span>
+                        <span style="${T.sub}font-size:0.6rem;"> ${descPreview}${description.length > 200 ? '...' : ''}</span>
+                    </div>` : ''}
+                </div>`;
+            } catch (err) { resultDiv.innerHTML = `<div class="error" style="font-size:0.75rem;">❌ ${err.message}</div>`; }
+        }
+
+        // ==================== TAB 7: ENCRYPT USERNAME (super_admin only) ====================
+        function encryptUsername() {
+            const input = document.getElementById('encryptUsernameInput').value.trim();
+            const resultDiv = document.getElementById('encryptResult');
+            const valueLabel = document.getElementById('encryptedValueLabel');
+            if (!input) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+            const encrypted = xorEncrypt(input);
+            valueLabel.textContent = encrypted;
+            resultDiv.style.display = 'block';
+        }
+        
+        function decryptUsername() {
+            const input = document.getElementById('decryptUsernameInput').value.trim();
+            const resultDiv = document.getElementById('decryptResult');
+            const valueLabel = document.getElementById('decryptedValueLabel');
+            if (!input) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+            const decrypted = xorDecrypt(input);
+            valueLabel.textContent = decrypted;
+            resultDiv.style.display = 'block';
+        }
+        
+        function copyEncryptedValue() {
+            const value = document.getElementById('encryptedValueLabel').textContent;
+            navigator.clipboard.writeText(value).then(() => {
+                const btn = document.getElementById('copyEncBtn');
+                btn.textContent = '✅ Copied!';
+                btn.style.background = 'rgba(16,185,129,0.4)';
+                btn.style.borderColor = 'rgba(16,185,129,0.6)';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy';
+                    btn.style.background = 'rgba(59,130,246,0.3)';
+                    btn.style.borderColor = 'rgba(59,130,246,0.5)';
+                }, 2000);
+            }).catch(() => {
+                // Fallback for non-HTTPS
+                const ta = document.createElement('textarea');
+                ta.value = value;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                const btn = document.getElementById('copyEncBtn');
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => { btn.textContent = '📋 Copy'; }, 2000);
+            });
+        }
+        
+        function clearEncryptFields() {
+            document.getElementById('encryptUsernameInput').value = '';
+            document.getElementById('encryptResult').style.display = 'none';
+            document.getElementById('encryptedValueLabel').textContent = '';
+            document.getElementById('decryptUsernameInput').value = '';
+            document.getElementById('decryptResult').style.display = 'none';
+            document.getElementById('decryptedValueLabel').textContent = '';
+        }
+        
+        function toggleEncryptedUserList() {
+            const content = document.getElementById('encryptedUserListContent');
+            const btn = document.getElementById('toggleEncUserListBtn');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                btn.textContent = '🔼 Hide';
+                renderEncryptedUserTable();
+            } else {
+                content.style.display = 'none';
+                btn.textContent = '📋 Show';
+            }
+        }
+        
+        function renderEncryptedUserTable() {
+            const tbody = document.getElementById('encryptedUserTableBody');
+            if (!tbody || typeof ALLOWED_USERS_DATA === 'undefined') return;
+            const users = ALLOWED_USERS_DATA.users || [];
+            const tabNames = { 1:'Sprint Planning', 2:'Work Progress', 3:'AI Usage', 4:'AI Analytics', 5:'Feature Progress', 6:'Data Lookup', 7:'Encrypt Username' };
+            const roleColors = { super_admin: '#f87171', admin: '#fbbf24', normal: '#94a3b8' };
+            const roleBg = { super_admin: 'rgba(239,68,68,0.2)', admin: 'rgba(245,158,11,0.2)', normal: 'rgba(100,116,139,0.15)' };
+            const tdS = 'padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.06);';
+            tbody.innerHTML = users.map((u, i) => {
+                const decName = xorDecrypt(u.name);
+                const role = u.role || 'normal';
+                const tabList = (u.tabs || []).map(t => `<span style="background:rgba(59,130,246,0.2);color:#93c5fd;padding:1px 4px;border-radius:3px;font-size:0.55rem;margin:1px;">${t}</span>`).join('');
+                return `<tr>
+                    <td style="${tdS}color:#64748b;">${i+1}</td>
+                    <td style="${tdS}font-family:monospace;font-size:0.62rem;color:#94a3b8;word-break:break-all;">${u.name}</td>
+                    <td style="${tdS}color:#e2e8f0;font-weight:600;">${decName}</td>
+                    <td style="${tdS}text-align:center;"><span style="background:${roleBg[role]};color:${roleColors[role]};padding:2px 8px;border-radius:4px;font-size:0.6rem;font-weight:600;">${role}</span></td>
+                    <td style="${tdS}text-align:center;">${tabList}</td>
+                </tr>`;
+            }).join('');
         }
 
         // ==================== ON-DEMAND CARD REFRESH FUNCTIONS ====================
