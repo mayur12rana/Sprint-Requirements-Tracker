@@ -1261,6 +1261,45 @@
                     </div>
                 </div>
                 
+                <!-- Tagged Requirements Summary Row (Deliverable / Deliverables Adhoc / Deliverables OnHold / Non-Deliverable) -->
+                <div style="margin-top: 10px; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 10px;">
+                    <p style="color: #94a3b8; font-size: 0.65rem; margin: 0 0 6px 0; font-weight: 600;">
+                        🏷️ By Requirement Tag &nbsp;<span style="font-weight: 400; color: #64748b;">(Discipline = Development · tags: Deliverable / Deliverables Adhoc / Deliverables OnHold / Non-Deliverable)</span>
+                    </p>
+                    <div class="summary-row" style="margin-bottom: 0; flex-wrap: wrap; gap: 6px;">
+                        <!-- Totals tile -->
+                        <div class="summary-stat" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="devTaggedTotalHours" style="color: #e2e8f0; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">Total (Tagged)</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="devTaggedTotalTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Deliverable -->
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="devTagDeliverable" style="color: #34d399; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🟢 Deliverable</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="devTagDeliverableTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Deliverables Adhoc -->
+                        <div class="summary-stat" style="background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="devTagDelAdhoc" style="color: #c4b5fd; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🟣 Deliverables Adhoc</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="devTagDelAdhocTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Deliverables OnHold -->
+                        <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="devTagDelOnHold" style="color: #fcd34d; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🟡 Deliverables OnHold</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="devTagDelOnHoldTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Non-Deliverable -->
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="devTagNonDel" style="color: #f87171; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🔴 Non-Deliverable</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="devTagNonDelTasks">0</span> tasks</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Unclassified Category Blocks (by first word) + Adhoc Support -->
                 <div style="margin-top: 10px;">
                     <p style="color: #94a3b8; font-size: 0.65rem; margin-bottom: 6px;">📊 Breakdown by Requirement Category:</p>
@@ -1320,6 +1359,45 @@
                     </div>
                 </div>
                 
+                <!-- Tagged Requirements Summary Row (Deliverable / Deliverables Adhoc / Deliverables OnHold / Non-Deliverable) -->
+                <div style="margin-top: 10px; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 10px;">
+                    <p style="color: #94a3b8; font-size: 0.65rem; margin: 0 0 6px 0; font-weight: 600;">
+                        🏷️ By Requirement Tag &nbsp;<span style="font-weight: 400; color: #64748b;">(Discipline = Test · tags: Deliverable / Deliverables Adhoc / Deliverables OnHold / Non-Deliverable)</span>
+                    </p>
+                    <div class="summary-row" style="margin-bottom: 0; flex-wrap: wrap; gap: 6px;">
+                        <!-- Totals tile -->
+                        <div class="summary-stat" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="qaTaggedTotalHours" style="color: #e2e8f0; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">Total (Tagged)</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="qaTaggedTotalTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Deliverable -->
+                        <div class="summary-stat" style="background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="qaTagDeliverable" style="color: #34d399; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🟢 Deliverable</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="qaTagDeliverableTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Deliverables Adhoc -->
+                        <div class="summary-stat" style="background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="qaTagDelAdhoc" style="color: #c4b5fd; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🟣 Deliverables Adhoc</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="qaTagDelAdhocTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Deliverables OnHold -->
+                        <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="qaTagDelOnHold" style="color: #fcd34d; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🟡 Deliverables OnHold</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="qaTagDelOnHoldTasks">0</span> tasks</div>
+                        </div>
+                        <!-- Non-Deliverable -->
+                        <div class="summary-stat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); min-width: 80px; flex: 1; padding: 7px;">
+                            <div class="value" id="qaTagNonDel" style="color: #f87171; font-size: 0.9rem;">0h</div>
+                            <div class="label" style="font-size: 0.52rem;">🔴 Non-Deliverable</div>
+                            <div style="font-size: 0.45rem; color: #64748b; margin-top: 1px;"><span id="qaTagNonDelTasks">0</span> tasks</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Unclassified Category Blocks for QA -->
                 <div style="margin-top: 10px;">
                     <p style="color: #94a3b8; font-size: 0.65rem; margin-bottom: 6px;">📊 Breakdown by Requirement Category:</p>
@@ -4334,6 +4412,33 @@
                 const devTaskCount = devTasks.length;
                 const devTotalPlanned = devTasks.reduce((sum, t) => sum + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
                 
+                // Tagged requirements breakdown (Deliverable / Deliverables Adhoc / Deliverables OnHold / Non-Deliverable)
+                // with child tasks where Discipline = Development
+                const devTaggedBreakdown = {
+                    'Deliverable':          { hours: 0, taskCount: 0 },
+                    'Deliverables Adhoc':   { hours: 0, taskCount: 0 },
+                    'Deliverables OnHold':  { hours: 0, taskCount: 0 },
+                    'Non-Deliverable':      { hours: 0, taskCount: 0 }
+                };
+                requirements.forEach(req => {
+                    let tagGroup = null;
+                    if (req.isDeliverablesAdhoc)           tagGroup = 'Deliverables Adhoc';
+                    else if (req.isDeliverablesOnHold)     tagGroup = 'Deliverables OnHold';
+                    else if (req.category === 'nonDeliverable') tagGroup = 'Non-Deliverable';
+                    else if (req.category === 'deliverable')    tagGroup = 'Deliverable';
+                    if (!tagGroup) return;
+                    const childIds = reqTasksMap[req.id] || [];
+                    childIds.forEach(id => {
+                        const t = taskLookup[id];
+                        if (t && t.fields['Microsoft.VSTS.Common.Discipline'] === 'Development') {
+                            devTaggedBreakdown[tagGroup].hours += t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                            devTaggedBreakdown[tagGroup].taskCount++;
+                        }
+                    });
+                });
+                const devTaggedTotalHours = Object.values(devTaggedBreakdown).reduce((s, g) => s + g.hours, 0);
+                const devTaggedTotalTasks = Object.values(devTaggedBreakdown).reduce((s, g) => s + g.taskCount, 0);
+                
                 // Group unclassified requirements by first word of title + separate Adhoc Support
                 const devCategoryBreakdown = {};
                 let devUnclassifiedTotal = 0;
@@ -4379,6 +4484,33 @@
                 const qaTasks = tasks.filter(t => t.fields['Microsoft.VSTS.Common.Discipline'] === 'Test');
                 const qaTaskCount = qaTasks.length;
                 const qaTotalPlanned = qaTasks.reduce((sum, t) => sum + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
+                
+                // Tagged requirements breakdown (Deliverable / Deliverables Adhoc / Deliverables OnHold / Non-Deliverable)
+                // with child tasks where Discipline = Test
+                const qaTaggedBreakdown = {
+                    'Deliverable':          { hours: 0, taskCount: 0 },
+                    'Deliverables Adhoc':   { hours: 0, taskCount: 0 },
+                    'Deliverables OnHold':  { hours: 0, taskCount: 0 },
+                    'Non-Deliverable':      { hours: 0, taskCount: 0 }
+                };
+                requirements.forEach(req => {
+                    let tagGroup = null;
+                    if (req.isDeliverablesAdhoc)                tagGroup = 'Deliverables Adhoc';
+                    else if (req.isDeliverablesOnHold)          tagGroup = 'Deliverables OnHold';
+                    else if (req.category === 'nonDeliverable') tagGroup = 'Non-Deliverable';
+                    else if (req.category === 'deliverable')    tagGroup = 'Deliverable';
+                    if (!tagGroup) return;
+                    const childIds = reqTasksMap[req.id] || [];
+                    childIds.forEach(id => {
+                        const t = taskLookup[id];
+                        if (t && t.fields['Microsoft.VSTS.Common.Discipline'] === 'Test') {
+                            qaTaggedBreakdown[tagGroup].hours += t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
+                            qaTaggedBreakdown[tagGroup].taskCount++;
+                        }
+                    });
+                });
+                const qaTaggedTotalHours = Object.values(qaTaggedBreakdown).reduce((s, g) => s + g.hours, 0);
+                const qaTaggedTotalTasks = Object.values(qaTaggedBreakdown).reduce((s, g) => s + g.taskCount, 0);
                 
                 // Group unclassified requirements by first word for QA
                 const qaCategoryBreakdown = {};
@@ -4427,6 +4559,9 @@
                     devTeamCapacity: Math.round(devTeamCapacity * 100) / 100,
                     devMemberCount, devTaskCount,
                     devTotalPlanned: Math.round(devTotalPlanned * 100) / 100,
+                    devTaggedBreakdown,
+                    devTaggedTotalHours: Math.round(devTaggedTotalHours * 100) / 100,
+                    devTaggedTotalTasks,
                     devCategoryBreakdown,
                     devUnclassifiedTotal: Math.round(devUnclassifiedTotal * 100) / 100,
                     devAvailableCapacity: Math.round(devAvailableCapacity * 100) / 100,
@@ -4435,6 +4570,9 @@
                     qaTeamCapacity: Math.round(qaTeamCapacity * 100) / 100,
                     qaMemberCount, qaTaskCount,
                     qaTotalPlanned: Math.round(qaTotalPlanned * 100) / 100,
+                    qaTaggedBreakdown,
+                    qaTaggedTotalHours: Math.round(qaTaggedTotalHours * 100) / 100,
+                    qaTaggedTotalTasks,
                     qaCategoryBreakdown,
                     qaUnclassifiedTotal: Math.round(qaUnclassifiedTotal * 100) / 100,
                     qaAvailableCapacity: Math.round(qaAvailableCapacity * 100) / 100,
@@ -4964,6 +5102,20 @@
             document.getElementById('devTaskCount').textContent = c.devTaskCount;
             document.getElementById('devUnclassifiedTotal').textContent = fmtH(c.devUnclassifiedTotal) + 'h';
             
+            // Tagged requirements breakdown row
+            if (c.devTaggedBreakdown) {
+                document.getElementById('devTaggedTotalHours').textContent = fmtH(c.devTaggedTotalHours) + 'h';
+                document.getElementById('devTaggedTotalTasks').textContent = c.devTaggedTotalTasks;
+                document.getElementById('devTagDeliverable').textContent = fmtH(c.devTaggedBreakdown['Deliverable'].hours) + 'h';
+                document.getElementById('devTagDeliverableTasks').textContent = c.devTaggedBreakdown['Deliverable'].taskCount;
+                document.getElementById('devTagDelAdhoc').textContent = fmtH(c.devTaggedBreakdown['Deliverables Adhoc'].hours) + 'h';
+                document.getElementById('devTagDelAdhocTasks').textContent = c.devTaggedBreakdown['Deliverables Adhoc'].taskCount;
+                document.getElementById('devTagDelOnHold').textContent = fmtH(c.devTaggedBreakdown['Deliverables OnHold'].hours) + 'h';
+                document.getElementById('devTagDelOnHoldTasks').textContent = c.devTaggedBreakdown['Deliverables OnHold'].taskCount;
+                document.getElementById('devTagNonDel').textContent = fmtH(c.devTaggedBreakdown['Non-Deliverable'].hours) + 'h';
+                document.getElementById('devTagNonDelTasks').textContent = c.devTaggedBreakdown['Non-Deliverable'].taskCount;
+            }
+            
             // Render dynamic category blocks
             const categoryBlocksContainer = document.getElementById('devCategoryBlocks');
             if (categoryBlocksContainer && c.devCategoryBreakdown) {
@@ -5024,6 +5176,20 @@
             document.getElementById('qaMemberCount').textContent = c.qaMemberCount;
             document.getElementById('qaTaskCount').textContent = c.qaTaskCount;
             document.getElementById('qaUnclassifiedTotal').textContent = fmtH(c.qaUnclassifiedTotal) + 'h';
+            
+            // Tagged requirements breakdown row
+            if (c.qaTaggedBreakdown) {
+                document.getElementById('qaTaggedTotalHours').textContent = fmtH(c.qaTaggedTotalHours) + 'h';
+                document.getElementById('qaTaggedTotalTasks').textContent = c.qaTaggedTotalTasks;
+                document.getElementById('qaTagDeliverable').textContent = fmtH(c.qaTaggedBreakdown['Deliverable'].hours) + 'h';
+                document.getElementById('qaTagDeliverableTasks').textContent = c.qaTaggedBreakdown['Deliverable'].taskCount;
+                document.getElementById('qaTagDelAdhoc').textContent = fmtH(c.qaTaggedBreakdown['Deliverables Adhoc'].hours) + 'h';
+                document.getElementById('qaTagDelAdhocTasks').textContent = c.qaTaggedBreakdown['Deliverables Adhoc'].taskCount;
+                document.getElementById('qaTagDelOnHold').textContent = fmtH(c.qaTaggedBreakdown['Deliverables OnHold'].hours) + 'h';
+                document.getElementById('qaTagDelOnHoldTasks').textContent = c.qaTaggedBreakdown['Deliverables OnHold'].taskCount;
+                document.getElementById('qaTagNonDel').textContent = fmtH(c.qaTaggedBreakdown['Non-Deliverable'].hours) + 'h';
+                document.getElementById('qaTagNonDelTasks').textContent = c.qaTaggedBreakdown['Non-Deliverable'].taskCount;
+            }
             
             // Render QA category blocks
             const qaCategoryBlocksContainer = document.getElementById('qaCategoryBlocks');
