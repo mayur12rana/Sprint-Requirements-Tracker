@@ -29,10 +29,11 @@ var ALLOWED_USERS_DATA = {
         { "name": "AREaHAJUDgAaBg==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "BRkYCBdUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "EhsTGgZUFgAdCQ==", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "HRkACARUCQ4XAQ==", "role": "normal", "tabs": [1, 4] },
-        { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 2, 4] },
+        { "name": "HRkACARUCQ4XAQ==", "role": "admin", "tabs": [1,2, 3, 4, 5] },
         { "name": "GxEADQcfZCMbAVxXQFVFKVoy", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "GBUGCABUCUE/CVlYU1pI", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
-        { "name": "GxEAABgVIAAdSHZFVlxWIU8y", "role": "admin", "tabs": [1, 2, 3, 4, 5] }
+        { "name": "GxEAABgVIAAdSHZFVlxWIU8y", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
+        { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "Eh0bST4VMAQf", "role": "normal", "tabs": [1, 2, 3,] }
     ]
 };
