@@ -34,6 +34,6 @@ var ALLOWED_USERS_DATA = {
         { "name": "GBUGCABUCUE/CVlYU1pI", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "GxEAABgVIAAdSHZFVlxWIU8y", "role": "admin", "tabs": [1, 2, 3, 4, 5] },
         { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 2, 3] },
-        { "name": "Eh0bST4VMAQf", "role": "normal", "tabs": [1, 2, 3,] }
+        { "name": "Eh0bST4VMAQf", "role": "normal", "tabs": [1, 2, 3] }
     ]
 };
