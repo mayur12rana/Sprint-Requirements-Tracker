@@ -138,6 +138,25 @@
             color: #0f172a !important;
             border-color: #94a3b8 !important;
         }
+        body.light-theme #bugOwnerFilter,
+        body.light-theme #bugAssignedFilter {
+            background: #ffffff !important; color: #1e293b !important; border-color: #94a3b8 !important;
+        }
+        body.light-theme #bugOwnerFilter option,
+        body.light-theme #bugAssignedFilter option { background: #ffffff; color: #1e293b; }
+        .bug-filter-select {
+            background: #1e293b; border: 1px solid rgba(255,255,255,0.2); color: #e2e8f0;
+            padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; outline: none; max-width: 140px;
+        }
+        .bug-filter-select option { background: #1e293b; color: #e2e8f0; }
+        .bug-filter-select:focus { border-color: rgba(99,102,241,0.7); box-shadow: 0 0 0 2px rgba(99,102,241,0.15); }
+        /* Tag badges – Feature Progress and Affected Area */
+        .fp-tag-badge {
+            display: inline-block; padding: 1px 5px; border-radius: 4px; font-size: 0.55rem;
+            background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.35);
+            margin: 1px 1px; white-space: nowrap;
+        }
+        body.light-theme .fp-tag-badge { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
         .fl-card th[onclick]:hover { opacity: 0.75; }
         #featureProgressTable thead,
         #featureProgressTable tfoot {
@@ -1604,11 +1623,16 @@
             <div id="bugsContent" style="display: none;">
                 <!-- Filter Buttons -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-                    <div style="display: flex; gap: 4px; align-items: center;">
+                    <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
                         <span style="color: #94a3b8; font-size: 0.7rem; margin-right: 4px;">Filter:</span>
                         <button onclick="filterBugs('all')" id="bugFilterAll" style="background: rgba(239,68,68,0.4); border: 1px solid rgba(239,68,68,0.6); color: #fca5a5; padding: 4px 12px; border-radius: 6px; font-size: 0.72rem; cursor: pointer; font-weight: 600;">All</button>
                         <button onclick="filterBugs('cs')" id="bugFilterCS" style="background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4); color: #93c5fd; padding: 4px 12px; border-radius: 6px; font-size: 0.72rem; cursor: pointer;">🎧 CS</button>
                         <button onclick="filterBugs('production')" id="bugFilterProduction" style="background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); color: #fcd34d; padding: 4px 12px; border-radius: 6px; font-size: 0.72rem; cursor: pointer;">🚀 Production</button>
+                        <span style="color: #475569; font-size: 0.7rem; margin: 0 4px;">|</span>
+                        <label for="bugOwnerFilter" style="color: #94a3b8; font-size: 0.7rem; white-space: nowrap;">👤 Owned By:</label>
+                        <select id="bugOwnerFilter" onchange="applyBugDropdownFilters()" class="bug-filter-select" style="border-color: rgba(139,92,246,0.6);"><option value="">All</option></select>
+                        <label for="bugAssignedFilter" style="color: #94a3b8; font-size: 0.7rem; white-space: nowrap; margin-left: 4px;">🙋 Assigned To:</label>
+                        <select id="bugAssignedFilter" onchange="applyBugDropdownFilters()" class="bug-filter-select" style="border-color: rgba(99,102,241,0.6);"><option value="">All</option></select>
                     </div>
                 </div>
                 
@@ -2693,7 +2717,14 @@
                     <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:10px;margin-bottom:10px;">
                         <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;">
                             <div style="flex:0 0 auto;">
-                                <div style="font-size:0.65rem;color:#60a5fa;font-weight:600;margin-bottom:5px;">📂 Area Path</div>
+                                <div style="font-size:0.65rem;color:#818cf8;font-weight:600;margin-bottom:5px;">📌 Selected Area Features</div>
+                                <div id="featureSelectedAreaDropdown" class="fp-multiselect" style="min-width:170px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureSelectedAreaDropdown')">All Selected Areas</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
+                            <div style="flex:0 0 auto;">
+                                <div style="font-size:0.65rem;color:#60a5fa;font-weight:600;margin-bottom:5px;">📂 All Affected Areas</div>
                                 <div id="featureAreaPathDropdown" class="fp-multiselect" style="min-width:170px;">
                                     <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureAreaPathDropdown')">All Areas</button>
                                     <div class="fp-multiselect-dropdown"></div>
@@ -2720,6 +2751,20 @@
                                     <div class="fp-multiselect-dropdown"></div>
                                 </div>
                             </div>
+                            <div style="flex:0 0 auto;">
+                                <div style="font-size:0.65rem;color:#fb923c;font-weight:600;margin-bottom:5px;">🛠 Discipline</div>
+                                <div id="featureDisciplineDropdown" class="fp-multiselect" style="min-width:150px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureDisciplineDropdown')">All Disciplines</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
+                            <div style="flex:0 0 auto;">
+                                <div style="font-size:0.65rem;color:#a5b4fc;font-weight:600;margin-bottom:5px;">🏷 Tags</div>
+                                <div id="featureTagsDropdown" class="fp-multiselect" style="min-width:160px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('featureTagsDropdown')">All Tags</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="featureIterationFilters" style="display:none;"></div>
@@ -2727,21 +2772,8 @@
                     <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
                         <table id="featureProgressTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
                             <colgroup>
-                                <col style="width:28px;">
-                                <col style="width:50px;">
-                                <col style="width:16%;">
-                                <col style="width:62px;">
-                                <col style="width:80px;">
-                                <col style="width:58px;">
-                                <col style="width:58px;">
-                                <col style="width:58px;">
-                                <col style="width:62px;">
-                                <col style="width:52px;">
-                                <col style="width:52px;">
-                                <col style="width:52px;">
-                                <col style="width:58px;">
-                                <col style="width:62px;">
-                                <col style="width:62px;">
+                                <col style="width:28px;"><col style="width:50px;"><col style="width:20%;"><col style="width:62px;"><col style="width:80px;"><col style="width:90px;">
+                                <col style="width:58px;"><col style="width:58px;"><col style="width:58px;"><col style="width:62px;"><col style="width:52px;"><col style="width:52px;"><col style="width:52px;"><col style="width:58px;"><col style="width:62px;"><col style="width:62px;">
                             </colgroup>
                             <thead>
                                 <tr style="line-height:1.15;">
@@ -2750,6 +2782,7 @@
                                     <th class="fp-th fp-sortable" data-sort="title" style="text-align:left;" onclick="sortFeatureTable('title')">Title <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="state" style="text-align:center;" onclick="sortFeatureTable('state')">State <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="status" style="text-align:center;" onclick="sortFeatureTable('status')">Status <span class="fp-sort-icon"></span></th>
+                                    <th class="fp-th" style="text-align:left;">Tags</th>
                                     <th class="fp-th fp-sortable" data-sort="estimateInHours" style="text-align:right;" title="Estimate In Hours" onclick="sortFeatureTable('estimateInHours')">Est In<br>Hours <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="discoveryEffort" style="text-align:right;" title="Estimated Discovery Hours" onclick="sortFeatureTable('discoveryEffort')">Est Disc<br>Hours <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="devDeliveryHours" style="text-align:right;" title="Dev and Delivery Hours" onclick="sortFeatureTable('devDeliveryHours')">Dev &<br>Delivery <span class="fp-sort-icon"></span></th>
@@ -2783,14 +2816,30 @@
                     </div>
                 </div>
                 <div id="affectedAreaContent" style="display:none;">
-                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:0.75rem;display:flex;justify-content:space-between;align-items:center;">
-                        <div style="display:flex;gap:12px;align-items:center;">
-                            <span style="color:#94a3b8;font-size:0.65rem;">Features from other areas with tasks in your selected area</span>
-                        </div>
-                        <div style="display:flex;gap:8px;align-items:center;">
-                            <select id="affectedAreaIterFilter" onchange="renderAffectedAreaTable()" style="background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(16,185,129,0.4);border-radius:6px;padding:3px 8px;font-size:0.65rem;cursor:pointer;outline:none;">
-                                <option value="all">All Iterations</option>
-                            </select>
+                    <div style="background:rgba(255,255,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <span style="color:#94a3b8;font-size:0.65rem;flex-shrink:0;">Features from other areas with tasks in your selected area</span>
+                        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+                            <div>
+                                <div style="font-size:0.6rem;color:#38bdf8;font-weight:600;margin-bottom:3px;">🔄 Iterations</div>
+                                <div id="aaIterDropdown" class="fp-multiselect" style="min-width:160px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('aaIterDropdown')">All Iterations</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size:0.6rem;color:#fb923c;font-weight:600;margin-bottom:3px;">🛠 Discipline</div>
+                                <div id="aaDiscDropdown" class="fp-multiselect" style="min-width:150px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('aaDiscDropdown')">All Disciplines</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size:0.6rem;color:#a5b4fc;font-weight:600;margin-bottom:3px;">🏷 Tags</div>
+                                <div id="aaTagDropdown" class="fp-multiselect" style="min-width:160px;">
+                                    <button class="fp-multiselect-btn" onclick="toggleFpDropdown('aaTagDropdown')">All Tags</button>
+                                    <div class="fp-multiselect-dropdown"></div>
+                                </div>
+                            </div>
                             <button class="btn btn-primary refresh-icon" id="refreshAffectedAreaBtn" onclick="loadAffectedAreaData()" title="Refresh" style="padding:3px 8px;font-size:0.7rem;">🔄</button>
                         </div>
                     </div>
@@ -2804,6 +2853,7 @@
                                     <th class="fp-th" style="text-align:left;cursor:pointer;" onclick="sortAffectedArea('featureTitle')">Feature Title</th>
                                     <th class="fp-th" style="text-align:left;width:10%;cursor:pointer;" onclick="sortAffectedArea('featureArea')">Area</th>
                                     <th class="fp-th" style="text-align:center;width:60px;cursor:pointer;" onclick="sortAffectedArea('featureState')">State</th>
+                                    <th class="fp-th" style="text-align:left;width:12%;">Tags</th>
                                     <th class="fp-th" style="text-align:center;width:40px;">Items</th>
                                     <th class="fp-th" style="text-align:right;width:55px;cursor:pointer;" onclick="sortAffectedArea('origEst')">Orig Est</th>
                                     <th class="fp-th" style="text-align:right;width:45px;cursor:pointer;" onclick="sortAffectedArea('rem')">Rem</th>
@@ -3149,7 +3199,7 @@
         let projectsFetched = false;
         let isAuthorizedUser = false;
         let currentUserRole = 'normal'; // 'super_admin', 'admin' or 'normal' - loaded from allowed_users.json
-        let currentUserTabs = [1, 2, 3, 4, 5]; // Tab permissions - loaded from allowed_users.json
+        let currentUserTabs = []; // Tab permissions - loaded from allowed_users.json (empty until authenticated)
         let selectedProjects = [];
         
         // ========== XOR CIPHER FOR USERNAME ENCRYPTION ==========
@@ -3239,8 +3289,12 @@
                             if (matchedUser) {
                                 accessAllowed = true;
                                 currentUserRole = (matchedUser.role || 'normal').toLowerCase();
-                                // All roles (super_admin, admin, normal) use tabs from JSON config
-                                currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
+                                // super_admin always sees every tab; other roles are strictly limited to their JSON tabs array
+                                if (currentUserRole === 'super_admin') {
+                                    currentUserTabs = [1, 2, 3, 4, 5, 6, 7];
+                                } else {
+                                    currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
+                                }
                             }
                         }
                         
@@ -3447,41 +3501,57 @@
                 
                 // Filter iterations to show only last 2 quarters (current + previous)
                 const now = new Date();
-                const currentYear = now.getFullYear();
+                const currentYear  = now.getFullYear();
                 const currentMonth = now.getMonth() + 1; // 1-12
-                
-                // Determine current quarter
-                let currentQuarter;
-                if (currentMonth <= 3) currentQuarter = 1;
-                else if (currentMonth <= 6) currentQuarter = 2;
-                else if (currentMonth <= 9) currentQuarter = 3;
-                else currentQuarter = 4;
-                
-                // Calculate previous quarter
-                let prevQuarter = currentQuarter - 1;
-                let prevYear = currentYear;
-                if (prevQuarter === 0) {
-                    prevQuarter = 4;
-                    prevYear = currentYear - 1;
+
+                // ── Helper: extract a normalised "YYYY-QX" string from any sprint/PI name ──
+                // Handles both "PI-2026-Q2_1" (Q-notation) and "PI-2026-2_1" (number-only)
+                function extractQStr(name) {
+                    const n = (name || '').trim();
+                    // Pattern A: YYYY-Q[1-4]  e.g. PI-2026-Q2_1 → 2026-Q2
+                    const mQ = n.match(/(\d{4})-Q([1-4])/i);
+                    if (mQ) return `${mQ[1]}-Q${mQ[2]}`;
+                    // Pattern B: YYYY-[1-4] (bare number, no Q) e.g. PI-2026-2_1 → 2026-Q2
+                    const mN = n.match(/(\d{4})-([1-4])(?:[_\-]|$)/);
+                    if (mN) return `${mN[1]}-Q${mN[2]}`;
+                    return null;
                 }
-                
-                // Create valid quarter strings (e.g., "2026-Q1", "2025-Q4")
-                const currentQStr = `${currentYear}-Q${currentQuarter}`;
-                const prevQStr = `${prevYear}-Q${prevQuarter}`;
-                
-                
-                // Filter iterations that match current or previous quarter
-                // Pattern: PI-YYYY-QX or YYYY-QX in iteration name
-                const filteredIterations = iterations.filter(i => {
-                    const name = i.name.trim();
-                    // Extract year-quarter pattern from name (e.g., "2026-Q1" from "PI-2026-Q1_2")
-                    const match = name.match(/(\d{4})-Q([1-4])/i);
-                    if (match) {
-                        const iterQStr = `${match[1]}-Q${match[2]}`;
-                        return iterQStr === currentQStr || iterQStr === prevQStr;
+
+                // ── Calendar-based current quarter (used as fallback) ─────────────────────
+                let calendarQuarter;
+                if      (currentMonth <= 3)  calendarQuarter = 1;
+                else if (currentMonth <= 6)  calendarQuarter = 2;
+                else if (currentMonth <= 9)  calendarQuarter = 3;
+                else                         calendarQuarter = 4;
+
+                // ── Sprint-date-based current quarter ─────────────────────────────────────
+                // If any sprint has startDate ≤ today ≤ finishDate, treat its quarter as current.
+                // This handles PI boundaries that don't align with calendar quarter months.
+                let sprintBasedQStr = null;
+                iterations.forEach(i => {
+                    if (!i.attributes?.startDate) return;
+                    const sd = new Date(i.attributes.startDate);
+                    const fd = i.attributes.finishDate ? new Date(i.attributes.finishDate) : null;
+                    const isActive = sd <= now && (!fd || fd >= now);
+                    if (isActive) {
+                        const q = extractQStr(i.name);
+                        if (q) sprintBasedQStr = q;
                     }
-                    // Also check for iterations without clear quarter pattern - include them
-                    return false;
+                });
+
+                // ── Use sprint-based quarter if found, else fall back to calendar ─────────
+                const currentQStr = sprintBasedQStr || `${currentYear}-Q${calendarQuarter}`;
+
+                // ── Previous quarter relative to currentQStr ──────────────────────────────
+                const cqM      = currentQStr.match(/(\d{4})-Q([1-4])/i);
+                const cqYear   = parseInt(cqM[1]);
+                const cqNum    = parseInt(cqM[2]);
+                const prevQStr = cqNum > 1 ? `${cqYear}-Q${cqNum - 1}` : `${cqYear - 1}-Q4`;
+
+                // ── Filter iterations: include current and previous quarter ────────────────
+                const filteredIterations = iterations.filter(i => {
+                    const q = extractQStr(i.name);
+                    return q === currentQStr || q === prevQStr;
                 });
                 
                 // OPTIMIZATION: Combine iterations with same name from different projects
@@ -3508,14 +3578,8 @@
                     now >= new Date(i.attributes.startDate) && now <= new Date(i.attributes.finishDate));
                 
                 // Group by quarter for display
-                const currentQIterations = combinedIterations.filter(i => {
-                    const match = i.name.match(/(\d{4})-Q([1-4])/i);
-                    return match && `${match[1]}-Q${match[2]}` === currentQStr;
-                });
-                const prevQIterations = combinedIterations.filter(i => {
-                    const match = i.name.match(/(\d{4})-Q([1-4])/i);
-                    return match && `${match[1]}-Q${match[2]}` === prevQStr;
-                });
+                const currentQIterations = combinedIterations.filter(i => extractQStr(i.name) === currentQStr);
+                const prevQIterations    = combinedIterations.filter(i => extractQStr(i.name) === prevQStr);
                 
                 // Build iteration checkboxes with quarter grouping
                 const container = document.getElementById('iterationCheckboxContainer');
@@ -3785,7 +3849,7 @@
                 showLoading(`Phase 2/3: Fetching ${allIds.length} work items...`);
                 
                 // Unified field set (superset of req + bug + task fields)
-                const allFields = ['System.Id','System.Title','System.State','System.Reason','System.AssignedTo','System.Tags','System.IterationPath','System.AreaPath','System.Description','System.WorkItemType','Microsoft.VSTS.Scheduling.OriginalEstimate','Microsoft.VSTS.Scheduling.RemainingWork','Microsoft.VSTS.Scheduling.CompletedWork','Microsoft.VSTS.Scheduling.Size','Microsoft.VSTS.Common.Discipline','Microsoft.VSTS.Common.Severity','Casepoint.TFS.CustomFields.TaskExecutionType','Casepoint.TFS.CustomFields.ReleaseNotesCategory','Casepoint.TFS.CustomFields.ReleaseNotes','Casepoint.TFS.CustomFields.RevisedEstimate','Microsoft.VSTS.Common.StateChangeDate'];
+                const allFields = ['System.Id','System.Title','System.State','System.Reason','System.AssignedTo','System.Tags','System.IterationPath','System.AreaPath','System.Description','System.WorkItemType','Microsoft.VSTS.Scheduling.OriginalEstimate','Microsoft.VSTS.Scheduling.RemainingWork','Microsoft.VSTS.Scheduling.CompletedWork','Microsoft.VSTS.Scheduling.Size','Microsoft.VSTS.Common.Discipline','Microsoft.VSTS.Common.Severity','Casepoint.TFS.CustomFields.TaskExecutionType','Casepoint.TFS.CustomFields.ReleaseNotesCategory','Casepoint.TFS.CustomFields.ReleaseNotes','Casepoint.TFS.CustomFields.RevisedEstimate','Microsoft.VSTS.Common.StateChangeDate','Casepoint.TFS.CustomFields.OwnedBy'];
                 
                 const allItemData = await batchFetchWorkItems(allIds, allFields);
                 
@@ -5229,7 +5293,6 @@
                     <th style="${thS}text-align:center;" onclick="sortFocusBy('origEst')">Original${si('origEst')}</th>
                     <th style="${thS}text-align:center;" onclick="sortFocusBy('remaining')">Remaining${si('remaining')}</th>
                     <th style="${thS}text-align:center;" onclick="sortFocusBy('completed')">Completed${si('completed')}</th>
-                    <th style="${thS}text-align:center;" onclick="sortFocusBy('progress')">Progress${si('progress')}</th>
                     <th style="${thS}text-align:left;" onclick="sortFocusBy('assigned')">Assigned${si('assigned')}</th>
                 </tr>`;
             }
@@ -5280,7 +5343,6 @@
                     <td style="${tdStyle}text-align:center;color:#fbbf24;font-weight:600;">${fmtH(origEst)}h</td>
                     <td style="${tdStyle}text-align:center;color:#f472b6;font-weight:500;">${fmtH(req.taskRemainingWork || 0)}h</td>
                     <td style="${tdStyle}text-align:center;color:#34d399;font-weight:500;">${fmtH(completed)}h</td>
-                    <td style="${tdStyle}">${progressBar}</td>
                     <td style="${tdStyle}color:#a5b4fc;font-size:0.72rem;" title="${assignedTo}">${assignedFirstName}</td>
                 </tr>`;
             }).join('');
@@ -5399,8 +5461,8 @@
         let featureProgressDataLoaded = false;
         let featureProgressData = [];
         let featurePISprints = [];
-        let featureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [] };
-        let activeFeatureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [] };
+        let featureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [], tags: [], selectedArea: [], disciplines: [] };
+        let activeFeatureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [], tags: [], selectedArea: [], disciplines: [] };
         let featureSortColumn = null;
         let featureSortDirection = 'asc';
 
@@ -5426,29 +5488,27 @@
         }
 
         function derivePIFromSprint(sprintPath) {
-            const parts = sprintPath.split('\\');
+            const parts      = sprintPath.split('\\');
             const sprintName = parts[parts.length - 1];
-            const basePath = parts.slice(0, -1).join('\\');
-            const piMatch = sprintName.match(/^((?:PI-)?\d{4}-Q\d)_(\d)$/i);
-            let piName = '';
+            const basePath   = parts.slice(0, -1).join('\\');
+
+            // Support both "PI-2026-Q2_1" (Q-notation) and "PI-2026-2_1" (number-only)
+            const piMatch = sprintName.match(/^((?:PI-)?(?:\d{4}-Q\d|\d{4}-[1-4]))_(\d)$/i);
+            let piName   = '';
             let piSprints = [];
             if (piMatch) {
-                const piPrefix = piMatch[1];
-                piName = piPrefix;
+                const piPrefix   = piMatch[1];
+                piName           = piPrefix;
                 const sprintNames = [`${piPrefix}_1`, `${piPrefix}_2`, `${piPrefix}_3`];
                 piSprints = sprintNames.map(name => {
-                    const fullPath = basePath ? `${basePath}\\${name}` : name;
-                    const found = iterations.find(iter => {
-                        const iterName = iter.path.split('\\').pop();
-                        return iterName === name;
-                    });
-                    return found ? { path: found.path, name: name } : { path: fullPath, name: name };
+                    const found = iterations.find(iter => iter.path.split('\\').pop() === name);
+                    return found ? { path: found.path, name } : { path: basePath ? `${basePath}\\${name}` : name, name };
                 });
             } else {
-                piName = sprintName;
+                piName    = sprintName;
                 piSprints = [{ path: sprintPath, name: sprintName }];
             }
-            return { piName: piName, piPath: basePath, sprints: piSprints };
+            return { piName, piPath: basePath, sprints: piSprints };
         }
 
         async function loadFeatureProgressData() {
@@ -5456,27 +5516,27 @@
             try {
                 const iterPath = selectedIterationPaths.length > 0 ? selectedIterationPaths[0].path : '';
                 const areaPath = selectedAreaPaths.length > 0 ? selectedAreaPaths[0].path : '';
-
                 if (!iterPath || !areaPath) {
                     document.getElementById('noFeatureProgressData').style.display = 'block';
                     document.getElementById('noFeatureProgressData').textContent = 'Please select at least one Area and Iteration.';
                     hideCardLoading('featureProgress');
                     return;
                 }
-
                 const piInfo = derivePIFromSprint(iterPath);
                 featurePISprints = piInfo.sprints;
-
-                const iterPaths = featurePISprints.map(s => s.path);
-
-                const areaConditions = selectedAreaPaths.map(a => `[System.AreaPath] UNDER '${a.path}'`).join(' OR ');
-                const iterConditions = iterPaths.map(s => `[System.IterationPath] UNDER '${s}'`).join(' OR ');
-                const featureQuery = `SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType]='Feature' AND (${areaConditions}) AND (${iterConditions})`;
-                const featureWiqlResp = await apiFetch(`${tfsUrl}/${project}/_apis/wit/wiql?api-version=5.0`, {
-                    method: 'POST', body: JSON.stringify({ query: featureQuery })
-                });
-                const featureWiqlData = await featureWiqlResp.json();
-                const allFeatureIds = (featureWiqlData.workItems || []).map(w => w.id);
+                const areasByProj = {};
+                selectedAreaPaths.forEach(a => { const proj = a.project || selectedProjects[0]; if (!areasByProj[proj]) areasByProj[proj] = []; areasByProj[proj].push(a.path); });
+                const allFeatureIds = [], seenFeatureIds = new Set();
+                for (const [proj, areaPaths] of Object.entries(areasByProj)) {
+                    const projIterPaths = featurePISprints.map(s => { const m = iterations.find(i => i.project===proj && i.path.split('\\').pop()===s.name); return m ? m.path : s.path; }).filter(Boolean);
+                    if (!projIterPaths.length) continue;
+                    const areaConditions = areaPaths.map(p => `[System.AreaPath] UNDER '${p}'`).join(' OR ');
+                    const iterConditions = projIterPaths.map(p => `[System.IterationPath] UNDER '${p}'`).join(' OR ');
+                    try {
+                        const resp = await apiFetch(`${tfsUrl}/${proj}/_apis/wit/wiql?api-version=5.0`, { method:'POST', body:JSON.stringify({ query:`SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType]='Feature' AND (${areaConditions}) AND (${iterConditions})` }) });
+                        if (resp.ok) { const d = await resp.json(); (d.workItems||[]).forEach(w=>{ if(!seenFeatureIds.has(w.id)){seenFeatureIds.add(w.id);allFeatureIds.push(w.id);} }); }
+                    } catch(e) { console.warn(`[FeatureProgress] "${proj}":`,e.message); }
+                }
 
                 let allFeatures = [];
                 if (allFeatureIds.length > 0) {
@@ -5569,6 +5629,7 @@
                 const featureRawTasksMap = {};
                 const allTaskSprintNames = new Set();
                 const allTaskAreaPaths = new Set();
+                const allTaskDisciplines = new Set();
 
                 uniqueFeatures.forEach(f => {
                     const featureAreaPath = (f.fields['System.AreaPath'] || '').toLowerCase().trim();
@@ -5610,6 +5671,8 @@
                                 taskAreaPathsForFeature.add(taskAreaPathOriginal);
                                 allTaskAreaPaths.add(taskAreaPathOriginal);
                             }
+                            // Collect discipline
+                            if (discipline) allTaskDisciplines.add(discipline);
                             // Store raw task record for dynamic recalculation
                             rawTasks.push({
                                 discipline, iterLeafOriginal, taskAreaPath, taskAreaPathOriginal,
@@ -5669,7 +5732,7 @@
                 });
 
                 document.getElementById('featureProgressCount').textContent = featureProgressData.length;
-                buildFeatureFilters([...allTaskSprintNames].sort(), [...allTaskAreaPaths].sort());
+                buildFeatureFilters([...allTaskSprintNames].sort(), [...allTaskAreaPaths].sort(), [...allTaskDisciplines].sort());
                 renderFeatureProgressTable();
                 const updateBtnAfterLoad = document.getElementById('updateFeatureHoursBtn');
                 if (updateBtnAfterLoad) {
@@ -5684,9 +5747,8 @@
             hideCardLoading('featureProgress');
         }
 
-        function buildFeatureFilters(taskSprintNames, taskAreaPaths) {
+        function buildFeatureFilters(taskSprintNames, taskAreaPaths, taskDisciplines) {
             featureFilters.iterations = featurePISprints.map(s => s.name);
-            // Collect dynamic states and statuses from actual data
             const dynamicStates = [...new Set(featureProgressData.map(f => f.state).filter(Boolean))].sort();
             const dynamicStatuses = [...new Set(featureProgressData.map(f => f.status).filter(s => s && s !== '-'))].sort();
             featureFilters.states = dynamicStates.length > 0 ? dynamicStates : ['Proposed', 'Active', 'Resolved', 'Closed'];
@@ -5694,13 +5756,21 @@
                 'Under Consideration','In Dev','In QA','In PT','Ready to Ship','Shipped',
                 'Documentation Pending','Documentation Started','Documentation Done'];
             featureFilters.taskSprints = taskSprintNames || [];
-            // Area paths from actual child tasks
             featureFilters.areaPaths = taskAreaPaths || [];
-            activeFeatureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [] };
+            featureFilters.disciplines = taskDisciplines || [];
+            const allTags = new Set();
+            featureProgressData.forEach(f => { (f.tags||'').split(';').map(t=>t.trim()).filter(t=>t).forEach(t=>allTags.add(t)); });
+            featureFilters.tags = [...allTags].sort();
+            const selectedAreaLeaves = [...new Set(selectedAreaPaths.map(a => a.path.split('\\').pop()))].sort();
+            featureFilters.selectedArea = selectedAreaLeaves;
+            activeFeatureFilters = { iterations: [], states: [], statuses: [], taskSprints: [], areaPaths: [], tags: [], selectedArea: [], disciplines: [] };
+            buildFpMultiSelect('featureSelectedAreaDropdown', selectedAreaLeaves, 'selectedArea', 'All Selected Areas');
             buildFpMultiSelect('featureAreaPathDropdown', featureFilters.areaPaths.map(p => p.split('\\').pop()), 'areaPaths', 'All Areas', featureFilters.areaPaths);
             buildFpMultiSelect('featureStateDropdown', featureFilters.states, 'states', 'All States');
             buildFpMultiSelect('featureStatusDropdown', featureFilters.statuses, 'statuses', 'All Statuses');
             buildFpMultiSelect('featureTaskSprintDropdown', featureFilters.taskSprints, 'taskSprints', 'All Sprints');
+            buildFpMultiSelect('featureDisciplineDropdown', featureFilters.disciplines, 'disciplines', 'All Disciplines');
+            buildFpMultiSelect('featureTagsDropdown', featureFilters.tags, 'tags', 'All Tags');
         }
 
         function buildFpMultiSelect(containerId, options, filterKey, placeholder, fullValues) {
@@ -5770,7 +5840,6 @@
             const btn = container.querySelector('.fp-multiselect-btn');
             const placeholder = btn.dataset.placeholder;
             const checkboxes = container.querySelectorAll('.fp-multiselect-item:not(.select-all) input[type="checkbox"]');
-            const selectAllCb = container.querySelector('.fp-multiselect-item.select-all input[type="checkbox"]');
             const checked = [...checkboxes].filter(cb => cb.checked).map(cb => cb.value);
             const total = checkboxes.length;
 
@@ -5780,50 +5849,56 @@
                 btn.innerHTML = placeholder;
             } else {
                 activeFeatureFilters[filterKey] = checked;
-                // For area paths, show short leaf names
                 const displayItems = filterKey === 'areaPaths' ? checked.map(v => v.split('\\').pop()) : checked;
                 const displayText = displayItems.length <= 2 ? displayItems.join(', ') : displayItems.length + ' selected';
                 btn.innerHTML = displayText + ' <span class="fp-multiselect-badge">' + checked.length + '/' + total + '</span>';
             }
-            renderFeatureProgressTable();
+            // Route to the correct render function based on which section owns this filter key
+            if (filterKey === 'aaIter' || filterKey === 'aaTag' || filterKey === 'aaDisc') {
+                renderAffectedAreaTable();
+            } else {
+                renderFeatureProgressTable();
+            }
         }
 
         function getFilteredFeatureData() {
             let data = featureProgressData;
+            if (activeFeatureFilters.selectedArea.length > 0) {
+                data = data.filter(f => activeFeatureFilters.selectedArea.includes((f.areaPath||'').split('\\').pop()));
+            }
             if (activeFeatureFilters.areaPaths.length > 0) {
-                data = data.filter(f => {
-                    return f.taskAreaPaths.some(tap => {
-                        const tapLower = tap.toLowerCase();
-                        return activeFeatureFilters.areaPaths.some(ap => {
-                            const apLower = ap.toLowerCase();
-                            return tapLower === apLower || tapLower.startsWith(apLower + '\\');
-                        });
-                    });
-                });
+                data = data.filter(f => f.taskAreaPaths.some(tap => {
+                    const tapLower = tap.toLowerCase();
+                    return activeFeatureFilters.areaPaths.some(ap => { const apLower=ap.toLowerCase(); return tapLower===apLower||tapLower.startsWith(apLower+'\\'); });
+                }));
+            }
+            if (activeFeatureFilters.disciplines.length > 0) {
+                // Keep features that have at least one task with a matching discipline
+                data = data.filter(f => (f.rawTasks || []).some(t => activeFeatureFilters.disciplines.includes(t.discipline)));
+            }
+            if (activeFeatureFilters.tags.length > 0) {
+                data = data.filter(f => { const ft=(f.tags||'').split(';').map(t=>t.trim()).filter(t=>t); return ft.some(t=>activeFeatureFilters.tags.includes(t)); });
             }
             if (activeFeatureFilters.iterations.length > 0) data = data.filter(f => activeFeatureFilters.iterations.includes(f.iteration));
             if (activeFeatureFilters.states.length > 0) data = data.filter(f => activeFeatureFilters.states.includes(f.state));
             if (activeFeatureFilters.statuses.length > 0) {
-                const lowerStatuses = activeFeatureFilters.statuses.map(s => s.toLowerCase());
-                data = data.filter(f => lowerStatuses.includes((f.status || '').toLowerCase()));
+                const ls = activeFeatureFilters.statuses.map(s => s.toLowerCase());
+                data = data.filter(f => ls.includes((f.status||'').toLowerCase()));
             }
-            if (activeFeatureFilters.taskSprints.length > 0) {
-                data = data.filter(f => f.taskSprints.some(ts => activeFeatureFilters.taskSprints.includes(ts)));
-            }
+            if (activeFeatureFilters.taskSprints.length > 0) data = data.filter(f => f.taskSprints.some(ts => activeFeatureFilters.taskSprints.includes(ts)));
 
-            // Recalculate task-level hours when taskSprints or areaPaths filters are active
-            const hasSprintFilter = activeFeatureFilters.taskSprints.length > 0;
-            const hasAreaFilter = activeFeatureFilters.areaPaths.length > 0;
-            if (hasSprintFilter || hasAreaFilter) {
+            // Recalculate task-level hours when sprint, area, or discipline filters are active
+            const hasSprintFilter     = activeFeatureFilters.taskSprints.length > 0;
+            const hasAreaFilter       = activeFeatureFilters.areaPaths.length > 0;
+            const hasDisciplineFilter = activeFeatureFilters.disciplines.length > 0;
+            if (hasSprintFilter || hasAreaFilter || hasDisciplineFilter) {
                 const includedPlanned = ['development', 'analysis', 'test'];
                 const excludedCompDev = ['analysis', 'user experience', 'user education'];
-                const excludedActual = ['user experience', 'user education'];
+                const excludedActual  = ['user experience', 'user education'];
 
                 data = data.map(f => {
                     const filteredTasks = (f.rawTasks || []).filter(t => {
-                        // Sprint filter: task's iteration leaf must be in selected sprints
                         if (hasSprintFilter && !activeFeatureFilters.taskSprints.includes(t.iterLeafOriginal)) return false;
-                        // Area filter: task's area path must match selected areas
                         if (hasAreaFilter) {
                             const tapLower = (t.taskAreaPathOriginal || '').toLowerCase();
                             const areaMatch = activeFeatureFilters.areaPaths.some(ap => {
@@ -5832,6 +5907,7 @@
                             });
                             if (!areaMatch) return false;
                         }
+                        if (hasDisciplineFilter && !activeFeatureFilters.disciplines.includes(t.discipline)) return false;
                         return true;
                     });
 
@@ -5940,6 +6016,7 @@
                         <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
                         <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}">${f.state}</span></td>
                         <td style="${pd}text-align:center;" title="${f.status}"><span class="fp-status-pill ${statusCls}">${f.status}</span></td>
+                        <td style="${pd}overflow:hidden;">${(f.tags||'').split(';').map(t=>t.trim()).filter(t=>t).map(t=>`<span class="fp-tag-badge">${t}</span>`).join('')||'<span style="color:#475569;">-</span>'}</td>
                         <td class="fp-est-inhrs" style="${pd}text-align:right;font-weight:600;">${fmtH(f.estimateInHours)}h</td>
                         <td class="fp-est-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.discoveryEffort)}h</td>
                         <td class="fp-dev-delivery" style="${pd}text-align:right;font-weight:600;">${fmtH(f.devDeliveryHours)}h</td>
@@ -5964,7 +6041,7 @@
                 const totTaskActualComp = data.reduce((s, f) => s + f.taskLevelActualCompHours, 0);
                 const fp = 'padding:5px 3px;';
                 tfoot.innerHTML = `<tr>
-                    <td colspan="5" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
+                    <td colspan="6" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
                     <td class="fp-est-inhrs" style="${fp}text-align:right;font-weight:700;">${fmtH(totEstInHrs)}h</td>
                     <td class="fp-est-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
                     <td class="fp-dev-delivery" style="${fp}text-align:right;font-weight:700;">${fmtH(totDevDelivery)}h</td>
@@ -6287,7 +6364,7 @@
 
                 // Step 5: Fetch Features
                 const featureFieldsList = ['System.Id','System.Title','System.State','System.AreaPath',
-                    'System.IterationPath','Casepoint.TFS.CustomFields.Status'];
+                    'System.IterationPath','System.Tags','Casepoint.TFS.CustomFields.Status'];
                 const features = grandparentIds.size > 0 ? await batchFetchWorkItems([...grandparentIds], featureFieldsList) : [];
                 const featureMap = {};
                 features.forEach(f => { featureMap[f.id] = f; });
@@ -6354,6 +6431,7 @@
                         featureArea: feat.fields['System.AreaPath'] || '',
                         featureAreaLeaf: fArea,
                         featureState: feat.fields['System.State'] || '',
+                        featureTags: feat.fields['System.Tags'] || '',
                         reqs
                     };
                 }).filter(f => f.reqs.some(r => r.tasks.length > 0)).sort((a, b) => a.featureId - b.featureId);
@@ -6361,11 +6439,17 @@
                 affectedAreaDataLoaded = true;
                 document.getElementById('affectedAreaCount').textContent = affectedAreaData.length;
 
-                // Populate iteration filter
-                const iterSelect = document.getElementById('affectedAreaIterFilter');
-                const sortedIters = [...allIterNames].sort();
-                iterSelect.innerHTML = '<option value="all">All Iterations</option>' +
-                    sortedIters.map(n => `<option value="${n}">${n}</option>`).join('');
+                // Collect unique tags and disciplines from loaded features/tasks
+                const allTagNames  = new Set();
+                const allDiscNames = new Set();
+                affectedAreaData.forEach(f => {
+                    (f.featureTags || '').split(';').map(t => t.trim()).filter(t => t).forEach(t => allTagNames.add(t));
+                    f.reqs.forEach(r => r.tasks.forEach(t => { if (t.discipline && t.discipline !== '-') allDiscNames.add(t.discipline); }));
+                });
+
+                buildFpMultiSelect('aaIterDropdown', [...allIterNames].sort(), 'aaIter', 'All Iterations');
+                buildFpMultiSelect('aaTagDropdown',  [...allTagNames].sort(),  'aaTag',  'All Tags');
+                buildFpMultiSelect('aaDiscDropdown', [...allDiscNames].sort(), 'aaDisc', 'All Disciplines');
 
                 renderAffectedAreaTable();
             } catch (err) {
@@ -6409,49 +6493,58 @@
         }
 
         function renderAffectedAreaTable() {
-            const iterFilter = document.getElementById('affectedAreaIterFilter').value;
-            const tbody = document.getElementById('affectedAreaTableBody');
-            const tfoot = document.getElementById('affectedAreaTableFooter');
-            const summaryDiv = document.getElementById('affectedAreaSummary');
-            const lt = document.body.classList.contains('light-theme');
+            const activeAAIters = activeFeatureFilters.aaIter || [];
+            const activeAATags  = activeFeatureFilters.aaTag  || [];
+            const activeAADiscs = activeFeatureFilters.aaDisc || [];
 
-            // Filter and calculate per-feature totals
+            const tbody      = document.getElementById('affectedAreaTableBody');
+            const tfoot      = document.getElementById('affectedAreaTableFooter');
+            const summaryDiv = document.getElementById('affectedAreaSummary');
+            const lt         = document.body.classList.contains('light-theme');
+
             let filteredFeatures = affectedAreaData.map(f => {
+                if (activeAATags.length > 0) {
+                    const fTags = (f.featureTags || '').split(';').map(t => t.trim()).filter(t => t);
+                    if (!fTags.some(t => activeAATags.includes(t))) return null;
+                }
                 let fOrig = 0, fRem = 0, fComp = 0, taskCount = 0;
                 const filteredReqs = f.reqs.map(r => {
-                    const filteredTasks = r.tasks.filter(t => iterFilter === 'all' || t.iteration === iterFilter);
+                    const filteredTasks = r.tasks.filter(t => {
+                        if (activeAAIters.length > 0 && !activeAAIters.includes(t.iteration)) return false;
+                        if (activeAADiscs.length > 0 && !activeAADiscs.includes(t.discipline)) return false;
+                        return true;
+                    });
                     filteredTasks.forEach(t => { fOrig += t.origEst; fRem += t.rem; fComp += t.comp; });
                     taskCount += filteredTasks.length;
                     return { ...r, filteredTasks };
                 }).filter(r => r.filteredTasks.length > 0);
                 return { ...f, filteredReqs, fOrig, fRem, fComp, taskCount };
-            }).filter(f => f.filteredReqs.length > 0);
+            }).filter(f => f && f.filteredReqs.length > 0);
 
-            // Sort features
             if (affectedAreaSortCol) {
                 const dir = affectedAreaSortDir === 'asc' ? 1 : -1;
                 filteredFeatures.sort((a, b) => {
                     let va, vb;
                     switch (affectedAreaSortCol) {
-                        case 'featureId': va = a.featureId; vb = b.featureId; break;
+                        case 'featureId':    va = a.featureId; vb = b.featureId; break;
                         case 'featureTitle': va = a.featureTitle.toLowerCase(); vb = b.featureTitle.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
-                        case 'featureArea': va = a.featureAreaLeaf.toLowerCase(); vb = b.featureAreaLeaf.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
+                        case 'featureArea':  va = a.featureAreaLeaf.toLowerCase(); vb = b.featureAreaLeaf.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
                         case 'featureState': va = a.featureState.toLowerCase(); vb = b.featureState.toLowerCase(); return va < vb ? -dir : va > vb ? dir : 0;
                         case 'origEst': va = a.fOrig; vb = b.fOrig; break;
-                        case 'rem': va = a.fRem; vb = b.fRem; break;
-                        case 'comp': va = a.fComp; vb = b.fComp; break;
+                        case 'rem':     va = a.fRem;  vb = b.fRem;  break;
+                        case 'comp':    va = a.fComp; vb = b.fComp; break;
                         default: va = a.featureId; vb = b.featureId;
                     }
                     return ((va || 0) - (vb || 0)) * dir;
                 });
             }
 
-            // Summary
             const totTasks = filteredFeatures.reduce((s, f) => s + f.taskCount, 0);
-            const totOrig = filteredFeatures.reduce((s, f) => s + f.fOrig, 0);
-            const totRem = filteredFeatures.reduce((s, f) => s + f.fRem, 0);
-            const totComp = filteredFeatures.reduce((s, f) => s + f.fComp, 0);
-            const boxStyle = lt ? 'background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:0.65rem;' : 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;font-size:0.65rem;';
+            const totOrig  = filteredFeatures.reduce((s, f) => s + f.fOrig, 0);
+            const totRem   = filteredFeatures.reduce((s, f) => s + f.fRem, 0);
+            const totComp  = filteredFeatures.reduce((s, f) => s + f.fComp, 0);
+            const boxStyle = lt ? 'background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:0.65rem;'
+                               : 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;font-size:0.65rem;';
             const lblClr = lt ? 'color:#64748b;' : 'color:#94a3b8;';
             const valClr = lt ? 'color:#0f172a;font-weight:700;' : 'color:#e2e8f0;font-weight:700;';
             summaryDiv.innerHTML = `
@@ -6464,63 +6557,66 @@
 
             if (filteredFeatures.length === 0) {
                 document.getElementById('noAffectedAreaData').style.display = 'block';
-                tbody.innerHTML = ''; tfoot.innerHTML = '';
-                return;
+                tbody.innerHTML = ''; tfoot.innerHTML = ''; return;
             }
             document.getElementById('noAffectedAreaData').style.display = 'none';
-            const pd = 'padding:4px 5px;';
-            const tdClr = lt ? 'color:#334155;' : 'color:#cbd5e1;';
-            const areaClr = lt ? 'color:#0369a1;' : 'color:#38bdf8;';
-            const iterClr = lt ? 'color:#7c3aed;' : 'color:#c084fc;';
-            const reqBg = lt ? 'background:rgba(99,102,241,0.06);' : 'background:rgba(99,102,241,0.08);';
-            const taskBg = lt ? 'background:rgba(0,0,0,0.02);' : 'background:rgba(0,0,0,0.15);';
+
+            const pd       = 'padding:4px 5px;';
+            const tdClr    = lt ? 'color:#334155;'  : 'color:#e2e8f0;';
+            const titleClr = lt ? 'color:#1e293b;'  : 'color:#f1f5f9;';
+            const areaClr  = lt ? 'color:#0369a1;'  : 'color:#38bdf8;';
+            const iterClr  = lt ? 'color:#7c3aed;'  : 'color:#c084fc;';
+            const discClr  = lt ? 'color:#475569;'  : 'color:#94a3b8;';
+            const assClr   = lt ? 'color:#1e40af;'  : 'color:#a5b4fc;';
+            const reqBg    = lt ? 'background:rgba(99,102,241,0.06);'  : 'background:rgba(99,102,241,0.12);';
+            const taskBg   = lt ? 'background:rgba(0,0,0,0.02);'       : 'background:rgba(0,0,0,0.25);';
 
             let html = '';
             filteredFeatures.forEach(f => {
-                const stCls = getStatePillClass(f.featureState);
-                // Feature summary row
+                const stCls     = getStatePillClass(f.featureState);
+                const fTagBadges = (f.featureTags || '').split(';').map(t => t.trim()).filter(t => t)
+                    .map(t => `<span class="fp-tag-badge">${t}</span>`).join('') || `<span style="${discClr}">-</span>`;
+
                 html += `<tr style="border-top:2px solid rgba(16,185,129,0.3);cursor:pointer;" onclick="toggleAffectedAreaNode(${f.featureId})">
                     <td style="${pd}text-align:center;"><button id="aa-toggle-${f.featureId}" style="background:rgba(16,185,129,0.3);border:1px solid rgba(16,185,129,0.5);color:#6ee7b7;border-radius:4px;width:20px;height:20px;cursor:pointer;font-size:0.7rem;line-height:1;font-weight:700;">+</button></td>
-                    <td style="${pd}${tdClr}font-weight:700;"><a href="${tfsUrl}/${project}/_workitems/edit/${f.featureId}" target="_blank" class="wi-link">${f.featureId}</a></td>
-                    <td style="${pd}${tdClr}font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f.featureTitle}">${f.featureTitle}</td>
+                    <td style="${pd}font-weight:700;"><a href="${tfsUrl}/${project}/_workitems/edit/${f.featureId}" target="_blank" class="wi-link">${f.featureId}</a></td>
+                    <td style="${pd}${titleClr}font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${f.featureTitle}">${f.featureTitle}</td>
                     <td style="${pd}${areaClr}font-weight:500;" title="${f.featureArea}">${f.featureAreaLeaf}</td>
                     <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}" style="font-size:0.5rem;padding:1px 5px;">${f.featureState}</span></td>
+                    <td style="${pd}overflow:hidden;">${fTagBadges}</td>
                     <td style="${pd}text-align:center;${tdClr}font-weight:600;">${f.taskCount}</td>
                     <td style="${pd}text-align:right;color:#f97316;font-weight:700;">${fmtH(f.fOrig)}h</td>
                     <td style="${pd}text-align:right;color:#38bdf8;font-weight:700;">${fmtH(f.fRem)}h</td>
                     <td style="${pd}text-align:right;color:#34d399;font-weight:700;">${fmtH(f.fComp)}h</td>
                 </tr>`;
-                // Requirement rows (hidden by default, shown on feature expand)
+
                 f.filteredReqs.forEach(r => {
-                    const rOrig = r.filteredTasks.reduce((s,t) => s + t.origEst, 0);
-                    const rRem = r.filteredTasks.reduce((s,t) => s + t.rem, 0);
-                    const rComp = r.filteredTasks.reduce((s,t) => s + t.comp, 0);
+                    const rOrig  = r.filteredTasks.reduce((s, t) => s + t.origEst, 0);
+                    const rRem   = r.filteredTasks.reduce((s, t) => s + t.rem, 0);
+                    const rComp  = r.filteredTasks.reduce((s, t) => s + t.comp, 0);
                     const rStCls = getStatePillClass(r.reqState);
-                    const hasSubTasks = r.filteredTasks.length > 0;
-                    html += `<tr class="aa-req-${f.featureId}" style="display:none;${reqBg}${hasSubTasks?'cursor:pointer;':''}" ${hasSubTasks?`onclick="toggleAffectedAreaReq(${f.featureId},${r.reqId})"`:''}> 
-                        <td style="${pd}text-align:center;">${hasSubTasks ? `<button id="aa-req-toggle-${f.featureId}-${r.reqId}" style="background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);color:#c4b5fd;border-radius:4px;width:18px;height:18px;cursor:pointer;font-size:0.6rem;line-height:1;font-weight:700;">+</button>` : ''}</td>
-                        <td style="${pd}padding-left:14px;${tdClr}font-weight:600;font-size:0.56rem;">
-                            <span style="color:#a78bfa;">📄</span> <a href="${tfsUrl}/${project}/_workitems/edit/${r.reqId}" target="_blank" class="wi-link" style="font-size:0.58rem;" onclick="event.stopPropagation()">${r.reqId}</a>
-                        </td>
-                        <td colspan="2" style="${pd}${tdClr}font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.56rem;" title="${r.reqTitle}">${r.reqTitle} <span style="color:#a78bfa;font-size:0.5rem;">(${r.reqType})</span></td>
+                    html += `<tr class="aa-req-${f.featureId}" style="display:none;${reqBg}cursor:pointer;" onclick="toggleAffectedAreaReq(${f.featureId},${r.reqId})">
+                        <td style="${pd}text-align:center;"><button id="aa-req-toggle-${f.featureId}-${r.reqId}" style="background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);color:#c4b5fd;border-radius:4px;width:18px;height:18px;cursor:pointer;font-size:0.6rem;line-height:1;font-weight:700;">+</button></td>
+                        <td style="${pd}padding-left:14px;${tdClr}font-weight:600;font-size:0.56rem;"><span style="color:#a78bfa;">📄</span> <a href="${tfsUrl}/${project}/_workitems/edit/${r.reqId}" target="_blank" class="wi-link" style="font-size:0.58rem;" onclick="event.stopPropagation()">${r.reqId}</a></td>
+                        <td colspan="2" style="${pd}${titleClr}font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.56rem;" title="${r.reqTitle}">${r.reqTitle} <span style="color:#a78bfa;font-size:0.5rem;">(${r.reqType})</span></td>
                         <td style="${pd}text-align:center;"><span class="fp-state-pill ${rStCls}" style="font-size:0.45rem;padding:1px 4px;">${r.reqState}</span></td>
+                        <td style="${pd}"></td>
                         <td style="${pd}text-align:center;${tdClr}font-size:0.55rem;">${r.filteredTasks.length}</td>
                         <td style="${pd}text-align:right;color:#f97316;font-size:0.55rem;">${fmtH(rOrig)}h</td>
                         <td style="${pd}text-align:right;color:#38bdf8;font-size:0.55rem;">${fmtH(rRem)}h</td>
                         <td style="${pd}text-align:right;color:#34d399;font-size:0.55rem;">${fmtH(rComp)}h</td>
                     </tr>`;
-                    // Task rows under each Req (hidden, shown on req expand)
+
                     r.filteredTasks.forEach(t => {
                         const tStCls = getStatePillClass(t.taskState);
                         html += `<tr class="aa-task-${f.featureId}-${r.reqId}" style="display:none;${taskBg}">
                             <td style="${pd}"></td>
-                            <td style="${pd}padding-left:28px;font-size:0.52rem;${tdClr}">
-                                <a href="${tfsUrl}/${project}/_workitems/edit/${t.taskId}" target="_blank" class="wi-link" style="font-size:0.52rem;">${t.taskId}</a>
-                            </td>
-                            <td style="${pd}${tdClr}font-size:0.52rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${t.taskTitle}">${t.taskTitle}</td>
-                            <td style="${pd}font-size:0.5rem;" title="${t.assigned}"><span style="${iterClr}">${t.iteration}</span> <span style="${tdClr}opacity:0.7;">| ${t.discipline}</span></td>
+                            <td style="${pd}padding-left:28px;font-size:0.52rem;"><a href="${tfsUrl}/${project}/_workitems/edit/${t.taskId}" target="_blank" class="wi-link" style="font-size:0.52rem;">${t.taskId}</a></td>
+                            <td style="${pd}${titleClr}font-size:0.52rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${t.taskTitle}">${t.taskTitle}</td>
+                            <td style="${pd}font-size:0.5rem;"><span style="${iterClr}">${t.iteration}</span> <span style="${discClr}">| ${t.discipline}</span></td>
                             <td style="${pd}text-align:center;"><span class="fp-state-pill ${tStCls}" style="font-size:0.42rem;padding:0px 3px;">${t.taskState}</span></td>
-                            <td style="${pd}text-align:center;font-size:0.5rem;${tdClr}" title="${t.assigned}">${t.assigned.split(' ')[0]}</td>
+                            <td style="${pd}"></td>
+                            <td style="${pd}text-align:center;font-size:0.5rem;${assClr}" title="${t.assigned}">${t.assigned.split(' ')[0]}</td>
                             <td style="${pd}text-align:right;color:#f97316;font-size:0.52rem;">${fmtH(t.origEst)}h</td>
                             <td style="${pd}text-align:right;color:#38bdf8;font-size:0.52rem;">${fmtH(t.rem)}h</td>
                             <td style="${pd}text-align:right;color:#34d399;font-size:0.52rem;">${fmtH(t.comp)}h</td>
@@ -6529,9 +6625,10 @@
                 });
             });
             tbody.innerHTML = html;
+
             const fp = 'padding:5px 3px;';
             tfoot.innerHTML = `<tr>
-                <td colspan="6" style="${fp}text-align:right;font-weight:700;${tdClr}">Totals (${filteredFeatures.length} features, ${totTasks} tasks):</td>
+                <td colspan="7" style="${fp}text-align:right;font-weight:700;${tdClr}">Totals (${filteredFeatures.length} features, ${totTasks} tasks):</td>
                 <td style="${fp}text-align:right;font-weight:700;color:#f97316;">${fmtH(totOrig)}h</td>
                 <td style="${fp}text-align:right;font-weight:700;color:#38bdf8;">${fmtH(totRem)}h</td>
                 <td style="${fp}text-align:right;font-weight:700;color:#34d399;">${fmtH(totComp)}h</td>
@@ -6539,22 +6636,24 @@
         }
 
         function applyTabPermissions() {
-            const tabNames = { 1: 'Sprint Planning', 2: 'Work Progress', 3: 'AI Usage', 4: 'AI Analytics', 5: 'Feature Progress', 6: 'Data Lookup', 7: 'Encrypt Username' };
             const isAdmin = ['admin', 'super_admin'].includes(currentUserRole);
             [1, 2, 3, 4, 5, 6, 7].forEach(t => {
-                const btn = document.getElementById('tabBtn' + t);
-                if (!btn) return;
+                const btn     = document.getElementById('tabBtn' + t);
+                const content = document.getElementById('tabContent' + t);
                 if (currentUserTabs.includes(t)) {
-                    btn.style.display = '';
-                    btn.removeAttribute('title');
+                    // Authorized — show button, do NOT force content visibility (switchTab controls that)
+                    if (btn) { btn.style.display = ''; btn.removeAttribute('title'); }
                 } else {
-                    btn.style.display = 'none';
+                    // NOT authorized — hide button AND collapse content so it can't be reached
+                    if (btn)     btn.style.display = 'none';
+                    if (content) content.style.display = 'none';
                 }
             });
-            // If current visible tab is not allowed, switch to first allowed tab
+            // If the currently visible tab is not in the user's allowed list, redirect to first allowed tab
             const activeTab = [1,2,3,4,5,6,7].find(t => document.getElementById('tabContent'+t)?.style.display === 'block');
             if (activeTab && !currentUserTabs.includes(activeTab)) {
-                switchTab(currentUserTabs[0] || 1);
+                const firstAllowed = currentUserTabs[0];
+                if (firstAllowed) switchTab(firstAllowed);
             }
             // Control admin-only features
             const updateBtn = document.getElementById('updateFeatureHoursBtn');
@@ -6565,33 +6664,11 @@
         }
 
         function switchTab(tabNum) {
-            // Tab permission check
-            if (!currentUserTabs.includes(tabNum)) {
-                return; // silently ignore
-            }
-            // Hide all tab contents
-            document.getElementById('tabContent1').style.display = 'none';
-            document.getElementById('tabContent2').style.display = 'none';
-            document.getElementById('tabContent3').style.display = 'none';
-            document.getElementById('tabContent4').style.display = 'none';
-            document.getElementById('tabContent5').style.display = 'none';
-            document.getElementById('tabContent6').style.display = 'none';
-            document.getElementById('tabContent7').style.display = 'none';
-            
-            // Reset all tab buttons
+            if (!currentUserTabs.includes(tabNum)) { return; }
+            [1,2,3,4,5,6,7].forEach(t => { const c = document.getElementById('tabContent' + t); if (c) c.style.display = 'none'; });
             const inactiveStyle = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;';
-            const activeStyle = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(59,130,246,0.3); border: 1px solid rgba(59,130,246,0.5); border-radius: 6px 6px 0 0; color: #93c5fd; cursor: pointer; transition: all 0.2s;';
-            
-            document.getElementById('tabBtn1').style.cssText = inactiveStyle;
-            document.getElementById('tabBtn2').style.cssText = inactiveStyle;
-            document.getElementById('tabBtn3').style.cssText = inactiveStyle;
-            document.getElementById('tabBtn4').style.cssText = inactiveStyle;
-            document.getElementById('tabBtn5').style.cssText = inactiveStyle;
-            document.getElementById('tabBtn6').style.cssText = inactiveStyle;
-            const tabBtn7 = document.getElementById('tabBtn7');
-            if (tabBtn7) tabBtn7.style.cssText = inactiveStyle;
-            
-            // Show selected tab and activate button
+            const activeStyle   = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(59,130,246,0.3); border: 1px solid rgba(59,130,246,0.5); border-radius: 6px 6px 0 0; color: #93c5fd; cursor: pointer; transition: all 0.2s;';
+            [1,2,3,4,5,6,7].forEach(t => { const btn = document.getElementById('tabBtn' + t); if (btn && currentUserTabs.includes(t)) btn.style.cssText = inactiveStyle; });
             document.getElementById('tabContent' + tabNum).style.display = 'block';
             document.getElementById('tabBtn' + tabNum).style.cssText = activeStyle;
         }
@@ -6613,161 +6690,43 @@
             }
         }
         
-        let bugsSortField = 'id';
-        let bugsSortDir = 'asc';
-        
-        function sortBugsBy(col) {
-            if (bugsSortField === col) { bugsSortDir = bugsSortDir === 'asc' ? 'desc' : 'asc'; }
-            else { bugsSortField = col; bugsSortDir = 'asc'; }
-            renderBugsTable(window.currentBugFilter || 'all');
+        let bugsSortField = 'id', bugsSortDir = 'asc';
+        function sortBugsBy(col) { if (bugsSortField===col){bugsSortDir=bugsSortDir==='asc'?'desc':'asc';}else{bugsSortField=col;bugsSortDir='asc';} renderBugsTable(window.currentBugFilter||'all'); }
+        function populateBugDropdowns(allBugs) {
+            const owners=new Set(), assigned=new Set();
+            allBugs.forEach(b=>{const o=b.fields['Casepoint.TFS.CustomFields.OwnedBy'],a=b.fields['System.AssignedTo']?.displayName;if(o)owners.add(o);if(a)assigned.add(a);});
+            [['bugOwnerFilter',owners],['bugAssignedFilter',assigned]].forEach(([id,set])=>{const sel=document.getElementById(id);if(!sel)return;const prev=sel.value;sel.innerHTML='<option value="">All</option>'+[...set].sort().map(n=>`<option value="${n}"${n===prev?' selected':''}>${n}</option>`).join('');});
         }
-
+        function applyBugDropdownFilters(){renderBugsTable(window.currentBugFilter||'all');}
         function renderBugsTable(filter) {
-            const allBugs = window.allBugs || [];
-            
-            // Filter bugs based on selection
-            let filteredBugs = allBugs;
-            if (filter === 'cs') {
-                filteredBugs = allBugs.filter(b => {
-                    const tags = (b.fields['System.Tags'] || '').toLowerCase();
-                    return tags.includes('cs');
-                });
-            } else if (filter === 'production') {
-                filteredBugs = allBugs.filter(b => {
-                    const tags = (b.fields['System.Tags'] || '').toLowerCase();
-                    return tags.includes('production_bug') || tags.includes('production bug');
-                });
-            }
-            
-            // Update filter button styles
-            ['all', 'cs', 'production'].forEach(f => {
-                const btnId = f === 'all' ? 'bugFilterAll' : (f === 'cs' ? 'bugFilterCS' : 'bugFilterProduction');
-                const btn = document.getElementById(btnId);
-                if (btn) {
-                    if (f === filter) {
-                        btn.style.opacity = '1';
-                        btn.style.fontWeight = '700';
-                        btn.style.boxShadow = '0 0 10px rgba(239,68,68,0.4)';
-                    } else {
-                        btn.style.opacity = '0.7';
-                        btn.style.fontWeight = '400';
-                        btn.style.boxShadow = 'none';
-                    }
-                }
-            });
-            
-            // Update summary stats for filtered bugs
-            document.getElementById('bugTotalCount').textContent = filteredBugs.length;
-            document.getElementById('bugClosedCount').textContent = filteredBugs.filter(b => b.fields['System.State'] === 'Closed').length;
-            document.getElementById('bugActiveCount').textContent = filteredBugs.filter(b => ['Active', 'Open', 'New'].includes(b.fields['System.State'])).length;
-            document.getElementById('bugResolvedCount').textContent = filteredBugs.filter(b => b.fields['System.State'] === 'Resolved').length;
-            
-            // Calculate CS and Production counts for filtered
-            const csCount = filteredBugs.filter(b => (b.fields['System.Tags'] || '').toLowerCase().includes('cs')).length;
-            const prodCount = filteredBugs.filter(b => {
-                const tags = (b.fields['System.Tags'] || '').toLowerCase();
-                return tags.includes('production_bug') || tags.includes('production bug');
-            }).length;
-            document.getElementById('bugCSCount').textContent = csCount;
-            document.getElementById('bugProductionCount').textContent = prodCount;
-            
-            // Bug count by member card
-            const memberBugMap = {};
-            filteredBugs.forEach(b => {
-                const name = b.fields['System.AssignedTo']?.displayName || 'Unassigned';
-                memberBugMap[name] = (memberBugMap[name] || 0) + 1;
-            });
-            const memberCard = document.getElementById('bugMemberCard');
-            const memberBlocks = document.getElementById('bugMemberBlocks');
-            if (filteredBugs.length > 0 && memberCard && memberBlocks) {
-                memberCard.style.display = 'block';
-                const sorted = Object.entries(memberBugMap).sort((a,b) => b[1] - a[1]);
-                const mColors = ['#f87171','#fbbf24','#60a5fa','#34d399','#c4b5fd','#f472b6','#22d3ee','#818cf8','#94a3b8'];
-                memberBlocks.innerHTML = sorted.map(([name, count], i) => {
-                    const clr = mColors[i % mColors.length];
-                    const firstName = name === 'Unassigned' ? 'Unassigned' : name.split(' ')[0];
-                    return `<div class="summary-stat" style="padding:6px 8px;min-width:60px;flex:0 0 auto;background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);">
-                        <div class="value" style="font-size:0.9rem;color:${clr};">${count}</div>
-                        <div class="label" style="font-size:0.5rem;" title="${name}">${firstName}</div>
-                    </div>`;
-                }).join('');
-            } else if (memberCard) { memberCard.style.display = 'none'; }
-            
-            // Sort bugs
-            const sortedBugs = [...filteredBugs].sort((a, b) => {
-                let aV, bV;
-                switch(bugsSortField) {
-                    case 'id': aV = a.id; bV = b.id; break;
-                    case 'title': aV = (a.fields['System.Title']||'').toLowerCase(); bV = (b.fields['System.Title']||'').toLowerCase(); break;
-                    case 'state': aV = (a.fields['System.State']||'').toLowerCase(); bV = (b.fields['System.State']||'').toLowerCase(); break;
-                    case 'severity': aV = (a.fields['Microsoft.VSTS.Common.Severity']||'').toLowerCase(); bV = (b.fields['Microsoft.VSTS.Common.Severity']||'').toLowerCase(); break;
-                    case 'assigned': aV = (a.fields['System.AssignedTo']?.displayName||'').toLowerCase(); bV = (b.fields['System.AssignedTo']?.displayName||'').toLowerCase(); break;
-                    default: aV = a.id; bV = b.id;
-                }
-                if (aV < bV) return bugsSortDir === 'asc' ? -1 : 1;
-                if (aV > bV) return bugsSortDir === 'asc' ? 1 : -1;
-                return 0;
-            });
-            
-            // Render sortable table headers
-            const lt = document.body.classList.contains('light-theme');
-            const thS = `padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);cursor:pointer;user-select:none;`;
-            const si = (col) => bugsSortField === col ? (bugsSortDir === 'asc' ? ' ▲' : ' ▼') : '';
-            const bugsHead = document.getElementById('bugsTableHead');
-            if (bugsHead) {
-                bugsHead.innerHTML = `<tr>
-                    <th style="${thS}" onclick="sortBugsBy('id')">ID${si('id')}</th>
-                    <th style="${thS}" onclick="sortBugsBy('title')">Title${si('title')}</th>
-                    <th style="${thS}" onclick="sortBugsBy('state')">State${si('state')}</th>
-                    <th style="${thS}text-align:center;">Tags</th>
-                    <th style="${thS}" onclick="sortBugsBy('severity')">Severity${si('severity')}</th>
-                    <th style="${thS}" onclick="sortBugsBy('assigned')">Assigned${si('assigned')}</th>
-                </tr>`;
-            }
-            
-            // Render table
-            const bugsBody = document.querySelector('#bugsTable tbody');
-            const tdStyle = 'padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);';
-            
-            if (sortedBugs.length > 0) {
-                document.getElementById('noBugs').style.display = 'none';
-                bugsBody.innerHTML = sortedBugs.map(b => {
-                    const state = b.fields['System.State'] || '';
-                    const stateColor = state === 'Closed' ? '#34d399' : (state === 'Resolved' ? '#60a5fa' : '#fbbf24');
-                    const severity = b.fields['Microsoft.VSTS.Common.Severity'] || '-';
-                    const severityColor = severity.includes('1') ? '#f87171' : (severity.includes('2') ? '#fbbf24' : '#94a3b8');
-                    const assignedTo = b.fields['System.AssignedTo']?.displayName || '-';
-                    const assignedFirstName = assignedTo !== '-' ? assignedTo.split(' ')[0] : '-';
-                    
-                    // Parse tags for badges
-                    const tags = (b.fields['System.Tags'] || '').split(';').map(t => t.trim()).filter(t => t);
-                    const hasCS = tags.some(t => t.toLowerCase() === 'cs');
-                    const hasProd = tags.some(t => t.toLowerCase().includes('production'));
-                    
-                    let tagBadges = '';
-                    if (hasCS) tagBadges += '<span style="background:rgba(59,130,246,0.3);color:#93c5fd;padding:2px 6px;border-radius:4px;font-size:0.65rem;margin-right:4px;">🎧 CS</span>';
-                    if (hasProd) tagBadges += '<span style="background:rgba(245,158,11,0.3);color:#fcd34d;padding:2px 6px;border-radius:4px;font-size:0.65rem;">🚀 Prod</span>';
-                    if (!hasCS && !hasProd) tagBadges = '<span style="color:#64748b;">-</span>';
-                    
-                    return `<tr style="transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                        <td style="${tdStyle}"><a href="${tfsUrl}/${project}/_workitems/edit/${b.id}" target="_blank" class="wi-link">${b.id}</a></td>
-                        <td style="${tdStyle}">${b.fields['System.Title'] || ''}</td>
-                        <td style="${tdStyle}color:${stateColor};font-weight:500;">${state}</td>
-                        <td style="${tdStyle}text-align:center;">${tagBadges}</td>
-                        <td style="${tdStyle}color:${severityColor};">${severity}</td>
-                        <td style="${tdStyle}color:#a5b4fc;" title="${assignedTo}">${assignedFirstName}</td>
-                    </tr>`;
-                }).join('');
-            } else {
-                document.getElementById('noBugs').style.display = 'block';
-                bugsBody.innerHTML = '';
-            }
+            const allBugs=window.allBugs||[];
+            populateBugDropdowns(allBugs);
+            let fb=allBugs;
+            if(filter==='cs') fb=allBugs.filter(b=>(b.fields['System.Tags']||'').toLowerCase().includes('cs'));
+            else if(filter==='production') fb=allBugs.filter(b=>{const t=(b.fields['System.Tags']||'').toLowerCase();return t.includes('production_bug')||t.includes('production bug');});
+            const ov=document.getElementById('bugOwnerFilter')?.value||'';
+            if(ov) fb=fb.filter(b=>(b.fields['Casepoint.TFS.CustomFields.OwnedBy']||'')===ov);
+            const av=document.getElementById('bugAssignedFilter')?.value||'';
+            if(av) fb=fb.filter(b=>(b.fields['System.AssignedTo']?.displayName||'')===av);
+            ['all','cs','production'].forEach(f=>{const btn=document.getElementById(f==='all'?'bugFilterAll':f==='cs'?'bugFilterCS':'bugFilterProduction');if(btn){btn.style.opacity=f===filter?'1':'0.7';btn.style.fontWeight=f===filter?'700':'400';btn.style.boxShadow=f===filter?'0 0 10px rgba(239,68,68,0.4)':'none';}});
+            document.getElementById('bugTotalCount').textContent=fb.length;
+            document.getElementById('bugClosedCount').textContent=fb.filter(b=>b.fields['System.State']==='Closed').length;
+            document.getElementById('bugActiveCount').textContent=fb.filter(b=>['Active','Open','New'].includes(b.fields['System.State'])).length;
+            document.getElementById('bugResolvedCount').textContent=fb.filter(b=>b.fields['System.State']==='Resolved').length;
+            document.getElementById('bugCSCount').textContent=fb.filter(b=>(b.fields['System.Tags']||'').toLowerCase().includes('cs')).length;
+            document.getElementById('bugProductionCount').textContent=fb.filter(b=>{const t=(b.fields['System.Tags']||'').toLowerCase();return t.includes('production_bug')||t.includes('production bug');}).length;
+            const mbm={};fb.forEach(b=>{const n=b.fields['System.AssignedTo']?.displayName||'Unassigned';mbm[n]=(mbm[n]||0)+1;});
+            const mc=document.getElementById('bugMemberCard'),mb=document.getElementById('bugMemberBlocks');
+            if(fb.length>0&&mc&&mb){mc.style.display='block';const mC=['#f87171','#fbbf24','#60a5fa','#34d399','#c4b5fd','#f472b6','#22d3ee','#818cf8','#94a3b8'];mb.innerHTML=Object.entries(mbm).sort((a,b)=>b[1]-a[1]).map(([n,c],i)=>`<div class="summary-stat" style="padding:6px 8px;min-width:60px;flex:0 0 auto;background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);"><div class="value" style="font-size:0.9rem;color:${mC[i%mC.length]};">${c}</div><div class="label" style="font-size:0.5rem;" title="${n}">${n==='Unassigned'?'Unassigned':n.split(' ')[0]}</div></div>`).join('');}else if(mc)mc.style.display='none';
+            const sb=[...fb].sort((a,b)=>{let aV,bV;switch(bugsSortField){case 'id':aV=a.id;bV=b.id;break;case 'title':aV=(a.fields['System.Title']||'').toLowerCase();bV=(b.fields['System.Title']||'').toLowerCase();break;case 'state':aV=(a.fields['System.State']||'').toLowerCase();bV=(b.fields['System.State']||'').toLowerCase();break;case 'severity':aV=(a.fields['Microsoft.VSTS.Common.Severity']||'').toLowerCase();bV=(b.fields['Microsoft.VSTS.Common.Severity']||'').toLowerCase();break;case 'ownedBy':aV=(a.fields['Casepoint.TFS.CustomFields.OwnedBy']||'').toLowerCase();bV=(b.fields['Casepoint.TFS.CustomFields.OwnedBy']||'').toLowerCase();break;case 'assigned':aV=(a.fields['System.AssignedTo']?.displayName||'').toLowerCase();bV=(b.fields['System.AssignedTo']?.displayName||'').toLowerCase();break;default:aV=a.id;bV=b.id;}if(aV<bV)return bugsSortDir==='asc'?-1:1;if(aV>bV)return bugsSortDir==='asc'?1:-1;return 0;});
+            const thS=`padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);cursor:pointer;user-select:none;white-space:nowrap;`;
+            const si=col=>bugsSortField===col?(bugsSortDir==='asc'?' ▲':' ▼'):'';
+            const bh=document.getElementById('bugsTableHead');
+            if(bh)bh.innerHTML=`<tr><th style="${thS}" onclick="sortBugsBy('id')">ID${si('id')}</th><th style="${thS}" onclick="sortBugsBy('title')">Title${si('title')}</th><th style="${thS}" onclick="sortBugsBy('state')">State${si('state')}</th><th style="${thS}text-align:center;">Tags</th><th style="${thS}" onclick="sortBugsBy('severity')">Severity${si('severity')}</th><th style="${thS}" onclick="sortBugsBy('ownedBy')">Owned By${si('ownedBy')}</th><th style="${thS}" onclick="sortBugsBy('assigned')">Assigned To${si('assigned')}</th></tr>`;
+            const bb=document.querySelector('#bugsTable tbody'),tdS='padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);';
+            if(sb.length>0){document.getElementById('noBugs').style.display='none';bb.innerHTML=sb.map(b=>{const st=b.fields['System.State']||'',sc=st==='Closed'?'#34d399':st==='Resolved'?'#60a5fa':'#fbbf24',sv=b.fields['Microsoft.VSTS.Common.Severity']||'-',vc=sv.includes('1')?'#f87171':sv.includes('2')?'#fbbf24':'#94a3b8',ob=b.fields['Casepoint.TFS.CustomFields.OwnedBy']||'-',at=b.fields['System.AssignedTo']?.displayName||'-',af=at!=='-'?at.split(' ')[0]:'-',tags=(b.fields['System.Tags']||'').split(';').map(t=>t.trim()).filter(t=>t),hasCS=tags.some(t=>t.toLowerCase()==='cs'),hasProd=tags.some(t=>t.toLowerCase().includes('production'));let tb='';if(hasCS)tb+='<span style="background:rgba(59,130,246,0.3);color:#93c5fd;padding:2px 6px;border-radius:4px;font-size:0.65rem;margin-right:4px;">🎧 CS</span>';if(hasProd)tb+='<span style="background:rgba(245,158,11,0.3);color:#fcd34d;padding:2px 6px;border-radius:4px;font-size:0.65rem;">🚀 Prod</span>';if(!hasCS&&!hasProd)tb='<span style="color:#64748b;">-</span>';return `<tr style="transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'"><td style="${tdS}"><a href="${tfsUrl}/${project}/_workitems/edit/${b.id}" target="_blank" class="wi-link">${b.id}</a></td><td style="${tdS}">${b.fields['System.Title']||''}</td><td style="${tdS}color:${sc};font-weight:500;">${st}</td><td style="${tdS}text-align:center;">${tb}</td><td style="${tdS}color:${vc};">${sv}</td><td style="${tdS}color:#c4b5fd;">${ob}</td><td style="${tdS}color:#a5b4fc;" title="${at}">${af}</td></tr>`;}).join('');}else{document.getElementById('noBugs').style.display='block';bb.innerHTML='';}
         }
-        
-        function filterBugs(filter) {
-            window.currentBugFilter = filter;
-            renderBugsTable(filter);
-        }
+        function filterBugs(filter){window.currentBugFilter=filter;renderBugsTable(filter);}
 
         // ========== DISCIPLINE vs TASK EXECUTION TYPE MISMATCH ==========
         let mismatchDataLoaded = false;
