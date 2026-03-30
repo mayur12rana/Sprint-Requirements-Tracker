@@ -7825,7 +7825,7 @@
                     aiOrigEst: 0, aiCompleted: 0,
                     manualOrigEst: 0, manualCompleted: 0,
                     manualAiIneffCount: 0, manualAiIneffOrigEst: 0, manualAiIneffCompleted: 0,
-                    _tasks: [], _claudeTasks: [], _copilotTasks: [], _manualTasks: [], _aiIneffTasks: []
+                    _tasks: [], _aiTasks: [], _claudeTasks: [], _copilotTasks: [], _manualTasks: [], _aiIneffTasks: []
                 };
             });
             
@@ -7880,7 +7880,7 @@
                         aiOrigEst: 0, aiCompleted: 0,
                         manualOrigEst: 0, manualCompleted: 0,
                         manualAiIneffCount: 0, manualAiIneffOrigEst: 0, manualAiIneffCompleted: 0,
-                        _tasks: [], _claudeTasks: [], _copilotTasks: [], _manualTasks: [], _aiIneffTasks: []
+                        _tasks: [], _aiTasks: [], _claudeTasks: [], _copilotTasks: [], _manualTasks: [], _aiIneffTasks: []
                     };
                 }
                 
@@ -7899,7 +7899,7 @@
                     }
                     if (isAiType) {
                         memberData.aiCount++;
-                        if (memberData._aiTasks) memberData._aiTasks.push(t);
+                        memberData._aiTasks.push(t);
                     }
                     
                     if (isManualType) {
