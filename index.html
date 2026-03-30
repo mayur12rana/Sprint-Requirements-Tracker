@@ -209,6 +209,144 @@
         body.light-theme .fp-multiselect-item { color: #334155; }
         body.light-theme .fp-multiselect-item:hover { background: rgba(0,0,0,0.04); }
         body.light-theme .fp-multiselect-item.select-all { border-bottom-color: #e2e8f0; color: #2563eb; }
+
+        /* ── AI Status Multiselect Dropdown ── */
+        /* ── AI Status Multiselect Filter ── */
+        .ai-status-filter-wrap {
+            position: relative;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        .ai-status-filter-wrap.visible {
+            display: inline-flex;
+            align-items: center;
+        }
+        .ai-status-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #94a3b8;
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+        .ai-status-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 28px;
+            padding: 0 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: rgba(15,23,42,0.6);
+            border: 1px solid rgba(148,163,184,0.25);
+            color: #e2e8f0;
+            font-size: 0.7rem;
+            font-weight: 500;
+            white-space: nowrap;
+            user-select: none;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .ai-status-btn:hover {
+            background: rgba(30,41,59,0.8);
+            border-color: rgba(148,163,184,0.45);
+        }
+        .ai-status-btn.open {
+            background: rgba(30,41,59,0.9);
+            border-color: rgba(148,163,184,0.5);
+        }
+        .ai-status-btn .ai-status-arrow {
+            font-size: 0.52rem;
+            opacity: 0.55;
+            transition: transform 0.18s;
+            margin-left: 1px;
+        }
+        .ai-status-btn.open .ai-status-arrow { transform: rotate(180deg); }
+        .ai-status-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            border-radius: 99px;
+            background: rgba(99,102,241,0.35);
+            color: #c7d2fe;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+        .ai-status-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            right: 0;
+            left: auto;
+            z-index: 600;
+            min-width: 172px;
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+            padding: 4px 0;
+        }
+        .ai-status-dropdown.open { display: block; }
+        .ai-status-opt {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            color: #cbd5e1;
+            transition: background 0.1s;
+            user-select: none;
+        }
+        .ai-status-opt:hover { background: rgba(255,255,255,0.06); }
+        .ai-status-opt input[type="checkbox"] {
+            accent-color: #6366f1;
+            width: 13px;
+            height: 13px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .ai-status-opt .ai-state-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .ai-state-dot.dot-resolved { background: #60a5fa; }
+        .ai-state-dot.dot-closed   { background: #34d399; }
+        .ai-state-dot.dot-active   { background: #fbbf24; }
+        .ai-state-dot.dot-proposed { background: #94a3b8; }
+        .ai-status-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.07);
+            margin: 3px 0;
+        }
+        /* ── Light theme overrides ── */
+        body.light-theme .ai-status-label { color: #64748b; }
+        body.light-theme .ai-status-btn {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #334155;
+        }
+        body.light-theme .ai-status-btn:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        body.light-theme .ai-status-btn.open {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        body.light-theme .ai-status-count { background: #e0e7ff; color: #3730a3; }
+        body.light-theme .ai-status-dropdown {
+            background: #ffffff;
+            border-color: #e2e8f0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        body.light-theme .ai-status-opt { color: #334155; }
+        body.light-theme .ai-status-opt:hover { background: #f8fafc; }
+        body.light-theme .ai-status-divider { background: #e2e8f0; }
         /* Feature Progress cell color classes - Dark theme */
         #featureProgressTable .fp-title { color: #e2e8f0; }
         #featureProgressTable .fp-est-inhrs { color: #22d3ee; }
@@ -346,6 +484,37 @@
         body.light-theme #taskLookupSection h3 { color: #0f172a !important; }
         body.light-theme #taskLookupResult { color: #1e293b; }
         body.light-theme #taskLookupResult a.wi-link { color: #2563eb !important; }
+        /* Task Management link tile */
+        #taskManagementTile {
+            display: none;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(99,102,241,0.35);
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.07));
+        }
+        #taskManagementTile h3 { color: #a5b4fc; font-size: 0.85rem; margin: 0 0 6px 0; }
+        #taskManagementTile p { color: #64748b; font-size: 0.72rem; margin: 0 0 12px 0; line-height: 1.5; }
+        .tm-open-btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 7px 18px; border-radius: 8px; cursor: pointer; text-decoration: none;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #ffffff; font-size: 0.78rem; font-weight: 600;
+            border: none; transition: opacity 0.2s, transform 0.2s;
+            box-shadow: 0 2px 10px rgba(99,102,241,0.35);
+        }
+        .tm-open-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+        .tm-url-badge {
+            display: inline-block; margin-left: 10px;
+            font-size: 0.62rem; color: #64748b;
+            font-family: 'Courier New', monospace;
+        }
+        body.light-theme #taskManagementTile {
+            border-color: rgba(99,102,241,0.3);
+            background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(139,92,246,0.04));
+        }
+        body.light-theme #taskManagementTile h3 { color: #4f46e5 !important; }
+        body.light-theme #taskManagementTile p { color: #475569; }
+        body.light-theme .tm-url-badge { color: #94a3b8; }
 
         /* Tab 7 removed */
         /* Tab 7: Encrypt Username - Light theme */
@@ -1874,10 +2043,46 @@
         <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(59,130,246,0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <h3 style="color: #93c5fd; font-size: 1rem; margin: 0;">🤖 Dev AI Adoption Data</h3>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-primary" id="exportAIAdoptionBtn" onclick="exportAIAdoptionToExcel()" style="padding: 4px 12px; font-size: 0.75rem; background: rgba(16,185,129,0.3); border-color: rgba(16,185,129,0.5); display: none;">📥 Excel</button>
-                    <button class="btn btn-primary" id="exportAIAdoptionPdfBtn" onclick="exportAIAdoptionToPDF()" style="padding: 4px 12px; font-size: 0.75rem; background: rgba(239,68,68,0.3); border-color: rgba(239,68,68,0.5); display: none;">📄 PDF</button>
-                    <button class="btn btn-primary btn-compact" id="loadAIAdoptionBtn" onclick="toggleAIAdoptionData()" >📊 Show</button>
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;">
+                    <!-- Dev AI Status Multiselect -->
+                    <div class="ai-status-filter-wrap" id="devAIStatusWrap">
+                        <span class="ai-status-label">Status:</span>
+                        <div class="ai-status-btn" id="devAIStatusBtn" onclick="toggleAIStatusDropdown('dev')">
+                            <span id="devAIStatusBtnText">Resolved, Closed</span>
+                            <span class="ai-status-count" id="devAIStatusCount">2</span>
+                            <span class="ai-status-arrow">▼</span>
+                        </div>
+                        <div class="ai-status-dropdown" id="devAIStatusDropdown">
+                            <div class="ai-status-opt" onclick="toggleAIStatusAll('dev',this)">
+                                <input type="checkbox" id="devAIStatusAll" onchange="toggleAIStatusAll('dev',this)">
+                                <span style="font-size:0.68rem;font-weight:600;color:#93c5fd;">All Statuses</span>
+                            </div>
+                            <div class="ai-status-divider"></div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('dev','Active',this)">
+                                <input type="checkbox" id="devAIStatus_Active" onchange="toggleAIStatusOption('dev','Active',this)">
+                                <span class="ai-state-dot dot-active"></span>
+                                <span>Active</span>
+                            </div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('dev','Proposed',this)">
+                                <input type="checkbox" id="devAIStatus_Proposed" onchange="toggleAIStatusOption('dev','Proposed',this)">
+                                <span class="ai-state-dot dot-proposed"></span>
+                                <span>Proposed</span>
+                            </div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('dev','Resolved',this)">
+                                <input type="checkbox" id="devAIStatus_Resolved" checked onchange="toggleAIStatusOption('dev','Resolved',this)">
+                                <span class="ai-state-dot dot-resolved"></span>
+                                <span>Resolved</span>
+                            </div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('dev','Closed',this)">
+                                <input type="checkbox" id="devAIStatus_Closed" checked onchange="toggleAIStatusOption('dev','Closed',this)">
+                                <span class="ai-state-dot dot-closed"></span>
+                                <span>Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="exportAIAdoptionBtn" onclick="exportAIAdoptionToExcel()" style="height:28px;padding:0 11px;font-size:0.7rem;background:rgba(16,185,129,0.25);border-color:rgba(16,185,129,0.45);display:none;">📥 Excel</button>
+                    <button class="btn btn-primary" id="exportAIAdoptionPdfBtn" onclick="exportAIAdoptionToPDF()" style="height:28px;padding:0 11px;font-size:0.7rem;background:rgba(239,68,68,0.22);border-color:rgba(239,68,68,0.4);display:none;">📄 PDF</button>
+                    <button class="btn btn-primary btn-compact" id="loadAIAdoptionBtn" onclick="toggleAIAdoptionData()" style="height:28px;padding:0 13px;font-size:0.7rem;">📊 Show</button>
                 </div>
             </div>
             <div id="aiAdoptionContent" style="display: none;">
@@ -1890,7 +2095,7 @@
                         <span class="c-dim">→</span>
                         <span style="background: rgba(245,158,11,0.3); padding: 2px 8px; border-radius: 4px; color: #fcd34d;">Task</span>
                         <span class="c-dim">+</span>
-                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Resolved/Closed</span>
+                        <span id="devAICriteriaStatus" style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Resolved/Closed</span>
                         <span class="c-dim">+</span>
                         <span style="background: rgba(236,72,153,0.3); padding: 2px 8px; border-radius: 4px; color: #f9a8d4;">Reason ≠ Rejected</span>
                         <span class="c-dim">+</span>
@@ -2007,10 +2212,46 @@
         <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1)); border: 1px solid rgba(16,185,129,0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <h3 style="color: #6ee7b7; font-size: 1rem; margin: 0;">🧪 QA AI Adoption Data</h3>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-primary" id="exportQAAIAdoptionBtn" onclick="exportQAAIAdoptionToExcel()" style="padding: 4px 12px; font-size: 0.75rem; background: rgba(16,185,129,0.3); border-color: rgba(16,185,129,0.5); display: none;">📥 Excel</button>
-                    <button class="btn btn-primary" id="exportQAAIAdoptionPdfBtn" onclick="exportQAAIAdoptionToPDF()" style="padding: 4px 12px; font-size: 0.75rem; background: rgba(239,68,68,0.3); border-color: rgba(239,68,68,0.5); display: none;">📄 PDF</button>
-                    <button class="btn btn-primary btn-compact" id="loadQAAIAdoptionBtn" onclick="toggleQAAIAdoptionData()" >📊 Show</button>
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;">
+                    <!-- QA AI Status Multiselect -->
+                    <div class="ai-status-filter-wrap" id="qaAIStatusWrap">
+                        <span class="ai-status-label">Status:</span>
+                        <div class="ai-status-btn" id="qaAIStatusBtn" onclick="toggleAIStatusDropdown('qa')">
+                            <span id="qaAIStatusBtnText">Resolved, Closed</span>
+                            <span class="ai-status-count" id="qaAIStatusCount">2</span>
+                            <span class="ai-status-arrow">▼</span>
+                        </div>
+                        <div class="ai-status-dropdown" id="qaAIStatusDropdown">
+                            <div class="ai-status-opt" onclick="toggleAIStatusAll('qa',this)">
+                                <input type="checkbox" id="qaAIStatusAll" onchange="toggleAIStatusAll('qa',this)">
+                                <span style="font-size:0.68rem;font-weight:600;color:#6ee7b7;">All Statuses</span>
+                            </div>
+                            <div class="ai-status-divider"></div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('qa','Active',this)">
+                                <input type="checkbox" id="qaAIStatus_Active" onchange="toggleAIStatusOption('qa','Active',this)">
+                                <span class="ai-state-dot dot-active"></span>
+                                <span>Active</span>
+                            </div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('qa','Proposed',this)">
+                                <input type="checkbox" id="qaAIStatus_Proposed" onchange="toggleAIStatusOption('qa','Proposed',this)">
+                                <span class="ai-state-dot dot-proposed"></span>
+                                <span>Proposed</span>
+                            </div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('qa','Resolved',this)">
+                                <input type="checkbox" id="qaAIStatus_Resolved" checked onchange="toggleAIStatusOption('qa','Resolved',this)">
+                                <span class="ai-state-dot dot-resolved"></span>
+                                <span>Resolved</span>
+                            </div>
+                            <div class="ai-status-opt" onclick="toggleAIStatusOption('qa','Closed',this)">
+                                <input type="checkbox" id="qaAIStatus_Closed" checked onchange="toggleAIStatusOption('qa','Closed',this)">
+                                <span class="ai-state-dot dot-closed"></span>
+                                <span>Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="exportQAAIAdoptionBtn" onclick="exportQAAIAdoptionToExcel()" style="height:28px;padding:0 11px;font-size:0.7rem;background:rgba(16,185,129,0.25);border-color:rgba(16,185,129,0.45);display:none;">📥 Excel</button>
+                    <button class="btn btn-primary" id="exportQAAIAdoptionPdfBtn" onclick="exportQAAIAdoptionToPDF()" style="height:28px;padding:0 11px;font-size:0.7rem;background:rgba(239,68,68,0.22);border-color:rgba(239,68,68,0.4);display:none;">📄 PDF</button>
+                    <button class="btn btn-primary btn-compact" id="loadQAAIAdoptionBtn" onclick="toggleQAAIAdoptionData()" style="height:28px;padding:0 13px;font-size:0.7rem;">📊 Show</button>
                 </div>
             </div>
             <div id="qaAIAdoptionContent" style="display: none;">
@@ -2023,7 +2264,7 @@
                         <span class="c-dim">→</span>
                         <span style="background: rgba(245,158,11,0.3); padding: 2px 8px; border-radius: 4px; color: #fcd34d;">Task</span>
                         <span class="c-dim">+</span>
-                        <span style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Resolved/Closed</span>
+                        <span id="qaAICriteriaStatus" style="background: rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; color: #6ee7b7;">Resolved/Closed</span>
                         <span class="c-dim">+</span>
                         <span style="background: rgba(236,72,153,0.3); padding: 2px 8px; border-radius: 4px; color: #f9a8d4;">Reason ≠ Rejected</span>
                         <span class="c-dim">+</span>
@@ -2983,6 +3224,21 @@
                 <div id="taskLookupResult"></div>
             </div>
 
+            <!-- Task Management -->
+            <div class="table-section" id="taskManagementTile" style="padding: 14px 16px;">
+                <h3>📋 Task Management</h3>
+                <p>Create sprint tasks, view task lists, track member capacity and sprint progress — all in one place.</p>
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <a id="taskManagementLink" href="#" target="_blank" class="tm-open-btn">
+                        🚀 Open Task Management
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0;">
+                            <path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <span class="tm-url-badge" id="taskManagementUrlLabel"></span>
+                </div>
+            </div>
+
         </div><!-- End Tab 6 -->
 
         <!-- Tab 7: Encrypt Username (super_admin only) -->
@@ -3136,7 +3392,10 @@
         }
 
         // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', initTheme);
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            initTaskManagementTile();
+        });
         // ==================== END THEME MANAGEMENT ====================
 
         let tfsUrl = '', project = '', config = { headers: null };
@@ -3153,6 +3412,11 @@
         let aiAdoptionGrandTotals = {}; // Store grand totals for footer
         let aiAdoptionWeekFilter = 'All'; // Week filter for Dev AI
         let includeAdhocInAI = true; // Toggle: include Adhoc Support tasks in AI adoption/efficiency calculations
+
+        // Status filter for Dev & QA AI Adoption dashboards (default: Resolved + Closed)
+        const AI_STATUS_OPTIONS = ['Active', 'Proposed', 'Resolved', 'Closed'];
+        let devAIStatusFilter = ['Resolved', 'Closed']; // Dev AI selected statuses
+        let qaAIStatusFilter  = ['Resolved', 'Closed']; // QA  AI selected statuses
         
         // QA AI Adoption sorting state
         let qaAIAdoptionMemberData = []; // Store QA member results for sorting
@@ -4819,6 +5083,8 @@
             aiBtn.style.borderColor = '';
             document.getElementById('exportAIAdoptionBtn').style.display = 'none';
             document.getElementById('exportAIAdoptionPdfBtn').style.display = 'none';
+            const devStatusWrapReset = document.getElementById('devAIStatusWrap');
+            if (devStatusWrapReset) devStatusWrapReset.classList.remove('visible');
             aiAdoptionDataLoaded = false;
             aiAdoptionMemberData = [];
             aiAdoptionSortField = 'name';
@@ -4855,6 +5121,8 @@
             }
             if (qaExportBtn) qaExportBtn.style.display = 'none';
             if (qaExportPdfBtn) qaExportPdfBtn.style.display = 'none';
+            const qaStatusWrapReset = document.getElementById('qaAIStatusWrap');
+            if (qaStatusWrapReset) qaStatusWrapReset.classList.remove('visible');
             qaAIAdoptionDataLoaded = false;
             qaAIAdoptionMemberData = [];
             qaAIAdoptionSortField = 'name';
@@ -6827,6 +7095,33 @@
                 updateBtn.style.display = 'none';
                 updateBtn.setAttribute('data-role-hidden', 'true');
             }
+            // Task Management tile — show only if taskCreatorUrl is configured in allowed_users.json
+            initTaskManagementTile();
+        }
+
+        function initTaskManagementTile() {
+            const tile   = document.getElementById('taskManagementTile');
+            const link   = document.getElementById('taskManagementLink');
+            const urlLbl = document.getElementById('taskManagementUrlLabel');
+            if (!tile || !link) return;
+
+            // Read URL from allowed_users.json (loaded via <script> tag as ALLOWED_USERS_DATA)
+            const tcUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.taskCreatorUrl)
+                ? String(ALLOWED_USERS_DATA.taskCreatorUrl).trim() : '';
+
+            if (!tcUrl) {
+                tile.style.display = 'none';
+                return;
+            }
+
+            // Wire up the link
+            link.href = tcUrl;
+            if (urlLbl) urlLbl.textContent = tcUrl;
+
+            // Show the tile — respect tab-6 permission only if the user is already authenticated
+            // Before auth, currentUserTabs is empty, so we show by default (Tab 6 is the container)
+            const tab6Denied = currentUserTabs.length > 0 && !currentUserTabs.includes(6);
+            tile.style.display = tab6Denied ? 'none' : 'block';
         }
 
         function switchTab(tabNum) {
@@ -7247,11 +7542,116 @@
         // ========== AI ADOPTION DATA ==========
         let aiAdoptionDataLoaded = false;
         
+        /* ─────────────────────────────────────────────────────────
+           AI STATUS MULTISELECT — shared for Dev & QA dashboards
+           prefix: 'dev' | 'qa'
+        ───────────────────────────────────────────────────────── */
+        function toggleAIStatusDropdown(prefix) {
+            const btn = document.getElementById(prefix + 'AIStatusBtn');
+            const drop = document.getElementById(prefix + 'AIStatusDropdown');
+            const isOpen = drop.classList.contains('open');
+            // Close all other AI status dropdowns first
+            ['dev','qa'].forEach(p => {
+                document.getElementById(p + 'AIStatusDropdown')?.classList.remove('open');
+                document.getElementById(p + 'AIStatusBtn')?.classList.remove('open');
+            });
+            if (!isOpen) { drop.classList.add('open'); btn.classList.add('open'); }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.ai-status-filter-wrap')) {
+                document.getElementById('devAIStatusDropdown')?.classList.remove('open');
+                document.getElementById('devAIStatusBtn')?.classList.remove('open');
+                document.getElementById('qaAIStatusDropdown')?.classList.remove('open');
+                document.getElementById('qaAIStatusBtn')?.classList.remove('open');
+            }
+        });
+
+        function toggleAIStatusOption(prefix, status, el) {
+            // If click came from the row div, toggle the checkbox inside it
+            const cb = el.tagName === 'INPUT' ? el : el.querySelector('input[type="checkbox"]');
+            if (!cb) return;
+            // If called from the row onclick, we need to flip it (the checkbox itself already toggled via onchange)
+            if (el.tagName !== 'INPUT') cb.checked = !cb.checked;
+
+            const filter = prefix === 'dev' ? devAIStatusFilter : qaAIStatusFilter;
+            if (cb.checked) {
+                if (!filter.includes(status)) filter.push(status);
+            } else {
+                const idx = filter.indexOf(status);
+                if (idx > -1) filter.splice(idx, 1);
+            }
+            syncAIStatusUI(prefix);
+            reRenderAIIfVisible(prefix);
+        }
+
+        function toggleAIStatusAll(prefix, el) {
+            const cb = el.tagName === 'INPUT' ? el : el.querySelector('input[type="checkbox"]');
+            if (!cb) return;
+            if (el.tagName !== 'INPUT') cb.checked = !cb.checked;
+
+            const allChecked = cb.checked;
+            AI_STATUS_OPTIONS.forEach(s => {
+                const optCb = document.getElementById(prefix + 'AIStatus_' + s);
+                if (optCb) optCb.checked = allChecked;
+            });
+            if (prefix === 'dev') devAIStatusFilter = allChecked ? [...AI_STATUS_OPTIONS] : [];
+            else                  qaAIStatusFilter  = allChecked ? [...AI_STATUS_OPTIONS] : [];
+            syncAIStatusUI(prefix);
+            reRenderAIIfVisible(prefix);
+        }
+
+        function syncAIStatusUI(prefix) {
+            const filter = prefix === 'dev' ? devAIStatusFilter : qaAIStatusFilter;
+            const countEl = document.getElementById(prefix + 'AIStatusCount');
+            const textEl  = document.getElementById(prefix + 'AIStatusBtnText');
+            const allCb   = document.getElementById(prefix + 'AIStatusAll');
+
+            // Update count badge
+            if (countEl) countEl.textContent = filter.length;
+
+            // Update button label
+            let labelText;
+            if (filter.length === 0)                             labelText = 'None selected';
+            else if (filter.length === AI_STATUS_OPTIONS.length) labelText = 'All Statuses';
+            else                                                 labelText = filter.join(', ');
+            if (textEl) textEl.textContent = labelText;
+
+            // Update criteria pill inside the dashboard criteria bar
+            const criteriaEl = document.getElementById(prefix + 'AICriteriaStatus');
+            if (criteriaEl) criteriaEl.textContent = filter.length ? filter.join(' / ') : 'None';
+
+            // Sync "All" checkbox state
+            if (allCb) allCb.checked = filter.length === AI_STATUS_OPTIONS.length;
+
+            // Sync individual checkboxes (in case called programmatically)
+            AI_STATUS_OPTIONS.forEach(s => {
+                const optCb = document.getElementById(prefix + 'AIStatus_' + s);
+                if (optCb) optCb.checked = filter.includes(s);
+            });
+        }
+
+        function reRenderAIIfVisible(prefix) {
+            if (prefix === 'dev') {
+                const content = document.getElementById('aiAdoptionContent');
+                if (content && content.style.display !== 'none') {
+                    renderAIAdoptionData();
+                }
+            } else {
+                const content = document.getElementById('qaAIAdoptionContent');
+                if (content && content.style.display !== 'none') {
+                    renderQAAIAdoptionData();
+                }
+            }
+        }
+
         function toggleAIAdoptionData() {
             const btn = document.getElementById('loadAIAdoptionBtn');
             const content = document.getElementById('aiAdoptionContent');
             const exportBtn = document.getElementById('exportAIAdoptionBtn');
             const exportPdfBtn = document.getElementById('exportAIAdoptionPdfBtn');
+            const statusWrap = document.getElementById('devAIStatusWrap');
             
             // Toggle between Load and Unload
             if (content.style.display === 'none' || content.style.display === '') {
@@ -7262,6 +7662,7 @@
                 btn.style.borderColor = 'rgba(239,68,68,0.5)';
                 exportBtn.style.display = 'inline-block';
                 exportPdfBtn.style.display = 'inline-block';
+                if (statusWrap) statusWrap.classList.add('visible');
                 
                 if (!aiAdoptionDataLoaded) {
                     renderAIAdoptionData();
@@ -7275,6 +7676,7 @@
                 btn.style.borderColor = '';
                 exportBtn.style.display = 'none';
                 exportPdfBtn.style.display = 'none';
+                if (statusWrap) statusWrap.classList.remove('visible');
             }
         }
         
@@ -7348,28 +7750,33 @@
             // Also include Adhoc Support bugs as valid parents
             bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
-            const completedStates = ['resolved', 'closed'];
-            
+            const completedStates = devAIStatusFilter.map(s => s.toLowerCase());
+            if (!completedStates.length) {
+                // Nothing selected — show empty state gracefully
+                document.getElementById('aiAdoptionTableBody').innerHTML = '<tr><td colspan="20" style="text-align:center;color:#94a3b8;padding:16px;font-size:0.75rem;">⚠️ No status selected — please choose at least one status in the filter.</td></tr>';
+                return;
+            }
+
             const validTasks = tasks.filter(t => {
                 const parentReqId = taskParentMap[t.id];
                 if (!parentReqId || !validReqIds.has(parentReqId)) return false;
-                
+
                 const state = (t.fields['System.State'] || '').toLowerCase();
                 const reason = (t.fields['System.Reason'] || '').toLowerCase();
                 // Use Revised Estimate if available (non-zero), otherwise use Original Estimate
                 const revisedEst = t.fields['Casepoint.TFS.CustomFields.RevisedEstimate'] || 0;
                 const originalEst = t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
                 const origEst = (revisedEst > 0) ? revisedEst : originalEst;
-                
+
                 // Filter by area path to match selected areas (uses global helper)
                 const taskAreaPath = t.fields['System.AreaPath'] || '';
                 if (!isTaskAreaMatchingSelection(taskAreaPath)) return false;
-                
-                return completedStates.includes(state) && 
-                       reason !== 'rejected' && 
+
+                return completedStates.includes(state) &&
+                       reason !== 'rejected' &&
                        origEst > 0;
             });
-            
+
             // Calculate sprint week for each task based on StateChangeDate
             validTasks.forEach(t => {
                 if (t._sprintWeek === undefined) {
@@ -7413,7 +7820,7 @@
                     project: m.project || '-',
                     team: m.team || '-',
                     taskCount: 0,
-                    claudeAiCount: 0, copilotCount: 0, manualCount: 0,
+                    claudeAiCount: 0, copilotCount: 0, aiCount: 0, manualCount: 0,
                     totalOrigEst: 0, totalCompleted: 0,
                     aiOrigEst: 0, aiCompleted: 0,
                     manualOrigEst: 0, manualCompleted: 0,
@@ -7468,7 +7875,7 @@
                     const taskTeam = taskAreaPath.split('\\')[1] || '-';
                     memberDataMap[memberKey] = {
                         name: assignedTo, project: taskProject, team: taskTeam,
-                        taskCount: 0, claudeAiCount: 0, copilotCount: 0, manualCount: 0,
+                        taskCount: 0, claudeAiCount: 0, copilotCount: 0, aiCount: 0, manualCount: 0,
                         totalOrigEst: 0, totalCompleted: 0,
                         aiOrigEst: 0, aiCompleted: 0,
                         manualOrigEst: 0, manualCompleted: 0,
@@ -7489,6 +7896,10 @@
                     } else if (isAiType && !hasClaudeAiTag) {
                         memberData.copilotCount++;
                         memberData._copilotTasks.push(t);
+                    }
+                    if (isAiType) {
+                        memberData.aiCount++;
+                        if (memberData._aiTasks) memberData._aiTasks.push(t);
                     }
                     
                     if (isManualType) {
@@ -7622,8 +8033,7 @@
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortAIAdoptionTable('project')">Project${sortIcon('project')}</th>
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortAIAdoptionTable('team')">Area${sortIcon('team')}</th>
                 <th rowspan="2" style="${thStyle}width:4%;" onclick="sortAIAdoptionTable('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:4%;" onclick="sortAIAdoptionTable('claudeAiCount')">Claude${sortIcon('claudeAiCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:4%;" onclick="sortAIAdoptionTable('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
+                <th rowspan="2" style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:5%;" onclick="showAiAdoptionTaskPopup(0,'ai')">AI</th>
                 <th rowspan="2" style="${thStyle}background:rgba(239,68,68,0.25);color:#fca5a5;width:4%;" onclick="sortAIAdoptionTable('manualAiIneffCount')">AI-Ineff${sortIcon('manualAiIneffCount')}</th>
                 <th rowspan="2" style="${thStyle}background:rgba(245,158,11,0.25);color:#fcd34d;width:4%;" onclick="sortAIAdoptionTable('manualCount')">Manual${sortIcon('manualCount')}</th>
                 <th colspan="2" style="${thStyle.replace('cursor:pointer;','')}background:rgba(139,92,246,0.25);color:#c4b5fd;width:9%;">AI Total</th>
@@ -7728,8 +8138,7 @@
                     <td style="${tdStyle}text-align:left;color:#a5b4fc;font-size:0.7rem;">${m.project}</td>
                     <td style="${tdStyle}text-align:left;color:#67e8f9;font-size:0.7rem;">${m.team}</td>
                     <td style="${tdStyle}text-align:center;${clickS}" onclick="showAiAdoptionTaskPopup(${mi},'all')" title="View all tasks">${m.taskCount}</td>
-                    <td style="${tdStyle}text-align:center;color:#c4b5fd;${m.claudeAiCount>0?clickS:''}" ${m.claudeAiCount>0?`onclick="showAiAdoptionTaskPopup(${mi},'claude')" title="View Claude tasks"`:``}>${m.claudeAiCount > 0 ? m.claudeAiCount : '-'}</td>
-                    <td style="${tdStyle}text-align:center;color:#22d3ee;${m.copilotCount>0?clickS:''}" ${m.copilotCount>0?`onclick="showAiAdoptionTaskPopup(${mi},'copilot')" title="View Copilot tasks"`:``}>${m.copilotCount > 0 ? m.copilotCount : '-'}</td>
+                    <td style="${tdStyle}text-align:center;color:#6ee7b7;${(m.aiCount||0)>0?clickS:''}" ${(m.aiCount||0)>0?`onclick="showAiAdoptionTaskPopup(${mi},'ai')" title="View AI tasks"`:``}>${(m.aiCount||0) > 0 ? (m.aiCount||0) : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#fca5a5;${m.manualAiIneffCount>0?clickS:''}" ${m.manualAiIneffCount>0?`onclick="showAiAdoptionTaskPopup(${mi},'aiIneff')" title="View AI-Ineff tasks"`:``}>${m.manualAiIneffCount > 0 ? m.manualAiIneffCount : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#fcd34d;${m.manualCount>0?clickS:''}" ${m.manualCount>0?`onclick="showAiAdoptionTaskPopup(${mi},'manual')" title="View Manual tasks"`:``}>${m.manualCount > 0 ? m.manualCount : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#fbbf24;">${m.aiOrigEst > 0 ? fmtH(m.aiOrigEst) + 'h' : '-'}</td>
@@ -7763,6 +8172,7 @@
             const totalTasks = filteredData.reduce((sum, m) => sum + m.taskCount, 0);
             const totalClaudeAi = filteredData.reduce((sum, m) => sum + m.claudeAiCount, 0);
             const totalCopilot = filteredData.reduce((sum, m) => sum + m.copilotCount, 0);
+            const totalAI = filteredData.reduce((sum, m) => sum + (m.aiCount||0), 0);
             const totalManual = filteredData.reduce((sum, m) => sum + m.manualCount, 0);
             const totalManualAiIneff = filteredData.reduce((sum, m) => sum + m.manualAiIneffCount, 0);
             const tfStyle = 'padding:10px 8px;border-top:2px solid rgba(139,92,246,0.4);font-size:0.8rem;';
@@ -7781,8 +8191,7 @@
             tfoot.innerHTML = `<tr>
                 <td colspan="3" style="${tfStyle}text-align:right;color:#e2e8f0;font-weight:700;">Grand Total:</td>
                 <td style="${tfStyle}text-align:center;color:#e2e8f0;font-weight:700;">${totalTasks}</td>
-                <td style="${tfStyle}text-align:center;color:#c4b5fd;font-weight:700;">${totalClaudeAi}</td>
-                <td style="${tfStyle}text-align:center;color:#22d3ee;font-weight:700;">${totalCopilot}</td>
+                <td style="${tfStyle}text-align:center;color:#6ee7b7;font-weight:700;">${totalAI}</td>
                 <td style="${tfStyle}text-align:center;color:#fca5a5;font-weight:700;">${totalManualAiIneff}</td>
                 <td style="${tfStyle}text-align:center;color:#fcd34d;font-weight:700;">${totalManual}</td>
                 <td style="${tfStyle}text-align:center;color:#fbbf24;font-weight:700;">${fmtH(grandAiOrigEst)}h</td>
@@ -7833,6 +8242,7 @@
                         taskCount: 0,
                         claudeAiCount: 0,
                         copilotCount: 0,
+                        aiCount: 0,
                         manualAiIneffCount: 0,
                         manualCount: 0,
                         aiOrigEst: 0,
@@ -7846,6 +8256,7 @@
                 areaTotals[area].taskCount += m.taskCount;
                 areaTotals[area].claudeAiCount += m.claudeAiCount;
                 areaTotals[area].copilotCount += m.copilotCount;
+                areaTotals[area].aiCount = (areaTotals[area].aiCount||0) + (m.aiCount||0);
                 areaTotals[area].manualAiIneffCount += m.manualAiIneffCount;
                 areaTotals[area].manualCount += m.manualCount;
                 areaTotals[area].aiOrigEst += m.aiOrigEst;
@@ -7893,8 +8304,7 @@
                 <th style="${thStyle}text-align:left;" onclick="sortAreaSummary('area')">Area${sortIcon('area')}</th>
                 <th style="${thStyle}text-align:left;" onclick="sortAreaSummary('project')">Project${sortIcon('project')}</th>
                 <th style="${thStyle}" onclick="sortAreaSummary('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.2);" onclick="sortAreaSummary('claudeAiCount')">Claude${sortIcon('claudeAiCount')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.2);" onclick="sortAreaSummary('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.2);" onclick="sortAreaSummary('aiCount')">AI${sortIcon('aiCount')}</th>
                 <th style="${thStyle}background:rgba(239,68,68,0.2);" onclick="sortAreaSummary('manualAiIneffCount')">AI-Ineff${sortIcon('manualAiIneffCount')}</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.2);" onclick="sortAreaSummary('manualCount')">Manual${sortIcon('manualCount')}</th>
                 <th style="${thStyle}" onclick="sortAreaSummary('aiOrigEst')">AI Orig${sortIcon('aiOrigEst')}</th>
@@ -7921,8 +8331,7 @@
                     <td style="${tdStyle}text-align:left;color:#67e8f9;font-weight:600;">🏷️ ${a.area}</td>
                     <td style="${tdStyle}text-align:left;color:#94a3b8;font-size:0.65rem;">${a.project}</td>
                     <td style="${tdStyle}text-align:center;color:#e2e8f0;font-weight:600;">${a.taskCount}</td>
-                    <td style="${tdStyle}text-align:center;color:#c4b5fd;">${a.claudeAiCount}</td>
-                    <td style="${tdStyle}text-align:center;color:#22d3ee;">${a.copilotCount}</td>
+                    <td style="${tdStyle}text-align:center;color:#6ee7b7;">${a.aiCount||0}</td>
                     <td style="${tdStyle}text-align:center;color:#fca5a5;">${a.manualAiIneffCount}</td>
                     <td style="${tdStyle}text-align:center;color:#fcd34d;">${a.manualCount}</td>
                     <td style="${tdStyle}text-align:center;color:#fbbf24;">${fmtH(a.aiOrigEst)}h</td>
@@ -7942,13 +8351,13 @@
             // Grand total footer
             const areaSummaryFoot = document.getElementById('areaSummaryFoot');
             const gt = areaSummaryData.reduce((acc, a) => {
-                acc.taskCount += a.taskCount; acc.claudeAiCount += a.claudeAiCount; acc.copilotCount += a.copilotCount;
+                acc.taskCount += a.taskCount; acc.claudeAiCount += a.claudeAiCount; acc.copilotCount += a.copilotCount; acc.aiCount = (acc.aiCount||0) + (a.aiCount||0);
                 acc.manualAiIneffCount += a.manualAiIneffCount; acc.manualCount += a.manualCount;
                 acc.aiOrigEst += a.aiOrigEst; acc.aiCompleted += a.aiCompleted;
                 acc.manualAiIneffOrigEst += a.manualAiIneffOrigEst; acc.manualAiIneffCompleted += a.manualAiIneffCompleted;
                 acc.manualOrigEst += a.manualOrigEst; acc.manualCompleted += a.manualCompleted;
                 return acc;
-            }, { taskCount:0, claudeAiCount:0, copilotCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
+            }, { taskCount:0, claudeAiCount:0, copilotCount:0, aiCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
             const gtTotalOrig = gt.aiOrigEst + gt.manualAiIneffOrigEst + gt.manualOrigEst;
             const gtAiAdopt = gtTotalOrig > 0 ? Math.round(((gt.aiOrigEst + gt.manualAiIneffOrigEst) / gtTotalOrig) * 100) : 0;
             const gtManEffD = gt.manualOrigEst + gt.manualAiIneffOrigEst;
@@ -7959,8 +8368,7 @@
             if (areaSummaryFoot) areaSummaryFoot.innerHTML = `<tr>
                 <td style="${tf}text-align:left;font-weight:700;" colspan="2">Grand Total (${areaSummaryData.length} areas)</td>
                 <td style="${tf}text-align:center;font-weight:700;">${gt.taskCount}</td>
-                <td style="${tf}text-align:center;color:#c4b5fd;font-weight:700;">${gt.claudeAiCount}</td>
-                <td style="${tf}text-align:center;color:#22d3ee;font-weight:700;">${gt.copilotCount}</td>
+                <td style="${tf}text-align:center;color:#6ee7b7;font-weight:700;">${gt.aiCount||0}</td>
                 <td style="${tf}text-align:center;color:#fca5a5;font-weight:700;">${gt.manualAiIneffCount}</td>
                 <td style="${tf}text-align:center;color:#fcd34d;font-weight:700;">${gt.manualCount}</td>
                 <td style="${tf}text-align:center;color:#fbbf24;font-weight:700;">${fmtH(gt.aiOrigEst)}h</td>
@@ -8015,6 +8423,7 @@
                         taskCount: 0,
                         claudeAiCount: 0,
                         copilotCount: 0,
+                        aiCount: 0,
                         manualAiIneffCount: 0,
                         manualCount: 0,
                         aiOrigEst: 0,
@@ -8028,6 +8437,7 @@
                 projectTotals[proj].taskCount += m.taskCount;
                 projectTotals[proj].claudeAiCount += m.claudeAiCount;
                 projectTotals[proj].copilotCount += m.copilotCount;
+                projectTotals[proj].aiCount = (projectTotals[proj].aiCount||0) + (m.aiCount||0);
                 projectTotals[proj].manualAiIneffCount += m.manualAiIneffCount;
                 projectTotals[proj].manualCount += m.manualCount;
                 projectTotals[proj].aiOrigEst += m.aiOrigEst;
@@ -8043,8 +8453,7 @@
             projectSummaryHead.innerHTML = `<tr>
                 <th style="${thStyle}text-align:left;">Project</th>
                 <th style="${thStyle}">Tasks</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.2);">Claude</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.2);">Copilot</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.2);">AI</th>
                 <th style="${thStyle}background:rgba(239,68,68,0.2);">AI-Ineff</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.2);">Manual</th>
                 <th style="${thStyle}">AI Orig</th>
@@ -8076,8 +8485,7 @@
                 bodyHtml += `<tr style="transition:background 0.2s;" onmouseover="this.style.background='rgba(99,102,241,0.1)'" onmouseout="this.style.background='transparent'">
                     <td style="${tdStyle}text-align:left;color:#a5b4fc;font-weight:600;">📁 ${p.project}</td>
                     <td style="${tdStyle}text-align:center;color:#e2e8f0;font-weight:600;">${p.taskCount}</td>
-                    <td style="${tdStyle}text-align:center;color:#c4b5fd;">${p.claudeAiCount}</td>
-                    <td style="${tdStyle}text-align:center;color:#22d3ee;">${p.copilotCount}</td>
+                    <td style="${tdStyle}text-align:center;color:#6ee7b7;">${p.aiCount||0}</td>
                     <td style="${tdStyle}text-align:center;color:#fca5a5;">${p.manualAiIneffCount}</td>
                     <td style="${tdStyle}text-align:center;color:#fcd34d;">${p.manualCount}</td>
                     <td style="${tdStyle}text-align:center;color:#fbbf24;">${fmtH(p.aiOrigEst)}h</td>
@@ -8097,13 +8505,13 @@
             // Grand total footer
             const projectSummaryFoot = document.getElementById('projectSummaryFoot');
             const pgt = projectSummaryData.reduce((acc, p) => {
-                acc.taskCount += p.taskCount; acc.claudeAiCount += p.claudeAiCount; acc.copilotCount += p.copilotCount;
+                acc.taskCount += p.taskCount; acc.claudeAiCount += p.claudeAiCount; acc.copilotCount += p.copilotCount; acc.aiCount = (acc.aiCount||0) + (p.aiCount||0);
                 acc.manualAiIneffCount += p.manualAiIneffCount; acc.manualCount += p.manualCount;
                 acc.aiOrigEst += p.aiOrigEst; acc.aiCompleted += p.aiCompleted;
                 acc.manualAiIneffOrigEst += p.manualAiIneffOrigEst; acc.manualAiIneffCompleted += p.manualAiIneffCompleted;
                 acc.manualOrigEst += p.manualOrigEst; acc.manualCompleted += p.manualCompleted;
                 return acc;
-            }, { taskCount:0, claudeAiCount:0, copilotCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
+            }, { taskCount:0, claudeAiCount:0, copilotCount:0, aiCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
             const pTotalOrig = pgt.aiOrigEst + pgt.manualAiIneffOrigEst + pgt.manualOrigEst;
             const pAiAdopt = pTotalOrig > 0 ? Math.round(((pgt.aiOrigEst + pgt.manualAiIneffOrigEst) / pTotalOrig) * 100) : 0;
             const pManEffD = pgt.manualOrigEst + pgt.manualAiIneffOrigEst;
@@ -8114,8 +8522,7 @@
             if (projectSummaryFoot) projectSummaryFoot.innerHTML = `<tr>
                 <td style="${ptf}text-align:left;font-weight:700;">Grand Total (${projectSummaryData.length} projects)</td>
                 <td style="${ptf}text-align:center;font-weight:700;">${pgt.taskCount}</td>
-                <td style="${ptf}text-align:center;color:#c4b5fd;font-weight:700;">${pgt.claudeAiCount}</td>
-                <td style="${ptf}text-align:center;color:#22d3ee;font-weight:700;">${pgt.copilotCount}</td>
+                <td style="${ptf}text-align:center;color:#6ee7b7;font-weight:700;">${pgt.aiCount||0}</td>
                 <td style="${ptf}text-align:center;color:#fca5a5;font-weight:700;">${pgt.manualAiIneffCount}</td>
                 <td style="${ptf}text-align:center;color:#fcd34d;font-weight:700;">${pgt.manualCount}</td>
                 <td style="${ptf}text-align:center;color:#fbbf24;font-weight:700;">${fmtH(pgt.aiOrigEst)}h</td>
@@ -8139,9 +8546,9 @@
             try {
                 const member = aiAdoptionMemberData[memberIdx];
                 if (!member) { console.error('Member not found at index:', memberIdx); return; }
-                const typeLabels = { all: 'All Tasks', claude: 'Claude AI Tasks', copilot: 'Copilot Tasks', aiIneff: 'AI-Ineffective Tasks', manual: 'Manual Tasks' };
-                const typeColors = { all: '#93c5fd', claude: '#c4b5fd', copilot: '#22d3ee', aiIneff: '#fca5a5', manual: '#fcd34d' };
-                const taskMap = { all: '_tasks', claude: '_claudeTasks', copilot: '_copilotTasks', aiIneff: '_aiIneffTasks', manual: '_manualTasks' };
+                const typeLabels = { all: 'All Tasks', ai: 'AI Tasks', claude: 'Claude AI Tasks', copilot: 'Copilot Tasks', aiIneff: 'AI-Ineffective Tasks', manual: 'Manual Tasks' };
+                const typeColors = { all: '#93c5fd', ai: '#6ee7b7', claude: '#c4b5fd', copilot: '#22d3ee', aiIneff: '#fca5a5', manual: '#fcd34d' };
+                const taskMap = { all: '_tasks', ai: '_aiTasks', claude: '_claudeTasks', copilot: '_copilotTasks', aiIneff: '_aiIneffTasks', manual: '_manualTasks' };
                 const taskList = member[taskMap[type]] || [];
                 document.getElementById('aiTaskPopupTitle').textContent = `${member.name} — ${typeLabels[type]} (${taskList.length})`;
                 document.getElementById('aiTaskPopupTitle').style.color = typeColors[type];
@@ -8233,8 +8640,7 @@
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortAIAdoptionTable('project')">Project${sortIcon('project')}</th>
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortAIAdoptionTable('team')">Area${sortIcon('team')}</th>
                 <th rowspan="2" style="${thStyle}width:4%;" onclick="sortAIAdoptionTable('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:4%;" onclick="sortAIAdoptionTable('claudeAiCount')">Claude${sortIcon('claudeAiCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:4%;" onclick="sortAIAdoptionTable('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
+                <th rowspan="2" style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:5%;" onclick="showAiAdoptionTaskPopup(0,'ai')">AI</th>
                 <th rowspan="2" style="${thStyle}background:rgba(239,68,68,0.25);color:#fca5a5;width:4%;" onclick="sortAIAdoptionTable('manualAiIneffCount')">AI-Ineff${sortIcon('manualAiIneffCount')}</th>
                 <th rowspan="2" style="${thStyle}background:rgba(245,158,11,0.25);color:#fcd34d;width:4%;" onclick="sortAIAdoptionTable('manualCount')">Manual${sortIcon('manualCount')}</th>
                 <th colspan="2" style="${thStyle.replace('cursor:pointer;','')}background:rgba(139,92,246,0.25);color:#c4b5fd;width:9%;">AI Total</th>
@@ -8269,6 +8675,7 @@
             const content = document.getElementById('qaAIAdoptionContent');
             const exportBtn = document.getElementById('exportQAAIAdoptionBtn');
             const exportPdfBtn = document.getElementById('exportQAAIAdoptionPdfBtn');
+            const statusWrap = document.getElementById('qaAIStatusWrap');
             
             // Toggle between Load and Unload
             if (content.style.display === 'none' || content.style.display === '') {
@@ -8279,6 +8686,7 @@
                 btn.style.borderColor = 'rgba(239,68,68,0.5)';
                 exportBtn.style.display = 'inline-block';
                 exportPdfBtn.style.display = 'inline-block';
+                if (statusWrap) statusWrap.classList.add('visible');
                 
                 if (!qaAIAdoptionDataLoaded) {
                     renderQAAIAdoptionData();
@@ -8292,6 +8700,7 @@
                 btn.style.borderColor = '';
                 exportBtn.style.display = 'none';
                 exportPdfBtn.style.display = 'none';
+                if (statusWrap) statusWrap.classList.remove('visible');
             }
         }
         
@@ -8353,8 +8762,12 @@
             // Also include Adhoc Support bugs as valid parents
             bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
             
-            // Filter tasks based on criteria: Resolved/Closed + Reason != Rejected + OrigEst > 0
-            const completedStates = ['resolved', 'closed'];
+            // Filter tasks based on criteria: selected statuses + Reason != Rejected + OrigEst > 0
+            const completedStates = qaAIStatusFilter.map(s => s.toLowerCase());
+            if (!completedStates.length) {
+                document.getElementById('qaAIAdoptionTableBody').innerHTML = '<tr><td colspan="20" style="text-align:center;color:#94a3b8;padding:16px;font-size:0.75rem;">⚠️ No status selected — please choose at least one status in the filter.</td></tr>';
+                return;
+            }
             
             const validTasks = tasks.filter(t => {
                 const parentReqId = taskParentMap[t.id];
@@ -8469,6 +8882,7 @@
                     } else if (isAiType && !hasClaudeAiTag) {
                         memberData.copilotCount++;
                     }
+                    if (isAiType) memberData.aiCount++;
                     
                     if (isManualType) {
                         memberData.manualCount++;
@@ -8573,9 +8987,8 @@
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortQAAIAdoptionTable('project')">Project${sortIcon('project')}</th>
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortQAAIAdoptionTable('team')">Area${sortIcon('team')}</th>
                 <th rowspan="2" style="${thStyle}width:4%;" onclick="sortQAAIAdoptionTable('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:4%;" onclick="sortQAAIAdoptionTable('claudeAiCount')">Claude${sortIcon('claudeAiCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:4%;" onclick="sortQAAIAdoptionTable('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(239,68,68,0.25);color:#fca5a5;width:4%;" onclick="sortQAAIAdoptionTable('manualAiIneffCount')">MAI-Ineff${sortIcon('manualAiIneffCount')}</th>
+                <th rowspan="2" style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:5%;">AI</th>
+                <th rowspan="2" style="${thStyle}background:rgba(239,68,68,0.25);color:#fca5a5;width:4%;" onclick="sortQAAIAdoptionTable('manualAiIneffCount')">AI-Ineff${sortIcon('manualAiIneffCount')}</th>
                 <th rowspan="2" style="${thStyle}background:rgba(245,158,11,0.25);color:#fcd34d;width:4%;" onclick="sortQAAIAdoptionTable('manualCount')">Manual${sortIcon('manualCount')}</th>
                 <th colspan="2" style="${thStyle.replace('cursor:pointer;','')}background:rgba(6,182,212,0.25);color:#67e8f9;width:9%;">AI Total</th>
                 <th colspan="2" style="${thStyle.replace('cursor:pointer;','')}background:rgba(239,68,68,0.25);color:#fca5a5;width:9%;">MAI-Ineff Hours</th>
@@ -8636,8 +9049,7 @@
                     <td style="${tdStyle}text-align:left;color:#a5b4fc;font-size:0.7rem;">${m.project}</td>
                     <td style="${tdStyle}text-align:left;color:#67e8f9;font-size:0.7rem;">${m.team}</td>
                     <td style="${tdStyle}text-align:center;">${m.taskCount}</td>
-                    <td style="${tdStyle}text-align:center;color:#c4b5fd;">${m.claudeAiCount > 0 ? m.claudeAiCount : '-'}</td>
-                    <td style="${tdStyle}text-align:center;color:#22d3ee;">${m.copilotCount > 0 ? m.copilotCount : '-'}</td>
+                    <td style="${tdStyle}text-align:center;color:#6ee7b7;">${(m.aiCount||0) > 0 ? (m.aiCount||0) : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#fca5a5;">${m.manualAiIneffCount > 0 ? m.manualAiIneffCount : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#fcd34d;">${m.manualCount > 0 ? m.manualCount : '-'}</td>
                     <td style="${tdStyle}text-align:center;color:#fbbf24;">${m.aiOrigEst > 0 ? fmtH(m.aiOrigEst) + 'h' : '-'}</td>
@@ -8658,6 +9070,7 @@
             const totalTasks = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.taskCount, 0);
             const totalClaudeAi = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.claudeAiCount, 0);
             const totalCopilot = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.copilotCount, 0);
+            const totalAI = qaAIAdoptionMemberData.reduce((sum, m) => sum + (m.aiCount||0), 0);
             const totalManual = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.manualCount, 0);
             const totalManualAiIneff = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.manualAiIneffCount, 0);
             const tfStyle = 'padding:10px 8px;border-top:2px solid rgba(6,182,212,0.4);font-size:0.8rem;';
@@ -8672,8 +9085,7 @@
             tfoot.innerHTML = `<tr>
                 <td colspan="3" style="${tfStyle}text-align:right;color:#e2e8f0;font-weight:700;">Grand Total:</td>
                 <td style="${tfStyle}text-align:center;color:#e2e8f0;font-weight:700;">${totalTasks}</td>
-                <td style="${tfStyle}text-align:center;color:#c4b5fd;font-weight:700;">${totalClaudeAi}</td>
-                <td style="${tfStyle}text-align:center;color:#22d3ee;font-weight:700;">${totalCopilot}</td>
+                <td style="${tfStyle}text-align:center;color:#6ee7b7;font-weight:700;">${totalAI}</td>
                 <td style="${tfStyle}text-align:center;color:#fca5a5;font-weight:700;">${totalManualAiIneff}</td>
                 <td style="${tfStyle}text-align:center;color:#fcd34d;font-weight:700;">${totalManual}</td>
                 <td style="${tfStyle}text-align:center;color:#fbbf24;font-weight:700;">${fmtH(grandAiOrigEst)}h</td>
@@ -8723,6 +9135,7 @@
                         taskCount: 0,
                         claudeAiCount: 0,
                         copilotCount: 0,
+                        aiCount: 0,
                         manualAiIneffCount: 0,
                         manualCount: 0,
                         aiOrigEst: 0,
@@ -8737,6 +9150,7 @@
                 areaMap[area].taskCount += m.taskCount;
                 areaMap[area].claudeAiCount += m.claudeAiCount;
                 areaMap[area].copilotCount += m.copilotCount;
+                areaMap[area].aiCount = (areaMap[area].aiCount||0) + (m.aiCount||0);
                 areaMap[area].manualAiIneffCount += m.manualAiIneffCount;
                 areaMap[area].manualCount += m.manualCount;
                 areaMap[area].aiOrigEst += m.aiOrigEst;
@@ -8762,8 +9176,7 @@
                 <th style="${thStyle}text-align:left;">Area</th>
                 <th style="${thStyle}">Members</th>
                 <th style="${thStyle}">Tasks</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.2);">Claude</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.2);">Copilot</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.2);">AI</th>
                 <th style="${thStyle}background:rgba(239,68,68,0.2);">AI-Ineff</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.2);">Manual</th>
                 <th style="${thStyle}background:rgba(6,182,212,0.2);">AI Orig</th>
@@ -8808,13 +9221,13 @@
             // Grand total footer
             const qaAreaFoot = document.getElementById('qaAreaSummaryFoot');
             const qagt = areaData.reduce((acc, a) => {
-                acc.memberCount += a.memberCount; acc.taskCount += a.taskCount; acc.claudeAiCount += a.claudeAiCount; acc.copilotCount += a.copilotCount;
+                acc.memberCount += a.memberCount; acc.taskCount += a.taskCount; acc.claudeAiCount += a.claudeAiCount; acc.copilotCount += a.copilotCount; acc.aiCount = (acc.aiCount||0) + (a.aiCount||0);
                 acc.manualAiIneffCount += a.manualAiIneffCount; acc.manualCount += a.manualCount;
                 acc.aiOrigEst += a.aiOrigEst; acc.aiCompleted += a.aiCompleted;
                 acc.manualAiIneffOrigEst += a.manualAiIneffOrigEst; acc.manualAiIneffCompleted += a.manualAiIneffCompleted;
                 acc.manualOrigEst += a.manualOrigEst; acc.manualCompleted += a.manualCompleted;
                 return acc;
-            }, { memberCount:0, taskCount:0, claudeAiCount:0, copilotCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
+            }, { memberCount:0, taskCount:0, claudeAiCount:0, copilotCount:0, aiCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
             const qaTotalOrig = qagt.aiOrigEst + qagt.manualAiIneffOrigEst + qagt.manualOrigEst;
             const qaAiAdopt = qaTotalOrig > 0 ? Math.round(((qagt.aiOrigEst + qagt.manualAiIneffOrigEst) / qaTotalOrig) * 100) : 0;
             const qaManEffD = qagt.manualOrigEst + qagt.manualAiIneffOrigEst;
@@ -8910,8 +9323,7 @@
                 <th style="${thStyle}text-align:left;">Project</th>
                 <th style="${thStyle}">Members</th>
                 <th style="${thStyle}">Tasks</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.2);">Claude</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.2);">Copilot</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.2);">AI</th>
                 <th style="${thStyle}background:rgba(239,68,68,0.2);">AI-Ineff</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.2);">Manual</th>
                 <th style="${thStyle}background:rgba(6,182,212,0.2);">AI Orig</th>
@@ -8956,13 +9368,13 @@
             // Grand total footer
             const qaProjectFoot = document.getElementById('qaProjectSummaryFoot');
             const qpgt = projectData.reduce((acc, p) => {
-                acc.memberCount += p.memberCount; acc.taskCount += p.taskCount; acc.claudeAiCount += p.claudeAiCount; acc.copilotCount += p.copilotCount;
+                acc.memberCount += p.memberCount; acc.taskCount += p.taskCount; acc.claudeAiCount += p.claudeAiCount; acc.copilotCount += p.copilotCount; acc.aiCount = (acc.aiCount||0) + (p.aiCount||0);
                 acc.manualAiIneffCount += p.manualAiIneffCount; acc.manualCount += p.manualCount;
                 acc.aiOrigEst += p.aiOrigEst; acc.aiCompleted += p.aiCompleted;
                 acc.manualAiIneffOrigEst += p.manualAiIneffOrigEst; acc.manualAiIneffCompleted += p.manualAiIneffCompleted;
                 acc.manualOrigEst += p.manualOrigEst; acc.manualCompleted += p.manualCompleted;
                 return acc;
-            }, { memberCount:0, taskCount:0, claudeAiCount:0, copilotCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
+            }, { memberCount:0, taskCount:0, claudeAiCount:0, copilotCount:0, aiCount:0, manualAiIneffCount:0, manualCount:0, aiOrigEst:0, aiCompleted:0, manualAiIneffOrigEst:0, manualAiIneffCompleted:0, manualOrigEst:0, manualCompleted:0 });
             const qpTotalOrig = qpgt.aiOrigEst + qpgt.manualAiIneffOrigEst + qpgt.manualOrigEst;
             const qpAiAdopt = qpTotalOrig > 0 ? Math.round(((qpgt.aiOrigEst + qpgt.manualAiIneffOrigEst) / qpTotalOrig) * 100) : 0;
             const qpManEffD = qpgt.manualOrigEst + qpgt.manualAiIneffOrigEst;
@@ -9009,9 +9421,8 @@
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortQAAIAdoptionTable('project')">Project${sortIcon('project')}</th>
                 <th rowspan="2" style="${thStyle}text-align:left;width:7%;" onclick="sortQAAIAdoptionTable('team')">Area${sortIcon('team')}</th>
                 <th rowspan="2" style="${thStyle}width:4%;" onclick="sortQAAIAdoptionTable('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:4%;" onclick="sortQAAIAdoptionTable('claudeAiCount')">Claude${sortIcon('claudeAiCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:4%;" onclick="sortQAAIAdoptionTable('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
-                <th rowspan="2" style="${thStyle}background:rgba(239,68,68,0.25);color:#fca5a5;width:4%;" onclick="sortQAAIAdoptionTable('manualAiIneffCount')">MAI-Ineff${sortIcon('manualAiIneffCount')}</th>
+                <th rowspan="2" style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:5%;">AI</th>
+                <th rowspan="2" style="${thStyle}background:rgba(239,68,68,0.25);color:#fca5a5;width:4%;" onclick="sortQAAIAdoptionTable('manualAiIneffCount')">AI-Ineff${sortIcon('manualAiIneffCount')}</th>
                 <th rowspan="2" style="${thStyle}background:rgba(245,158,11,0.25);color:#fcd34d;width:4%;" onclick="sortQAAIAdoptionTable('manualCount')">Manual${sortIcon('manualCount')}</th>
                 <th colspan="2" style="${thStyle.replace('cursor:pointer;','')}background:rgba(6,182,212,0.25);color:#67e8f9;width:9%;">AI Total</th>
                 <th colspan="2" style="${thStyle.replace('cursor:pointer;','')}background:rgba(239,68,68,0.25);color:#fca5a5;width:9%;">MAI-Ineff Hours</th>
@@ -9045,10 +9456,10 @@
             }
             
             let csv = 'QA AI Adoption Data - Member Summary\n';
-            csv += 'Member,Project,Area,Tasks,Claude,Copilot,AI-Ineff,Manual,AI Orig Est,AI Completed,AI-Ineff Orig,AI-Ineff Comp,Manual Orig Est,Manual Completed,AI Adoption %,Manual Eff %,AI Eff %,Hour Saved\n';
+            csv += 'Member,Project,Area,Tasks,AI,AI-Ineff,Manual,AI Orig Est,AI Completed,AI-Ineff Orig,AI-Ineff Comp,Manual Orig Est,Manual Completed,AI Adoption %,Manual Eff %,AI Eff %,Hour Saved\n';
             
             qaAIAdoptionMemberData.forEach(m => {
-                csv += `"${m.name}","${m.project}","${m.team}",${m.taskCount},${m.claudeAiCount},${m.copilotCount},${m.manualAiIneffCount},${m.manualCount},${m.aiOrigEst},${m.aiCompleted},${m.manualAiIneffOrigEst},${m.manualAiIneffCompleted},${m.manualOrigEst},${m.manualCompleted},${m.aiAdoption},${m.manualEff},${m.aiEff},${m.hourSaved}\n`;
+                csv += `"${m.name}","${m.project}","${m.team}",${m.taskCount},${m.aiCount||0},${m.manualAiIneffCount},${m.manualCount},${m.aiOrigEst},${m.aiCompleted},${m.manualAiIneffOrigEst},${m.manualAiIneffCompleted},${m.manualOrigEst},${m.manualCompleted},${m.aiAdoption},${m.manualEff},${m.aiEff},${m.hourSaved}\n`;
             });
             
             // Add grand totals
@@ -9056,13 +9467,14 @@
             const totalTasks = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.taskCount, 0);
             const totalClaudeAi = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.claudeAiCount, 0);
             const totalCopilot = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.copilotCount, 0);
+            const totalAI = qaAIAdoptionMemberData.reduce((sum, m) => sum + (m.aiCount||0), 0);
             const totalManual = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.manualCount, 0);
             const totalManualAiIneff = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.manualAiIneffCount, 0);
             const csvTotalHours = grandAiOrigEst + grandManualAiIneffOrigEst + grandManualOrigEst;
             const grandAiAdoption = csvTotalHours > 0 ? Math.round(((grandAiOrigEst + grandManualAiIneffOrigEst) / csvTotalHours) * 100) : 0;
             const grandHourSaved = grandAiOrigEst - grandAiCompleted;
             
-            csv += `"Grand Total","","",${totalTasks},${totalClaudeAi},${totalCopilot},${totalManualAiIneff},${totalManual},${grandAiOrigEst},${grandAiCompleted},${grandManualAiIneffOrigEst},${grandManualAiIneffCompleted},${grandManualOrigEst},${grandManualCompleted},${grandAiAdoption},${manualEfficiency},${aiEfficiency},${grandHourSaved}\n`;
+            csv += `"Grand Total","","",${totalTasks},${totalAI},${totalManualAiIneff},${totalManual},${grandAiOrigEst},${grandAiCompleted},${grandManualAiIneffOrigEst},${grandManualAiIneffCompleted},${grandManualOrigEst},${grandManualCompleted},${grandAiAdoption},${manualEfficiency},${aiEfficiency},${grandHourSaved}\n`;
             
             // Download
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -9762,12 +10174,9 @@
                 <th style="${thStyle}text-align:left;width:11%;" onclick="sortOverallAIAdoptionTable('discipline')">Discipline${sortIcon('discipline')}</th>
                 <th style="${thStyle}width:7%;">Category</th>
                 <th style="${thStyle}width:6%;" onclick="sortOverallAIAdoptionTable('totalTasks')">Tasks${sortIcon('totalTasks')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:6%;" onclick="sortOverallAIAdoptionTable('claudeAI')">Claude${sortIcon('claudeAI')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:6%;" onclick="sortOverallAIAdoptionTable('copilot')">Copilot${sortIcon('copilot')}</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:6%;" onclick="sortOverallAIAdoptionTable('totalAI')">AI${sortIcon('totalAI')}</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.25);color:#fbbf24;width:6%;" onclick="sortOverallAIAdoptionTable('estHours')">Orig Est${sortIcon('estHours')}</th>
                 <th style="${thStyle}background:rgba(16,185,129,0.25);color:#34d399;width:7%;" onclick="sortOverallAIAdoptionTable('actualHours')">Completed${sortIcon('actualHours')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:7%;" onclick="sortOverallAIAdoptionTable('claudeEfficiency')">Claude %${sortIcon('claudeEfficiency')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:7%;" onclick="sortOverallAIAdoptionTable('copilotEfficiency')">Copilot %${sortIcon('copilotEfficiency')}</th>
                 <th style="${thStyle}background:rgba(16,185,129,0.25);color:#34d399;width:6%;" onclick="sortOverallAIAdoptionTable('efficiency')">Eff %${sortIcon('efficiency')}</th>
                 <th style="${thStyle}background:rgba(236,72,153,0.25);color:#f472b6;width:7%;" onclick="sortOverallAIAdoptionTable('hoursSaved')">Hr Save${sortIcon('hoursSaved')}</th>
             </tr>`;
@@ -9840,12 +10249,9 @@
                     <td style="${tdStyle}text-align:left;font-weight:600;color:${disciplineColor};">${d.discipline}</td>
                     <td style="${tdStyle}color:#67e8f9;">AI-Enabled</td>
                     <td style="${tdStyle}color:${hasData ? '#e2e8f0' : '#94a3b8'};">${displayVal(d.totalTasks)}</td>
-                    <td style="${tdStyle}color:${hasData && d.claudeAI > 0 ? '#c4b5fd' : '#94a3b8'};">${displayVal(d.claudeAI)}</td>
-                    <td style="${tdStyle}color:${hasData && d.copilot > 0 ? '#22d3ee' : '#94a3b8'};">${displayVal(d.copilot)}</td>
+                    <td style="${tdStyle}color:${hasData && d.totalAI > 0 ? '#6ee7b7' : '#94a3b8'};">${displayVal(d.totalAI)}</td>
                     <td style="${tdStyle}color:${hasData ? '#fbbf24' : '#94a3b8'};">${displayHours(d.estHours)}</td>
                     <td style="${tdStyle}color:${hasData ? '#34d399' : '#94a3b8'};">${displayHours(d.actualHours)}</td>
-                    <td style="${tdStyle}color:${claudeEffColor};font-weight:600;">${d.claudeAI > 0 ? displayPercent(d.claudeEfficiency) : '-'}</td>
-                    <td style="${tdStyle}color:${copilotEffColor};font-weight:600;">${d.copilot > 0 ? displayPercent(d.copilotEfficiency) : '-'}</td>
                     <td style="${tdStyle}color:${effColor};font-weight:600;">${displayPercent(d.efficiency)}</td>
                     <td style="${tdStyle}color:${hrSaveColor};font-weight:600;">${displayHours(d.hoursSaved)}</td>
                 </tr>`;
@@ -9867,12 +10273,9 @@
                 <td style="${tdStyle}text-align:left;font-weight:700;color:#34d399;">Grand Total</td>
                 <td style="${tdStyle}font-weight:700;">-</td>
                 <td style="${tdStyle}font-weight:700;">${gt.totalTasks}</td>
-                <td style="${tdStyle}color:#c4b5fd;font-weight:700;">${gt.claudeAI}</td>
-                <td style="${tdStyle}color:#22d3ee;font-weight:700;">${gt.copilot}</td>
+                <td style="${tdStyle}color:#6ee7b7;font-weight:700;">${gt.totalAI}</td>
                 <td style="${tdStyle}color:#fbbf24;font-weight:700;">${fmtH(gt.estHours)}h</td>
                 <td style="${tdStyle}color:#34d399;font-weight:700;">${fmtH(gt.actualHours)}h</td>
-                <td style="${tdStyle}color:${gtClaudeEffColor};font-weight:700;">${gt.claudeEfficiency}%</td>
-                <td style="${tdStyle}color:${gtCopilotEffColor};font-weight:700;">${gt.copilotEfficiency}%</td>
                 <td style="${tdStyle}color:${gtEffColor};font-weight:700;">${gt.efficiency}%</td>
                 <td style="${tdStyle}color:${gtHrSaveColor};font-weight:700;">${fmtH(gt.hoursSaved)}h</td>
             </tr>`;
@@ -9895,12 +10298,9 @@
                 <th style="${thStyle}text-align:left;width:11%;" onclick="sortOverallAIAdoptionTable('discipline')">Discipline${sortIcon('discipline')}</th>
                 <th style="${thStyle}width:7%;">Category</th>
                 <th style="${thStyle}width:6%;" onclick="sortOverallAIAdoptionTable('totalTasks')">Tasks${sortIcon('totalTasks')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:6%;" onclick="sortOverallAIAdoptionTable('claudeAI')">Claude${sortIcon('claudeAI')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:6%;" onclick="sortOverallAIAdoptionTable('copilot')">Copilot${sortIcon('copilot')}</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:6%;" onclick="sortOverallAIAdoptionTable('totalAI')">AI${sortIcon('totalAI')}</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.25);color:#fbbf24;width:6%;" onclick="sortOverallAIAdoptionTable('estHours')">Orig Est${sortIcon('estHours')}</th>
                 <th style="${thStyle}background:rgba(16,185,129,0.25);color:#34d399;width:7%;" onclick="sortOverallAIAdoptionTable('actualHours')">Completed${sortIcon('actualHours')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:7%;" onclick="sortOverallAIAdoptionTable('claudeEfficiency')">Claude %${sortIcon('claudeEfficiency')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:7%;" onclick="sortOverallAIAdoptionTable('copilotEfficiency')">Copilot %${sortIcon('copilotEfficiency')}</th>
                 <th style="${thStyle}background:rgba(16,185,129,0.25);color:#34d399;width:6%;" onclick="sortOverallAIAdoptionTable('efficiency')">Eff %${sortIcon('efficiency')}</th>
                 <th style="${thStyle}background:rgba(236,72,153,0.25);color:#f472b6;width:7%;" onclick="sortOverallAIAdoptionTable('hoursSaved')">Hr Save${sortIcon('hoursSaved')}</th>
             </tr>`;
@@ -9917,14 +10317,14 @@
             csv += `Sprint: ${sprintName}\n`;
             csv += `Date: ${today}\n\n`;
             
-            csv += 'Discipline,Category,Tasks,Claude,Copilot,Orig Est,Completed,Claude %,Copilot %,Eff %,Hr Saved\n';
+            csv += 'Discipline,Category,Tasks,AI,Orig Est,Completed,Eff %,Hr Saved\n';
             
             overallAIDisciplineData.forEach(d => {
-                csv += `"${d.discipline}",AI-Enabled,${d.totalTasks},${d.claudeAI},${d.copilot},${fmtH(d.estHours)}h,${fmtH(d.actualHours)}h,${d.claudeEfficiency}%,${d.copilotEfficiency}%,${d.efficiency}%,${fmtH(d.hoursSaved)}h\n`;
+                csv += `"${d.discipline}",AI-Enabled,${d.totalTasks},${d.totalAI},${fmtH(d.estHours)}h,${fmtH(d.actualHours)}h,${d.efficiency}%,${fmtH(d.hoursSaved)}h\n`;
             });
             
             const gt = overallAIGrandTotal;
-            csv += `"Grand Total",-,${gt.totalTasks},${gt.claudeAI},${gt.copilot},${fmtH(gt.estHours)}h,${fmtH(gt.actualHours)}h,${gt.claudeEfficiency}%,${gt.copilotEfficiency}%,${gt.efficiency}%,${fmtH(gt.hoursSaved)}h\n`;
+            csv += `"Grand Total",-,${gt.totalTasks},${gt.totalAI},${fmtH(gt.estHours)}h,${fmtH(gt.actualHours)}h,${gt.efficiency}%,${fmtH(gt.hoursSaved)}h\n`;
             
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
@@ -10176,12 +10576,9 @@
             thead.innerHTML = `<tr>
                 <th style="${thStyle}text-align:left;width:18%;" onclick="sortExecTypeTable('execType')">Task Execution Type${sortIcon('execType')}</th>
                 <th style="${thStyle}width:6%;" onclick="sortExecTypeTable('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:6%;" onclick="sortExecTypeTable('claudeCount')">Claude${sortIcon('claudeCount')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:6%;" onclick="sortExecTypeTable('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:8%;" onclick="sortExecTypeTable('taskCount')">AI Count${sortIcon('taskCount')}</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.25);color:#fbbf24;width:8%;" onclick="sortExecTypeTable('origEst')">Orig Est${sortIcon('origEst')}</th>
                 <th style="${thStyle}background:rgba(16,185,129,0.25);color:#34d399;width:8%;" onclick="sortExecTypeTable('completed')">Completed${sortIcon('completed')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:8%;" onclick="sortExecTypeTable('claudeEff')">Claude %${sortIcon('claudeEff')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:8%;" onclick="sortExecTypeTable('copilotEff')">Copilot %${sortIcon('copilotEff')}</th>
                 <th style="${thStyle}background:rgba(59,130,246,0.25);color:#60a5fa;width:7%;" onclick="sortExecTypeTable('efficiency')">Eff %${sortIcon('efficiency')}</th>
                 <th style="${thStyle}background:rgba(236,72,153,0.25);color:#f472b6;width:8%;" onclick="sortExecTypeTable('hourSaved')">Hr Save${sortIcon('hourSaved')}</th>
             </tr>`;
@@ -10222,12 +10619,9 @@
                 return `<tr style="opacity:${rowOpacity};">
                     <td style="${tdStyle}text-align:left;font-weight:600;color:${execColor};${noDataStyle}">${d.execType}</td>
                     <td style="${tdStyle}${noDataStyle}">${displayVal(d.taskCount)}</td>
-                    <td style="${tdStyle}color:#c4b5fd;${noDataStyle}">${displayVal(d.claudeCount)}</td>
-                    <td style="${tdStyle}color:#22d3ee;${noDataStyle}">${displayVal(d.copilotCount)}</td>
+                    <td style="${tdStyle}color:#6ee7b7;${noDataStyle}">${displayVal(d.taskCount)}</td>
                     <td style="${tdStyle}color:#fbbf24;${noDataStyle}">${hasData ? fmtH(d.origEst) + 'h' : '-'}</td>
                     <td style="${tdStyle}color:#34d399;${noDataStyle}">${hasData ? fmtH(d.completed) + 'h' : '-'}</td>
-                    <td style="${tdStyle}color:${hasData ? claudeEffColor : '#64748b'};font-weight:600;${noDataStyle}">${displayVal(d.claudeEff, '%')}</td>
-                    <td style="${tdStyle}color:${hasData ? copilotEffColor : '#64748b'};font-weight:600;${noDataStyle}">${displayVal(d.copilotEff, '%')}</td>
                     <td style="${tdStyle}color:${hasData ? effColor : '#64748b'};font-weight:600;${noDataStyle}">${displayVal(d.efficiency, '%')}</td>
                     <td style="${tdStyle}color:${hasData ? hrSaveColor : '#64748b'};font-weight:600;${noDataStyle}">${hasData ? fmtH(d.hourSaved) + 'h' : '-'}</td>
                 </tr>`;
@@ -10245,12 +10639,9 @@
             tfoot.innerHTML = `<tr style="background:rgba(139,92,246,0.1);">
                 <td style="${tdStyle}text-align:left;font-weight:700;color:#c4b5fd;">Grand Total</td>
                 <td style="${tdStyle}font-weight:700;">${gt.taskCount}</td>
-                <td style="${tdStyle}color:#c4b5fd;font-weight:700;">${gt.claudeCount}</td>
-                <td style="${tdStyle}color:#22d3ee;font-weight:700;">${gt.copilotCount}</td>
+                <td style="${tdStyle}color:#6ee7b7;font-weight:700;">${gt.taskCount}</td>
                 <td style="${tdStyle}color:#fbbf24;font-weight:700;">${fmtH(gt.origEst)}h</td>
                 <td style="${tdStyle}color:#34d399;font-weight:700;">${fmtH(gt.completed)}h</td>
-                <td style="${tdStyle}color:${gtClaudeEffColor};font-weight:700;">${gt.claudeEff}%</td>
-                <td style="${tdStyle}color:${gtCopilotEffColor};font-weight:700;">${gt.copilotEff}%</td>
                 <td style="${tdStyle}color:${gtEffColor};font-weight:700;">${gt.efficiency}%</td>
                 <td style="${tdStyle}color:${gtHrSaveColor};font-weight:700;">${fmtH(gt.hourSaved)}h</td>
             </tr>`;
@@ -10274,14 +10665,14 @@
             csv += `Sprint: ${sprintName}\n`;
             csv += `Date: ${today}\n\n`;
             
-            csv += 'Task Execution Type,Tasks,Claude,Copilot,Orig Est,Completed,Claude %,Copilot %,Eff %,Hr Saved\n';
+            csv += 'Task Execution Type,Tasks,AI,Orig Est,Completed,Eff %,Hr Saved\n';
             
             execTypeData.forEach(d => {
-                csv += `"${d.execType}",${d.taskCount},${d.claudeCount},${d.copilotCount},${fmtH(d.origEst)}h,${fmtH(d.completed)}h,${d.claudeEff}%,${d.copilotEff}%,${d.efficiency}%,${fmtH(d.hourSaved)}h\n`;
+                csv += `"${d.execType}",${d.taskCount},${d.taskCount},${fmtH(d.origEst)}h,${fmtH(d.completed)}h,${d.efficiency}%,${fmtH(d.hourSaved)}h\n`;
             });
             
             const gt = execTypeGrandTotals;
-            csv += `\nGrand Total,${gt.taskCount},${gt.claudeCount},${gt.copilotCount},${fmtH(gt.origEst)}h,${fmtH(gt.completed)}h,${gt.claudeEff}%,${gt.copilotEff}%,${gt.efficiency}%,${fmtH(gt.hourSaved)}h\n`;
+            csv += `\nGrand Total,${gt.taskCount},${gt.taskCount},${fmtH(gt.origEst)}h,${fmtH(gt.completed)}h,${gt.efficiency}%,${fmtH(gt.hourSaved)}h\n`;
             
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
@@ -10504,12 +10895,9 @@
             thead.innerHTML = `<tr>
                 <th style="${thStyle}text-align:left;width:18%;" onclick="sortProjectAITable('project')">Project${sortIcon('project')}</th>
                 <th style="${thStyle}width:6%;" onclick="sortProjectAITable('taskCount')">Tasks${sortIcon('taskCount')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:6%;" onclick="sortProjectAITable('claudeCount')">Claude${sortIcon('claudeCount')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:6%;" onclick="sortProjectAITable('copilotCount')">Copilot${sortIcon('copilotCount')}</th>
+                <th style="${thStyle}background:rgba(16,185,129,0.25);color:#6ee7b7;width:8%;" onclick="sortProjectAITable('taskCount')">AI Count${sortIcon('taskCount')}</th>
                 <th style="${thStyle}background:rgba(245,158,11,0.25);color:#fbbf24;width:8%;" onclick="sortProjectAITable('origEst')">Orig Est${sortIcon('origEst')}</th>
                 <th style="${thStyle}background:rgba(16,185,129,0.25);color:#34d399;width:8%;" onclick="sortProjectAITable('completed')">Completed${sortIcon('completed')}</th>
-                <th style="${thStyle}background:rgba(168,85,247,0.25);color:#c4b5fd;width:8%;" onclick="sortProjectAITable('claudeEff')">Claude %${sortIcon('claudeEff')}</th>
-                <th style="${thStyle}background:rgba(6,182,212,0.25);color:#22d3ee;width:8%;" onclick="sortProjectAITable('copilotEff')">Copilot %${sortIcon('copilotEff')}</th>
                 <th style="${thStyle}background:rgba(59,130,246,0.25);color:#60a5fa;width:7%;" onclick="sortProjectAITable('efficiency')">Eff %${sortIcon('efficiency')}</th>
                 <th style="${thStyle}background:rgba(236,72,153,0.25);color:#f472b6;width:8%;" onclick="sortProjectAITable('hourSaved')">Hr Save${sortIcon('hourSaved')}</th>
             </tr>`;
@@ -10538,12 +10926,9 @@
                 return `<tr>
                     <td style="${tdStyle}text-align:left;font-weight:600;color:${projectColor};">${d.project}</td>
                     <td style="${tdStyle}">${d.taskCount}</td>
-                    <td style="${tdStyle}color:#c4b5fd;">${d.claudeCount}</td>
-                    <td style="${tdStyle}color:#22d3ee;">${d.copilotCount}</td>
+                    <td style="${tdStyle}color:#6ee7b7;">${d.taskCount}</td>
                     <td style="${tdStyle}color:#fbbf24;">${fmtH(d.origEst)}h</td>
                     <td style="${tdStyle}color:#34d399;">${fmtH(d.completed)}h</td>
-                    <td style="${tdStyle}color:${claudeEffColor};font-weight:600;">${d.claudeEff}%</td>
-                    <td style="${tdStyle}color:${copilotEffColor};font-weight:600;">${d.copilotEff}%</td>
                     <td style="${tdStyle}color:${effColor};font-weight:600;">${d.efficiency}%</td>
                     <td style="${tdStyle}color:${hrSaveColor};font-weight:600;">${fmtH(d.hourSaved)}h</td>
                 </tr>`;
@@ -10561,12 +10946,9 @@
             tfoot.innerHTML = `<tr style="background:rgba(6,182,212,0.1);">
                 <td style="${tdStyle}text-align:left;font-weight:700;color:#22d3ee;">Grand Total</td>
                 <td style="${tdStyle}font-weight:700;">${gt.taskCount}</td>
-                <td style="${tdStyle}color:#c4b5fd;font-weight:700;">${gt.claudeCount}</td>
-                <td style="${tdStyle}color:#22d3ee;font-weight:700;">${gt.copilotCount}</td>
+                <td style="${tdStyle}color:#6ee7b7;font-weight:700;">${gt.taskCount}</td>
                 <td style="${tdStyle}color:#fbbf24;font-weight:700;">${fmtH(gt.origEst)}h</td>
                 <td style="${tdStyle}color:#34d399;font-weight:700;">${fmtH(gt.completed)}h</td>
-                <td style="${tdStyle}color:${gtClaudeEffColor};font-weight:700;">${gt.claudeEff}%</td>
-                <td style="${tdStyle}color:${gtCopilotEffColor};font-weight:700;">${gt.copilotEff}%</td>
                 <td style="${tdStyle}color:${gtEffColor};font-weight:700;">${gt.efficiency}%</td>
                 <td style="${tdStyle}color:${gtHrSaveColor};font-weight:700;">${fmtH(gt.hourSaved)}h</td>
             </tr>`;
@@ -11394,8 +11776,7 @@
             const sb = bg ? ` style="font-weight: bold; background-color: ${bg};"` : '';
             const m = calcAIMetrics(d);
             return `<td class="center"${sb}>${d.taskCount}</td>
-        <td class="center"${s}>${d.claudeAiCount}</td>
-        <td class="center"${s}>${d.copilotCount}</td>
+        <td class="center"${s}>${(d.aiCount||d.claudeAiCount+d.copilotCount)}</td>
         <td class="center"${s}>${d.manualAiIneffCount || 0}</td>
         <td class="center"${s}>${d.manualCount}</td>
         <td class="number"${s}>${d.aiOrigEst.toFixed(2)}</td>
@@ -11413,7 +11794,7 @@
         // Helper: Aggregate member data by a key function
         function aggregateMembersByKey(members, keyFn) {
             const groups = {};
-            const fields = ['taskCount','claudeAiCount','copilotCount','manualAiIneffCount','manualCount',
+            const fields = ['taskCount','claudeAiCount','copilotCount','aiCount','manualAiIneffCount','manualCount',
                 'aiOrigEst','aiCompleted','manualAiIneffOrigEst','manualAiIneffCompleted','manualOrigEst','manualCompleted'];
             members.forEach(m => {
                 const key = keyFn(m);
@@ -11437,7 +11818,7 @@
                 if (includeAdhocInAI && req.isAdhocSupport) validReqIds.add(req.id);
             });
             bugs.forEach(b => { if (includeAdhocInAI && (b.fields['System.Tags'] || '').toLowerCase().includes('adhoc support')) validReqIds.add(b.id); });
-            const completedStates = ['resolved', 'closed'];
+            const completedStates = devAIStatusFilter.map(s => s.toLowerCase());
             const validTasks = tasks.filter(t => {
                 const parentReqId = taskParentMap[t.id];
                 if (!parentReqId || !validReqIds.has(parentReqId)) return false;
@@ -11452,7 +11833,7 @@
             devMembers.forEach(m => {
                 memberDataMap[m.name] = {
                     name: m.name, project: m.project || '-', team: m.team || '-',
-                    taskCount: 0, claudeAiCount: 0, copilotCount: 0, manualCount: 0,
+                    taskCount: 0, claudeAiCount: 0, copilotCount: 0, aiCount: 0, manualCount: 0,
                     aiOrigEst: 0, aiCompleted: 0, manualOrigEst: 0, manualCompleted: 0,
                     manualAiIneffCount: 0, manualAiIneffOrigEst: 0, manualAiIneffCompleted: 0
                 };
@@ -11478,6 +11859,7 @@
                     md.taskCount++;
                     if (isAiType) {
                         if (hasClaudeAiTag) md.claudeAiCount++; else md.copilotCount++;
+                        md.aiCount = (md.aiCount||0) + 1;
                         md.aiOrigEst += origEst; md.aiCompleted += completed;
                     } else if (isManualAiIneff) {
                         md.manualAiIneffCount++; md.manualAiIneffOrigEst += origEst; md.manualAiIneffCompleted += completed;
@@ -11487,14 +11869,14 @@
                 }
             });
             const memberResults = Object.values(memberDataMap).filter(m => m.taskCount > 0);
-            const grand = { taskCount: 0, claudeAiCount: 0, copilotCount: 0, manualCount: 0, manualAiIneffCount: 0,
+            const grand = { taskCount: 0, claudeAiCount: 0, copilotCount: 0, aiCount: 0, manualCount: 0, manualAiIneffCount: 0,
                 aiOrigEst: 0, aiCompleted: 0, manualOrigEst: 0, manualCompleted: 0,
                 manualAiIneffOrigEst: 0, manualAiIneffCompleted: 0 };
             memberResults.forEach(m => { Object.keys(grand).forEach(k => grand[k] += (m[k] || 0)); });
             const gm = calcAIMetrics(grand);
             const sprintName = document.getElementById('iterationPath')?.textContent || 'Sprint';
             const today = new Date().toISOString().split('T')[0];
-            const hdrs = `<th>Tasks</th><th>Claude AI</th><th>Copilot</th><th>AI-Ineff</th><th>Manual</th><th>AI Orig (h)</th><th>AI Comp (h)</th><th>AI-Ineff Orig (h)</th><th>AI-Ineff Comp (h)</th><th>Manual Orig (h)</th><th>Manual Comp (h)</th><th>AI Adoption %</th><th>Manual Eff %</th><th>AI Eff %</th><th>Hour Saved (h)</th>`;
+            const hdrs = `<th>Tasks</th><th>AI</th><th>AI-Ineff</th><th>Manual</th><th>AI Orig (h)</th><th>AI Comp (h)</th><th>AI-Ineff Orig (h)</th><th>AI-Ineff Comp (h)</th><th>Manual Orig (h)</th><th>Manual Comp (h)</th><th>AI Adoption %</th><th>Manual Eff %</th><th>AI Eff %</th><th>Hour Saved (h)</th>`;
 
             let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
 <head><meta charset="UTF-8">

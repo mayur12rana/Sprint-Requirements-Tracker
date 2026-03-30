@@ -5,7 +5,9 @@
 // normal = Only assigned tabs + Max 3 areas
 // tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only)
 // Note: User names are encrypted using XOR cipher for security
+// taskCreatorUrl: relative or absolute path to task-creator.html (shown as button in Tab 6 > Data Lookup)
 var ALLOWED_USERS_DATA = {
+    "taskCreatorUrl": "https://mayur12rana.github.io/Task-Creator/",
     "users": [
         { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
         { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "admin", "tabs": [1, 2, 3, 4, 5, 6] },
