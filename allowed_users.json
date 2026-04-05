@@ -38,9 +38,12 @@ var ALLOWED_USERS_DATA = {
         { "name": "GRkVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 2, 3] },
         { "name": "Eh0bST4VMAQf", "role": "normal", "tabs": [1, 2, 3] },
         { "name": "AwIXBE4kJRUWBA==", "role": "normal", "tabs": [1, 2, 3] },
-        { "name": "AwITBAEQZDESHFdc", "role": "normal", "tabs": [1] },
-        { "name": "Ch8VDB0cZC8WBkRRXF0=", "role": "normal", "tabs": [1] },
-        { "name": "GREVDQcHLEElCVxbU0Y=", "role": "normal", "tabs": [1] }
+        { "name": "AwITBAEQZDESHFdc", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "Ch8VDB0cZC8WBkRRXF0=", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "GREVDQcHLEElCVxbU0Y=", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "EBgbGw8eZDIbDV5RVl1YIQ==", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "ABEVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "GBgLCBodZDESHFdc", "role": "normal", "tabs": [1, 2, 3] }
         
     ]
 };
