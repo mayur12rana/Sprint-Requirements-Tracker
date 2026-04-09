@@ -1332,12 +1332,22 @@
                     <button class="btn btn-primary btn-compact" id="loadMembersCapBtn" onclick="toggleMembersCapacity()" >📋 Show</button>
                 </div>
                 <div id="membersCapacityContent" style="display: none;">
-                    <!-- Discipline filter -->
-                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <!-- Multi-select Discipline filter -->
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
                         <span style="color:#94a3b8;font-size:0.68rem;font-weight:600;">🎯 Filter by Discipline:</span>
-                        <select id="memberCapDisciplineFilter" onchange="filterMembersCapacityByDiscipline()" style="background:#1e293b;border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;padding:3px 8px;border-radius:6px;font-size:0.68rem;cursor:pointer;outline:none;">
-                            <option value="all">All Disciplines</option>
-                        </select>
+                        <div style="position:relative;display:inline-block;" id="memberCapDiscDropdownWrap">
+                            <button onclick="toggleMemberCapDiscDropdown(event)" id="memberCapDiscBtn"
+                                style="background:#1e293b;border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;padding:3px 10px;border-radius:6px;font-size:0.68rem;cursor:pointer;white-space:nowrap;min-width:140px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                                <span id="memberCapDiscBtnLabel">All Disciplines</span><span style="font-size:.6rem;opacity:.7;">▼</span>
+                            </button>
+                            <div id="memberCapDiscMenu" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:#1e293b;border:1px solid rgba(255,255,255,0.18);border-radius:7px;padding:6px 0;min-width:190px;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+                                <label style="display:flex;align-items:center;gap:7px;padding:4px 12px;cursor:pointer;font-size:0.68rem;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:3px;">
+                                    <input type="checkbox" id="memberCapDiscAll" checked onchange="onMemberCapDiscAllChange(this)" style="accent-color:#6366f1;width:13px;height:13px;">
+                                    <span>All Disciplines</span>
+                                </label>
+                                <div id="memberCapDiscItems"></div>
+                            </div>
+                        </div>
                         <span style="font-size:0.62rem;color:#64748b;" id="memberCapFilterInfo"></span>
                     </div>
                     <div style="max-height: 200px; overflow-y: auto;">
@@ -1371,42 +1381,72 @@
                 </div>
             </div>
             
-            <div class="summary-row" style="margin-bottom: 16px;">
-                <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3);">
-                    <div class="value" id="teamCapacity" style="color: #60a5fa;">0h</div>
-                    <div class="label">Team Capacity</div>
+            <!-- ── Capacity Summary: grouped panel ── -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+
+              <!-- Group 1: Team Capacity + Total Planned -->
+              <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:10px 14px;">
+                <div style="font-size:0.6rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">📊 Sprint Capacity</div>
+                <div style="display:flex;gap:10px;">
+                  <div style="flex:1;text-align:center;">
+                    <div style="font-size:1.1rem;font-weight:700;color:#60a5fa" id="teamCapacity">0h</div>
+                    <div style="font-size:0.55rem;color:#94a3b8;margin-top:2px;">Team Capacity</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+                  <div style="flex:1;text-align:center;">
+                    <div style="font-size:1.1rem;font-weight:700;color:#fbbf24" id="totalPlannedCapacity">0h</div>
+                    <div style="font-size:0.55rem;color:#94a3b8;margin-top:2px;">Total Planned</div>
+                  </div>
                 </div>
-                <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3);">
-                    <div class="value" id="totalPlannedCapacity" style="color: #fbbf24;">0h</div>
-                    <div class="label">Total Planned</div>
+              </div>
+
+              <!-- Group 2: ALM/TeamB/etc + UI/UX & UD -->
+              <div style="background:rgba(148,163,184,0.1);border:1px solid rgba(148,163,184,0.25);border-radius:10px;padding:10px 14px;">
+                <div style="font-size:0.6rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">➖ Deductions</div>
+                <div style="display:flex;gap:10px;">
+                  <div style="flex:1;text-align:center;">
+                    <div style="font-size:1.1rem;font-weight:700;color:#94a3b8" id="almEngExtraHours">0h</div>
+                    <div style="font-size:0.55rem;color:#64748b;margin-top:2px;">ALM/TeamB/etc</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+                  <div style="flex:1;text-align:center;">
+                    <div style="font-size:1.1rem;font-weight:700;color:#f472b6" id="uiUxUdHours">0h</div>
+                    <div style="font-size:0.55rem;color:#64748b;margin-top:2px;">UI/UX &amp; UD</div>
+                  </div>
                 </div>
-                <div class="summary-stat" style="background: rgba(148,163,184,0.2); border-color: rgba(148,163,184,0.3);">
-                    <div class="value c-muted" id="almEngExtraHours" >0h</div>
-                    <div class="label">ALM/TeamB/etc</div>
+              </div>
+
+              <!-- Group 3: Available + Planned Capacity + Over Plan % -->
+              <div id="overPlanStat" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.3);border-radius:10px;padding:10px 14px;">
+                <div style="font-size:0.6rem;font-weight:700;color:#22d3ee;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">⚡ Utilization</div>
+                <div style="display:flex;gap:8px;">
+                  <div style="flex:1;text-align:center;">
+                    <div style="font-size:1.1rem;font-weight:700;color:#22d3ee" id="availableCapacity">0h</div>
+                    <div style="font-size:0.55rem;color:#94a3b8;margin-top:2px;">Available</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+                  <div style="flex:1;text-align:center;">
+                    <div style="font-size:1.1rem;font-weight:700;color:#c4b5fd" id="overPlannedCapacity">0h</div>
+                    <div style="font-size:0.55rem;color:#94a3b8;margin-top:2px;">Planned Cap</div>
+                  </div>
+                  <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+                  <div style="flex:1;text-align:center;" id="overPlanPctStat">
+                    <div style="font-size:1.1rem;font-weight:700;color:#f87171" id="overPlanPct">0%</div>
+                    <div style="font-size:0.55rem;color:#94a3b8;margin-top:2px;">Over Plan %</div>
+                  </div>
                 </div>
-                <div class="summary-stat" style="background: rgba(236,72,153,0.2); border-color: rgba(236,72,153,0.3);">
-                    <div class="value" id="uiUxUdHours" style="color: #f472b6;">0h</div>
-                    <div class="label">UI/UX & UD</div>
-                </div>
-                <div class="summary-stat" style="background: rgba(6,182,212,0.2); border-color: rgba(6,182,212,0.3);">
-                    <div class="value" id="availableCapacity" style="color: #22d3ee;">0h</div>
-                    <div class="label">Available</div>
-                </div>
-                <div class="summary-stat" id="overPlanStat" style="background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.3);">
-                    <div class="value" id="overPlannedCapacity" style="color: #c4b5fd;">0h</div>
-                    <div class="label">Planned Capacity</div>
-                </div>
-                <div class="summary-stat" id="overPlanPctStat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3);">
-                    <div class="value" id="overPlanPct" style="color: #f87171;">0%</div>
-                    <div class="label">Over Plan %</div>
-                </div>
+              </div>
+
             </div>
-            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 0.85rem; color: #94a3b8;">
-                <strong>Formulas:</strong><br>
-                • Available Capacity = Team Capacity (<span id="formulaTeamCap">0</span>h) - ALM/TeamB/etc (<span id="formulaAlmEng">0</span>h) - UI/UX&UD (<span id="formulaUiUxUd">0</span>h) = <span id="formulaAvailable" style="color: #22d3ee;">0</span>h<br>
-                • Over Planned = Total Planned (<span id="formulaTotalPlanned">0</span>h) - ALM/TeamB/etc (<span id="formulaAlmEng2">0</span>h) - UI/UX&UD (<span id="formulaUiUxUd2">0</span>h) = <span id="formulaOverPlanned" style="color: #f87171;">0</span>h<br>
-                • Over Plan % = (Over Planned - Available) / Available × 100
-            </div>
+            <!-- Formula spans hidden (formula div removed) -->
+            <span style="display:none" id="formulaTeamCap"></span>
+            <span style="display:none" id="formulaAlmEng"></span>
+            <span style="display:none" id="formulaUiUxUd"></span>
+            <span style="display:none" id="formulaAvailable"></span>
+            <span style="display:none" id="formulaTotalPlanned"></span>
+            <span style="display:none" id="formulaAlmEng2"></span>
+            <span style="display:none" id="formulaUiUxUd2"></span>
+            <span style="display:none" id="formulaOverPlanned"></span>
             
             
             <!-- Development Only + QA Only — side by side 2-column grid -->
@@ -1416,28 +1456,43 @@
                 <div style="background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1)); border: 1px solid rgba(16,185,129,0.4); border-radius: 10px; padding: 12px;">
                     <h4 style="color: #6ee7b7; font-size: 0.9rem; margin-bottom: 8px;">💻 Development Only <span style="font-size: 0.65rem; color: #94a3b8; font-weight: normal;">(Discipline = Development)</span></h4>
 
-                    <!-- Capacity stat tiles -->
-                    <div class="summary-row" style="margin-bottom: 0; flex-wrap: wrap; gap: 5px;">
-                        <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="devTeamCapacity" style="color: #60a5fa; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Team Cap</div>
+                    <!-- Capacity grouped panels -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+                      <!-- Group A: Team Cap + Total Planned -->
+                      <div style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:7px 10px;">
+                        <div style="font-size:0.55rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">📊 Capacity</div>
+                        <div style="display:flex;gap:8px;">
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#60a5fa" id="devTeamCapacity">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Team Cap</div>
+                          </div>
+                          <div style="width:1px;background:rgba(255,255,255,0.08)"></div>
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#fbbf24" id="devTotalPlanned">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Total Planned</div>
+                          </div>
                         </div>
-                        <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="devTotalPlanned" style="color: #fbbf24; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Total Planned</div>
+                      </div>
+                      <!-- Group B: Available + Planned + Over Plan % -->
+                      <div id="devOverPlanPctStat" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);border-radius:8px;padding:7px 10px;">
+                        <div style="font-size:0.55rem;font-weight:700;color:#22d3ee;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">⚡ Utilization</div>
+                        <div style="display:flex;gap:6px;">
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#22d3ee" id="devAvailableCapacity">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Available</div>
+                          </div>
+                          <div style="width:1px;background:rgba(255,255,255,0.08)"></div>
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#c4b5fd" id="devPlannedCapacity">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Planned</div>
+                          </div>
+                          <div style="width:1px;background:rgba(255,255,255,0.08)"></div>
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#f87171" id="devOverPlanPct">0%</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Over Plan%</div>
+                          </div>
                         </div>
-                        <div class="summary-stat" style="background: rgba(6,182,212,0.2); border-color: rgba(6,182,212,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="devAvailableCapacity" style="color: #22d3ee; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Available</div>
-                        </div>
-                        <div class="summary-stat" style="background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="devPlannedCapacity" style="color: #c4b5fd; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Planned</div>
-                        </div>
-                        <div class="summary-stat" id="devOverPlanPctStat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="devOverPlanPct" style="color: #f87171; font-size: 0.85rem;">0%</div>
-                            <div class="label" style="font-size: 0.5rem;">Over Plan %</div>
-                        </div>
+                      </div>
                     </div>
 
                     <!-- By Requirement Tag — compact label row only (no tiles) -->
@@ -1535,28 +1590,43 @@
                 <div style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(59,130,246,0.4); border-radius: 10px; padding: 12px;">
                     <h4 style="color: #93c5fd; font-size: 0.9rem; margin-bottom: 8px;">🧪 QA Only <span style="font-size: 0.65rem; color: #94a3b8; font-weight: normal;">(Discipline = Test)</span></h4>
 
-                    <!-- Capacity stat tiles -->
-                    <div class="summary-row" style="margin-bottom: 0; flex-wrap: wrap; gap: 5px;">
-                        <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="qaTeamCapacity" style="color: #60a5fa; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Team Cap</div>
+                    <!-- Capacity grouped panels -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+                      <!-- Group A: Team Cap + Total Planned -->
+                      <div style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:7px 10px;">
+                        <div style="font-size:0.55rem;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">📊 Capacity</div>
+                        <div style="display:flex;gap:8px;">
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#60a5fa" id="qaTeamCapacity">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Team Cap</div>
+                          </div>
+                          <div style="width:1px;background:rgba(255,255,255,0.08)"></div>
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#fbbf24" id="qaTotalPlanned">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Total Planned</div>
+                          </div>
                         </div>
-                        <div class="summary-stat" style="background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="qaTotalPlanned" style="color: #fbbf24; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Total Planned</div>
+                      </div>
+                      <!-- Group B: Available + Planned + Over Plan % -->
+                      <div id="qaOverPlanPctStat" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);border-radius:8px;padding:7px 10px;">
+                        <div style="font-size:0.55rem;font-weight:700;color:#22d3ee;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">⚡ Utilization</div>
+                        <div style="display:flex;gap:6px;">
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#22d3ee" id="qaAvailableCapacity">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Available</div>
+                          </div>
+                          <div style="width:1px;background:rgba(255,255,255,0.08)"></div>
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#c4b5fd" id="qaPlannedCapacity">0h</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Planned</div>
+                          </div>
+                          <div style="width:1px;background:rgba(255,255,255,0.08)"></div>
+                          <div style="flex:1;text-align:center;">
+                            <div style="font-size:0.9rem;font-weight:700;color:#f87171" id="qaOverPlanPct">0%</div>
+                            <div style="font-size:0.5rem;color:#94a3b8;margin-top:1px;">Over Plan%</div>
+                          </div>
                         </div>
-                        <div class="summary-stat" style="background: rgba(6,182,212,0.2); border-color: rgba(6,182,212,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="qaAvailableCapacity" style="color: #22d3ee; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Available</div>
-                        </div>
-                        <div class="summary-stat" style="background: rgba(168,85,247,0.2); border-color: rgba(168,85,247,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="qaPlannedCapacity" style="color: #c4b5fd; font-size: 0.85rem;">0h</div>
-                            <div class="label" style="font-size: 0.5rem;">Planned</div>
-                        </div>
-                        <div class="summary-stat" id="qaOverPlanPctStat" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.3); min-width: 60px; flex: 1; padding: 6px;">
-                            <div class="value" id="qaOverPlanPct" style="color: #f87171; font-size: 0.85rem;">0%</div>
-                            <div class="label" style="font-size: 0.5rem;">Over Plan %</div>
-                        </div>
+                      </div>
                     </div>
 
                     <!-- By Requirement Tag — compact label row only (no tiles) -->
@@ -1643,7 +1713,19 @@
             </div><!-- end 2-col grid -->
         </div>
         <div class="dashboard-card" style="margin-bottom: 16px; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1)); border: 1px solid rgba(16,185,129,0.3); padding: 12px;">
-            <h3 style="color: #6ee7b7; font-size: 1rem; margin-bottom: 8px;">🎯 Sprint Goal Requirements</h3>
+            <!-- Panel header: title + achieved badge -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+                <h3 style="color: #6ee7b7; font-size: 1rem; margin: 0;">🎯 Sprint Goal Requirements</h3>
+                <span id="sprintGoalBadge" style="display:none;align-items:center;gap:5px;padding:4px 12px;border-radius:6px;font-size:0.72rem;font-weight:700;"></span>
+            </div>
+            <!-- Sprint Goal text box — same style as sprint-closing-report gbox -->
+            <div id="sprintGoalTextBox" style="display:none;align-items:flex-start;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-left:3px solid #10b981;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:10px;">
+                <span style="font-size:1rem;flex-shrink:0;margin-top:1px;">🎯</span>
+                <div>
+                    <div style="font-size:0.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6ee7b7;margin-bottom:3px;">Sprint Goal</div>
+                    <div id="sprintGoalTextContent" style="font-size:0.82rem;color:#e2e8f0;line-height:1.5;font-weight:500;">—</div>
+                </div>
+            </div>
             <div class="summary-row" style="margin-bottom: 10px; gap: 6px;">
                 <div class="summary-stat" style="background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.3); padding: 6px;"><div class="value" id="sprintGoalReqCount" style="color: #34d399; font-size: 1.1rem;">0</div><div class="label" style="font-size: 0.55rem;">Requirements</div></div>
                 <div class="summary-stat" style="background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); padding: 6px;"><div class="value" id="sprintGoalTaskCount" style="color: #60a5fa; font-size: 1.1rem;">0</div><div class="label" style="font-size: 0.55rem;">Total Tasks</div></div>
@@ -1661,33 +1743,12 @@
             <table id="sprintGoalReqTable" style="width: 100%; border-collapse: collapse; font-size: 0.75rem;"><thead class="bg-overlay"><tr><th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">ID</th><th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Title</th><th style="padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">State</th><th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Tasks</th><th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Orig Est</th><th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Remaining</th><th style="padding:8px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Completed</th></tr></thead><tbody></tbody></table>
             <div id="noSprintGoalData" style="display:none;text-align:center;color:#94a3b8;padding:12px;font-size:0.75rem;">No Sprint Goal requirements</div>
         </div>
-        <!-- TEAM B Dashboard -->
-        <div class="dashboard-card" style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1)); border: 1px solid rgba(99,102,241,0.3); padding: 10px; margin-bottom: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <h3 style="color: #a5b4fc; font-size: 0.8rem; margin: 0;">🎫 TEAM B (<span id="teamBReqCount">0</span>)</h3>
-                <button id="refreshTeamBBtn" onclick="refreshTeamBCard()" style="background: rgba(99,102,241,0.3); border: 1px solid rgba(99,102,241,0.5); color: #a5b4fc; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; cursor: pointer;" title="Refresh this card">🔄</button>
-            </div>
-            <div class="summary-row" style="margin-bottom: 8px; gap: 6px; justify-content: flex-start;">
-                <div class="summary-stat" style="padding: 4px; min-width: 50px; flex: 0 0 auto;"><div class="value" id="teamBTaskCount" style="font-size: 0.9rem; color: #34d399;">0</div><div class="label" style="font-size: 0.45rem;">Tasks</div></div>
-                <div class="summary-stat" style="padding: 4px; min-width: 50px; flex: 0 0 auto;"><div class="value" id="teamBTotalSize" style="font-size: 0.9rem; color: #c084fc;">0</div><div class="label" style="font-size: 0.45rem;">Size</div></div>
-                <div class="summary-stat" style="padding: 4px; min-width: 50px; flex: 0 0 auto;"><div class="value" id="teamBTotalOrigEst" style="font-size: 0.9rem; color: #fbbf24;">0h</div><div class="label" style="font-size: 0.45rem;">Orig Est</div></div>
-                <div class="summary-stat" style="padding: 4px; min-width: 50px; flex: 0 0 auto;"><div class="value" id="teamBTotalRemWork" style="font-size: 0.9rem; color: #22d3ee;">0h</div><div class="label" style="font-size: 0.45rem;">Remaining</div></div>
-            </div>
-            <div style="max-height: 200px; overflow-y: auto;">
-                <table id="teamBReqTable" style="width: 100%; border-collapse: collapse; font-size: 0.65rem;">
-                    <thead style="background: #1a1f2e; position: sticky; top: 0; z-index: 1;"><tr><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">ID</th><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Title</th><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">State</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Tasks</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Size</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Est</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Rem</th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div id="noTeamBData" style="display:none;text-align:center;color:#94a3b8;padding:6px;font-size:0.6rem;">No TEAM B requirements</div>
-        </div>
-
         <!-- Data Quality Alerts Panel — collapsible, contains 8 dashboards -->
         <div class="dashboard-card" style="margin-bottom: 16px; padding: 12px; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05)); border: 1px solid rgba(99,102,241,0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0;">
                 <div style="display:flex;align-items:center;gap:8px;">
                     <h3 style="color: #a5b4fc; font-size: 0.95rem; margin: 0;">🔔 Data Quality Alerts</h3>
-                    <span style="font-size:0.62rem;color:#64748b;">(Tasks &gt;40h · No Desc · Blank/0 Size · Blank Release Note · No Parent · Last Sprint Open · Tag Missing · Blank Discipline)</span>
+                    <span style="font-size:0.62rem;color:#64748b;">(Tasks &gt;40h · No Desc · Blank/0 Size · No Parent · Last Sprint Open · Tag Missing · Blank Discipline · Team B)</span>
                 </div>
                 <button id="dataQualityToggleBtn" onclick="toggleDataQualityPanel()" style="background:rgba(99,102,241,0.3);border:1px solid rgba(99,102,241,0.5);color:#a5b4fc;padding:3px 10px;border-radius:5px;font-size:0.7rem;cursor:pointer;font-weight:600;">📋 Show</button>
             </div>
@@ -1726,7 +1787,7 @@
             </div>
         </div>
 
-        <!-- Data Quality Dashboards - 2 Column Layout -->
+        <!-- Data Quality Dashboards - Blank/0 Size + Team B -->
         <div class="dashboard-section" style="grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
             <!-- 1. Blank/0 Size Dashboard -->
             <div class="dashboard-card dq-card" style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1)); border: 1px solid rgba(99,102,241,0.3); padding: 10px;">
@@ -1743,22 +1804,30 @@
                 </div>
                 <div id="noBlankSizeData" style="display:none;text-align:center;color:#94a3b8;padding:6px;font-size:0.6rem;">All have Size ✓</div>
             </div>
-
-            <!-- 2. Blank Release Note Dashboard -->
+            <!-- 2. Team B Dashboard (inside DQ Alerts) -->
             <div class="dashboard-card dq-card" style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1)); border: 1px solid rgba(99,102,241,0.3); padding: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <h3 style="color: #a5b4fc; font-size: 0.8rem; margin: 0;">📝 Blank Release Note (<span id="blankReleaseNoteCount">0</span>)</h3>
-                    <button onclick="refreshBlankReleaseNoteCard()" style="background: rgba(245,158,11,0.3); border: 1px solid rgba(245,158,11,0.5); color: #fcd34d; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; cursor: pointer;" title="Refresh this card">🔄</button>
+                    <h3 style="color: #a5b4fc; font-size: 0.8rem; margin: 0;">🎫 Team B (<span id="teamBReqCount">0</span>)</h3>
+                    <button id="refreshTeamBBtn" onclick="refreshTeamBCard()" style="background: rgba(99,102,241,0.3); border: 1px solid rgba(99,102,241,0.5); color: #a5b4fc; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; cursor: pointer;" title="Refresh this card">🔄</button>
                 </div>
-                <p style="color: #94a3b8; font-size: 0.55rem; margin-bottom: 6px;">Del/Non-Del with blank Release Notes</p>
-                <div style="max-height: 180px; overflow-y: auto; overflow-x: hidden;">
-                    <table id="blankReleaseNoteTable" style="width: 100%; border-collapse: collapse; font-size: 0.65rem;">
-                        <thead style="background: #0f172a; position: sticky; top: 0; z-index: 1;"><tr><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">ID</th><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Title</th><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">State</th></tr></thead>
-                        <tbody id="blankReleaseNoteTableBody"></tbody>
+                <div class="summary-row" style="margin-bottom: 6px; gap: 4px; justify-content: flex-start;">
+                    <div class="summary-stat" style="padding: 4px; min-width: 48px; flex: 0 0 auto;"><div class="value" id="teamBTaskCount" style="font-size: 0.85rem; color: #34d399;">0</div><div class="label" style="font-size: 0.45rem;">Tasks</div></div>
+                    <div class="summary-stat" style="padding: 4px; min-width: 48px; flex: 0 0 auto;"><div class="value" id="teamBTotalSize" style="font-size: 0.85rem; color: #c084fc;">0</div><div class="label" style="font-size: 0.45rem;">Size</div></div>
+                    <div class="summary-stat" style="padding: 4px; min-width: 48px; flex: 0 0 auto;"><div class="value" id="teamBTotalOrigEst" style="font-size: 0.85rem; color: #fbbf24;">0h</div><div class="label" style="font-size: 0.45rem;">Orig Est</div></div>
+                    <div class="summary-stat" style="padding: 4px; min-width: 48px; flex: 0 0 auto;"><div class="value" id="teamBTotalRemWork" style="font-size: 0.85rem; color: #22d3ee;">0h</div><div class="label" style="font-size: 0.45rem;">Remaining</div></div>
+                </div>
+                <div style="max-height: 140px; overflow-y: auto;">
+                    <table id="teamBReqTable" style="width: 100%; border-collapse: collapse; font-size: 0.65rem;">
+                        <thead style="background: #1a1f2e; position: sticky; top: 0; z-index: 1;"><tr><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">ID</th><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">Title</th><th style="padding:4px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);">State</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Tasks</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Size</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Est</th><th style="padding:4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);">Rem</th></tr></thead>
+                        <tbody></tbody>
                     </table>
                 </div>
-                <div id="noBlankReleaseNoteData" style="display:none;text-align:center;color:#94a3b8;padding:6px;font-size:0.6rem;">All have Release Note ✓</div>
+                <div id="noTeamBData" style="display:none;text-align:center;color:#94a3b8;padding:6px;font-size:0.6rem;">No Team B requirements</div>
             </div>
+            <!-- Hidden stubs for blankReleaseNote IDs (JS still references them) -->
+            <span style="display:none" id="blankReleaseNoteCount"></span>
+            <div style="display:none"><table><tbody id="blankReleaseNoteTableBody"></tbody></table></div>
+            <div style="display:none" id="noBlankReleaseNoteData"></div>
         </div>
         
         <!-- No Parent Dashboard - 2 Column Layout -->
@@ -4517,8 +4586,20 @@
                 });
                 
                 // Calculate UI/UX & UD tasks
+                // Criteria: tasks assigned to members whose discipline is "User Experience" OR "User Education"
+                const uiUxUdDisciplines = ['user experience', 'user education'];
+                const uiUxUdMemberNames = new Set(
+                    (capacityData.members || [])
+                        .filter(m => (m.discipline || '').split(',').map(d => d.trim().toLowerCase()).some(d => uiUxUdDisciplines.includes(d)))
+                        .map(m => (m.name || '').toLowerCase())
+                );
                 uiUxUdData = { tasks: [], totalOrigEst: 0 };
-                tasks.filter(t => isUiUxUdTask(t.fields['System.Title'])).forEach(t => {
+                tasks.filter(t => {
+                    const assignedTo = (t.fields['System.AssignedTo']?.displayName || '').toLowerCase();
+                    return uiUxUdMemberNames.size > 0
+                        ? uiUxUdMemberNames.has(assignedTo)
+                        : isUiUxUdTask(t.fields['System.Title']); // fallback to title match if no capacity data yet
+                }).forEach(t => {
                     uiUxUdData.tasks.push(t);
                     uiUxUdData.totalOrigEst += t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0;
                 });
@@ -4578,13 +4659,10 @@
                     else codeReviewData.todo++;
                 });
                 
-                // ALM/TeamB/EngQa-Reserve - Tasks from untagged requirements
+                // ALM/TeamB/etc — computed after devUnclassifiedTotal + qaUnclassifiedTotal (below)
+                // Equals: Dev category hours + QA category hours across all 6 TAG_CATEGORIES
+                // (ALM, Engineering Operations & Support, Team B Support, Adhoc QA Reserve, Regression, Un-Classified)
                 let almEngExtraHours = 0;
-                requirements.filter(r => r.category === 'unclassified' && !r.isAdhocSupport).forEach(req => {
-                    const childIds = reqTasksMap[req.id] || [];
-                    const childTasks = childIds.map(id => taskLookup[id]).filter(t => t);
-                    almEngExtraHours += childTasks.reduce((sum, t) => sum + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
-                });
                 
                 // ====== Fetch Team Capacity (PARALLELIZED - 3 bursts) ======
                 // Multi-iteration support: calculate combined date range from ALL selected iterations
@@ -4825,12 +4903,10 @@
                     
                 } catch (e) { }
                 
-                // Calculate capacities
+                // Calculate planned and UI/UX hours
+                // (availableCapacity, overPlannedCapacity, overPlanPct computed below after almEngExtraHours is finalized)
                 const totalPlannedCapacity = tasks.reduce((sum, t) => sum + (t.fields['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0), 0);
                 const uiUxUdHours = uiUxUdData.totalOrigEst;
-                const availableCapacity = Math.max(0, teamCapacity - almEngExtraHours - uiUxUdHours);
-                const overPlannedCapacity = totalPlannedCapacity - almEngExtraHours - uiUxUdHours;
-                const overPlanPct = availableCapacity > 0 ? ((overPlannedCapacity - availableCapacity) / availableCapacity) * 100 : (overPlannedCapacity > 0 ? 100 : 0);
                 
                 // Development Only calculations
                 const devTeamCapacity = memberCapacities.reduce((sum, m) => sum + (m.devTotalCapacity || 0), 0);
@@ -5090,6 +5166,19 @@
                 const qaAvailableCapacity = Math.max(0, qaTeamCapacity - qaUnclassifiedTotal);
                 const qaPlannedCapacity = qaTotalPlanned - qaUnclassifiedTotal;
                 const qaOverPlanPct = qaAvailableCapacity > 0 ? ((qaPlannedCapacity - qaAvailableCapacity) / qaAvailableCapacity) * 100 : (qaPlannedCapacity > 0 ? 100 : 0);
+
+                // ── Finalize ALM/TeamB/etc hours ─────────────────────────────
+                // = Dev category hours (ALM+EngOps+TeamB+AdhocQA+Regression+UnClassified, Dev tasks)
+                // + QA category hours  (same 6 categories, Test tasks)
+                // This matches exactly what "Breakdown by Requirement Category" shows in Dev Only + QA Only.
+                almEngExtraHours = devUnclassifiedTotal + qaUnclassifiedTotal;
+
+                // ── Overall team capacity derived values ─────────────────────
+                const availableCapacity = Math.max(0, teamCapacity - almEngExtraHours - uiUxUdHours);
+                const overPlannedCapacity = totalPlannedCapacity - almEngExtraHours - uiUxUdHours;
+                const overPlanPct = availableCapacity > 0
+                    ? ((overPlannedCapacity - availableCapacity) / availableCapacity) * 100
+                    : (overPlannedCapacity > 0 ? 100 : 0);
                 
                 // Collect QA task IDs already counted in Tagged Breakdown or Category Breakdown
                 const qaTaggedTaskIds = new Set();
@@ -5618,6 +5707,38 @@
             document.getElementById(`${prefix}RemainingWork`).textContent = fmtH(data.totalRemWork) + 'h';
             document.getElementById(`${prefix}CompletedWork`).textContent = fmtH(data.totalCompWork) + 'h';
             updateProgressBar(prefix, data.totalCompWork, data.totalRemWork);
+
+            // Sprint Goal text box + badge (only for sprintGoal prefix)
+            if (prefix === 'sprintGoal') {
+                const textBox    = document.getElementById('sprintGoalTextBox');
+                const textContent= document.getElementById('sprintGoalTextContent');
+                const badge      = document.getElementById('sprintGoalBadge');
+                if (data.requirements.length > 0 && textBox && textContent && badge) {
+                    // Concatenate all sprint goal requirement titles
+                    const goalText = data.requirements.map(r => r.fields['System.Title'] || '').filter(Boolean).join(' | ');
+                    textContent.textContent = goalText;
+                    textBox.style.display = 'flex';
+                    // Achieved = every sprint goal req is Closed or Resolved
+                    const goalAchieved = data.requirements.every(r =>
+                        ['Closed', 'Resolved'].includes(r.fields['System.State'] || '')
+                    );
+                    badge.style.display = 'inline-flex';
+                    if (goalAchieved) {
+                        badge.textContent = '✅ Goal Achieved';
+                        badge.style.background = 'rgba(16,185,129,0.2)';
+                        badge.style.border = '1.5px solid rgba(16,185,129,0.5)';
+                        badge.style.color = '#34d399';
+                    } else {
+                        badge.textContent = '⚠️ Goal Not Achieved';
+                        badge.style.background = 'rgba(239,68,68,0.2)';
+                        badge.style.border = '1.5px solid rgba(239,68,68,0.5)';
+                        badge.style.color = '#fca5a5';
+                    }
+                } else {
+                    if (textBox)  textBox.style.display  = 'none';
+                    if (badge)    badge.style.display    = 'none';
+                }
+            }
             
             const tbody = document.querySelector(`#${prefix}ReqTable tbody`);
             if (data.requirements.length > 0) {
@@ -5673,16 +5794,12 @@
             document.getElementById('formulaUiUxUd2').textContent = fmtH(c.uiUxUdHours);
             document.getElementById('formulaOverPlanned').textContent = fmtH(c.overPlannedCapacity);
             
-            // Colour overPlan stat green/red based on plan status
-            if (c.overPlannedCapacity > c.availableCapacity) {
-                document.getElementById('overPlanStat').style.background = 'rgba(239,68,68,0.2)';
-                document.getElementById('overPlanPctStat').style.background = 'rgba(239,68,68,0.2)';
-                document.getElementById('overPlanPctStat').querySelector('.value').style.color = '#f87171';
-            } else {
-                document.getElementById('overPlanStat').style.background = 'rgba(16,185,129,0.2)';
-                document.getElementById('overPlanPctStat').style.background = 'rgba(16,185,129,0.2)';
-                document.getElementById('overPlanPctStat').querySelector('.value').style.color = '#34d399';
-            }
+            // Colour overPlan group panel green/red based on plan status
+            const isOverPlan = c.overPlannedCapacity > c.availableCapacity;
+            const overPlanStatEl = document.getElementById('overPlanStat');
+            const overPlanPctEl  = document.getElementById('overPlanPct');
+            if (overPlanStatEl) overPlanStatEl.style.borderColor = isOverPlan ? 'rgba(239,68,68,0.4)' : 'rgba(16,185,129,0.4)';
+            if (overPlanPctEl)  overPlanPctEl.style.color = isOverPlan ? '#f87171' : '#34d399';
             
             // Development Only stats
             document.getElementById('devTeamCapacity').textContent = fmtH(c.devTeamCapacity) + 'h';
@@ -5869,12 +5986,15 @@
             document.getElementById('devFormulaOverPlanPct').textContent = c.devOverPlanPct.toFixed(2) + '%';
             
             const devStat = document.getElementById('devOverPlanPctStat');
-            if (c.devOverPlanPct > 0) {
-                devStat.style.background = 'rgba(239,68,68,0.2)';
-                devStat.querySelector('.value').style.color = '#f87171';
-            } else {
-                devStat.style.background = 'rgba(16,185,129,0.2)';
-                devStat.querySelector('.value').style.color = '#34d399';
+            const devPctEl = document.getElementById('devOverPlanPct');
+            if (devStat && devPctEl) {
+                if (c.devOverPlanPct > 0) {
+                    devStat.style.borderColor = 'rgba(239,68,68,0.4)';
+                    devPctEl.style.color = '#f87171';
+                } else {
+                    devStat.style.borderColor = 'rgba(16,185,129,0.4)';
+                    devPctEl.style.color = '#34d399';
+                }
             }
             
             // QA Only stats
@@ -5915,12 +6035,15 @@
             renderUnclassifiedTasksList('qa', c.qaUnclassifiedTasks || []);
             
             const qaStat = document.getElementById('qaOverPlanPctStat');
-            if (c.qaOverPlanPct > 0) {
-                qaStat.style.background = 'rgba(239,68,68,0.2)';
-                qaStat.querySelector('.value').style.color = '#f87171';
-            } else {
-                qaStat.style.background = 'rgba(16,185,129,0.2)';
-                qaStat.querySelector('.value').style.color = '#34d399';
+            const qaPctEl = document.getElementById('qaOverPlanPct');
+            if (qaStat && qaPctEl) {
+                if (c.qaOverPlanPct > 0) {
+                    qaStat.style.borderColor = 'rgba(239,68,68,0.4)';
+                    qaPctEl.style.color = '#f87171';
+                } else {
+                    qaStat.style.borderColor = 'rgba(16,185,129,0.4)';
+                    qaPctEl.style.color = '#34d399';
+                }
             }
         }
 
@@ -6266,27 +6389,58 @@
             
             document.getElementById('noMembersData').style.display = 'none';
             
-            // Populate discipline filter dropdown (once, preserving selection)
-            const discFilter = document.getElementById('memberCapDisciplineFilter');
-            if (discFilter) {
+            // Populate multi-select discipline checkboxes (once, preserving selection)
+            const discItemsEl = document.getElementById('memberCapDiscItems');
+            const discAllEl   = document.getElementById('memberCapDiscAll');
+            if (discItemsEl) {
                 const allDiscs = [...new Set(
                     members.flatMap(m => (m.discipline || '').split(',').map(d => d.trim()).filter(Boolean))
                 )].sort();
-                const currentVal = discFilter.value;
-                discFilter.innerHTML = `<option value="all">All Disciplines</option>` +
-                    allDiscs.map(d => `<option value="${d}"${d === currentVal ? ' selected' : ''}>${d}</option>`).join('');
+                // Rebuild only if disciplines changed
+                const existing = [...discItemsEl.querySelectorAll('input[type=checkbox]')].map(cb => cb.value);
+                if (JSON.stringify(existing) !== JSON.stringify(allDiscs)) {
+                    discItemsEl.innerHTML = allDiscs.map(d => `
+                        <label style="display:flex;align-items:center;gap:7px;padding:4px 12px;cursor:pointer;font-size:0.68rem;color:#e2e8f0;">
+                            <input type="checkbox" value="${d}" checked onchange="onMemberCapDiscItemChange()" style="accent-color:#6366f1;width:13px;height:13px;">
+                            <span>${d}</span>
+                        </label>`).join('');
+                }
             }
-            
-            // Apply discipline filter
-            const selectedDisc = discFilter ? discFilter.value : 'all';
-            const filteredMembers = selectedDisc === 'all'
+
+            // Collect selected disciplines
+            const checkedDiscs = discItemsEl
+                ? [...discItemsEl.querySelectorAll('input[type=checkbox]:checked')].map(cb => cb.value)
+                : [];
+            const totalDiscs = discItemsEl
+                ? discItemsEl.querySelectorAll('input[type=checkbox]').length : 0;
+            const allSelected = checkedDiscs.length === totalDiscs;
+
+            if (discAllEl) discAllEl.checked = allSelected;
+
+            // Filter members by checked disciplines
+            const filteredMembers = allSelected
                 ? members
-                : members.filter(m => (m.discipline || '').split(',').map(d => d.trim()).includes(selectedDisc));
-            
+                : members.filter(m => {
+                    const mDiscs = (m.discipline || '').split(',').map(d => d.trim());
+                    return mDiscs.some(d => checkedDiscs.includes(d));
+                });
+
+            // Update button label
+            const btnLabel = document.getElementById('memberCapDiscBtnLabel');
+            if (btnLabel) {
+                btnLabel.textContent = allSelected
+                    ? 'All Disciplines'
+                    : checkedDiscs.length === 0
+                        ? 'None selected'
+                        : checkedDiscs.length === 1
+                            ? checkedDiscs[0]
+                            : `${checkedDiscs.length} disciplines`;
+            }
+
             // Update filter info label
             const infoEl = document.getElementById('memberCapFilterInfo');
             if (infoEl) {
-                infoEl.textContent = selectedDisc === 'all'
+                infoEl.textContent = allSelected
                     ? `${members.length} members`
                     : `${filteredMembers.length} of ${members.length} members`;
             }
@@ -6354,6 +6508,28 @@
         function filterMembersCapacityByDiscipline() {
             renderMembersCapacityTable();
         }
+
+        function toggleMemberCapDiscDropdown(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('memberCapDiscMenu');
+            if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+        function onMemberCapDiscAllChange(cb) {
+            const items = document.querySelectorAll('#memberCapDiscItems input[type=checkbox]');
+            items.forEach(item => { item.checked = cb.checked; });
+            renderMembersCapacityTable();
+        }
+        function onMemberCapDiscItemChange() {
+            renderMembersCapacityTable();
+        }
+        // Close dropdown on outside click
+        document.addEventListener('click', function(e) {
+            const wrap = document.getElementById('memberCapDiscDropdownWrap');
+            if (wrap && !wrap.contains(e.target)) {
+                const menu = document.getElementById('memberCapDiscMenu');
+                if (menu) menu.style.display = 'none';
+            }
+        });
         
         function sortMembersCapacity(field) {
             if (membersCapSortField === field) {
