@@ -1209,6 +1209,7 @@
             <button class="tab-btn" id="tabBtn5" onclick="switchTab(5)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🚀 Feature Progress</button>
             <button class="tab-btn" id="tabBtn6" onclick="switchTab(6)" style="padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🔍 Data Lookup</button>
             <button class="tab-btn" id="tabBtn7" onclick="switchTab(7)" style="display:none;padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">🔐 Encrypt Username</button>
+            <button class="tab-btn" id="tabBtn8" onclick="switchTab(8)" style="display:none;padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;">📑 Reports</button>
 
         </div>
 
@@ -1342,8 +1343,8 @@
                     <div style="max-height: 200px; overflow-y: auto;">
                         <table id="membersCapacityTable" style="width: 100%; border-collapse: collapse; font-size: 0.75rem; table-layout: fixed;">
                             <colgroup>
-                                <col style="width:22%"><col style="width:14%"><col style="width:14%"><col style="width:13%">
-                                <col style="width:10%"><col style="width:7%"><col style="width:8%"><col style="width:12%">
+                                <col style="width:20%"><col style="width:13%"><col style="width:13%"><col style="width:12%">
+                                <col style="width:9%"><col style="width:7%"><col style="width:6%"><col style="width:8%"><col style="width:12%">
                             </colgroup>
                             <thead id="membersCapacityTableHead" style="background: #0f172a; position: sticky; top: 0; z-index: 1;"></thead>
                             <tbody id="membersCapacityTableBody"></tbody>
@@ -1351,8 +1352,8 @@
                     </div>
                     <table id="membersCapacityTotalTable" style="width: 100%; border-collapse: collapse; font-size: 0.75rem; table-layout: fixed; background: rgba(0,0,0,0.3); font-weight: 600; border-top: 2px solid rgba(52,211,153,0.4);">
                         <colgroup>
-                            <col style="width:22%"><col style="width:14%"><col style="width:14%"><col style="width:13%">
-                            <col style="width:10%"><col style="width:7%"><col style="width:8%"><col style="width:12%">
+                            <col style="width:20%"><col style="width:13%"><col style="width:13%"><col style="width:12%">
+                            <col style="width:9%"><col style="width:7%"><col style="width:6%"><col style="width:8%"><col style="width:12%">
                         </colgroup>
                         <tr>
                             <td style="padding:8px;color:#e2e8f0;">TOTAL</td>
@@ -1360,6 +1361,7 @@
                             <td style="padding:8px;color:#64748b;">-</td>
                             <td style="padding:8px;color:#64748b;">-</td>
                             <td style="padding:8px;text-align:center;" id="totalCapPerDay">0h</td>
+                            <td style="padding:8px;text-align:center;color:#22d3ee;font-weight:700;" id="totalSize">0.0</td>
                             <td style="padding:8px;text-align:center;" id="totalDaysOff">0</td>
                             <td style="padding:8px;text-align:center;color:#64748b;">-</td>
                             <td style="padding:8px;text-align:center;color:#34d399;" id="totalTeamCapacity">0h</td>
@@ -3405,6 +3407,59 @@
             </div>
         </div><!-- End Tab 7 -->
 
+        <!-- Tab 8: Reports (super_admin only) -->
+        <div class="tab-content" id="tabContent8" style="display:none;">
+            <div class="dashboard-card" style="margin-bottom:16px;padding:16px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(5,150,105,0.08));border:1px solid rgba(16,185,129,0.35);">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <h3 style="color:#6ee7b7;font-size:1.1rem;margin:0;">📑 Reports</h3>
+                    <span style="font-size:0.65rem;color:#64748b;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);padding:2px 8px;border-radius:4px;color:#f87171;">🔒 Super Admin Only</span>
+                </div>
+                <p style="color:#94a3b8;font-size:0.7rem;margin:0 0 20px 0;">Sprint and project reports. Only <span style="color:#34d399;font-weight:600;">Super Admin</span> can access this section.</p>
+
+                <!-- Sprint Reports Section -->
+                <div style="margin-bottom:20px;">
+                    <div style="padding:6px 12px;border-left:3px solid #10b981;background:rgba(16,185,129,0.08);border-radius:0 6px 6px 0;margin-bottom:14px;">
+                        <span style="color:#6ee7b7;font-size:0.8rem;font-weight:700;">📊 Sprint Reports</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
+
+                        <!-- Sprint Closing Report Tile -->
+                        <div id="sprintClosingReportTile" style="background:linear-gradient(135deg,rgba(99,102,241,0.18),rgba(139,92,246,0.12));border:1px solid rgba(99,102,241,0.4);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(99,102,241,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="font-size:1.8rem;">📋</span>
+                                <div>
+                                    <div style="color:#a5b4fc;font-size:0.9rem;font-weight:700;">Sprint Closing Report</div>
+                                    <div style="color:#64748b;font-size:0.6rem;margin-top:2px;">End-of-sprint summary &amp; metrics</div>
+                                </div>
+                            </div>
+                            <p style="color:#94a3b8;font-size:0.65rem;margin:0;line-height:1.5;">Comprehensive sprint closing report including velocity, completion rates, carry-overs, and team performance metrics.</p>
+                            <a id="sprintClosingReportLink" href="#" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:8px;color:#fff;font-size:0.75rem;font-weight:600;text-decoration:none;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                                🚀 Open Report
+                            </a>
+                            <div id="sprintClosingReportUrl" style="font-size:0.55rem;color:#475569;word-break:break-all;"></div>
+                        </div>
+
+                        <!-- Sprint Discovery Status Report Tile -->
+                        <div id="sprintDiscoveryReportTile" style="background:linear-gradient(135deg,rgba(6,182,212,0.18),rgba(34,211,238,0.12));border:1px solid rgba(6,182,212,0.4);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(6,182,212,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="font-size:1.8rem;">🔍</span>
+                                <div>
+                                    <div style="color:#22d3ee;font-size:0.9rem;font-weight:700;">Sprint Discovery Status</div>
+                                    <div style="color:#64748b;font-size:0.6rem;margin-top:2px;">Discovery &amp; backlog readiness report</div>
+                                </div>
+                            </div>
+                            <p style="color:#94a3b8;font-size:0.65rem;margin:0;line-height:1.5;">Track sprint discovery progress, backlog item readiness, and acceptance criteria completeness for upcoming sprints.</p>
+                            <button id="sprintDiscoveryReportBtn" onclick="openSprintDiscoveryReport()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#0891b2,#06b6d4);border:none;border-radius:8px;color:#fff;font-size:0.75rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                                🚀 Open Report
+                            </button>
+                            <div id="sprintDiscoveryReportStatus" style="font-size:0.55rem;color:#475569;word-break:break-all;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Tab 8 -->
+
     <!-- Update Feature Data Popup -->
     <div id="updateFeaturePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;">
         <div class="fp-update-popup" style="background:#1e293b;border:1px solid rgba(59,130,246,0.4);border-radius:12px;max-width:1250px;width:97%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 25px 50px rgba(0,0,0,0.6);">
@@ -3744,7 +3799,7 @@
                                 currentUserRole = (matchedUser.role || 'normal').toLowerCase();
                                 // super_admin always sees every tab; other roles are strictly limited to their JSON tabs array
                                 if (currentUserRole === 'super_admin') {
-                                    currentUserTabs = [1, 2, 3, 4, 5, 6, 7];
+                                    currentUserTabs = [1, 2, 3, 4, 5, 6, 7, 8];
                                 } else {
                                     currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
                                 }
@@ -6245,6 +6300,7 @@
                     case 'team': aVal = (a.team || '').toLowerCase(); bVal = (b.team || '').toLowerCase(); break;
                     case 'discipline': aVal = (a.discipline || '').toLowerCase(); bVal = (b.discipline || '').toLowerCase(); break;
                     case 'capPerDay': aVal = a.capacityPerDay || 0; bVal = b.capacityPerDay || 0; break;
+                    case 'size': aVal = (a.capacityPerDay || 0) / 8.5; bVal = (b.capacityPerDay || 0) / 8.5; break;
                     case 'daysOff': aVal = a.daysOff || 0; bVal = b.daysOff || 0; break;
                     case 'workDays': aVal = a.workDays || 0; bVal = b.workDays || 0; break;
                     case 'total': aVal = a.totalCapacity || 0; bVal = b.totalCapacity || 0; break;
@@ -6266,24 +6322,31 @@
                 <th style="${thStyle}" onclick="sortMembersCapacity('team')">Team${sortIcon('team')}</th>
                 <th style="${thStyle}" onclick="sortMembersCapacity('discipline')">Discipline${sortIcon('discipline')}</th>
                 <th style="${thStyleCenter}" onclick="sortMembersCapacity('capPerDay')">Cap/Day${sortIcon('capPerDay')}</th>
+                <th style="${thStyleCenter}" onclick="sortMembersCapacity('size')" title="Size = Cap/Day ÷ 8.5">Size${sortIcon('size')}</th>
                 <th style="${thStyleCenter}" onclick="sortMembersCapacity('daysOff')">Off${sortIcon('daysOff')}</th>
                 <th style="${thStyleCenter}" onclick="sortMembersCapacity('workDays')">Days${sortIcon('workDays')}</th>
                 <th style="${thStyleCenter}" onclick="sortMembersCapacity('total')">Total${sortIcon('total')}</th>
             </tr>`;
             
-            tbody.innerHTML = sortedMembers.map(m => `<tr>
+            tbody.innerHTML = sortedMembers.map(m => {
+                const size = m.capacityPerDay > 0 ? (m.capacityPerDay / 8.5).toFixed(1) : '-';
+                return `<tr>
                 <td style="padding:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${m.name}">${m.name}</td>
                 <td style="padding:8px;color:#f472b6;font-size:0.7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${m.project || '-'}">${m.project || '-'}</td>
                 <td style="padding:8px;color:#67e8f9;font-size:0.7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${m.team || '-'}">${m.team || '-'}</td>
                 <td style="padding:8px;color:#a5b4fc;font-size:0.7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${m.discipline || '-'}</td>
                 <td style="padding:8px;text-align:center;">${fmtH(m.capacityPerDay)}h</td>
+                <td style="padding:8px;text-align:center;color:#22d3ee;font-weight:600;">${size}</td>
                 <td style="padding:8px;text-align:center;color:${m.daysOff > 0 ? '#fbbf24' : '#94a3b8'};">${m.daysOff}</td>
                 <td style="padding:8px;text-align:center;">${m.workDays}</td>
                 <td style="padding:8px;text-align:center;color:#34d399;font-weight:600;">${fmtH(m.totalCapacity)}h</td>
-            </tr>`).join('');
+            </tr>`;
+            }).join('');
             
             // Update totals — reflect filtered set
-            document.getElementById('totalCapPerDay').textContent = fmtH(filteredMembers.reduce((sum, m) => sum + (m.capacityPerDay || 0), 0)) + 'h';
+            const totalCapPerDayVal = filteredMembers.reduce((sum, m) => sum + (m.capacityPerDay || 0), 0);
+            document.getElementById('totalCapPerDay').textContent = fmtH(totalCapPerDayVal) + 'h';
+            document.getElementById('totalSize').textContent = totalCapPerDayVal > 0 ? (totalCapPerDayVal / 8.5).toFixed(1) : '0.0';
             document.getElementById('totalDaysOff').textContent = filteredMembers.reduce((sum, m) => sum + (m.daysOff || 0), 0);
             document.getElementById('totalTeamCapacity').textContent = fmtH(filteredMembers.reduce((sum, m) => sum + (m.totalCapacity || 0), 0)) + 'h';
         }
@@ -6298,7 +6361,7 @@
             } else {
                 membersCapSortField = field;
                 // Default to asc for text fields, desc for numeric
-                membersCapSortDir = ['capPerDay', 'daysOff', 'workDays', 'total'].includes(field) ? 'desc' : 'asc';
+                membersCapSortDir = ['capPerDay', 'size', 'daysOff', 'workDays', 'total'].includes(field) ? 'desc' : 'asc';
             }
             renderMembersCapacityTable();
         }
@@ -6348,9 +6411,20 @@
             let piName   = '';
             let piSprints = [];
             if (piMatch) {
-                const piPrefix   = piMatch[1];
-                piName           = piPrefix;
-                const sprintNames = [`${piPrefix}_1`, `${piPrefix}_2`, `${piPrefix}_3`];
+                const piPrefix = piMatch[1];
+                piName = piPrefix;
+
+                // Auto-detect how many sprints this PI has by counting matching iterations.
+                // Falls back to 4 if iteration data not yet loaded (covers PI-2026-2_4 etc).
+                const piPattern = new RegExp(`^${piPrefix.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')}_\\d$`, 'i');
+                const matchingIters = iterations.filter(i => piPattern.test(i.path.split('\\').pop()));
+                const maxSprint = matchingIters.length > 0
+                    ? Math.max(...matchingIters.map(i => parseInt(i.path.split('\\').pop().split('_').pop()) || 0))
+                    : 4; // default to 4 when iterations not yet loaded
+
+                const sprintNames = [];
+                for (let n = 1; n <= maxSprint; n++) sprintNames.push(`${piPrefix}_${n}`);
+
                 piSprints = sprintNames.map(name => {
                     const found = iterations.find(iter => iter.path.split('\\').pop() === name);
                     return found ? { path: found.path, name } : { path: basePath ? `${basePath}\\${name}` : name, name };
@@ -6378,6 +6452,7 @@
                 const areasByProj = {};
                 selectedAreaPaths.forEach(a => { const proj = a.project || selectedProjects[0]; if (!areasByProj[proj]) areasByProj[proj] = []; areasByProj[proj].push(a.path); });
                 const allFeatureIds = [], seenFeatureIds = new Set();
+                // Always use UNDER in WIQL to fetch full hierarchy — exact match is applied client-side below
                 for (const [proj, areaPaths] of Object.entries(areasByProj)) {
                     const projIterPaths = featurePISprints.map(s => { const m = iterations.find(i => i.project===proj && i.path.split('\\').pop()===s.name); return m ? m.path : s.path; }).filter(Boolean);
                     if (!projIterPaths.length) continue;
@@ -6411,8 +6486,21 @@
                 const seenIds = new Set();
                 allFeatures.forEach(f => { if (!seenIds.has(f.id)) { seenIds.add(f.id); uniqueFeatures.push(f); } });
 
+                // ── Client-side Exact Area Match filter ─────────────────────
+                // WIQL always fetches UNDER (full hierarchy). When Exact Area Match is
+                // checked we then restrict to features whose AreaPath exactly equals
+                // one of the selected areas, or (if UNDER) starts with it + backslash.
+                const useExactAreaMatch = document.getElementById('exactAreaMatch')?.checked || false;
+                const selectedAreaPathsLower = selectedAreaPaths.map(a => a.path.toLowerCase());
+                const filteredFeatures = useExactAreaMatch
+                    ? uniqueFeatures.filter(f => {
+                        const fp = (f.fields['System.AreaPath'] || '').toLowerCase();
+                        return selectedAreaPathsLower.some(sel => fp === sel);
+                    })
+                    : uniqueFeatures;
+
                 // Fetch child work items (Feature → Requirements/Bugs → Tasks)
-                const featureIds = uniqueFeatures.map(f => f.id);
+                const featureIds = filteredFeatures.map(f => f.id);
                 const featuresWithRel = await batchFetchWithRelations(featureIds);
                 const featureChildMap = {};
                 const allChildWiIds = [];
@@ -6482,7 +6570,7 @@
                 const allTaskAreaPaths = new Set();
                 const allTaskDisciplines = new Set();
 
-                uniqueFeatures.forEach(f => {
+                filteredFeatures.forEach(f => {
                     const featureAreaPath = (f.fields['System.AreaPath'] || '').toLowerCase().trim();
                     const featureAreaPathOriginal = (f.fields['System.AreaPath'] || '').trim();
                     const childWiIds = featureChildMap[f.id] || [];
@@ -6555,7 +6643,7 @@
                 });
 
                 // Process feature data
-                featureProgressData = uniqueFeatures.map(f => {
+                featureProgressData = filteredFeatures.map(f => {
                     const discoveryEffort = f.fields['Casepoint.TFS.CustomFields.DiscoveryEffort'] || 0;
                     const compDiscoveryHours = f.fields['Casepoint.TFS.CustomFields.CompletedDiscoveryHours'] || 0;
                     const plannedHours = f.fields['Casepoint.TFS.CustomFields.PlannedHours'] || 0;
@@ -7488,7 +7576,7 @@
 
         function applyTabPermissions() {
             const isAdmin = ['admin', 'super_admin'].includes(currentUserRole);
-            [1, 2, 3, 4, 5, 6, 7].forEach(t => {
+            [1, 2, 3, 4, 5, 6, 7, 8].forEach(t => {
                 const btn     = document.getElementById('tabBtn' + t);
                 const content = document.getElementById('tabContent' + t);
                 if (currentUserTabs.includes(t)) {
@@ -7501,7 +7589,7 @@
                 }
             });
             // If the currently visible tab is not in the user's allowed list, redirect to first allowed tab
-            const activeTab = [1,2,3,4,5,6,7].find(t => document.getElementById('tabContent'+t)?.style.display === 'block');
+            const activeTab = [1,2,3,4,5,6,7,8].find(t => document.getElementById('tabContent'+t)?.style.display === 'block');
             if (activeTab && !currentUserTabs.includes(activeTab)) {
                 const firstAllowed = currentUserTabs[0];
                 if (firstAllowed) switchTab(firstAllowed);
@@ -7514,6 +7602,121 @@
             }
             // Task Management tile — show only if taskCreatorUrl is configured in allowed_users.json
             initTaskManagementTile();
+            // Reports tab tile — show sprint closing report link if configured
+            initReportsTile();
+        }
+
+        function initReportsTile() {
+            const tile   = document.getElementById('sprintClosingReportTile');
+            const link   = document.getElementById('sprintClosingReportLink');
+            const urlLbl = document.getElementById('sprintClosingReportUrl');
+            if (!tile || !link) return;
+
+            const scUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintClosingReportUrl)
+                ? String(ALLOWED_USERS_DATA.sprintClosingReportUrl).trim() : '';
+
+            if (!scUrl) {
+                link.removeAttribute('href');
+                link.style.background = 'rgba(100,116,139,0.3)';
+                link.style.cursor = 'not-allowed';
+                link.textContent = '⚠️ Not Configured';
+                if (urlLbl) urlLbl.textContent = 'Set sprintClosingReportUrl in allowed_users.json to enable';
+                if (urlLbl) urlLbl.style.color = '#ef4444';
+                return;
+            }
+
+            link.href = scUrl;
+            if (urlLbl) urlLbl.textContent = scUrl;
+
+            // ── Init Sprint Discovery tile ──────────────────────────────
+            initSprintDiscoveryTile();
+        }
+
+        function initSprintDiscoveryTile() {
+            const tile   = document.getElementById('sprintDiscoveryReportTile');
+            const btn    = document.getElementById('sprintDiscoveryReportBtn');
+            const status = document.getElementById('sprintDiscoveryReportStatus');
+            if (!tile || !btn) return;
+
+            // Read URL from allowed_users.json — falls back to hardcoded default
+            const defaultUrl = 'https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html';
+            const sdUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintDiscoveryReportUrl)
+                ? String(ALLOWED_USERS_DATA.sprintDiscoveryReportUrl).trim()
+                : defaultUrl;
+
+            if (status) status.textContent = sdUrl;
+        }
+
+        // ── Open Sprint Discovery Report — passes context via localStorage + query params ──
+        function openSprintDiscoveryReport() {
+            const defaultUrl = 'https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html';
+            const sdUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintDiscoveryReportUrl)
+                ? String(ALLOWED_USERS_DATA.sprintDiscoveryReportUrl).trim()
+                : defaultUrl;
+
+            // ── Gather context values from index.html ─────────────────────
+            const tfsUrlVal = (document.getElementById('tfsUrl')?.value || '').trim().replace(/\/$/, '');
+            const patVal    = (document.getElementById('pat')?.value || '').trim();
+
+            // Area paths: take first selected area
+            const areaPath  = selectedAreaPaths.length > 0
+                ? selectedAreaPaths[0].path : '';
+            const areaName  = selectedAreaPaths.length > 0
+                ? selectedAreaPaths[0].path.split('\\').pop() : '';
+            const projectVal = selectedAreaPaths.length > 0
+                ? (selectedAreaPaths[0].project || project || '') : (project || '');
+
+            // Iteration paths: take first selected iteration
+            const iterPath  = selectedIterationPaths.length > 0
+                ? selectedIterationPaths[0].path : '';
+            const iterName  = selectedIterationPaths.length > 0
+                ? selectedIterationPaths[0].path.split('\\').pop() : '';
+
+            // ── Validate we have enough to auto-login ─────────────────────
+            if (!tfsUrlVal || !patVal) {
+                const statusEl = document.getElementById('sprintDiscoveryReportStatus');
+                if (statusEl) {
+                    statusEl.textContent = '⚠️ Please connect and load sprint data first.';
+                    statusEl.style.color = '#ef4444';
+                    setTimeout(() => { statusEl.textContent = sdUrl; statusEl.style.color = '#475569'; }, 3000);
+                }
+                return;
+            }
+
+            // ── Write to localStorage so the target page can auto-fill ────
+            try {
+                localStorage.setItem('scr_tfsUrl',     tfsUrlVal);
+                localStorage.setItem('scr_pat',        patVal);
+                localStorage.setItem('scr_project',    projectVal);
+                localStorage.setItem('scr_areaPaths',  JSON.stringify(selectedAreaPaths.length > 0 ? selectedAreaPaths : []));
+                localStorage.setItem('scr_iterPaths',  JSON.stringify(selectedIterationPaths.length > 0
+                    ? selectedIterationPaths.map(i => ({ path: i.path, project: i.project || projectVal, name: i.path.split('\\').pop() }))
+                    : []));
+                localStorage.setItem('scr_sprintInfo', JSON.stringify({
+                    name: iterName || sprintInfo.name,
+                    areaName: areaName || sprintInfo.areaName
+                }));
+                // Also keep sprintTracker keys for legacy compatibility
+                localStorage.setItem('sprintTracker_tfsUrl', tfsUrlVal);
+                localStorage.setItem('sprintTracker_pat',    patVal);
+            } catch(e) {
+                console.warn('localStorage write failed:', e);
+            }
+
+            // ── Build URL with query parameters as primary mechanism ──────
+            const params = new URLSearchParams();
+            if (tfsUrlVal) params.set('tfsUrl',    tfsUrlVal);
+            if (patVal)    params.set('pat',        btoa(patVal)); // base64-encode PAT for URL safety
+            if (projectVal) params.set('project',   projectVal);
+            if (areaPath)  params.set('areaPath',   areaPath);
+            if (areaName)  params.set('areaName',   areaName);
+            if (iterPath)  params.set('iterPath',   iterPath);
+            if (iterName)  params.set('iterName',   iterName);
+            params.set('autoLoad', '1'); // signal target page to auto-trigger load
+
+            const finalUrl = sdUrl + (sdUrl.includes('?') ? '&' : '?') + params.toString();
+
+            window.open(finalUrl, '_blank', 'noopener,noreferrer');
         }
 
         function initTaskManagementTile() {
@@ -7543,10 +7746,10 @@
 
         function switchTab(tabNum) {
             if (!currentUserTabs.includes(tabNum)) { return; }
-            [1,2,3,4,5,6,7].forEach(t => { const c = document.getElementById('tabContent' + t); if (c) c.style.display = 'none'; });
+            [1,2,3,4,5,6,7,8].forEach(t => { const c = document.getElementById('tabContent' + t); if (c) c.style.display = 'none'; });
             const inactiveStyle = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px 6px 0 0; color: #94a3b8; cursor: pointer; transition: all 0.2s;';
             const activeStyle   = 'padding: 8px 16px; font-size: 0.8rem; background: rgba(59,130,246,0.3); border: 1px solid rgba(59,130,246,0.5); border-radius: 6px 6px 0 0; color: #93c5fd; cursor: pointer; transition: all 0.2s;';
-            [1,2,3,4,5,6,7].forEach(t => { const btn = document.getElementById('tabBtn' + t); if (btn && currentUserTabs.includes(t)) btn.style.cssText = inactiveStyle; });
+            [1,2,3,4,5,6,7,8].forEach(t => { const btn = document.getElementById('tabBtn' + t); if (btn && currentUserTabs.includes(t)) btn.style.cssText = inactiveStyle; });
             document.getElementById('tabContent' + tabNum).style.display = 'block';
             document.getElementById('tabBtn' + tabNum).style.cssText = activeStyle;
         }
