@@ -929,15 +929,75 @@
         .fp-exp-btn.expanded{color:#38bdf8;transform:rotate(90deg);}
         .fp-child-row{display:none;}
         .fp-child-row.visible{display:table-row;}
-        .fp-child-cell{padding:0 !important;border-bottom:1px solid rgba(56,189,248,.2) !important;}
-        .aha-panel{padding:9px 14px 11px 36px;background:linear-gradient(135deg,rgba(56,189,248,.07),rgba(99,102,241,.04));border-left:3px solid rgba(56,189,248,.4);}
-        .aha-grid{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;}
-        .aha-item{display:flex;flex-direction:column;gap:2px;min-width:90px;}
-        .aha-item-center{text-align:center;align-items:center;}
-        .aha-item-lbl{font-size:.55rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;}
-        .aha-item-val{font-size:.68rem;font-weight:600;color:#e2e8f0;text-align:center;}
-        .aha-na{font-size:.62rem;color:#475569;font-style:italic;}
-        .aha-wf-pill{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.62rem;font-weight:700;}
+        .fp-child-cell{padding:0 !important;border-bottom:2px solid rgba(56,189,248,.3) !important;}
+
+        /* ── AHA Expand Panel ────────────────────────────────────────────── */
+        .aha-panel-wrap{
+          margin:0;overflow:hidden;
+          border-left:4px solid #0ea5e9;
+          background:linear-gradient(135deg,rgba(6,22,46,.97) 0%,rgba(12,28,58,.97) 60%,rgba(15,23,50,.97) 100%);
+          box-shadow:inset 0 1px 0 rgba(56,189,248,.12),0 4px 20px rgba(0,0,0,.35);
+        }
+        /* Header bar */
+        .aha-panel-hdr{
+          display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+          padding:8px 16px;
+          background:linear-gradient(90deg,rgba(14,165,233,.25) 0%,rgba(99,102,241,.18) 100%);
+          border-bottom:1px solid rgba(56,189,248,.3);
+        }
+        .aha-panel-hdr-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .aha-panel-hdr-title{font-size:.65rem;font-weight:700;letter-spacing:.06em;color:#38bdf8;text-transform:uppercase;}
+        .aha-panel-hdr a{
+          color:#7dd3fc;text-decoration:none;font-size:.72rem;font-weight:700;
+          padding:2px 8px;border:1px solid rgba(56,189,248,.4);border-radius:5px;
+          background:rgba(56,189,248,.1);transition:background .15s;
+        }
+        .aha-panel-hdr a:hover{background:rgba(56,189,248,.22);color:#e0f2fe;}
+        /* Detail table */
+        .aha-detail-tbl{width:100%;border-collapse:collapse;font-size:.67rem;table-layout:fixed;}
+        .aha-detail-tbl colgroup .aha-col-lbl{width:140px;}
+        .aha-detail-tbl td{padding:6px 12px;vertical-align:middle;border-bottom:1px solid rgba(255,255,255,.04);}
+        .aha-detail-tbl tr:last-child td{border-bottom:none;}
+        /* Label cell */
+        .aha-lbl-cell{
+          width:138px;font-size:.58rem;font-weight:700;text-transform:uppercase;
+          letter-spacing:.08em;color:#94a3b8;white-space:nowrap;
+          background:rgba(15,23,42,.6);border-right:1px solid rgba(56,189,248,.12);
+        }
+        /* Value cell */
+        .aha-val-cell{color:#e2e8f0;font-weight:500;word-break:break-word;}
+        /* Alternating rows — cyan tint / indigo tint */
+        .aha-detail-tbl tr:nth-child(odd)  .aha-val-cell{background:rgba(14,165,233,.07);}
+        .aha-detail-tbl tr:nth-child(even) .aha-val-cell{background:rgba(99,102,241,.07);}
+        .aha-detail-tbl tr:hover .aha-lbl-cell{background:rgba(56,189,248,.15)!important;color:#7dd3fc;}
+        .aha-detail-tbl tr:hover .aha-val-cell{background:rgba(56,189,248,.13)!important;color:#f1f5f9;}
+
+        /* ── Light theme overrides ─────────────────────────────────────── */
+        body.light-theme .fp-child-cell{border-bottom-color:rgba(14,165,233,.35)!important;}
+        body.light-theme .aha-panel-wrap{
+          border-left-color:#0284c7;
+          background:linear-gradient(135deg,#f0f9ff 0%,#eff6ff 60%,#f5f3ff 100%);
+          box-shadow:inset 0 1px 0 rgba(14,165,233,.15),0 4px 18px rgba(14,165,233,.12);
+        }
+        body.light-theme .aha-panel-hdr{
+          background:linear-gradient(90deg,rgba(14,165,233,.18) 0%,rgba(99,102,241,.12) 100%);
+          border-bottom-color:rgba(14,165,233,.25);
+        }
+        body.light-theme .aha-panel-hdr-title{color:#0369a1;}
+        body.light-theme .aha-panel-hdr a{color:#0369a1;border-color:rgba(3,105,161,.35);background:rgba(14,165,233,.1);}
+        body.light-theme .aha-panel-hdr a:hover{background:rgba(14,165,233,.2);color:#075985;}
+        body.light-theme .aha-lbl-cell{background:rgba(14,165,233,.08);color:#475569;border-right-color:rgba(14,165,233,.2);}
+        body.light-theme .aha-detail-tbl td{border-bottom-color:rgba(0,0,0,.05);}
+        body.light-theme .aha-val-cell{color:#1e293b;}
+        body.light-theme .aha-detail-tbl tr:nth-child(odd)  .aha-val-cell{background:rgba(14,165,233,.06);}
+        body.light-theme .aha-detail-tbl tr:nth-child(even) .aha-val-cell{background:rgba(99,102,241,.05);}
+        body.light-theme .aha-detail-tbl tr:hover .aha-lbl-cell{background:rgba(14,165,233,.16)!important;color:#075985;}
+        body.light-theme .aha-detail-tbl tr:hover .aha-val-cell{background:rgba(14,165,233,.12)!important;color:#0f172a;}
+
+        /* misc */
+        .aha-na{font-size:.63rem;color:#475569;font-style:italic;padding:10px 14px;display:block;}
+        .aha-wf-pill{display:inline-block;padding:3px 10px;border-radius:8px;font-size:.63rem;font-weight:700;letter-spacing:.03em;}
+        .aha-id-trunc{color:#94a3b8;font-size:.6rem;font-style:italic;}
 
         /* ==================== BASE STYLES ==================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -3983,6 +4043,8 @@
             } else {
                 display.innerHTML = '';
             }
+            // Project changed — disconnect AHA so stale data is not shown
+            if (typeof ahaDisconnect === 'function') ahaDisconnect();
         }
 
         async function connectTFS() {
@@ -4312,6 +4374,8 @@
             } else {
                 display.innerHTML = '<span style="color: #f87171;">Please select at least one area</span>';
             }
+            // Area changed — disconnect AHA so stale data is not shown
+            if (typeof ahaDisconnect === 'function') ahaDisconnect();
         }
         
         // Global helper function to check if a task's area path matches the selected areas
@@ -4394,6 +4458,8 @@
             } else {
                 display.innerHTML = '<span style="color: #f87171;">Please select at least one sprint</span>';
             }
+            // Iteration changed — disconnect AHA so stale data is not shown
+            if (typeof ahaDisconnect === 'function') ahaDisconnect();
         }
 
         function flattenNodes(node, list = [], level = 0, nodeType = 'area') {
@@ -7019,6 +7085,8 @@
             if (filterKey === 'aaIter' || filterKey === 'aaTag' || filterKey === 'aaDisc') {
                 renderAffectedAreaTable();
             } else {
+                // Feature filter changed — disconnect AHA (data changed, stale AHA state)
+                if (typeof ahaDisconnect === 'function') ahaDisconnect();
                 renderFeatureProgressTable();
             }
         }
@@ -7230,36 +7298,48 @@
                         const wfTx  = ahaData.wfColor || '#7dd3fc';
                         const ahaUrl= `${ahaBaseUrl}/features/${f.ahaRef}`;
 
-                        // Build custom fields rows — ALL non-empty fields from AHA
-                        const cfRows = (ahaData.allCf || []).map(cf =>
-                          `<div class="aha-item aha-item-center">
-                            <span class="aha-item-lbl">${cf.name}</span>
-                            <span class="aha-item-val">${cf.val}</span>
-                          </div>`
-                        ).join('');
+                        // Build 4-column table rows for custom fields (label | value | label | value)
+                        const cfList = ahaData.allCf || [];
+                        let cfTableRows = '';
+                        for (let i = 0; i < cfList.length; i += 2) {
+                          const a = cfList[i], b = cfList[i+1];
+                          cfTableRows += `<tr>
+                            <td class="aha-lbl-cell">${a.name}</td>
+                            <td class="aha-val-cell">${a.val}</td>
+                            <td class="aha-lbl-cell">${b ? b.name : ''}</td>
+                            <td class="aha-val-cell">${b ? b.val : ''}</td>
+                          </tr>`;
+                        }
 
-                        panelHtml = `<div class="aha-grid">
-                          <div class="aha-item aha-item-center">
-                            <span class="aha-item-lbl">AHA ID</span>
-                            <span class="aha-item-val"><a href="${ahaUrl}" target="_blank" style="color:#38bdf8;text-decoration:none;" title="Open in AHA">${f.ahaRef} ↗</a></span>
+                        panelHtml = `<div class="aha-panel-wrap">
+                          <div class="aha-panel-hdr">
+                            <div class="aha-panel-hdr-left">
+                              <span class="aha-panel-hdr-title">🔗 AHA Details</span>
+                              <a href="${ahaUrl}" target="_blank" title="Open in AHA">${f.ahaRef} ↗</a>
+                              <span class="aha-wf-pill" style="background:${wfBg};border:1px solid ${wfBd};color:${wfTx};">${ahaData.status||'—'}</span>
+                            </div>
+                            <span style="font-size:.58rem;color:#64748b;font-style:italic;">Click any row to copy value</span>
                           </div>
-                          <div class="aha-item aha-item-center">
-                            <span class="aha-item-lbl">AHA Status</span>
-                            <span class="aha-wf-pill" style="background:${wfBg};border:1px solid ${wfBd};color:${wfTx};">${ahaData.status||'—'}</span>
-                          </div>
-                          <div class="aha-item aha-item-center">
-                            <span class="aha-item-lbl">TFS Status</span>
-                            <span class="aha-item-val"><span class="fp-status-pill ${statusCls}">${f.status}</span></span>
-                          </div>
-                          <div class="aha-item aha-item-center">
-                            <span class="aha-item-lbl">TFS State</span>
-                            <span class="aha-item-val"><span class="fp-state-pill ${stCls}">${f.state}</span></span>
-                          </div>
-                          <div class="aha-item aha-item-center">
-                            <span class="aha-item-lbl">Owner (AHA)</span>
-                            <span class="aha-item-val">${ahaData.owner||'—'}</span>
-                          </div>
-                          ${cfRows}
+                          <table class="aha-detail-tbl">
+                            <colgroup>
+                              <col class="aha-col-lbl"><col><col class="aha-col-lbl"><col>
+                            </colgroup>
+                            <tbody>
+                              <tr>
+                                <td class="aha-lbl-cell">TFS Status</td>
+                                <td class="aha-val-cell"><span class="fp-status-pill ${statusCls}">${f.status}</span></td>
+                                <td class="aha-lbl-cell">TFS State</td>
+                                <td class="aha-val-cell"><span class="fp-state-pill ${stCls}">${f.state}</span></td>
+                              </tr>
+                              <tr>
+                                <td class="aha-lbl-cell">Owner (AHA)</td>
+                                <td class="aha-val-cell">${ahaData.owner||'—'}</td>
+                                <td class="aha-lbl-cell">BA</td>
+                                <td class="aha-val-cell">${ahaData.ba||'—'}</td>
+                              </tr>
+                              ${cfTableRows}
+                            </tbody>
+                          </table>
                         </div>`;
                     } else {
                         panelHtml = `<span class="aha-na">⚠️ AHA feature <strong style="color:#7dd3fc;">${f.ahaRef}</strong> not loaded — it may be in a different product, or connection may need refresh.</span>`;
@@ -14272,7 +14352,7 @@
             try { await loadData(); } finally { btn.disabled = false; btn.textContent = '🔄 Refresh'; }
         }
 
-        function showFilters() { document.getElementById('content').classList.remove('visible'); document.getElementById('filterPanel').classList.add('visible'); }
+        function showFilters() { document.getElementById('content').classList.remove('visible'); document.getElementById('filterPanel').classList.add('visible'); if (typeof ahaDisconnect === 'function') ahaDisconnect(); }
         function resetConnection() { 
             document.getElementById('filterPanel').classList.remove('visible'); 
             document.getElementById('content').classList.remove('visible'); 
@@ -14553,21 +14633,44 @@ function _hexRgba(hex, a) {
   return `rgba(${r},${g},${b},${a})`;
 }
 
+/* ── Disconnect AHA — called on filter change so user must reconnect ── */
+function ahaDisconnect() {
+  if (!window._ahaConnected) return; // already disconnected, nothing to do
+  window._ahaConnected = false;
+  window._ahaMap       = {};
+  // Reset ahaRef on all features so re-connect does a fresh TFS fetch
+  if (typeof featureProgressData !== 'undefined') {
+    featureProgressData.forEach(f => { f.ahaRef = ''; });
+  }
+  // Uncheck the toggle visually
+  const cb  = document.getElementById('ahaToggleCb');
+  const dot = document.getElementById('ahaDot');
+  if (cb)  cb.checked = false;
+  if (dot) dot.style.display = 'none';
+  // NOTE: API key cookie is intentionally kept — modal will auto-fill it on next connect
+}
+
 /* ── Toggle checkbox handler ── */
 function onAhaToggle(checked) {
   if (checked) {
-    // Pre-fill saved key from cookie
+    // Pre-fill saved key from cookie into the modal input
     const saved = _getCookie('aha_api_key');
-    if (saved) document.getElementById('ahaKeyInput').value = saved;
-    // If not yet connected, open modal
+    if (saved) {
+      const keyInput = document.getElementById('ahaKeyInput');
+      if (keyInput) keyInput.value = saved;
+    }
     if (!window._ahaConnected) {
+      // Open modal — if key is already in cookie, user just needs to click Connect
       document.getElementById('ahaConnModal').classList.add('open');
+      ahaSetStatus('', '');
+      document.getElementById('ahaFetchBtn').textContent = '🔗 Connect & Fetch Features';
+      document.getElementById('ahaFetchBtn').disabled = false;
     } else {
-      // Already connected — just re-render with tree rows
+      // Already connected — re-render tree rows
       if (typeof renderFeatureProgressTable === 'function') renderFeatureProgressTable();
     }
   } else {
-    // Re-render as flat table (original)
+    // Unchecked — render flat, but keep session connected (user can re-check without re-entering key)
     if (typeof renderFeatureProgressTable === 'function') renderFeatureProgressTable();
   }
 }
@@ -14718,27 +14821,54 @@ async function ahaConnect() {
 
     // ── Helpers ──────────────────────────────────────────────────────────────
 
-    // Resolve a single AHA value item to a display string
+    // Resolve a single AHA value item to a display string.
+    // Falls back to v.id if name/email/label are all null — the ID will be
+    // resolved to a real name later via _resolveId().
     function _oneVal(v) {
       if (v === null || v === undefined || v === '') return null;
-      if (typeof v === 'object') return v.name || v.email || v.label || v.text || null;
+      if (typeof v === 'object') {
+        // Named field first
+        const named = v.name || v.email || v.label || v.text || v.title;
+        if (named) return String(named).trim();
+        // Fall back to ID — will be resolved later
+        const id = v.id || v.reference_num || v.reference_id;
+        return id ? String(id).trim() : null;
+      }
       return String(v).trim() || null;
     }
 
     // Convert an AHA custom field value to { display, ids }
-    // ids = ALL 10+ digit numeric segments found — resolved later regardless of field type
+    // ids = ALL 10+ digit numeric segments collected for resolution
     function _cfVal(val) {
       if (val === null || val === undefined || val === '') return { display: null, ids: [] };
+
       if (Array.isArray(val)) {
-        const items    = val.map(_oneVal).filter(Boolean);
-        const rawNums  = val.map(v => String(v == null ? '' : v).trim())
-                           .filter(s => /^\d{10,}$/.test(s));
+        const items   = val.map(_oneVal).filter(Boolean);
+        // Collect IDs both from plain numeric values and from object .id fields
+        const rawNums = val.flatMap(v => {
+          if (typeof v === 'object' && v !== null) {
+            const oid = String(v.id || v.reference_num || '').trim();
+            return oid && /^\d{10,}$/.test(oid) ? [oid] : [];
+          }
+          const s = String(v == null ? '' : v).trim();
+          return /^\d{10,}$/.test(s) ? [s] : [];
+        });
         return { display: items.join(', ') || null, ids: rawNums };
       }
-      if (typeof val === 'object') return { display: _oneVal(val), ids: [] };
+
+      if (typeof val === 'object') {
+        const display = _oneVal(val);   // may be name or id-as-string
+        // Also collect the id for resolution
+        const oid = String(val.id || val.reference_num || '').trim();
+        const ids = oid && /^\d{10,}$/.test(oid) ? [oid] : [];
+        // If display itself is a bare ID, include it in ids too
+        if (display && /^\d{10,}$/.test(display) && !ids.includes(display)) ids.push(display);
+        return { display, ids };
+      }
+
       const s = String(val).trim();
       if (!s) return { display: null, ids: [] };
-      // Split on comma or semicolon; every 10+ digit segment is a candidate ID
+      // Split on comma/semicolon; each 10+ digit segment is a candidate ID
       const parts = s.split(/[,;]/).map(p => p.trim()).filter(Boolean);
       const ids   = parts.filter(p => /^\d{10,}$/.test(p));
       return { display: s, ids };
@@ -14788,61 +14918,82 @@ async function ahaConnect() {
       } catch { fail++; }
     }));
 
-    // ── 3b. Resolve ALL numeric IDs found in any field ────────────────────────
-    //    Try /api/v1/users/{id} first (covers BA, TPM, PM, Owner etc.)
-    //    Then try /api/v1/accounts/{id} (covers Customer Org, Account fields)
-    //    Any field whose value contains a long numeric ID will be resolved.
-    const allIds = new Set();
+    // ── 3b. Resolve ALL numeric IDs to human-readable names ─────────────────
+    //    Strategy per ID (tried in order, stops at first success):
+    //      1. /api/v1/users/{id}          → person name  (BA, TPM, PM, Owner…)
+    //      2. /api/v1/accounts/{id}        → org/company  (Customer Org…)
+    //      3. /api/v1/account_lists/{id}   → account list name
+    //      4. /api/v1/goals/{id}           → AHA goal     (Category links…)
+    //      5. /api/v1/initiatives/{id}     → initiative name
+    //    If ALL fail → show formatted short reference: last 8 digits in grey
+
+    // Collect every unique numeric ID to resolve.
+    // Scans BOTH the _ids lists AND the raw display strings — catches any ID
+    // that _cfVal may have stored as display but not flagged in _ids.
+    const allNumericIds = new Set();
+    const numericRe = /\b\d{10,}\b/g;
     Object.values(window._ahaMap).forEach(m => {
-      (m._baIds || []).forEach(id => allIds.add(id));
-      (m.allCf  || []).forEach(cf => (cf._ids || []).forEach(id => allIds.add(id)));
+      (m._baIds || []).forEach(id => allNumericIds.add(id));
+      if (m.ba) { const ms = m.ba.match(numericRe); if (ms) ms.forEach(id => allNumericIds.add(id)); }
+      (m.allCf || []).forEach(cf => {
+        (cf._ids || []).forEach(id => allNumericIds.add(id));
+        if (cf.val) { const ms = cf.val.match(numericRe); if (ms) ms.forEach(id => allNumericIds.add(id)); }
+      });
     });
 
-    if (allIds.size) {
-      ahaSetStatus(`⏳ Resolving ${allIds.size} ID(s) to names…`, 'load');
+    if (allNumericIds.size) {
+      ahaSetStatus(`⏳ Resolving ${allNumericIds.size} reference ID(s)…`, 'load');
       const idCache = {};
 
-      await Promise.all([...allIds].map(async uid => {
-        // 1. Try users endpoint
-        try {
-          const r = await fetch(`${urlRaw}/api/v1/users/${uid}`, {
-            headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
-          });
-          if (r.ok) {
-            const d = await r.json();
-            const u = d.user || d;
-            const name = u.name || u.email;
-            if (name) { idCache[uid] = name; return; }
-          }
-        } catch { /* fall through */ }
-        // 2. Try accounts endpoint (Customer Org, Organisation fields)
-        try {
-          const r = await fetch(`${urlRaw}/api/v1/accounts/${uid}`, {
-            headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
-          });
-          if (r.ok) {
-            const d = await r.json();
-            const a = d.account || d;
-            const name = a.name || a.organization_name || a.company_name;
-            if (name) { idCache[uid] = name; return; }
-          }
-        } catch { /* leave as original ID */ }
-      }));
+      // AHA endpoints to try in order for each ID
+      const AHA_ENDPOINTS = [
+        id => `/api/v1/users/${id}`,
+        id => `/api/v1/accounts/${id}`,
+        id => `/api/v1/account_lists/${id}`,
+        id => `/api/v1/goals/${id}`,
+        id => `/api/v1/initiatives/${id}`,
+        id => `/api/v1/epics/${id}`,
+      ];
 
-      // Replace each numeric segment in a display string with its resolved name
+      // Resolver: try each endpoint until one returns a usable name
+      async function _resolveId(id) {
+        for (const ep of AHA_ENDPOINTS) {
+          try {
+            const r = await fetch(`${urlRaw}${ep(id)}`, {
+              headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
+            });
+            if (!r.ok) continue;
+            const d = await r.json();
+            // Flatten: AHA wraps response in a key matching the resource type
+            const obj = d.user || d.account || d.account_list || d.goal
+                     || d.initiative || d.epic || d;
+            const name = obj.name || obj.email || obj.label
+                      || obj.reference_num || obj.title || null;
+            if (name) { idCache[id] = name; return; }
+          } catch { /* try next endpoint */ }
+        }
+        // All endpoints failed — show last 8 digits as a dim reference
+        idCache[id] = `···${id.slice(-8)}`;
+      }
+
+      await Promise.all([...allNumericIds].map(id => _resolveId(id)));
+
+      // Apply: replace every numeric ID found in any display string.
+      // Uses simple global split+join — no regex, no lookbehind, always works.
       function _applyCache(str) {
-        if (!str || !Object.keys(idCache).length) return str;
-        return str.split(/([,;]\s*)/).map(seg => {
-          const t = seg.trim().replace(/[,;]\s*$/, '').trim();
-          return idCache[t] ? seg.replace(t, idCache[t]) : seg;
-        }).join('');
+        if (!str) return str;
+        let out = str;
+        for (const [id, name] of Object.entries(idCache)) {
+          if (out.includes(id)) out = out.split(id).join(name);
+        }
+        return out;
       }
 
       Object.values(window._ahaMap).forEach(m => {
-        if (m._baIds  && m._baIds.length)  m.ba = _applyCache(m.ba);
-        (m.allCf || []).forEach(cf => {
-          if (cf._ids && cf._ids.length) cf.val = _applyCache(cf.val);
-        });
+        // Apply to BA
+        m.ba = _applyCache(m.ba);
+        // Apply to ALL allCf fields — not just those with _ids flag
+        (m.allCf || []).forEach(cf => { cf.val = _applyCache(cf.val); });
       });
     }
 
@@ -14876,11 +15027,19 @@ async function ahaConnect() {
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('ahaConnModal');
   if (modal) modal.addEventListener('click', e => { if (e.target === modal) ahaCloseModal(); });
-  // Pre-fill URL from input default and key from cookie
+  // Pre-fill URL default
   const urlEl = document.getElementById('ahaUrlInput');
   if (urlEl && !urlEl.value) urlEl.value = 'https://casepoint.aha.io';
+  // Auto-fill API key from cookie if saved
   const saved = _getCookie('aha_api_key');
-  if (saved) { const k = document.getElementById('ahaKeyInput'); if (k) k.value = saved; }
+  if (saved) {
+    const k = document.getElementById('ahaKeyInput');
+    if (k) {
+      k.value = saved;
+      // Show subtle hint that key was restored from cookie
+      ahaSetStatus('🔑 API key restored from browser — click Connect to proceed', 'load');
+    }
+  }
 });
 </script>
 </body>
