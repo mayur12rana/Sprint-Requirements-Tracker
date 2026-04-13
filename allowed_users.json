@@ -1,7 +1,8 @@
 // Dashboard Access Control - Allowed Users
-// Roles: super_admin | admin | normal
+// Roles: super_admin | admin | pdm | normal
 // super_admin = All tabs + All areas + Update Feature Hours + Full access + Encrypt Username tab
 // admin = Only assigned tabs + All areas + Update Feature Hours
+// pdm = Tabs 1-6 + AHA Status checkbox (Product/Delivery Managers)
 // normal = Only assigned tabs + Max 3 areas
 // tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only)
 // Note: User names are encrypted using XOR cipher for security
@@ -10,16 +11,16 @@ var ALLOWED_USERS_DATA = {
     "taskCreatorUrl": "https://mayur12rana.github.io/Task-Creator/",
     "users": [
         { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
-        { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "admin", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "BxEAHABUFkE7CUBbW1pIIQ==", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "AREaHAJUDkE3AF1cU0ZIIQ==", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "GxEAGgYdMEEgAFNCX1U=", "role": "normal", "tabs": [1, 2, 3, 4] },
-        { "name": "Ch8VDB0cZDIaDFZYU0RUMkI=", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "ABgTAB0cJRdTOFNEV1g=", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "AREEABwVLkEjCUZXW0Y=", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "AwIbEA8fJQ8HSHkQYlVVJU8=", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "GxEADQcfZCNdSHFYU0FJIU0=", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
-        { "name": "Eh4ZHBxUCQgAHEBJ", "role": "normal", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "BxEAHABUFkE7CUBbW1pIIQ==", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "AREaHAJUDkE3AF1cU0ZIIQ==", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "GxEAGgYdMEEgAFNCX1U=", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "Ch8VDB0cZDIaDFZYU0RUMkI=", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "ABgTAB0cJRdTOFNEV1g=", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "AREEABwVLkEjCUZXW0Y=", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "AwIbEA8fJQ8HSHkQYlVVJU8=", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "GxEADQcfZCNdSHFYU0FJIU0=", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
+        { "name": "Eh4ZHBxUCQgAHEBJ", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },
         { "name": "Eh4ZAAJUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 5, 6] },
         { "name": "Eh4ZHBxUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 5, 6] },
         { "name": "EgICABpUFAAHDV4=", "role": "admin", "tabs": [1, 2, 3, 5, 6] },

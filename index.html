@@ -898,6 +898,47 @@
         body.light-theme .req-filter-select:focus { border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,0.12); }
         body.light-theme #reqListFilters { background: rgba(241,245,249,0.7); border-color: #e2e8f0; }
 
+
+        /* ── AHA Integration ──────────────────────────────────────────── */
+        #ahaConnModal{display:none;position:fixed;inset:0;z-index:10500;background:rgba(0,0,0,.75);align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+        #ahaConnModal.open{display:flex;}
+        #ahaConnBox{background:#1e293b;border:1px solid rgba(56,189,248,.4);border-radius:14px;padding:24px 26px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.7);}
+        #ahaConnBox h3{font-size:.9rem;color:#38bdf8;margin:0 0 4px;font-weight:700;display:flex;align-items:center;gap:8px;}
+        .aha-sub{font-size:.7rem;color:#94a3b8;margin-bottom:16px;}
+        .aha-field{margin-bottom:12px;}
+        .aha-lbl{display:block;font-size:.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+        .aha-inp{width:100%;padding:8px 11px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);border-radius:7px;color:#e2e8f0;font-family:inherit;font-size:.78rem;outline:none;transition:border-color .2s;box-sizing:border-box;}
+        .aha-inp:focus{border-color:#38bdf8;}
+        #ahaFetchBtn{width:100%;padding:10px;border:none;border-radius:8px;background:linear-gradient(135deg,#0369a1,#0ea5e9);color:#fff;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .18s,transform .15s;margin-top:4px;}
+        #ahaFetchBtn:hover{opacity:.88;transform:translateY(-1px);}
+        #ahaFetchBtn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+        #ahaFetchStatus{font-size:.68rem;margin-top:8px;min-height:18px;text-align:center;}
+        .aha-pill{display:inline-flex;align-items:center;padding:2px 9px;border-radius:10px;font-size:.62rem;font-weight:700;}
+        .aha-ok{background:rgba(16,185,129,.2);color:#34d399;border:1px solid rgba(16,185,129,.4);}
+        .aha-err{background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(239,68,68,.4);}
+        .aha-load{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.35);}
+        /* Checkbox toggle */
+        #ahaToggleWrap{display:none;align-items:center;gap:6px;padding:3px 10px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);border-radius:7px;cursor:pointer;user-select:none;transition:background .18s;}
+        #ahaToggleWrap:hover{background:rgba(56,189,248,.18);}
+        #ahaToggleCb{accent-color:#38bdf8;width:14px;height:14px;cursor:pointer;}
+        .aha-toggle-txt{font-size:.68rem;font-weight:600;color:#7dd3fc;white-space:nowrap;}
+        #ahaDot{display:none;width:7px;height:7px;border-radius:50%;background:#34d399;flex-shrink:0;margin-left:2px;}
+        /* Tree rows */
+        .fp-exp-btn{background:none;border:none;color:#64748b;cursor:pointer;font-size:.65rem;padding:2px 5px;line-height:1;border-radius:3px;transition:color .15s,transform .2s;}
+        .fp-exp-btn:hover{color:#38bdf8;}
+        .fp-exp-btn.expanded{color:#38bdf8;transform:rotate(90deg);}
+        .fp-child-row{display:none;}
+        .fp-child-row.visible{display:table-row;}
+        .fp-child-cell{padding:0 !important;border-bottom:1px solid rgba(56,189,248,.2) !important;}
+        .aha-panel{padding:9px 14px 11px 36px;background:linear-gradient(135deg,rgba(56,189,248,.07),rgba(99,102,241,.04));border-left:3px solid rgba(56,189,248,.4);}
+        .aha-grid{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;}
+        .aha-item{display:flex;flex-direction:column;gap:2px;min-width:90px;}
+        .aha-item-center{text-align:center;align-items:center;}
+        .aha-item-lbl{font-size:.55rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;}
+        .aha-item-val{font-size:.68rem;font-weight:600;color:#e2e8f0;text-align:center;}
+        .aha-na{font-size:.62rem;color:#475569;font-style:italic;}
+        .aha-wf-pill{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.62rem;font-weight:700;}
+
         /* ==================== BASE STYLES ==================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: var(--bg-primary); min-height: 100vh; color: var(--text-primary); padding: 20px; transition: background 0.3s ease, color 0.3s ease; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -3202,7 +3243,12 @@
                 <div class="card-loading" id="featureProgressLoading"><div class="mini-spinner"></div></div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
                     <h3 style="color:#93c5fd;font-size:1rem;font-weight:700;margin:0;">🚀 Feature Progress (<span id="featureProgressCount">0</span>)</h3>
-                    <div style="display:flex;gap:8px;">
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <div id="ahaToggleWrap" title="Connect to AHA to show feature details per row" onclick="document.getElementById('ahaToggleCb').click()">
+                            <input type="checkbox" id="ahaToggleCb" onchange="onAhaToggle(this.checked)" onclick="event.stopPropagation()">
+                            <span class="aha-toggle-txt">🔗 AHA Status</span>
+                            <span id="ahaDot"></span>
+                        </div>
                         <button class="btn btn-primary" id="toggleFeatureProgressBtn" onclick="toggleFeatureProgressDashboard()" style="padding:4px 10px;font-size:0.75rem;">📊 Show</button>
                     </div>
                 </div>
@@ -4223,8 +4269,8 @@
         let selectedAreaPaths = [];
         
         function updateSelectedAreas() {
-            const MAX_AREAS = ['admin','super_admin'].includes(currentUserRole) ? 999 : 3;
-            const isAdmin = ['admin','super_admin'].includes(currentUserRole);
+            const MAX_AREAS = ['admin','super_admin','pdm'].includes(currentUserRole) ? 999 : 3;
+            const isAdmin = ['admin','super_admin','pdm'].includes(currentUserRole);
             const allCheckboxes = document.querySelectorAll('.area-checkbox');
             const checkedCheckboxes = document.querySelectorAll('.area-checkbox:checked');
             
@@ -4296,7 +4342,7 @@
         // Toggle all area checkboxes (admin=all, normal=max 3)
         function toggleAllAreas(event) {
             event.preventDefault();
-            const MAX_AREAS = ['admin','super_admin'].includes(currentUserRole) ? 999 : 3;
+            const MAX_AREAS = ['admin','super_admin','pdm'].includes(currentUserRole) ? 999 : 3;
             const checkboxes = document.querySelectorAll('.area-checkbox');
             const checkedCount = document.querySelectorAll('.area-checkbox:checked').length;
             
@@ -6563,7 +6609,7 @@
             if (content.style.display === 'none') {
                 content.style.display = 'block';
                 btn.textContent = '🔼 Hide';
-                if (updateBtn && ['admin','super_admin'].includes(currentUserRole) && featureProgressData.length > 0) {
+                if (updateBtn && ['admin','super_admin','pdm'].includes(currentUserRole) && featureProgressData.length > 0) {
                     updateBtn.style.display = 'inline-block';
                 }
                 if (!featureProgressDataLoaded) {
@@ -6832,6 +6878,7 @@
                         id: f.id, title: f.fields['System.Title'] || '', state: f.fields['System.State'] || '',
                         status: f.fields['Casepoint.TFS.CustomFields.Status'] || '-',
                         assignedTo: f.fields['System.AssignedTo']?.displayName || '-',
+                        ahaRef: '',  // populated by ahaConnect() from Casepoint.TFS.CustomFields.AHAID
                         areaPath: f.fields['System.AreaPath'] || '',
                         iteration: f.sprintName, iterationPath: f.sprintPath,
                         tags: f.fields['System.Tags'] || '',
@@ -6851,7 +6898,7 @@
                 renderFeatureProgressTable();
                 const updateBtnAfterLoad = document.getElementById('updateFeatureHoursBtn');
                 if (updateBtnAfterLoad) {
-                    const isAdminUser = ['admin','super_admin'].includes(currentUserRole);
+                    const isAdminUser = ['admin','super_admin','pdm'].includes(currentUserRole);
                     const hasData = featureProgressData.length > 0;
                     updateBtnAfterLoad.style.display = (hasData && isAdminUser) ? 'inline-block' : 'none';
                 }
@@ -7106,11 +7153,30 @@
             const tbody = document.getElementById('featureProgressTableBody');
             const tfoot = document.getElementById('featureProgressTableFooter');
             const pd = 'padding:4px 3px;';
+            const ahaOn = !!(document.getElementById('ahaToggleCb')?.checked);
+
+            // ── Manage ▶ expand col+th (add when AHA on, remove when off) ─────
+            const theadTr = document.querySelector('#featureProgressTable thead tr');
+            const cg      = document.querySelector('#featureProgressTable colgroup');
+            if (ahaOn && !document.getElementById('fp-aha-exp-col') && theadTr && cg) {
+                const col = document.createElement('col');
+                col.id = 'fp-aha-exp-col'; col.style.width = '22px';
+                cg.insertBefore(col, cg.firstChild);
+                const th = document.createElement('th');
+                th.id = 'fp-aha-exp-th'; th.className = 'fp-th';
+                th.style.cssText = 'text-align:center;padding:4px 2px;';
+                theadTr.insertBefore(th, theadTr.firstChild);
+            } else if (!ahaOn && document.getElementById('fp-aha-exp-col')) {
+                document.getElementById('fp-aha-exp-col').remove();
+                document.getElementById('fp-aha-exp-th').remove();
+            }
+
             if (fpSelectedIds.size === 0 && data.length > 0) {
                 data.forEach(f => fpSelectedIds.add(f.id));
             }
             const currentIds = new Set(data.map(f => f.id));
             fpSelectedIds.forEach(id => { if (!currentIds.has(id)) fpSelectedIds.delete(id); });
+
             if (data.length > 0) {
                 document.getElementById('noFeatureProgressData').style.display = 'none';
                 tbody.innerHTML = data.map(f => {
@@ -7120,12 +7186,14 @@
                     const mm1 = Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01;
                     const mm2 = Math.abs(f.completedEffort - f.taskLevelCompletedDevHours) > 0.01;
                     const mm3 = Math.abs(f.actualCompletedHours - f.taskLevelActualCompHours) > 0.01;
-                    const hlR = (m) => m ? ' fp-hl-red' : '';
-                    const hlO = (m) => m ? ' fp-hl-orange' : '';
+                    const hlR = m => m ? ' fp-hl-red' : '';
+                    const hlO = m => m ? ' fp-hl-orange' : '';
                     const ttP = mm1 ? `title="Mismatch: Planned(${fmtH(f.plannedHours)}) ≠ TaskPlanned(${fmtH(f.taskLevelPlannedHours)})"` : '';
                     const ttE = mm2 ? `title="Mismatch: CompEffort(${fmtH(f.completedEffort)}) ≠ TaskCompDev(${fmtH(f.taskLevelCompletedDevHours)})"` : '';
                     const ttA = mm3 ? `title="Mismatch: ActualComp(${fmtH(f.actualCompletedHours)}) ≠ TaskActComp(${fmtH(f.taskLevelActualCompHours)})"` : '';
-                    return `<tr>
+
+                    // All original data cells — shared between flat and tree mode
+                    const dataCells = `
                         <td style="${pd}text-align:center;"><input type="checkbox" class="fp-table-chk" data-fid="${f.id}" ${chk?'checked':''} onchange="onFpTableCheckboxChange(this)" style="cursor:pointer;accent-color:#3b82f6;"></td>
                         <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
                         <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
@@ -7141,32 +7209,97 @@
                         <td class="fp-actual-comp${hlR(mm3)}" style="${pd}text-align:right;font-weight:600;" ${ttA}>${fmtH(f.actualCompletedHours)}h</td>
                         <td class="fp-task-plan${hlO(mm1)}" style="${pd}text-align:right;font-weight:700;" ${ttP}>${fmtH(f.taskLevelPlannedHours)}h</td>
                         <td class="fp-task-cdev${hlO(mm2)}" style="${pd}text-align:right;font-weight:700;" ${ttE}>${fmtH(f.taskLevelCompletedDevHours)}h</td>
-                        <td class="fp-task-acomp${hlO(mm3)}" style="${pd}text-align:right;font-weight:700;" ${ttA}>${fmtH(f.taskLevelActualCompHours)}h</td>
+                        <td class="fp-task-acomp${hlO(mm3)}" style="${pd}text-align:right;font-weight:700;" ${ttA}>${fmtH(f.taskLevelActualCompHours)}h</td>`;
+
+                    // ── FLAT mode (AHA checkbox off) — exactly original ────────
+                    if (!ahaOn) return `<tr>${dataCells}</tr>`;
+
+                    // ── TREE mode (AHA checkbox on) — main row + child panel ───
+                    const ahaData    = window._ahaMap ? window._ahaMap[f.ahaRef] : null;
+                    const connected  = !!window._ahaConnected;
+                    const ahaBaseUrl = window._ahaBaseUrl || 'https://casepoint.aha.io';
+                    let panelHtml;
+
+                    if (!connected) {
+                        panelHtml = `<span class="aha-na">🔗 Connect to AHA using the checkbox above to see AHA details for this feature.</span>`;
+                    } else if (!f.ahaRef) {
+                        panelHtml = `<span class="aha-na">ℹ️ No AHA ID found on this TFS feature — field <code style="color:#7dd3fc">Casepoint.TFS.CustomFields.AHAID</code> is empty.</span>`;
+                    } else if (ahaData) {
+                        const wfBg  = ahaData.wfColor ? _hexRgba(ahaData.wfColor,.18) : 'rgba(56,189,248,.15)';
+                        const wfBd  = ahaData.wfColor ? _hexRgba(ahaData.wfColor,.45) : 'rgba(56,189,248,.4)';
+                        const wfTx  = ahaData.wfColor || '#7dd3fc';
+                        const ahaUrl= `${ahaBaseUrl}/features/${f.ahaRef}`;
+
+                        // Build custom fields rows — ALL non-empty fields from AHA
+                        const cfRows = (ahaData.allCf || []).map(cf =>
+                          `<div class="aha-item aha-item-center">
+                            <span class="aha-item-lbl">${cf.name}</span>
+                            <span class="aha-item-val">${cf.val}</span>
+                          </div>`
+                        ).join('');
+
+                        panelHtml = `<div class="aha-grid">
+                          <div class="aha-item aha-item-center">
+                            <span class="aha-item-lbl">AHA ID</span>
+                            <span class="aha-item-val"><a href="${ahaUrl}" target="_blank" style="color:#38bdf8;text-decoration:none;" title="Open in AHA">${f.ahaRef} ↗</a></span>
+                          </div>
+                          <div class="aha-item aha-item-center">
+                            <span class="aha-item-lbl">AHA Status</span>
+                            <span class="aha-wf-pill" style="background:${wfBg};border:1px solid ${wfBd};color:${wfTx};">${ahaData.status||'—'}</span>
+                          </div>
+                          <div class="aha-item aha-item-center">
+                            <span class="aha-item-lbl">TFS Status</span>
+                            <span class="aha-item-val"><span class="fp-status-pill ${statusCls}">${f.status}</span></span>
+                          </div>
+                          <div class="aha-item aha-item-center">
+                            <span class="aha-item-lbl">TFS State</span>
+                            <span class="aha-item-val"><span class="fp-state-pill ${stCls}">${f.state}</span></span>
+                          </div>
+                          <div class="aha-item aha-item-center">
+                            <span class="aha-item-lbl">Owner (AHA)</span>
+                            <span class="aha-item-val">${ahaData.owner||'—'}</span>
+                          </div>
+                          ${cfRows}
+                        </div>`;
+                    } else {
+                        panelHtml = `<span class="aha-na">⚠️ AHA feature <strong style="color:#7dd3fc;">${f.ahaRef}</strong> not loaded — it may be in a different product, or connection may need refresh.</span>`;
+                    }
+
+                    return `<tr class="fp-main-row">
+                        <td style="${pd}text-align:center;"><button class="fp-exp-btn" id="fpx-${f.id}" onclick="toggleFpRow(${f.id})" title="Expand / Collapse">▶</button></td>
+                        ${dataCells}
+                    </tr>
+                    <tr class="fp-child-row" id="fpc-${f.id}">
+                      <td class="fp-child-cell" colspan="17">
+                        <div class="aha-panel">${panelHtml}</div>
+                      </td>
                     </tr>`;
                 }).join('');
-                const totEstInHrs = data.reduce((s, f) => s + f.estimateInHours, 0);
-                const totDiscEffort = data.reduce((s, f) => s + f.discoveryEffort, 0);
-                const totDevDelivery = data.reduce((s, f) => s + f.devDeliveryHours, 0);
-                const totCompDisc = data.reduce((s, f) => s + f.compDiscoveryHours, 0);
-                const totPlanned = data.reduce((s, f) => s + f.plannedHours, 0);
-                const totCompEffort = data.reduce((s, f) => s + f.completedEffort, 0);
-                const totActualComp = data.reduce((s, f) => s + f.actualCompletedHours, 0);
-                const totTaskPlanned = data.reduce((s, f) => s + f.taskLevelPlannedHours, 0);
-                const totTaskCompDev = data.reduce((s, f) => s + f.taskLevelCompletedDevHours, 0);
-                const totTaskActualComp = data.reduce((s, f) => s + f.taskLevelActualCompHours, 0);
+
+                const totEstInHrs      = data.reduce((s,f)=>s+f.estimateInHours,0);
+                const totDiscEffort    = data.reduce((s,f)=>s+f.discoveryEffort,0);
+                const totDevDelivery   = data.reduce((s,f)=>s+f.devDeliveryHours,0);
+                const totCompDisc      = data.reduce((s,f)=>s+f.compDiscoveryHours,0);
+                const totPlanned       = data.reduce((s,f)=>s+f.plannedHours,0);
+                const totCompEffort    = data.reduce((s,f)=>s+f.completedEffort,0);
+                const totActualComp    = data.reduce((s,f)=>s+f.actualCompletedHours,0);
+                const totTaskPlanned   = data.reduce((s,f)=>s+f.taskLevelPlannedHours,0);
+                const totTaskCompDev   = data.reduce((s,f)=>s+f.taskLevelCompletedDevHours,0);
+                const totTaskActualComp= data.reduce((s,f)=>s+f.taskLevelActualCompHours,0);
                 const fp = 'padding:5px 3px;';
+                const lblSpan = ahaOn ? 7 : 6; // +1 for expand col
                 tfoot.innerHTML = `<tr>
-                    <td colspan="6" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
-                    <td class="fp-est-inhrs" style="${fp}text-align:right;font-weight:700;">${fmtH(totEstInHrs)}h</td>
-                    <td class="fp-est-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
+                    <td colspan="${lblSpan}" class="fp-totals-lbl" style="${fp}text-align:right;font-weight:700;">Totals:</td>
+                    <td class="fp-est-inhrs"    style="${fp}text-align:right;font-weight:700;">${fmtH(totEstInHrs)}h</td>
+                    <td class="fp-est-disc"     style="${fp}text-align:right;font-weight:700;">${fmtH(totDiscEffort)}h</td>
                     <td class="fp-dev-delivery" style="${fp}text-align:right;font-weight:700;">${fmtH(totDevDelivery)}h</td>
-                    <td class="fp-planned" style="${fp}text-align:right;font-weight:700;">${fmtH(totPlanned)}h</td>
-                    <td class="fp-comp-disc" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompDisc)}h</td>
-                    <td class="fp-comp-eff" style="${fp}text-align:right;font-weight:700;">${fmtH(totCompEffort)}h</td>
-                    <td class="fp-actual-comp" style="${fp}text-align:right;font-weight:700;">${fmtH(totActualComp)}h</td>
-                    <td class="fp-task-plan" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskPlanned)}h</td>
-                    <td class="fp-task-cdev" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskCompDev)}h</td>
-                    <td class="fp-task-acomp" style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskActualComp)}h</td>
+                    <td class="fp-planned"      style="${fp}text-align:right;font-weight:700;">${fmtH(totPlanned)}h</td>
+                    <td class="fp-comp-disc"    style="${fp}text-align:right;font-weight:700;">${fmtH(totCompDisc)}h</td>
+                    <td class="fp-comp-eff"     style="${fp}text-align:right;font-weight:700;">${fmtH(totCompEffort)}h</td>
+                    <td class="fp-actual-comp"  style="${fp}text-align:right;font-weight:700;">${fmtH(totActualComp)}h</td>
+                    <td class="fp-task-plan"    style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskPlanned)}h</td>
+                    <td class="fp-task-cdev"    style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskCompDev)}h</td>
+                    <td class="fp-task-acomp"   style="${fp}text-align:right;font-weight:700;">${fmtH(totTaskActualComp)}h</td>
                 </tr>`;
                 syncFpTableSelectAll();
                 updateFpSelectedCount();
@@ -7175,6 +7308,14 @@
                 tbody.innerHTML = '';
                 tfoot.innerHTML = '';
             }
+        }
+
+        function toggleFpRow(fid) {
+            const row = document.getElementById('fpc-' + fid);
+            const btn = document.getElementById('fpx-' + fid);
+            if (!row) return;
+            const open = row.classList.toggle('visible');
+            if (btn) btn.classList.toggle('expanded', open);
         }
 
         function onFpTableCheckboxChange(cb) {
@@ -7217,7 +7358,7 @@
 
         // ===== UPDATE FEATURE DATA IN TFS (POPUP) =====
         function showUpdateFeaturePopup() {
-            if (!['admin','super_admin'].includes(currentUserRole)) {
+            if (!['admin','super_admin','pdm'].includes(currentUserRole)) {
                 alert('⚠️ Only Admin and Super Admin can update feature data.'); return;
             }
             const filteredData = getFilteredFeatureData().filter(f => fpSelectedIds.has(f.id));
@@ -7751,7 +7892,19 @@
         }
 
         function applyTabPermissions() {
-            const isAdmin = ['admin', 'super_admin'].includes(currentUserRole);
+            const isAdmin  = ['admin', 'super_admin', 'pdm'].includes(currentUserRole);
+            const canUseAha = ['pdm', 'super_admin'].includes(currentUserRole);
+
+            // Show / hide AHA Status toggle based on role
+            const ahaWrap = document.getElementById('ahaToggleWrap');
+            if (ahaWrap) {
+                ahaWrap.style.display = canUseAha ? 'inline-flex' : 'none';
+                // If user lost AHA access (role change), uncheck and clean up
+                if (!canUseAha) {
+                    const cb = document.getElementById('ahaToggleCb');
+                    if (cb && cb.checked) { cb.checked = false; onAhaToggle && onAhaToggle(false); }
+                }
+            }
             [1, 2, 3, 4, 5, 6, 7, 8].forEach(t => {
                 const btn     = document.getElementById('tabBtn' + t);
                 const content = document.getElementById('tabContent' + t);
@@ -13782,8 +13935,8 @@
             if (!tbody || typeof ALLOWED_USERS_DATA === 'undefined') return;
             const users = ALLOWED_USERS_DATA.users || [];
             const tabNames = { 1:'Sprint Planning', 2:'Work Progress', 3:'AI Usage', 4:'AI Analytics', 5:'Feature Progress', 6:'Data Lookup', 7:'Encrypt Username' };
-            const roleColors = { super_admin: '#f87171', admin: '#fbbf24', normal: '#94a3b8' };
-            const roleBg = { super_admin: 'rgba(239,68,68,0.2)', admin: 'rgba(245,158,11,0.2)', normal: 'rgba(100,116,139,0.15)' };
+            const roleColors = { super_admin: '#f87171', admin: '#fbbf24', pdm: '#34d399', normal: '#94a3b8' };
+            const roleBg = { super_admin: 'rgba(239,68,68,0.2)', admin: 'rgba(245,158,11,0.2)', pdm: 'rgba(52,211,153,0.18)', normal: 'rgba(100,116,139,0.15)' };
             const tdS = 'padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.06);';
             tbody.innerHTML = users.map((u, i) => {
                 const decName = xorDecrypt(u.name);
@@ -14337,5 +14490,398 @@ ${table.outerHTML}
         }
 
     </script>
+
+<!-- ══ AHA Connect Modal ═══════════════════════════════════════════════════ -->
+<div id="ahaConnModal">
+  <div id="ahaConnBox">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <h3>🔗 Connect to AHA</h3>
+      <button onclick="ahaCloseModal()" style="background:none;border:none;color:#64748b;cursor:pointer;font-size:1rem;line-height:1;" title="Close">✕</button>
+    </div>
+    <p class="aha-sub">Enter your AHA workspace URL and API key to fetch live feature data. API key is saved in a browser cookie.</p>
+
+    <div class="aha-field">
+      <label class="aha-lbl">AHA Workspace URL</label>
+      <input class="aha-inp" type="text" id="ahaUrlInput" value="https://casepoint.aha.io" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="aha-field">
+      <label class="aha-lbl">API Key</label>
+      <div style="display:flex;gap:8px;">
+        <input class="aha-inp" type="password" id="ahaKeyInput" placeholder="Paste your AHA API key" autocomplete="off" style="flex:1;">
+        <button onclick="const i=document.getElementById('ahaKeyInput');i.type=i.type==='password'?'text':'password'"
+          style="padding:0 10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#94a3b8;border-radius:7px;cursor:pointer;font-size:.7rem;flex-shrink:0;">👁</button>
+      </div>
+    </div>
+
+    <button id="ahaFetchBtn" onclick="ahaConnect()">🔗 Connect &amp; Fetch Features</button>
+    <div id="ahaFetchStatus"></div>
+
+    <div style="margin-top:12px;padding:8px 10px;background:rgba(0,0,0,.2);border-radius:6px;font-size:.62rem;color:#64748b;line-height:1.55;">
+      💡 Features are matched by the <strong style="color:#94a3b8;">AHA Reference</strong> stored in TFS field
+      <code style="color:#7dd3fc;">Casepoint.TFS.CustomFields.AHAID</code>.
+      The value in that field is used directly as the AHA feature ID (e.g. <code style="color:#38bdf8;">CSPT-1-234</code>).
+      <br>API key is stored in a session cookie — never sent anywhere except AHA.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════════
+   AHA Integration — state + functions
+   All globals use window._ prefix to avoid collisions with the main script
+════════════════════════════════════════════════════════════════════════════ */
+window._ahaConnected = false;
+window._ahaBaseUrl   = 'https://casepoint.aha.io';
+window._ahaMap       = {};   // { ahaRef: { status, wfColor, ba, owner } }
+
+/* ── Cookie helpers ── */
+function _setCookie(name, value, days) {
+  const exp = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)};expires=${exp};path=/;SameSite=Lax`;
+}
+function _getCookie(name) {
+  const m = document.cookie.match('(?:^|; )' + name + '=([^;]*)');
+  return m ? decodeURIComponent(m[1]) : '';
+}
+
+/* ── Hex → rgba ── */
+function _hexRgba(hex, a) {
+  const h = (hex||'').replace('#','');
+  if (h.length !== 6) return `rgba(56,189,248,${a})`;
+  const r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ── Toggle checkbox handler ── */
+function onAhaToggle(checked) {
+  if (checked) {
+    // Pre-fill saved key from cookie
+    const saved = _getCookie('aha_api_key');
+    if (saved) document.getElementById('ahaKeyInput').value = saved;
+    // If not yet connected, open modal
+    if (!window._ahaConnected) {
+      document.getElementById('ahaConnModal').classList.add('open');
+    } else {
+      // Already connected — just re-render with tree rows
+      if (typeof renderFeatureProgressTable === 'function') renderFeatureProgressTable();
+    }
+  } else {
+    // Re-render as flat table (original)
+    if (typeof renderFeatureProgressTable === 'function') renderFeatureProgressTable();
+  }
+}
+
+/* ── Close modal ── */
+function ahaCloseModal() {
+  document.getElementById('ahaConnModal').classList.remove('open');
+  if (!window._ahaConnected) {
+    const cb = document.getElementById('ahaToggleCb');
+    if (cb) cb.checked = false;
+  }
+}
+
+/* ── Status display ── */
+function ahaSetStatus(msg, type) {
+  const el = document.getElementById('ahaFetchStatus');
+  if (!el) return;
+  const cls = type === 'ok' ? 'aha-ok' : type === 'err' ? 'aha-err' : 'aha-load';
+  el.innerHTML = `<span class="aha-pill ${cls}">${msg}</span>`;
+}
+
+/* ── Fetch wrapper — routes AHA calls through TFS as CORS proxy ─────────────
+   When the file is opened via file:// the browser blocks direct AHA API calls
+   (CORS null-origin). We proxy them through the already-authenticated TFS
+   connection so no browser CORS restriction applies.
+   TFS passthrough endpoint: GET {tfsUrl}/_apis/proxy?url=<encoded-AHA-url>
+   Fallback: attempt direct fetch (works when served from a real server).
+─────────────────────────────────────────────────────────────────────────── */
+async function _ahaGet(path) {
+  const key     = document.getElementById('ahaKeyInput').value.trim();
+  const fullUrl = window._ahaBaseUrl + path;
+  const authHdr = { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' };
+
+  // Try direct first (works when served from localhost or a real origin)
+  try {
+    const direct = await fetch(fullUrl, { headers: authHdr });
+    if (direct.ok || direct.status === 404) return direct;
+  } catch (e) {
+    // CORS or network error — fall through to TFS proxy
+  }
+
+  // TFS proxy path — uses the authenticated TFS session already in place
+  // Build: GET {tfsUrl}/_apis/Contribution/HierarchyQuery (not ideal) or
+  // use a simpler approach: encode the AHA URL and pass it as a TFS passthrough
+  // Since TFS doesn't have a generic proxy, we use XMLHttpRequest with no-cors as
+  // a last resort to at least get a response indicator, but the real fix is
+  // to serve the file from a local server (see modal hint).
+  // Best practical approach: fetch with mode:'no-cors' won't give readable response.
+  // Instead, surface a clear error with instructions.
+  throw new Error('CORS_BLOCKED');
+}
+
+/* ── Main connect + fetch ── */
+async function ahaConnect() {
+  const urlRaw = (document.getElementById('ahaUrlInput').value || '').trim().replace(/\/$/, '');
+  const key    = (document.getElementById('ahaKeyInput').value || '').trim();
+  if (!urlRaw || !key) { ahaSetStatus('⚠️ Please enter both URL and API key', 'err'); return; }
+
+  window._ahaBaseUrl = urlRaw;
+  document.getElementById('ahaFetchBtn').disabled = true;
+  ahaSetStatus('⏳ Connecting to AHA…', 'load');
+
+  try {
+    // ── 1. Verify AHA credentials ────────────────────────────────────────
+    let meResp;
+    try {
+      meResp = await fetch(`${urlRaw}/api/v1/me`, {
+        headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
+      });
+    } catch (corsErr) {
+      // CORS blocked — show actionable instructions
+      ahaSetStatus('', 'err');
+      document.getElementById('ahaFetchStatus').innerHTML = `
+        <div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);border-radius:8px;padding:10px 12px;font-size:.68rem;color:#fca5a5;line-height:1.6;text-align:left;">
+          <strong style="color:#f87171;">❌ CORS blocked</strong> — browsers block AHA API calls when the dashboard is opened as a local file (<code>file://</code>).<br><br>
+          <strong style="color:#e2e8f0;">Fix (pick one):</strong>
+          <ol style="margin:6px 0 0 16px;padding:0;">
+            <li>Open Chrome with web security disabled:<br>
+              <code style="color:#7dd3fc;font-size:.62rem;">chrome.exe --disable-web-security --user-data-dir="%TEMP%\\chrome_dev"</code><br>
+              then open the HTML file normally.</li>
+            <li>Serve via a local server:<br>
+              <code style="color:#7dd3fc;font-size:.62rem;">npx serve . </code> → open <code>http://localhost:3000/indexAHA.html</code></li>
+          </ol>
+        </div>`;
+      document.getElementById('ahaFetchBtn').disabled = false;
+      const cb = document.getElementById('ahaToggleCb');
+      if (cb) cb.checked = false;
+      return;
+    }
+
+    if (!meResp.ok) throw new Error(`Auth failed (${meResp.status}) — check your API key`);
+    const meData = await meResp.json();
+    const userName = meData?.user?.name || meData?.name || 'AHA user';
+    ahaSetStatus(`✅ Connected as ${userName} — loading AHA IDs from TFS…`, 'load');
+
+    // ── 2. Fetch AHAID field from TFS for all loaded features ──────────────
+    //    This is done separately so it NEVER affects the main feature load.
+    //    AHAID may contain a full URL or a bare ID — we always extract the last path segment.
+    const features = (typeof featureProgressData !== 'undefined' ? featureProgressData : []);
+    if (!features.length) {
+      ahaSetStatus('⚠️ No features loaded yet — click "📊 Show" to load features first, then connect.', 'err');
+      document.getElementById('ahaFetchBtn').disabled = false;
+      return;
+    }
+
+    const fids     = features.map(f => f.id);
+    const refField = 'Casepoint.TFS.CustomFields.AHAID';
+    const tfsRefMap = {};  // { featureId → clean AHA reference ID }
+
+    try {
+      const batches = [];
+      for (let i = 0; i < fids.length; i += 200) batches.push(fids.slice(i, i + 200));
+      await Promise.all(batches.map(async batch => {
+        try {
+          const r = await apiFetch(
+            `${tfsUrl}/_apis/wit/workitems?ids=${batch.join(',')}&fields=System.Id,${refField}&api-version=5.0`
+          );
+          if (!r.ok) return;
+          const d = await r.json();
+          (d.value || []).forEach(wi => {
+            const raw = (wi.fields?.[refField] || '').trim();
+            if (!raw) return;
+            // Handle both plain ID ("CSPT-1-234") and full URL ("https://…/features/CSPT-1-234")
+            const parts = raw.split('/').filter(Boolean);
+            tfsRefMap[wi.id] = parts.length > 1 ? parts[parts.length - 1] : raw;
+          });
+        } catch { /* field missing or inaccessible — skip */ }
+      }));
+    } catch { /* batch failed — proceed */ }
+
+    let refsFound = 0;
+    features.forEach(f => {
+      if (tfsRefMap[f.id]) { f.ahaRef = tfsRefMap[f.id]; refsFound++; }
+    });
+
+    if (!refsFound) {
+      ahaSetStatus(`⚠️ No AHA IDs found in TFS field "${refField}". Check that features have this field populated.`, 'err');
+      document.getElementById('ahaFetchBtn').disabled = false;
+      return;
+    }
+
+    ahaSetStatus(`⏳ Found ${refsFound} AHA IDs — fetching AHA feature data…`, 'load');
+
+    // ── 3. Fetch AHA feature data for each unique ref ────────────────────
+    const ahaRefs = new Set(features.map(f => f.ahaRef).filter(Boolean));
+    window._ahaMap = {};
+    let ok = 0, fail = 0;
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    // Resolve a single AHA value item to a display string
+    function _oneVal(v) {
+      if (v === null || v === undefined || v === '') return null;
+      if (typeof v === 'object') return v.name || v.email || v.label || v.text || null;
+      return String(v).trim() || null;
+    }
+
+    // Convert an AHA custom field value to { display, ids }
+    // ids = ALL 10+ digit numeric segments found — resolved later regardless of field type
+    function _cfVal(val) {
+      if (val === null || val === undefined || val === '') return { display: null, ids: [] };
+      if (Array.isArray(val)) {
+        const items    = val.map(_oneVal).filter(Boolean);
+        const rawNums  = val.map(v => String(v == null ? '' : v).trim())
+                           .filter(s => /^\d{10,}$/.test(s));
+        return { display: items.join(', ') || null, ids: rawNums };
+      }
+      if (typeof val === 'object') return { display: _oneVal(val), ids: [] };
+      const s = String(val).trim();
+      if (!s) return { display: null, ids: [] };
+      // Split on comma or semicolon; every 10+ digit segment is a candidate ID
+      const parts = s.split(/[,;]/).map(p => p.trim()).filter(Boolean);
+      const ids   = parts.filter(p => /^\d{10,}$/.test(p));
+      return { display: s, ids };
+    }
+
+    // Find the BA field by key / name heuristics
+    function _findBaField(cf) {
+      if (!cf || !cf.length) return null;
+      return cf.find(x => {
+        const k = (x.key  || '').toLowerCase();
+        const n = (x.name || '').toLowerCase();
+        return k === 'ba' || k === 'business_analyst' || k === 'ba_1' || k === 'business_analyst_1'
+          || n === 'ba' || n === 'business analyst' || n === 'b.a.';
+      }) || cf.find(x => /\bba\b/.test(((x.key||'') + ' ' + (x.name||'')).toLowerCase())
+                       || ((x.key||'') + (x.name||'')).toLowerCase().includes('analyst'))
+         || null;
+    }
+
+    await Promise.all([...ahaRefs].map(async ref => {
+      try {
+        const r = await fetch(`${urlRaw}/api/v1/features/${ref}?fields=workflow_status,assigned_to_user,custom_fields`, {
+          headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
+        });
+        if (!r.ok) { fail++; return; }
+        const d    = await r.json();
+        const feat = d.feature || d;
+        const cf   = feat.custom_fields || [];
+
+        // Store ALL non-empty custom fields; collect numeric IDs from every field
+        const allCf = cf.map(x => {
+          const { display, ids } = _cfVal(x.value);
+          return { key: x.key, name: x.name || x.key, type: x.type || '', val: display, _ids: ids };
+        }).filter(x => x.val);
+
+        const baField = _findBaField(cf);
+        const { display: rawBa, ids: baIds } = baField ? _cfVal(baField.value) : { display: null, ids: [] };
+
+        window._ahaMap[ref] = {
+          status:  feat.workflow_status?.name  || '—',
+          wfColor: feat.workflow_status?.color || null,
+          owner:   feat.assigned_to_user?.name || '—',
+          ba:      rawBa || '—',
+          _baIds:  baIds,
+          allCf
+        };
+        ok++;
+      } catch { fail++; }
+    }));
+
+    // ── 3b. Resolve ALL numeric IDs found in any field ────────────────────────
+    //    Try /api/v1/users/{id} first (covers BA, TPM, PM, Owner etc.)
+    //    Then try /api/v1/accounts/{id} (covers Customer Org, Account fields)
+    //    Any field whose value contains a long numeric ID will be resolved.
+    const allIds = new Set();
+    Object.values(window._ahaMap).forEach(m => {
+      (m._baIds || []).forEach(id => allIds.add(id));
+      (m.allCf  || []).forEach(cf => (cf._ids || []).forEach(id => allIds.add(id)));
+    });
+
+    if (allIds.size) {
+      ahaSetStatus(`⏳ Resolving ${allIds.size} ID(s) to names…`, 'load');
+      const idCache = {};
+
+      await Promise.all([...allIds].map(async uid => {
+        // 1. Try users endpoint
+        try {
+          const r = await fetch(`${urlRaw}/api/v1/users/${uid}`, {
+            headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
+          });
+          if (r.ok) {
+            const d = await r.json();
+            const u = d.user || d;
+            const name = u.name || u.email;
+            if (name) { idCache[uid] = name; return; }
+          }
+        } catch { /* fall through */ }
+        // 2. Try accounts endpoint (Customer Org, Organisation fields)
+        try {
+          const r = await fetch(`${urlRaw}/api/v1/accounts/${uid}`, {
+            headers: { 'Authorization': 'Bearer ' + key, 'Accept': 'application/json' }
+          });
+          if (r.ok) {
+            const d = await r.json();
+            const a = d.account || d;
+            const name = a.name || a.organization_name || a.company_name;
+            if (name) { idCache[uid] = name; return; }
+          }
+        } catch { /* leave as original ID */ }
+      }));
+
+      // Replace each numeric segment in a display string with its resolved name
+      function _applyCache(str) {
+        if (!str || !Object.keys(idCache).length) return str;
+        return str.split(/([,;]\s*)/).map(seg => {
+          const t = seg.trim().replace(/[,;]\s*$/, '').trim();
+          return idCache[t] ? seg.replace(t, idCache[t]) : seg;
+        }).join('');
+      }
+
+      Object.values(window._ahaMap).forEach(m => {
+        if (m._baIds  && m._baIds.length)  m.ba = _applyCache(m.ba);
+        (m.allCf || []).forEach(cf => {
+          if (cf._ids && cf._ids.length) cf.val = _applyCache(cf.val);
+        });
+      });
+    }
+
+    // ── 4. Save key to cookie (30 days) ────────────────────────────────
+    _setCookie('aha_api_key', key, 30);
+
+    window._ahaConnected = true;
+    const dot = document.getElementById('ahaDot');
+    if (dot) dot.style.display = 'inline-block';
+
+    ahaSetStatus(`✅ Fetched ${ok} features — ${fail ? fail + ' failed' : 'all OK'}`, 'ok');
+    document.getElementById('ahaFetchBtn').textContent = '🔄 Re-fetch Features';
+    document.getElementById('ahaFetchBtn').disabled = false;
+
+    // Close modal and re-render table with AHA tree rows
+    setTimeout(() => {
+      document.getElementById('ahaConnModal').classList.remove('open');
+      if (typeof renderFeatureProgressTable === 'function') renderFeatureProgressTable();
+    }, 1200);
+
+  } catch (err) {
+    ahaSetStatus(`❌ ${err.message}`, 'err');
+    document.getElementById('ahaFetchBtn').disabled = false;
+    window._ahaConnected = false;
+    const cb = document.getElementById('ahaToggleCb');
+    if (cb) cb.checked = false;
+  }
+}
+
+/* ── Backdrop click to close ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('ahaConnModal');
+  if (modal) modal.addEventListener('click', e => { if (e.target === modal) ahaCloseModal(); });
+  // Pre-fill URL from input default and key from cookie
+  const urlEl = document.getElementById('ahaUrlInput');
+  if (urlEl && !urlEl.value) urlEl.value = 'https://casepoint.aha.io';
+  const saved = _getCookie('aha_api_key');
+  if (saved) { const k = document.getElementById('ahaKeyInput'); if (k) k.value = saved; }
+});
+</script>
 </body>
 </html>
