@@ -932,16 +932,19 @@
         .fp-child-cell{padding:0 !important;border-bottom:2px solid rgba(56,189,248,.3) !important;}
 
         /* ── AHA Expand Panel ────────────────────────────────────────────── */
+        /* Outer padding div — creates left indent so panel reads as "belonging to" the feature row above */
+        .aha-panel-outer{padding:5px 8px 6px 52px;background:transparent;}
+
         .aha-panel-wrap{
-          margin:0;overflow:hidden;
+          overflow:hidden;border-radius:6px;
           border-left:4px solid #0ea5e9;
           background:linear-gradient(135deg,rgba(6,22,46,.97) 0%,rgba(12,28,58,.97) 60%,rgba(15,23,50,.97) 100%);
-          box-shadow:inset 0 1px 0 rgba(56,189,248,.12),0 4px 20px rgba(0,0,0,.35);
+          box-shadow:inset 0 1px 0 rgba(56,189,248,.12),0 4px 18px rgba(0,0,0,.4);
         }
         /* Header bar */
         .aha-panel-hdr{
           display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-          padding:8px 16px;
+          padding:7px 14px;
           background:linear-gradient(90deg,rgba(14,165,233,.25) 0%,rgba(99,102,241,.18) 100%);
           border-bottom:1px solid rgba(56,189,248,.3);
         }
@@ -953,23 +956,31 @@
           background:rgba(56,189,248,.1);transition:background .15s;
         }
         .aha-panel-hdr a:hover{background:rgba(56,189,248,.22);color:#e0f2fe;}
-        /* Detail table */
+        /* Detail table — fixed layout; col widths set via width attribute directly on <col> */
         .aha-detail-tbl{width:100%;border-collapse:collapse;font-size:.67rem;table-layout:fixed;}
-        .aha-detail-tbl colgroup .aha-col-lbl{width:140px;}
-        .aha-detail-tbl td{padding:6px 12px;vertical-align:middle;border-bottom:1px solid rgba(255,255,255,.04);}
-        .aha-detail-tbl tr:last-child td{border-bottom:none;}
-        /* Label cell */
-        .aha-lbl-cell{
-          width:138px;font-size:.58rem;font-weight:700;text-transform:uppercase;
-          letter-spacing:.08em;color:#94a3b8;white-space:nowrap;
-          background:rgba(15,23,42,.6);border-right:1px solid rgba(56,189,248,.12);
+        .aha-detail-tbl td{
+          padding:5px 10px;vertical-align:middle;
+          border-bottom:1px solid rgba(255,255,255,.04);
+          overflow:hidden;
         }
-        /* Value cell */
-        .aha-val-cell{color:#e2e8f0;font-weight:500;word-break:break-word;}
-        /* Alternating rows — cyan tint / indigo tint */
+        .aha-detail-tbl tr:last-child td{border-bottom:none;}
+        /* Label cell — fixed width, clamp long names, uppercase */
+        .aha-lbl-cell{
+          font-size:.57rem;font-weight:700;text-transform:uppercase;
+          letter-spacing:.07em;color:#94a3b8;
+          white-space:nowrap;text-overflow:ellipsis;overflow:hidden;
+          background:rgba(12,20,40,.65);
+          border-right:1px solid rgba(56,189,248,.18);
+        }
+        /* Value cell — takes remaining width, wraps long text */
+        .aha-val-cell{
+          color:#e2e8f0;font-weight:500;
+          word-break:break-word;overflow-wrap:anywhere;
+        }
+        /* Alternating row backgrounds */
         .aha-detail-tbl tr:nth-child(odd)  .aha-val-cell{background:rgba(14,165,233,.07);}
         .aha-detail-tbl tr:nth-child(even) .aha-val-cell{background:rgba(99,102,241,.07);}
-        .aha-detail-tbl tr:hover .aha-lbl-cell{background:rgba(56,189,248,.15)!important;color:#7dd3fc;}
+        .aha-detail-tbl tr:hover .aha-lbl-cell{background:rgba(56,189,248,.2)!important;color:#7dd3fc;}
         .aha-detail-tbl tr:hover .aha-val-cell{background:rgba(56,189,248,.13)!important;color:#f1f5f9;}
 
         /* ── Light theme overrides ─────────────────────────────────────── */
@@ -986,12 +997,12 @@
         body.light-theme .aha-panel-hdr-title{color:#0369a1;}
         body.light-theme .aha-panel-hdr a{color:#0369a1;border-color:rgba(3,105,161,.35);background:rgba(14,165,233,.1);}
         body.light-theme .aha-panel-hdr a:hover{background:rgba(14,165,233,.2);color:#075985;}
-        body.light-theme .aha-lbl-cell{background:rgba(14,165,233,.08);color:#475569;border-right-color:rgba(14,165,233,.2);}
+        body.light-theme .aha-lbl-cell{background:rgba(14,165,233,.1);color:#334155;border-right-color:rgba(14,165,233,.25);}
         body.light-theme .aha-detail-tbl td{border-bottom-color:rgba(0,0,0,.05);}
         body.light-theme .aha-val-cell{color:#1e293b;}
-        body.light-theme .aha-detail-tbl tr:nth-child(odd)  .aha-val-cell{background:rgba(14,165,233,.06);}
+        body.light-theme .aha-detail-tbl tr:nth-child(odd)  .aha-val-cell{background:rgba(14,165,233,.07);}
         body.light-theme .aha-detail-tbl tr:nth-child(even) .aha-val-cell{background:rgba(99,102,241,.05);}
-        body.light-theme .aha-detail-tbl tr:hover .aha-lbl-cell{background:rgba(14,165,233,.16)!important;color:#075985;}
+        body.light-theme .aha-detail-tbl tr:hover .aha-lbl-cell{background:rgba(14,165,233,.2)!important;color:#075985;}
         body.light-theme .aha-detail-tbl tr:hover .aha-val-cell{background:rgba(14,165,233,.12)!important;color:#0f172a;}
 
         /* misc */
@@ -7322,7 +7333,7 @@
                           </div>
                           <table class="aha-detail-tbl">
                             <colgroup>
-                              <col class="aha-col-lbl"><col><col class="aha-col-lbl"><col>
+                              <col style="width:120px"><col><col style="width:120px"><col>
                             </colgroup>
                             <tbody>
                               <tr>
@@ -7351,7 +7362,9 @@
                     </tr>
                     <tr class="fp-child-row" id="fpc-${f.id}">
                       <td class="fp-child-cell" colspan="17">
-                        <div class="aha-panel">${panelHtml}</div>
+                        <div class="aha-panel-outer">
+                        ${panelHtml}
+                        </div>
                       </td>
                     </tr>`;
                 }).join('');
