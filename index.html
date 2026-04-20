@@ -8015,6 +8015,9 @@
             const isAdmin  = ['admin', 'super_admin', 'pdm'].includes(currentUserRole);
             const canUseAha = ['pdm', 'super_admin'].includes(currentUserRole);
 
+            // Debug trace — check your browser console if a tab is unexpectedly missing.
+            try { console.log('[Dashboard] applyTabPermissions: role =', currentUserRole, '| tabs =', currentUserTabs); } catch(e) {}
+
             const ahaWrap = document.getElementById('ahaToggleWrap');
             if (ahaWrap) {
                 ahaWrap.style.display = canUseAha ? 'inline-flex' : 'none';
@@ -8028,8 +8031,11 @@
                 const btn     = document.getElementById('tabBtn' + t);
                 const content = document.getElementById('tabContent' + t);
                 if (currentUserTabs.includes(t)) {
-
-                    if (btn) { btn.style.display = ''; btn.removeAttribute('title'); }
+                    // Explicitly set 'inline-block' (not '') because some tab buttons
+                    // start with an inline `display:none` in their HTML style attribute
+                    // (tabBtn7 and tabBtn8). Clearing via '' has been unreliable in
+                    // practice, so we force a visible value.
+                    if (btn) { btn.style.display = 'inline-block'; btn.removeAttribute('title'); }
                 } else {
 
                     if (btn)     btn.style.display = 'none';
