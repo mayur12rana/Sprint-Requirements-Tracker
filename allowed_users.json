@@ -1,14 +1,23 @@
 // Dashboard Access Control - Allowed Users
 // Roles: super_admin | admin | pdm | normal
-// super_admin = All tabs + All areas + Update Feature Hours + Full access + Encrypt Username tab
-// admin = Only assigned tabs + All areas + Update Feature Hours
-// pdm = Tabs 1-6 + AHA Status checkbox (Product/Delivery Managers)
-// normal = Only assigned tabs + Max 3 areas
-// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only)
+// super_admin = All tabs + All areas + Update Feature Hours + Full access + Encrypt Username tab + Reports tab
+// admin       = Only assigned tabs + All areas + Update Feature Hours + Reports tab (auto-granted)
+// pdm         = Tabs 1-6 + AHA Status checkbox (Product/Delivery Managers)
+// normal      = Only assigned tabs + Max 3 areas
+// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only), 8=Reports (super_admin & admin only)
+// Note: Tab 8 (Reports) is granted automatically by role (admin + super_admin), regardless of the `tabs` array below — no need to add 8 to any admin entry.
 // Note: User names are encrypted using XOR cipher for security
-// taskCreatorUrl: relative or absolute path to task-creator.html (shown as button in Tab 6 > Data Lookup)
+// -------- Configurable URLs (Tab 8 > Reports tiles) --------
+// taskCreatorUrl           : relative or absolute path to task-creator.html (shown as button in Tab 6 > Data Lookup)
+// sprintClosingReportUrl   : URL to external Sprint Closing Report dashboard   (shown as tile in Tab 8 > Reports)
+// sprintDiscoveryReportUrl : URL to external Sprint Discovery Report dashboard (shown as tile in Tab 8 > Reports)
+// sprintPlanningReportUrl  : URL to external Sprint Planning Report dashboard  (shown as tile in Tab 8 > Reports)
+// Set a URL to empty string "" to hide its tile; TFS context (tfsUrl/pat/area/sprint) is forwarded automatically.
 var ALLOWED_USERS_DATA = {
-    "taskCreatorUrl": "https://mayur12rana.github.io/Task-Creator/",
+    "taskCreatorUrl":           "https://mayur12rana.github.io/Task-Creator/",
+    "sprintClosingReportUrl":   "https://mayur12rana.github.io/SprintClosingReport/Sprint-Closing-Report.html",
+    "sprintDiscoveryReportUrl": "https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html",
+    "sprintPlanningReportUrl":  "https://mayur12rana.github.io/Dashboard-Sprint-Planning-Report/Dashboard_Sprint_Planning_Report.html",
     "users": [
         { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
         { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },

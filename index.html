@@ -3395,17 +3395,17 @@
                     <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow-x:auto;">
                         <table id="featureProgressTable" style="width:100%;border-collapse:collapse;font-size:0.6rem;table-layout:fixed;">
                             <colgroup>
-                                <col style="width:28px;"><col style="width:50px;"><col style="width:20%;"><col style="width:62px;"><col style="width:80px;"><col style="width:90px;">
+                                <col style="width:28px;"><col style="width:50px;"><col style="width:30%;"><col style="width:62px;"><col style="width:80px;"><col style="width:55px;">
                                 <col style="width:58px;"><col style="width:58px;"><col style="width:58px;"><col style="width:62px;"><col style="width:52px;"><col style="width:52px;"><col style="width:52px;"><col style="width:58px;"><col style="width:62px;"><col style="width:62px;">
                             </colgroup>
                             <thead>
                                 <tr style="line-height:1.15;">
-                                    <th class="fp-th" style="text-align:center;padding:4px 2px;"><input type="checkbox" id="fpTableSelectAll" checked onchange="toggleAllFpTableCheckboxes(this.checked)" title="Select / Deselect All" style="cursor:pointer;accent-color:#3b82f6;"></th>
+                                    <th class="fp-th" style="text-align:center;padding:4px 2px;"><input type="checkbox" id="fpTableSelectAll" onchange="toggleAllFpTableCheckboxes(this.checked)" title="Select / Deselect All" style="cursor:pointer;accent-color:#3b82f6;"></th>
                                     <th class="fp-th fp-sortable" data-sort="id" style="text-align:left;" onclick="sortFeatureTable('id')">ID <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="title" style="text-align:left;" onclick="sortFeatureTable('title')">Title <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="state" style="text-align:center;" onclick="sortFeatureTable('state')">State <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="status" style="text-align:center;" onclick="sortFeatureTable('status')">Status <span class="fp-sort-icon"></span></th>
-                                    <th class="fp-th" style="text-align:left;">Tags</th>
+                                    <th class="fp-th fp-sortable" data-sort="tags" style="text-align:left;" onclick="sortFeatureTable('tags')">Tags <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="estimateInHours" style="text-align:right;" title="Estimate In Hours" onclick="sortFeatureTable('estimateInHours')">Est In<br>Hours <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="discoveryEffort" style="text-align:right;" title="Estimated Discovery Hours" onclick="sortFeatureTable('discoveryEffort')">Est Disc<br>Hours <span class="fp-sort-icon"></span></th>
                                     <th class="fp-th fp-sortable" data-sort="devDeliveryHours" style="text-align:right;" title="Dev and Delivery Hours" onclick="sortFeatureTable('devDeliveryHours')">Dev &<br>Delivery <span class="fp-sort-icon"></span></th>
@@ -3605,14 +3605,14 @@
             </div>
         </div><!-- End Tab 7 -->
 
-        <!-- Tab 8: Reports (super_admin only) -->
+        <!-- Tab 8: Reports (super_admin + admin only) -->
         <div class="tab-content" id="tabContent8" style="display:none;">
             <div class="dashboard-card" style="margin-bottom:16px;padding:16px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(5,150,105,0.08));border:1px solid rgba(16,185,129,0.35);">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                     <h3 style="color:#6ee7b7;font-size:1.1rem;margin:0;">📑 Reports</h3>
-                    <span style="font-size:0.65rem;color:#64748b;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);padding:2px 8px;border-radius:4px;color:#f87171;">🔒 Super Admin Only</span>
+                    <span style="font-size:0.65rem;color:#64748b;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);padding:2px 8px;border-radius:4px;color:#f87171;">🔒 Admin &amp; Super Admin Only</span>
                 </div>
-                <p style="color:#94a3b8;font-size:0.7rem;margin:0 0 20px 0;">Sprint and project reports. Only <span style="color:#34d399;font-weight:600;">Super Admin</span> can access this section.</p>
+                <p style="color:#94a3b8;font-size:0.7rem;margin:0 0 20px 0;">Sprint and project reports. Only <span style="color:#fbbf24;font-weight:600;">Admin</span> and <span style="color:#34d399;font-weight:600;">Super Admin</span> roles can access this section.</p>
 
                 <!-- Sprint Reports Section -->
                 <div style="margin-bottom:20px;">
@@ -3651,6 +3651,22 @@
                                 🚀 Open Report
                             </button>
                             <div id="sprintDiscoveryReportStatus" style="font-size:0.55rem;color:#475569;word-break:break-all;"></div>
+                        </div>
+
+                        <!-- Sprint Planning Report Tile -->
+                        <div id="sprintPlanningReportTile" style="background:linear-gradient(135deg,rgba(16,185,129,0.18),rgba(5,150,105,0.12));border:1px solid rgba(16,185,129,0.4);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(16,185,129,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="font-size:1.8rem;">🚀</span>
+                                <div>
+                                    <div style="color:#6ee7b7;font-size:0.9rem;font-weight:700;">Sprint Planning Report</div>
+                                    <div style="color:#64748b;font-size:0.6rem;margin-top:2px;">Sprint planning &amp; capacity dashboard</div>
+                                </div>
+                            </div>
+                            <p style="color:#94a3b8;font-size:0.65rem;margin:0;line-height:1.5;">Plan upcoming sprints with feature progress, capacity analysis, and sprint planning discovery insights.</p>
+                            <button id="sprintPlanningReportBtn" onclick="openSprintPlanningReport()" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#059669,#10b981);border:none;border-radius:8px;color:#fff;font-size:0.75rem;font-weight:600;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                                🚀 Open Report
+                            </button>
+                            <div id="sprintPlanningReportStatus" style="font-size:0.55rem;color:#475569;word-break:break-all;"></div>
                         </div>
 
                     </div>
@@ -3958,7 +3974,13 @@
                                 if (currentUserRole === 'super_admin') {
                                     currentUserTabs = [1, 2, 3, 4, 5, 6, 7, 8];
                                 } else {
-                                    currentUserTabs = Array.isArray(matchedUser.tabs) ? matchedUser.tabs : [1, 2];
+                                    currentUserTabs = Array.isArray(matchedUser.tabs) ? [...matchedUser.tabs] : [1, 2];
+                                    // Reports tab (8) is reserved for Admin + Super Admin roles.
+                                    // Grant it to admins regardless of their JSON `tabs` array
+                                    // so role-level access doesn't require per-user edits.
+                                    if (currentUserRole === 'admin' && !currentUserTabs.includes(8)) {
+                                        currentUserTabs.push(8);
+                                    }
                                 }
                             }
                         }
@@ -7216,7 +7238,7 @@
                 featureSortDirection = featureSortDirection === 'asc' ? 'desc' : 'asc';
             } else {
                 featureSortColumn = column;
-                featureSortDirection = (column === 'id' || column === 'title' || column === 'state' || column === 'status') ? 'asc' : 'desc';
+                featureSortDirection = (column === 'id' || column === 'title' || column === 'state' || column === 'status' || column === 'tags') ? 'asc' : 'desc';
             }
 
             document.querySelectorAll('#featureProgressTable .fp-sort-icon').forEach(icon => {
@@ -7231,7 +7253,7 @@
             if (!featureSortColumn || data.length === 0) return data;
             const col = featureSortColumn;
             const dir = featureSortDirection === 'asc' ? 1 : -1;
-            const stringCols = ['title', 'state', 'status'];
+            const stringCols = ['title', 'state', 'status', 'tags'];
             return [...data].sort((a, b) => {
                 let va = a[col], vb = b[col];
                 if (stringCols.includes(col)) {
@@ -7268,9 +7290,9 @@
                 document.getElementById('fp-aha-exp-th').remove();
             }
 
-            if (fpSelectedIds.size === 0 && data.length > 0) {
-                data.forEach(f => fpSelectedIds.add(f.id));
-            }
+            // Default behavior: no features pre-selected. Users tick the boxes
+            // they want before clicking "Update Feature Data".
+            // Clean up any stale IDs left over from a previous render / filter.
             const currentIds = new Set(data.map(f => f.id));
             fpSelectedIds.forEach(id => { if (!currentIds.has(id)) fpSelectedIds.delete(id); });
 
@@ -7292,10 +7314,10 @@
                     const dataCells = `
                         <td style="${pd}text-align:center;"><input type="checkbox" class="fp-table-chk" data-fid="${f.id}" ${chk?'checked':''} onchange="onFpTableCheckboxChange(this)" style="cursor:pointer;accent-color:#3b82f6;"></td>
                         <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
-                        <td class="fp-title" style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;" title="${f.title}">${f.title}</td>
+                        <td class="fp-title" style="${pd}font-weight:500;font-size:0.8rem;line-height:1.25;white-space:normal;word-break:break-word;" title="${f.title}">${f.title}</td>
                         <td style="${pd}text-align:center;"><span class="fp-state-pill ${stCls}">${f.state}</span></td>
                         <td style="${pd}text-align:center;" title="${f.status}"><span class="fp-status-pill ${statusCls}">${f.status}</span></td>
-                        <td style="${pd}overflow:hidden;">${(f.tags||'').split(';').map(t=>t.trim()).filter(t=>t).map(t=>`<span class="fp-tag-badge">${t}</span>`).join('')||'<span style="color:#475569;">-</span>'}</td>
+                        <td style="${pd}overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(f.tags||'').split(';').map(t=>t.trim()).filter(t=>t).join(', ')||'No tags'}">${(f.tags||'').split(';').map(t=>t.trim()).filter(t=>t).map(t=>`<span class="fp-tag-badge">${t}</span>`).join('')||'<span style="color:#475569;">-</span>'}</td>
                         <td class="fp-est-inhrs" style="${pd}text-align:right;font-weight:600;">${fmtH(f.estimateInHours)}h</td>
                         <td class="fp-est-disc" style="${pd}text-align:right;font-weight:600;">${fmtH(f.discoveryEffort)}h</td>
                         <td class="fp-dev-delivery" style="${pd}text-align:right;font-weight:600;">${fmtH(f.devDeliveryHours)}h</td>
@@ -8033,6 +8055,14 @@
         }
 
         function initReportsTile() {
+            // Initialize all three report tiles independently — a missing URL
+            // for one tile must not block the others from setting up.
+            initSprintClosingTile();
+            initSprintDiscoveryTile();
+            initSprintPlanningTile();
+        }
+
+        function initSprintClosingTile() {
             const tile   = document.getElementById('sprintClosingReportTile');
             const link   = document.getElementById('sprintClosingReportLink');
             const urlLbl = document.getElementById('sprintClosingReportUrl');
@@ -8055,8 +8085,6 @@
             link.style.cursor = 'pointer';
             link.onclick = (e) => { e.preventDefault(); openSprintClosingReport(scUrl); };
             if (urlLbl) urlLbl.textContent = scUrl;
-
-            initSprintDiscoveryTile();
         }
 
         function openSprintClosingReport(scUrl) {
@@ -8125,19 +8153,30 @@
             const status = document.getElementById('sprintDiscoveryReportStatus');
             if (!tile || !btn) return;
 
-            const defaultUrl = 'https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html';
             const sdUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintDiscoveryReportUrl)
-                ? String(ALLOWED_USERS_DATA.sprintDiscoveryReportUrl).trim()
-                : defaultUrl;
+                ? String(ALLOWED_USERS_DATA.sprintDiscoveryReportUrl).trim() : '';
+
+            if (!sdUrl) {
+                btn.style.background = 'rgba(100,116,139,0.3)';
+                btn.style.cursor = 'not-allowed';
+                btn.textContent = '⚠️ Not Configured';
+                btn.onclick = (e) => { e.preventDefault(); };
+                if (status) { status.textContent = 'Set sprintDiscoveryReportUrl in allowed_users.json to enable'; status.style.color = '#ef4444'; }
+                return;
+            }
 
             if (status) status.textContent = sdUrl;
         }
 
         function openSprintDiscoveryReport() {
-            const defaultUrl = 'https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html';
             const sdUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintDiscoveryReportUrl)
-                ? String(ALLOWED_USERS_DATA.sprintDiscoveryReportUrl).trim()
-                : defaultUrl;
+                ? String(ALLOWED_USERS_DATA.sprintDiscoveryReportUrl).trim() : '';
+
+            if (!sdUrl) {
+                const statusEl = document.getElementById('sprintDiscoveryReportStatus');
+                if (statusEl) { statusEl.textContent = '⚠️ sprintDiscoveryReportUrl not set in allowed_users.json.'; statusEl.style.color = '#ef4444'; }
+                return;
+            }
 
             const tfsUrlVal = (document.getElementById('tfsUrl')?.value || '').trim().replace(/\/$/, '');
             const patVal    = (document.getElementById('pat')?.value || '').trim();
@@ -8194,6 +8233,91 @@
             params.set('autoLoad', '1');
 
             const finalUrl = sdUrl + (sdUrl.includes('?') ? '&' : '?') + params.toString();
+
+            window.open(finalUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function initSprintPlanningTile() {
+            const tile   = document.getElementById('sprintPlanningReportTile');
+            const btn    = document.getElementById('sprintPlanningReportBtn');
+            const status = document.getElementById('sprintPlanningReportStatus');
+            if (!tile || !btn) return;
+
+            const spUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintPlanningReportUrl)
+                ? String(ALLOWED_USERS_DATA.sprintPlanningReportUrl).trim() : '';
+
+            if (!spUrl) {
+                btn.style.background = 'rgba(100,116,139,0.3)';
+                btn.style.cursor = 'not-allowed';
+                btn.textContent = '⚠️ Not Configured';
+                btn.onclick = (e) => { e.preventDefault(); };
+                if (status) { status.textContent = 'Set sprintPlanningReportUrl in allowed_users.json to enable'; status.style.color = '#ef4444'; }
+                return;
+            }
+
+            if (status) status.textContent = spUrl;
+        }
+
+        function openSprintPlanningReport() {
+            const spUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.sprintPlanningReportUrl)
+                ? String(ALLOWED_USERS_DATA.sprintPlanningReportUrl).trim() : '';
+
+            if (!spUrl) {
+                const statusEl = document.getElementById('sprintPlanningReportStatus');
+                if (statusEl) { statusEl.textContent = '⚠️ sprintPlanningReportUrl not set in allowed_users.json.'; statusEl.style.color = '#ef4444'; }
+                return;
+            }
+
+            const tfsUrlVal = (document.getElementById('tfsUrl')?.value || '').trim().replace(/\/$/, '');
+            const patVal    = (document.getElementById('pat')?.value || '').trim();
+
+            const areaPath  = selectedAreaPaths.length > 0 ? selectedAreaPaths[0].path : '';
+            const areaName  = selectedAreaPaths.length > 0 ? selectedAreaPaths[0].path.split('\\').pop() : '';
+            const projectVal = selectedAreaPaths.length > 0
+                ? (selectedAreaPaths[0].project || project || '') : (project || '');
+
+            const iterPath  = selectedIterationPaths.length > 0 ? selectedIterationPaths[0].path : '';
+            const iterName  = selectedIterationPaths.length > 0 ? selectedIterationPaths[0].path.split('\\').pop() : '';
+
+            if (!tfsUrlVal || !patVal) {
+                const statusEl = document.getElementById('sprintPlanningReportStatus');
+                if (statusEl) {
+                    statusEl.textContent = '⚠️ Please connect and load sprint data first.';
+                    statusEl.style.color = '#ef4444';
+                    setTimeout(() => { statusEl.textContent = spUrl; statusEl.style.color = '#475569'; }, 3000);
+                }
+                return;
+            }
+
+            try {
+                localStorage.setItem('scr_tfsUrl',     tfsUrlVal);
+                localStorage.setItem('scr_pat',        patVal);
+                localStorage.setItem('scr_project',    projectVal);
+                localStorage.setItem('scr_areaPaths',  JSON.stringify(selectedAreaPaths.length > 0 ? selectedAreaPaths : []));
+                localStorage.setItem('scr_iterPaths',  JSON.stringify(selectedIterationPaths.length > 0
+                    ? selectedIterationPaths.map(i => ({ path: i.path, project: i.project || projectVal, name: i.path.split('\\').pop() }))
+                    : []));
+                localStorage.setItem('scr_sprintInfo', JSON.stringify({
+                    name: iterName || sprintInfo.name,
+                    areaName: areaName || sprintInfo.areaName
+                }));
+                localStorage.setItem('sprintTracker_tfsUrl', tfsUrlVal);
+                localStorage.setItem('sprintTracker_pat',    patVal);
+            } catch(e) {
+                console.warn('localStorage write failed:', e);
+            }
+
+            const params = new URLSearchParams();
+            if (tfsUrlVal)  params.set('tfsUrl',    tfsUrlVal);
+            if (patVal)     params.set('pat',        btoa(patVal));
+            if (projectVal) params.set('project',   projectVal);
+            if (areaPath)   params.set('areaPath',  areaPath);
+            if (areaName)   params.set('areaName',  areaName);
+            if (iterPath)   params.set('iterPath',  iterPath);
+            if (iterName)   params.set('iterName',  iterName);
+            params.set('autoLoad', '1');
+
+            const finalUrl = spUrl + (spUrl.includes('?') ? '&' : '?') + params.toString();
 
             window.open(finalUrl, '_blank', 'noopener,noreferrer');
         }
@@ -12766,10 +12890,14 @@
                 return 0;
             });
 
-            // Render header with sort icons
+            // Render header with sort icons + expand-all toggle
             const thStyle = 'padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);cursor:pointer;';
             const sortIcon = (field) => reqListSortField === field ? (reqListSortDir === 'asc' ? ' ▲' : ' ▼') : '';
             document.getElementById('reqListTableHead').innerHTML = `<tr>
+                <th style="padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.15);width:36px;">
+                    <button id="reqTasksToggleAllBtn" onclick="toggleAllReqTasks()" title="Expand / Collapse All Tasks"
+                        style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:0.8rem;padding:0;line-height:1;">▶</button>
+                </th>
                 <th style="${thStyle}" onclick="sortReqList('id')">ID${sortIcon('id')}</th>
                 <th style="${thStyle}" onclick="sortReqList('title')">Title${sortIcon('title')}</th>
                 <th style="${thStyle}" onclick="sortReqList('state')">State${sortIcon('state')}</th>
@@ -12801,6 +12929,25 @@
             let tagColorIdx = 0;
             const isLight = document.body.classList.contains('light-theme');
 
+            // Pre-bucket tasks by parent requirement for O(1) lookup
+            const tasksByReq = {};
+            (typeof tasks !== 'undefined' ? tasks : []).forEach(t => {
+                const pid = taskParentMap[t.id];
+                if (pid == null) return;
+                if (!tasksByReq[pid]) tasksByReq[pid] = [];
+                tasksByReq[pid].push(t);
+            });
+
+            // Small helpers for task rendering
+            const taskStateColor = (s) => {
+                const x = (s || '').toLowerCase();
+                if (x === 'done' || x === 'closed' || x === 'resolved') return '#34d399';
+                if (x === 'in progress' || x === 'active') return '#60a5fa';
+                if (x === 'blocked' || x === 'removed') return '#f87171';
+                if (x === 'to do' || x === 'new' || x === 'proposed') return '#fbbf24';
+                return '#94a3b8';
+            };
+
             tbody.innerHTML = sortedData.map(req => {
                 const f = req.fields;
                 const catLabel = req.category === 'deliverable' ? 'Deliverable' : req.category === 'nonDeliverable' ? 'Non-Deliverable' : '-';
@@ -12817,7 +12964,69 @@
                     const clr = isLight ? tc.lColor : tc.color;
                     return `<span style="display:inline-block;background:${bg};color:${clr};padding:1px 6px;border-radius:4px;font-size:0.6rem;margin:1px 2px;white-space:nowrap;font-weight:500;">${tag}</span>`;
                 }).join('') : '<span class="c-dim">-</span>';
-                return `<tr><td><a href="${tfsUrl}/${project}/_workitems/edit/${req.id}" target="_blank" class="wi-link">${req.id}</a></td><td>${f['System.Title'] || ''}</td><td>${f['System.State'] || ''}</td><td style="text-align:center;">${req.size}</td><td  title="${f['System.AssignedTo']?.displayName || '-'}">${f['System.AssignedTo']?.displayName || '-'}</td><td style="color:#c084fc;">${iterLeaf}</td><td>${catClass ? `<span class="badge badge-${catClass}">${catLabel}</span>` : '-'}</td><td>${urnClass ? `<span class="badge badge-${urnClass}">${urnLabel}</span>` : '-'}</td><td style="max-width:180px;">${tagBadges}</td></tr>`;
+
+                // Tasks for this requirement (sorted by id for stability)
+                const reqTasks = (tasksByReq[req.id] || []).slice().sort((a, b) => a.id - b.id);
+                const taskCount = reqTasks.length;
+
+                // Toggle button — neutral when no tasks
+                const hasTasks = taskCount > 0;
+                const toggleBtn = `<button class="req-task-toggle" data-req-id="${req.id}" ${hasTasks ? `onclick="toggleReqTasks(${req.id})"` : 'disabled'}
+                    title="${taskCount} task(s)"
+                    style="background:none;border:none;color:${hasTasks ? '#60a5fa' : '#475569'};cursor:${hasTasks ? 'pointer' : 'default'};font-size:0.75rem;padding:2px 4px;line-height:1;display:inline-flex;align-items:center;gap:3px;">
+                    <span class="req-task-arrow">${hasTasks ? '▶' : '·'}</span>
+                    <span style="font-size:0.55rem;color:#94a3b8;">${taskCount}</span>
+                </button>`;
+
+                const mainRow = `<tr class="req-main-row" data-req-id="${req.id}"><td style="text-align:center;padding:4px;">${toggleBtn}</td><td><a href="${tfsUrl}/${project}/_workitems/edit/${req.id}" target="_blank" class="wi-link">${req.id}</a></td><td>${f['System.Title'] || ''}</td><td>${f['System.State'] || ''}</td><td style="text-align:center;">${req.size}</td><td title="${f['System.AssignedTo']?.displayName || '-'}">${f['System.AssignedTo']?.displayName || '-'}</td><td style="color:#c084fc;">${iterLeaf}</td><td>${catClass ? `<span class="badge badge-${catClass}">${catLabel}</span>` : '-'}</td><td>${urnClass ? `<span class="badge badge-${urnClass}">${urnLabel}</span>` : '-'}</td><td style="max-width:180px;">${tagBadges}</td></tr>`;
+
+                // Child row (hidden by default) with nested tasks table
+                let childContent;
+                if (hasTasks) {
+                    const taskBody = reqTasks.map(t => {
+                        const tf = t.fields || {};
+                        const tState = tf['System.State'] || '-';
+                        const tAssigned = tf['System.AssignedTo']?.displayName || '-';
+                        const tDiscipline = tf['Microsoft.VSTS.Common.Discipline'] || tf['Casepoint.TFS.CustomFields.TaskExecutionType'] || '-';
+                        const tOrig = (tf['Microsoft.VSTS.Scheduling.OriginalEstimate'] || 0);
+                        const tRem  = (tf['Microsoft.VSTS.Scheduling.RemainingWork'] || 0);
+                        const tComp = (tf['Microsoft.VSTS.Scheduling.CompletedWork'] || 0);
+                        const tColor = taskStateColor(tState);
+                        const cellBase = 'padding:4px 8px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.68rem;';
+                        return `<tr>
+                            <td style="${cellBase}"><a href="${tfsUrl}/${project}/_workitems/edit/${t.id}" target="_blank" class="wi-link" style="font-size:0.68rem;">${t.id}</a></td>
+                            <td style="${cellBase}color:#cbd5e1;">${tf['System.Title'] || ''}</td>
+                            <td style="${cellBase}color:#94a3b8;" title="${tAssigned}">${tAssigned}</td>
+                            <td style="${cellBase}color:#a5b4fc;">${tDiscipline}</td>
+                            <td style="${cellBase}"><span style="color:${tColor};font-weight:500;">${tState}</span></td>
+                            <td style="${cellBase}text-align:right;color:#fbbf24;">${fmtH(tOrig)}h</td>
+                            <td style="${cellBase}text-align:right;color:#60a5fa;">${fmtH(tRem)}h</td>
+                            <td style="${cellBase}text-align:right;color:#34d399;">${fmtH(tComp)}h</td>
+                        </tr>`;
+                    }).join('');
+                    childContent = `<div style="margin:2px 0 2px 32px;border-left:2px solid rgba(99,102,241,0.35);padding-left:8px;">
+                        <table style="width:100%;border-collapse:collapse;background:rgba(0,0,0,0.15);border-radius:4px;overflow:hidden;">
+                            <thead>
+                                <tr style="background:rgba(99,102,241,0.12);">
+                                    <th style="padding:6px 8px;text-align:left;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:70px;">Task ID</th>
+                                    <th style="padding:6px 8px;text-align:left;color:#c4b5fd;font-size:0.6rem;font-weight:700;">Title</th>
+                                    <th style="padding:6px 8px;text-align:left;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:140px;">Assigned</th>
+                                    <th style="padding:6px 8px;text-align:left;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:110px;">Discipline</th>
+                                    <th style="padding:6px 8px;text-align:left;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:90px;">State</th>
+                                    <th style="padding:6px 8px;text-align:right;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:70px;">Orig Est</th>
+                                    <th style="padding:6px 8px;text-align:right;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:80px;">Remaining</th>
+                                    <th style="padding:6px 8px;text-align:right;color:#c4b5fd;font-size:0.6rem;font-weight:700;width:80px;">Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody>${taskBody}</tbody>
+                        </table>
+                    </div>`;
+                } else {
+                    childContent = `<div style="padding:6px 8px 6px 40px;color:#64748b;font-size:0.65rem;font-style:italic;">No tasks linked to this requirement</div>`;
+                }
+                const childRow = `<tr id="req-tasks-${req.id}" class="req-tasks-row" style="display:none;"><td colspan="10" style="padding:4px 4px;background:rgba(0,0,0,0.15);">${childContent}</td></tr>`;
+
+                return mainRow + childRow;
             }).join('');
         }
 
@@ -12852,6 +13061,40 @@
             if (iters.includes(curIter)) iterEl.value = curIter;
             if (catEl && cats.includes(curCat)) catEl.value = curCat;
             if (urnEl && urns.includes(curUrn)) urnEl.value = curUrn;
+        }
+
+        // ===== Requirements List tree toggle helpers =====
+        function toggleReqTasks(reqId) {
+            const row = document.getElementById('req-tasks-' + reqId);
+            if (!row) return;
+            const arrow = document.querySelector(`.req-task-toggle[data-req-id="${reqId}"] .req-task-arrow`);
+            const opening = row.style.display === 'none';
+            row.style.display = opening ? '' : 'none';
+            if (arrow) arrow.textContent = opening ? '▼' : '▶';
+            _syncReqTasksToggleAllBtn();
+        }
+
+        function toggleAllReqTasks() {
+            const rows = document.querySelectorAll('#reqTable tr.req-tasks-row');
+            if (rows.length === 0) return;
+            // Determine current state: if ANY row is collapsed → expand all; else collapse all
+            let anyCollapsed = false;
+            rows.forEach(r => { if (r.style.display === 'none') anyCollapsed = true; });
+            const expanding = anyCollapsed;
+            rows.forEach(r => { r.style.display = expanding ? '' : 'none'; });
+            document.querySelectorAll('#reqTable .req-task-toggle:not([disabled]) .req-task-arrow')
+                .forEach(a => { a.textContent = expanding ? '▼' : '▶'; });
+            const headerBtn = document.getElementById('reqTasksToggleAllBtn');
+            if (headerBtn) headerBtn.textContent = expanding ? '▼' : '▶';
+        }
+
+        function _syncReqTasksToggleAllBtn() {
+            const rows = document.querySelectorAll('#reqTable tr.req-tasks-row');
+            if (rows.length === 0) return;
+            let anyOpen = false, allOpen = true;
+            rows.forEach(r => { if (r.style.display !== 'none') anyOpen = true; else allOpen = false; });
+            const headerBtn = document.getElementById('reqTasksToggleAllBtn');
+            if (headerBtn) headerBtn.textContent = (anyOpen && allOpen) ? '▼' : '▶';
         }
 
         function resetReqListFilters() {
