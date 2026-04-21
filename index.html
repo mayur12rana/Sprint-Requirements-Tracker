@@ -6993,7 +6993,8 @@
                     const completedEffort = f.fields['Casepoint.TFS.CustomFields.CompletedEffort'] || 0;
                     const actualCompletedHours = f.fields['Casepoint.TFS.CustomFields.ActualCompletedHours'] || 0;
                     const estimateInHours = f.fields['Casepoint.TFS.CustomFields.EstimateInHours'] || 0;
-                    const devDeliveryHours = Math.max(0, estimateInHours - discoveryEffort);
+                    // Dev & Delivery now sourced directly from TFS field Microsoft.VSTS.Scheduling.Effort
+                    const devDeliveryHours = f.fields['Microsoft.VSTS.Scheduling.Effort'] || 0;
                     const total = discoveryEffort + plannedHours;
                     return {
                         id: f.id, title: f.fields['System.Title'] || '', state: f.fields['System.State'] || '',
