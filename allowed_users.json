@@ -57,6 +57,8 @@ var ALLOWED_USERS_DATA = {
         { "name": "HhkGGw8YLUEjCUZVXg==", "role": "normal", "tabs": [1, 2, 3] },
         { "name": "AAUfABpUFwAdAFNcUw==", "role": "normal", "tabs": [1, 2, 3] },
         { "name": "ABEVCBxUFAAHDV4=", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "ERgTHwodNEEnCV5RRF1YIQ==", "role": "normal", "tabs": [1, 2, 3] },
+        { "name": "BRkEDAVUFAAHDV4=", "role": "normal", "tabs": [1, 2, 3] },
         { "name": "AR8cCAVUFxQHAFNC", "role": "normal", "tabs": [1, 2, 3] }
         
     ]
