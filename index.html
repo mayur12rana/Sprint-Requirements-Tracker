@@ -9016,6 +9016,141 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
       }
     }
 
+    // ── QA AI Adoption Task Popup (Member) ──────────────────────────────────
+    function showQAAiAdoptionTaskPopup(memberIdx, type) {
+      const overlay = document.getElementById('aiTaskPopupOverlay');
+      const modalBox = overlay.firstElementChild;
+      const lt = document.body.classList.contains('light-theme');
+      try {
+        const member = qaAIAdoptionMemberData[memberIdx];
+        if (!member) { console.error('QA member not found at index:', memberIdx); return; }
+        const typeLabels = { all: 'All Tasks', ai: 'AI Tasks', claude: 'Claude AI Tasks', copilot: 'Copilot Tasks', aiIneff: 'AI-Ineffective Tasks', manual: 'Manual Tasks' };
+        const typeColors = { all: '#93c5fd', ai: '#6ee7b7', claude: '#c4b5fd', copilot: '#22d3ee', aiIneff: '#fca5a5', manual: '#fcd34d' };
+        const taskMap = { all: '_tasks', ai: '_aiTasks', claude: '_claudeTasks', copilot: '_copilotTasks', aiIneff: '_aiIneffTasks', manual: '_manualTasks' };
+        const taskList = member[taskMap[type]] || [];
+        document.getElementById('aiTaskPopupTitle').textContent = `🧪 ${member.name} — ${typeLabels[type]} (${taskList.length})`;
+        document.getElementById('aiTaskPopupTitle').style.color = typeColors[type];
+        _renderQATaskPopupBody(taskList, lt);
+      } catch(e) {
+        console.error('showQAAiAdoptionTaskPopup error:', e);
+        document.getElementById('aiTaskPopupBody').innerHTML = '<div style="text-align:center;color:#f87171;padding:20px">Error loading tasks</div>';
+      }
+      overlay.style.display = 'flex';
+      modalBox.style.background = lt ? '#ffffff' : '#1e293b';
+      modalBox.style.borderColor = lt ? 'rgba(20,184,166,0.3)' : 'rgba(20,184,166,0.4)';
+    }
+
+    // ── QA AI Adoption Task Popup (Area) ────────────────────────────────────
+    function showQAAreaTaskPopup(areaEnc, type) {
+      const area = decodeURIComponent(areaEnc);
+      const overlay = document.getElementById('aiTaskPopupOverlay');
+      const modalBox = overlay.firstElementChild;
+      const lt = document.body.classList.contains('light-theme');
+      try {
+        const typeLabels = { all: 'All Tasks', ai: 'AI Tasks', aiIneff: 'AI-Ineff Tasks', manual: 'Manual Tasks' };
+        const typeColors = { all: '#93c5fd', ai: '#6ee7b7', aiIneff: '#fca5a5', manual: '#fcd34d' };
+        const taskMap = { all: '_tasks', ai: '_aiTasks', aiIneff: '_aiIneffTasks', manual: '_manualTasks' };
+        const members = qaAIAdoptionMemberData.filter(m => m.team === area);
+        const seen = new Set();
+        const taskList = [];
+        members.forEach(m => { (m[taskMap[type]] || []).forEach(t => { if (!seen.has(t.id)) { seen.add(t.id); taskList.push(t); } }); });
+        document.getElementById('aiTaskPopupTitle').textContent = `🧪 Area: ${area} — ${typeLabels[type]||type} (${taskList.length})`;
+        document.getElementById('aiTaskPopupTitle').style.color = typeColors[type] || '#93c5fd';
+        _renderQATaskPopupBody(taskList, lt);
+      } catch(e) {
+        console.error('showQAAreaTaskPopup error:', e);
+        document.getElementById('aiTaskPopupBody').innerHTML = '<div style="text-align:center;color:#f87171;padding:20px">Error loading tasks</div>';
+      }
+      overlay.style.display = 'flex';
+      modalBox.style.background = lt ? '#ffffff' : '#1e293b';
+      modalBox.style.borderColor = lt ? 'rgba(168,85,247,0.3)' : 'rgba(168,85,247,0.4)';
+    }
+
+    // ── QA AI Adoption Task Popup (Project) ─────────────────────────────────
+    function showQAProjectTaskPopup(projEnc, type) {
+      const proj = decodeURIComponent(projEnc);
+      const overlay = document.getElementById('aiTaskPopupOverlay');
+      const modalBox = overlay.firstElementChild;
+      const lt = document.body.classList.contains('light-theme');
+      try {
+        const typeLabels = { all: 'All Tasks', ai: 'AI Tasks', aiIneff: 'AI-Ineff Tasks', manual: 'Manual Tasks' };
+        const typeColors = { all: '#93c5fd', ai: '#6ee7b7', aiIneff: '#fca5a5', manual: '#fcd34d' };
+        const taskMap = { all: '_tasks', ai: '_aiTasks', aiIneff: '_aiIneffTasks', manual: '_manualTasks' };
+        const members = qaAIAdoptionMemberData.filter(m => m.project === proj);
+        const seen = new Set();
+        const taskList = [];
+        members.forEach(m => { (m[taskMap[type]] || []).forEach(t => { if (!seen.has(t.id)) { seen.add(t.id); taskList.push(t); } }); });
+        document.getElementById('aiTaskPopupTitle').textContent = `🧪 Project: ${proj} — ${typeLabels[type]||type} (${taskList.length})`;
+        document.getElementById('aiTaskPopupTitle').style.color = typeColors[type] || '#93c5fd';
+        _renderQATaskPopupBody(taskList, lt);
+      } catch(e) {
+        console.error('showQAProjectTaskPopup error:', e);
+        document.getElementById('aiTaskPopupBody').innerHTML = '<div style="text-align:center;color:#f87171;padding:20px">Error loading tasks</div>';
+      }
+      overlay.style.display = 'flex';
+      modalBox.style.background = lt ? '#ffffff' : '#1e293b';
+      modalBox.style.borderColor = lt ? 'rgba(99,102,241,0.3)' : 'rgba(99,102,241,0.4)';
+    }
+
+    // ── Shared task table renderer for QA popups ────────────────────────────
+    function _renderQATaskPopupBody(taskList, lt) {
+      if (!taskList.length) {
+        document.getElementById('aiTaskPopupBody').innerHTML = '<div style="text-align:center;color:#94a3b8;padding:20px">No tasks</div>';
+        return;
+      }
+      const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const thBg = lt ? 'background:#e2e8f0;color:#1e293b;' : 'background:rgba(255,255,255,0.08);color:#e2e8f0;';
+      const thS = `${thBg}padding:6px 5px;font-size:0.68rem;white-space:nowrap;text-align:left;`;
+      const tdBdr = lt ? 'border-bottom:1px solid #e2e8f0;' : 'border-bottom:1px solid rgba(255,255,255,0.06);';
+      const tdClr = lt ? 'color:#334155;' : 'color:#cbd5e1;';
+      const wLabels = { week1: 'W1', week2: 'W2', week3: 'W3', week4: 'W4' };
+      const wClr = { week1: '#93c5fd', week2: '#6ee7b7', week3: '#fcd34d', week4: '#f9a8d4' };
+      let html = `<table style="width:100%;border-collapse:collapse;font-size:0.72rem">
+        <thead><tr>
+          <th style="${thS}width:6%">ID</th>
+          <th style="${thS}">Title</th>
+          <th style="${thS}width:10%">Exec Type</th>
+          <th style="${thS}width:7%">State</th>
+          <th style="${thS}width:6%;text-align:right">Orig</th>
+          <th style="${thS}width:6%;text-align:right">Comp</th>
+          <th style="${thS}width:6%;text-align:center">Week</th>
+          <th style="${thS}width:8%;text-align:center">Resolved</th>
+          <th style="${thS}width:9%">Area</th>
+        </tr></thead><tbody>`;
+      taskList.forEach(t => {
+        const f = t.fields;
+        const re = f['Casepoint.TFS.CustomFields.RevisedEstimate']||0;
+        const oe = f['Microsoft.VSTS.Scheduling.OriginalEstimate']||0;
+        const orig = re > 0 ? re : oe;
+        const comp = f['Microsoft.VSTS.Scheduling.CompletedWork']||0;
+        const et = f['Casepoint.TFS.CustomFields.TaskExecutionType']||'-';
+        const area = (f['System.AreaPath']||'').split('\\').pop();
+        const wt = t._sprintWeek;
+        const wColor = wClr[wt] || (lt?'#64748b':'#94a3b8');
+        const stCls = getStatePillClass ? getStatePillClass(f['System.State']||'') : '';
+        const scd = f['Microsoft.VSTS.Common.StateChangeDate'];
+        const scdFmt = scd ? new Date(scd).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '-';
+        const dateClr = lt ? 'color:#475569;' : 'color:#94a3b8;';
+        const etClr = lt ? 'color:#0e7490;' : 'color:#22d3ee;';
+        const origClr = lt ? 'color:#c2410c;' : 'color:#f97316;';
+        const compClr = lt ? 'color:#047857;' : 'color:#34d399;';
+        const areaClr = lt ? 'color:#0369a1;' : 'color:#38bdf8;';
+        html += `<tr style="${tdBdr}">
+          <td style="padding:4px 5px;${tdClr}"><a href="${tfsUrl}/${project}/_workitems/edit/${t.id}" target="_blank" class="wi-link" style="font-size:0.68rem">${t.id}</a></td>
+          <td style="padding:4px 5px;${tdClr}max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(f['System.Title'])}">${esc(f['System.Title'])}</td>
+          <td style="padding:4px 5px;${etClr}font-size:0.66rem">${esc(et)}</td>
+          <td style="padding:4px 5px"><span class="fp-state-pill ${stCls}" style="font-size:0.5rem;padding:1px 5px">${f['System.State']||''}</span></td>
+          <td style="padding:4px 5px;text-align:right;${origClr}font-weight:600">${fmtH(orig)}h</td>
+          <td style="padding:4px 5px;text-align:right;${compClr}">${fmtH(comp)}h</td>
+          <td style="padding:4px 5px;text-align:center;color:${wColor};font-weight:600;font-size:0.66rem">${wLabels[wt]||'-'}</td>
+          <td style="padding:4px 5px;text-align:center;${dateClr}font-size:0.62rem">${scdFmt}</td>
+          <td style="padding:4px 5px;${areaClr}font-size:0.66rem" title="${esc(f['System.AreaPath'])}">${area}</td>
+        </tr>`;
+      });
+      html += '</tbody></table>';
+      document.getElementById('aiTaskPopupBody').innerHTML = html;
+    }
+
     // Sort AI Adoption table
     function sortAIAdoptionTable(field) {
       if (aiAdoptionSortField === field) {
@@ -9209,7 +9344,8 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
           manualCompleted: 0,
           manualAiIneffCount: 0,
           manualAiIneffOrigEst: 0,
-          manualAiIneffCompleted: 0
+          manualAiIneffCompleted: 0,
+          _tasks: [], _aiTasks: [], _claudeTasks: [], _copilotTasks: [], _manualTasks: [], _aiIneffTasks: []
         };
       });
 
@@ -9269,29 +9405,39 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
             manualCompleted: 0,
             manualAiIneffCount: 0,
             manualAiIneffOrigEst: 0,
-            manualAiIneffCompleted: 0
+            manualAiIneffCompleted: 0,
+            _tasks: [], _aiTasks: [], _claudeTasks: [], _copilotTasks: [], _manualTasks: [], _aiIneffTasks: []
           };
         }
 
         if (memberKey) {
           const memberData = memberDataMap[memberKey];
           memberData.taskCount++;
+          if (t._sprintWeek === undefined) t._sprintWeek = getSprintWeek ? getSprintWeek(t) : undefined;
+          memberData._tasks.push(t);
 
           // Count Claude AI vs Copilot vs Manual tasks
           // If "Claude AI" tag found -> Claude AI column, otherwise -> Copilot column
           if (isAiType && hasClaudeAiTag) {
             memberData.claudeAiCount++;
+            memberData._claudeTasks.push(t);
           } else if (isAiType && !hasClaudeAiTag) {
             memberData.copilotCount++;
+            memberData._copilotTasks.push(t);
           }
-          if (isAiType) memberData.aiCount++;
+          if (isAiType) {
+            memberData.aiCount++;
+            memberData._aiTasks.push(t);
+          }
 
           if (isManualType) {
             memberData.manualCount++;
+            memberData._manualTasks.push(t);
           }
 
           if (isManualAiIneff) {
             memberData.manualAiIneffCount++;
+            memberData._aiIneffTasks.push(t);
           }
 
           memberData.totalOrigEst += origEst;
@@ -9372,14 +9518,14 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
       document.getElementById('noQAAIAdoptionData').style.display = 'none';
 
       // Store member results globally for sorting
-      qaAIAdoptionMemberData = memberResults.map(m => {
+      qaAIAdoptionMemberData = memberResults.map((m, _i) => {
         const mTotalHours = m.aiOrigEst + m.manualAiIneffOrigEst + m.manualOrigEst;
         const mAiAdoption = mTotalHours > 0 ? Math.round(((m.aiOrigEst + m.manualAiIneffOrigEst) / mTotalHours) * 100) : 0;
         const mManualEff = (m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? Math.round((((m.manualOrigEst + m.manualAiIneffOrigEst) - (m.manualCompleted + m.manualAiIneffCompleted)) / (m.manualOrigEst + m.manualAiIneffOrigEst)) * 100) : 0;
         const mAiEff = m.aiOrigEst > 0 ? Math.round(((m.aiOrigEst - m.aiCompleted) / m.aiOrigEst) * 100) : 0;
-        const mHourSaved = m.aiOrigEst - m.aiCompleted;
+        const mHourSaved = (m.aiOrigEst - m.aiCompleted) + (m.manualAiIneffOrigEst - m.manualAiIneffCompleted) + (m.manualOrigEst - m.manualCompleted);
         const mPG = calcProdGain(m.aiOrigEst, m.aiCompleted, m.manualAiIneffOrigEst, m.manualAiIneffCompleted, m.manualOrigEst, m.manualCompleted);
-        return { ...m, aiAdoption: mAiAdoption, manualEff: mManualEff, aiEff: mAiEff, hourSaved: mHourSaved, prodGain: mPG !== null ? mPG : -Infinity };
+        return { ...m, _idx: _i, aiAdoption: mAiAdoption, manualEff: mManualEff, aiEff: mAiEff, hourSaved: mHourSaved, prodGain: mPG !== null ? mPG : -Infinity };
       });
 
       // Store grand totals globally
@@ -9450,11 +9596,13 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
       });
 
       const tdStyle = 'padding:10px 8px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.8rem;';
-      tbody.innerHTML = sortedData.map(m => {
+      const clickS = 'cursor:pointer;text-decoration:underline;text-underline-offset:2px;';
+      tbody.innerHTML = sortedData.map((m, idx) => {
         const mHourSavedColor = m.hourSaved >= 0 ? '#f472b6' : '#f87171';
         const mManualEffColor = m.manualEff >= 0 ? '#34d399' : '#f87171';
         const mAiEffColor = m.aiEff >= 0 ? '#34d399' : '#f87171';
         const mTotalOrig = m.aiOrigEst + m.manualAiIneffOrigEst;
+        const mi = m._idx;
         const mProdGain = calcProdGain(m.aiOrigEst, m.aiCompleted, m.manualAiIneffOrigEst, m.manualAiIneffCompleted, m.manualOrigEst, m.manualCompleted);
         const mProdGainColor = mProdGain === null ? '#64748b' : (mProdGain >= 0 ? '#22d3ee' : '#f87171');
 
@@ -9462,10 +9610,10 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
           <td style="${tdStyle}text-align:left;white-space:nowrap">${m.name}</td>
           <td style="${tdStyle}text-align:left;color:#a5b4fc;font-size:0.7rem">${m.project}</td>
           <td style="${tdStyle}text-align:left;color:#67e8f9;font-size:0.7rem">${m.team}</td>
-          <td style="${tdStyle}text-align:center">${m.taskCount}</td>
-          <td style="${tdStyle}text-align:center;color:#6ee7b7">${(m.aiCount||0) > 0 ? (m.aiCount||0) : '-'}</td>
-          <td style="${tdStyle}text-align:center;color:#fca5a5">${m.manualAiIneffCount > 0 ? m.manualAiIneffCount : '-'}</td>
-          <td style="${tdStyle}text-align:center;color:#fcd34d">${m.manualCount > 0 ? m.manualCount : '-'}</td>
+          <td style="${tdStyle}text-align:center;${clickS}" onclick="showQAAiAdoptionTaskPopup(${mi},'all')" title="View all tasks">${m.taskCount}</td>
+          <td style="${tdStyle}text-align:center;color:#6ee7b7;${(m.aiCount||0)>0?clickS:''}" ${(m.aiCount||0)>0?`onclick="showQAAiAdoptionTaskPopup(${mi},'ai')" title="View AI tasks"`:``}>${(m.aiCount||0) > 0 ? (m.aiCount||0) : '-'}</td>
+          <td style="${tdStyle}text-align:center;color:#fca5a5;${m.manualAiIneffCount>0?clickS:''}" ${m.manualAiIneffCount>0?`onclick="showQAAiAdoptionTaskPopup(${mi},'aiIneff')" title="View AI-Ineff tasks"`:``}>${m.manualAiIneffCount > 0 ? m.manualAiIneffCount : '-'}</td>
+          <td style="${tdStyle}text-align:center;color:#fcd34d;${m.manualCount>0?clickS:''}" ${m.manualCount>0?`onclick="showQAAiAdoptionTaskPopup(${mi},'manual')" title="View Manual tasks"`:``}>${m.manualCount > 0 ? m.manualCount : '-'}</td>
           <td style="${tdStyle}text-align:center;color:#fbbf24">${m.aiOrigEst > 0 ? fmtH(m.aiOrigEst) + 'h' : '-'}</td>
           <td style="${tdStyle}text-align:center;color:#34d399">${m.aiCompleted > 0 ? fmtH(m.aiCompleted) + 'h' : '-'}</td>
           <td style="${tdStyle}text-align:center;color:#fca5a5">${m.manualAiIneffOrigEst > 0 ? fmtH(m.manualAiIneffOrigEst) + 'h' : '-'}</td>
@@ -9475,7 +9623,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
           <td style="${tdStyle}text-align:center;color:#60a5fa;font-weight:600">${m.aiAdoption + '%'}</td>
           <td style="${tdStyle}text-align:center;color:${mManualEffColor};font-weight:600">${(m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? m.manualEff + '%' : '-'}</td>
           <td style="${tdStyle}text-align:center;color:${mAiEffColor};font-weight:600">${m.aiOrigEst > 0 ? m.aiEff + '%' : '-'}</td>
-          <td style="${tdStyle}text-align:center;color:${mHourSavedColor};font-weight:600">${m.aiOrigEst > 0 ? fmtH(m.hourSaved) + 'h' : '-'}</td>
+          <td style="${tdStyle}text-align:center;color:${mHourSavedColor};font-weight:600">${(m.aiOrigEst + m.manualAiIneffOrigEst + m.manualOrigEst) > 0 ? fmtH(m.hourSaved) + 'h' : '-'}</td>
           ${showProdGain ? `<td style="${tdStyle}text-align:center;color:${mProdGainColor};font-weight:600">${mProdGain !== null ? mProdGain + '%' : '-'}</td>` : ''}
         </tr>`;
       }).join('');
@@ -9494,7 +9642,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
 
       const qaFootTotalHours = grandAiOrigEst + grandManualAiIneffOrigEst + grandManualOrigEst;
       const grandAiAdoption = qaFootTotalHours > 0 ? Math.round(((grandAiOrigEst + grandManualAiIneffOrigEst) / qaFootTotalHours) * 100) : 0;
-      const grandHourSaved = grandAiOrigEst - grandAiCompleted;
+      const grandHourSaved = (grandAiOrigEst - grandAiCompleted) + (grandManualAiIneffOrigEst - grandManualAiIneffCompleted) + (grandManualOrigEst - grandManualCompleted);
       const footHourSavedColor = grandHourSaved >= 0 ? '#f472b6' : '#f87171';
       const qaFootProdGain = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneffOrigEst, grandManualAiIneffCompleted, grandManualOrigEst, grandManualCompleted);
       const qaFootProdGainColor = qaFootProdGain === null ? '#64748b' : (qaFootProdGain >= 0 ? '#22d3ee' : '#f87171');
@@ -9593,7 +9741,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
         const aiAdoption = totalOrig > 0 ? Math.round(((a.aiOrigEst + a.manualAiIneffOrigEst) / totalOrig) * 100) : 0;
         const manualEff = (a.manualOrigEst + a.manualAiIneffOrigEst) > 0 ? Math.round((((a.manualOrigEst + a.manualAiIneffOrigEst) - (a.manualCompleted + a.manualAiIneffCompleted)) / (a.manualOrigEst + a.manualAiIneffOrigEst)) * 100) : 0;
         const aiEff = a.aiOrigEst > 0 ? Math.round(((a.aiOrigEst - a.aiCompleted) / a.aiOrigEst) * 100) : 0;
-        const hourSaved = a.aiOrigEst - a.aiCompleted;
+        const hourSaved = (a.aiOrigEst - a.aiCompleted) + (a.manualAiIneffOrigEst - a.manualAiIneffCompleted) + (a.manualOrigEst - a.manualCompleted);
         const prodGain = calcProdGain(a.aiOrigEst, a.aiCompleted, a.manualAiIneffOrigEst, a.manualAiIneffCompleted, a.manualOrigEst, a.manualCompleted);
         return { ...a, aiAdoption, manualEff, aiEff, hourSaved, prodGain };
       });
@@ -9638,19 +9786,21 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
 
       // Body
       const tdStyle = 'padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.75rem;';
+      const clickS = 'cursor:pointer;text-decoration:underline;text-underline-offset:2px;';
       qaAreaSummaryBody.innerHTML = areaData.map(a => {
         const hrSavedColor = a.hourSaved >= 0 ? '#f472b6' : '#f87171';
         const manEffColor = a.manualEff >= 0 ? '#34d399' : '#f87171';
         const aiEffColor = a.aiEff >= 0 ? '#34d399' : '#f87171';
         const aPG = a.prodGain;
         const aPGColor = aPG === null ? '#64748b' : (aPG >= 0 ? '#22d3ee' : '#f87171');
+        const areaEnc = encodeURIComponent(a.area);
         return `<tr>
           <td style="${tdStyle}text-align:left;color:#67e8f9;font-weight:600">${a.area}</td>
           <td style="${tdStyle}text-align:center">${a.memberCount}</td>
-          <td style="${tdStyle}text-align:center">${a.taskCount}</td>
-          <td style="${tdStyle}text-align:center;color:#6ee7b7">${(a.aiCount||0) > 0 ? (a.aiCount||0) : '-'}</td>
-          <td style="${tdStyle}text-align:center;color:#fca5a5">${a.manualAiIneffCount || '-'}</td>
-          <td style="${tdStyle}text-align:center;color:#fcd34d">${a.manualCount || '-'}</td>
+          <td style="${tdStyle}text-align:center;${clickS}" onclick="showQAAreaTaskPopup('${areaEnc}','all')" title="View all tasks for ${a.area}">${a.taskCount}</td>
+          <td style="${tdStyle}text-align:center;color:#6ee7b7;${(a.aiCount||0)>0?clickS:''}" ${(a.aiCount||0)>0?`onclick="showQAAreaTaskPopup('${areaEnc}','ai')" title="View AI tasks"`:``}>${(a.aiCount||0) > 0 ? (a.aiCount||0) : '-'}</td>
+          <td style="${tdStyle}text-align:center;color:#fca5a5;${a.manualAiIneffCount?clickS:''}" ${a.manualAiIneffCount?`onclick="showQAAreaTaskPopup('${areaEnc}','aiIneff')" title="View AI-Ineff tasks"`:``}>${a.manualAiIneffCount || '-'}</td>
+          <td style="${tdStyle}text-align:center;color:#fcd34d;${a.manualCount?clickS:''}" ${a.manualCount?`onclick="showQAAreaTaskPopup('${areaEnc}','manual')" title="View Manual tasks"`:``}>${a.manualCount || '-'}</td>
           <td style="${tdStyle}text-align:center;color:#fbbf24">${fmtH(a.aiOrigEst)}h</td>
           <td style="${tdStyle}text-align:center;color:#34d399">${fmtH(a.aiCompleted)}h</td>
           <td style="${tdStyle}text-align:center;color:#fca5a5">${fmtH(a.manualAiIneffOrigEst)}h</td>
@@ -9680,7 +9830,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
       const qaManEffD = qagt.manualOrigEst + qagt.manualAiIneffOrigEst;
       const qaManEff = qaManEffD > 0 ? Math.round(((qaManEffD - (qagt.manualCompleted + qagt.manualAiIneffCompleted)) / qaManEffD) * 100) : 0;
       const qaAiEff = qagt.aiOrigEst > 0 ? Math.round(((qagt.aiOrigEst - qagt.aiCompleted) / qagt.aiOrigEst) * 100) : 0;
-      const qaHrSave = qagt.aiOrigEst - qagt.aiCompleted;
+      const qaHrSave = (qagt.aiOrigEst - qagt.aiCompleted) + (qagt.manualAiIneffOrigEst - qagt.manualAiIneffCompleted) + (qagt.manualOrigEst - qagt.manualCompleted);
       const qaAreaPG = calcProdGain(qagt.aiOrigEst, qagt.aiCompleted, qagt.manualAiIneffOrigEst, qagt.manualAiIneffCompleted, qagt.manualOrigEst, qagt.manualCompleted);
       const qaAreaPGColor = qaAreaPG === null ? '#64748b' : (qaAreaPG >= 0 ? '#22d3ee' : '#f87171');
       const qatf = 'padding:8px;border-top:2px solid rgba(168,85,247,0.4);font-size:0.75rem;';
@@ -9764,7 +9914,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
         const aiAdoption = totalOrig > 0 ? Math.round(((p.aiOrigEst + p.manualAiIneffOrigEst) / totalOrig) * 100) : 0;
         const manualEff = (p.manualOrigEst + p.manualAiIneffOrigEst) > 0 ? Math.round((((p.manualOrigEst + p.manualAiIneffOrigEst) - (p.manualCompleted + p.manualAiIneffCompleted)) / (p.manualOrigEst + p.manualAiIneffOrigEst)) * 100) : 0;
         const aiEff = p.aiOrigEst > 0 ? Math.round(((p.aiOrigEst - p.aiCompleted) / p.aiOrigEst) * 100) : 0;
-        const hourSaved = p.aiOrigEst - p.aiCompleted;
+        const hourSaved = (p.aiOrigEst - p.aiCompleted) + (p.manualAiIneffOrigEst - p.manualAiIneffCompleted) + (p.manualOrigEst - p.manualCompleted);
         return { ...p, aiAdoption, manualEff, aiEff, hourSaved };
       });
 
@@ -9792,19 +9942,21 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
 
       // Body
       const tdStyle = 'padding:8px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.75rem;';
+      const clickS = 'cursor:pointer;text-decoration:underline;text-underline-offset:2px;';
       qaProjectSummaryBody.innerHTML = projectData.map(p => {
         const hrSavedColor = p.hourSaved >= 0 ? '#f472b6' : '#f87171';
         const manEffColor = p.manualEff >= 0 ? '#34d399' : '#f87171';
         const aiEffColor = p.aiEff >= 0 ? '#34d399' : '#f87171';
         const pPG = calcProdGain(p.aiOrigEst, p.aiCompleted, p.manualAiIneffOrigEst, p.manualAiIneffCompleted, p.manualOrigEst, p.manualCompleted);
         const pPGColor = pPG === null ? '#64748b' : (pPG >= 0 ? '#22d3ee' : '#f87171');
+        const projEnc = encodeURIComponent(p.project);
         return `<tr>
           <td style="${tdStyle}text-align:left;color:#a5b4fc;font-weight:600">${p.project}</td>
           <td style="${tdStyle}text-align:center">${p.memberCount}</td>
-          <td style="${tdStyle}text-align:center">${p.taskCount}</td>
-          <td style="${tdStyle}text-align:center;color:#6ee7b7">${(p.aiCount||0) > 0 ? (p.aiCount||0) : '-'}</td>
-          <td style="${tdStyle}text-align:center;color:#fca5a5">${p.manualAiIneffCount || '-'}</td>
-          <td style="${tdStyle}text-align:center;color:#fcd34d">${p.manualCount || '-'}</td>
+          <td style="${tdStyle}text-align:center;${clickS}" onclick="showQAProjectTaskPopup('${projEnc}','all')" title="View all tasks for ${p.project}">${p.taskCount}</td>
+          <td style="${tdStyle}text-align:center;color:#6ee7b7;${(p.aiCount||0)>0?clickS:''}" ${(p.aiCount||0)>0?`onclick="showQAProjectTaskPopup('${projEnc}','ai')" title="View AI tasks"`:``}>${(p.aiCount||0) > 0 ? (p.aiCount||0) : '-'}</td>
+          <td style="${tdStyle}text-align:center;color:#fca5a5;${p.manualAiIneffCount?clickS:''}" ${p.manualAiIneffCount?`onclick="showQAProjectTaskPopup('${projEnc}','aiIneff')" title="View AI-Ineff tasks"`:``}>${p.manualAiIneffCount || '-'}</td>
+          <td style="${tdStyle}text-align:center;color:#fcd34d;${p.manualCount?clickS:''}" ${p.manualCount?`onclick="showQAProjectTaskPopup('${projEnc}','manual')" title="View Manual tasks"`:``}>${p.manualCount || '-'}</td>
           <td style="${tdStyle}text-align:center;color:#fbbf24">${fmtH(p.aiOrigEst)}h</td>
           <td style="${tdStyle}text-align:center;color:#34d399">${fmtH(p.aiCompleted)}h</td>
           <td style="${tdStyle}text-align:center;color:#fca5a5">${fmtH(p.manualAiIneffOrigEst)}h</td>
@@ -9834,7 +9986,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
       const qpManEffD = qpgt.manualOrigEst + qpgt.manualAiIneffOrigEst;
       const qpManEff = qpManEffD > 0 ? Math.round(((qpManEffD - (qpgt.manualCompleted + qpgt.manualAiIneffCompleted)) / qpManEffD) * 100) : 0;
       const qpAiEff = qpgt.aiOrigEst > 0 ? Math.round(((qpgt.aiOrigEst - qpgt.aiCompleted) / qpgt.aiOrigEst) * 100) : 0;
-      const qpHrSave = qpgt.aiOrigEst - qpgt.aiCompleted;
+      const qpHrSave = (qpgt.aiOrigEst - qpgt.aiCompleted) + (qpgt.manualAiIneffOrigEst - qpgt.manualAiIneffCompleted) + (qpgt.manualOrigEst - qpgt.manualCompleted);
       const qpPG = calcProdGain(qpgt.aiOrigEst, qpgt.aiCompleted, qpgt.manualAiIneffOrigEst, qpgt.manualAiIneffCompleted, qpgt.manualOrigEst, qpgt.manualCompleted);
       const qpPGColor = qpPG === null ? '#64748b' : (qpPG >= 0 ? '#22d3ee' : '#f87171');
       const qptf = 'padding:8px;border-top:2px solid rgba(99,102,241,0.4);font-size:0.75rem;';
@@ -9929,7 +10081,7 @@ const _devPG = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneff
       const totalManualAiIneff = qaAIAdoptionMemberData.reduce((sum, m) => sum + m.manualAiIneffCount, 0);
       const csvTotalHours = grandAiOrigEst + grandManualAiIneffOrigEst + grandManualOrigEst;
       const grandAiAdoption = csvTotalHours > 0 ? Math.round(((grandAiOrigEst + grandManualAiIneffOrigEst) / csvTotalHours) * 100) : 0;
-      const grandHourSaved = grandAiOrigEst - grandAiCompleted;
+      const grandHourSaved = (grandAiOrigEst - grandAiCompleted) + (grandManualAiIneffOrigEst - grandManualAiIneffCompleted) + (grandManualOrigEst - grandManualCompleted);
 
       csv += `"Grand Total","","",${totalTasks},${totalAI},${totalManualAiIneff},${totalManual},${grandAiOrigEst},${grandAiCompleted},${grandManualAiIneffOrigEst},${grandManualAiIneffCompleted},${grandManualOrigEst},${grandManualCompleted},${grandAiAdoption},${manualEfficiency},${aiEfficiency},${grandHourSaved}\n`;
 
