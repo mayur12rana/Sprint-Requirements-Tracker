@@ -9264,7 +9264,7 @@ const mAiAdoption = mTotalHours > 0 ? Math.round(((m.aiOrigEst + m.manualAiIneff
 
 const mManualEff = (m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? Math.round((((m.manualOrigEst + m.manualAiIneffOrigEst) - (m.manualCompleted + m.manualAiIneffCompleted)) / (m.manualOrigEst + m.manualAiIneffOrigEst)) * 100) : 0;
 const mAiEff = m.aiOrigEst > 0 ? Math.round(((m.aiOrigEst - m.aiCompleted) / m.aiOrigEst) * 100) : 0;
-const mHourSaved = m.aiOrigEst - m.aiCompleted;
+const mHourSaved = (m.aiOrigEst - m.aiCompleted) + (m.manualAiIneffOrigEst - m.manualAiIneffCompleted) + (m.manualOrigEst - m.manualCompleted);
 const mProdGain = calcProdGain(m.aiOrigEst, m.aiCompleted, m.manualAiIneffOrigEst, m.manualAiIneffCompleted, m.manualOrigEst, m.manualCompleted);
 return { ...m, _idx: _i, aiAdoption: mAiAdoption, manualEff: mManualEff, aiEff: mAiEff, hourSaved: mHourSaved, prodGain: mProdGain !== null ? mProdGain : -Infinity };
 });
@@ -9432,7 +9432,7 @@ return `<tr style="transition:background 0.2s" onmouseover="this.style.backgroun
 <td style="${tdStyle}text-align:center;color:#60a5fa;font-weight:600">${m.aiAdoption + '%'}</td>
 <td style="${tdStyle}text-align:center;color:${mManualEffColor};font-weight:600">${(m.manualOrigEst + m.manualAiIneffOrigEst) > 0 ? m.manualEff + '%' : '-'}</td>
 <td style="${tdStyle}text-align:center;color:${mAiEffColor};font-weight:600">${m.aiOrigEst > 0 ? m.aiEff + '%' : '-'}</td>
-<td style="${tdStyle}text-align:center;color:${mHourSavedColor};font-weight:600">${m.aiOrigEst > 0 ? fmtH(m.hourSaved) + 'h' : '-'}</td>
+<td style="${tdStyle}text-align:center;color:${mHourSavedColor};font-weight:600">${(m.aiOrigEst + m.manualAiIneffOrigEst + m.manualOrigEst) > 0 ? fmtH(m.hourSaved) + 'h' : '-'}</td>
 ${showProdGain ? `<td style="${tdStyle}text-align:center;color:${mProdGainColor};font-weight:600">${mProdGain !== null ? mProdGain + '%' : '-'}</td>` : ''}
 </tr>`;
 }).join('');
@@ -9464,7 +9464,7 @@ const footAiEffColor = aiEfficiency >= 0 ? '#34d399' : '#f87171';
 const footTotalHours = grandAiOrigEst + grandManualAiIneffOrigEst + grandManualOrigEst;
 const grandAiAdoption = footTotalHours > 0 ? Math.round(((grandAiOrigEst + grandManualAiIneffOrigEst) / footTotalHours) * 100) : 0;
 
-const grandHourSaved = grandAiOrigEst - grandAiCompleted;
+const grandHourSaved = (grandAiOrigEst - grandAiCompleted) + (grandManualAiIneffOrigEst - grandManualAiIneffCompleted) + (grandManualOrigEst - grandManualCompleted);
 const footHourSavedColor = grandHourSaved >= 0 ? '#f472b6' : '#f87171';
 const footProdGain = calcProdGain(grandAiOrigEst, grandAiCompleted, grandManualAiIneffOrigEst, grandManualAiIneffCompleted, grandManualOrigEst, grandManualCompleted);
 const footProdGainColor = footProdGain === null ? '#64748b' : (footProdGain >= 0 ? '#22d3ee' : '#f87171');
@@ -9552,7 +9552,7 @@ return {
 aiAdoption: totalOrig > 0 ? Math.round(((a.aiOrigEst + a.manualAiIneffOrigEst) / totalOrig) * 100) : 0,
 manualEff: (a.manualOrigEst + a.manualAiIneffOrigEst) > 0 ? Math.round((((a.manualOrigEst + a.manualAiIneffOrigEst) - (a.manualCompleted + a.manualAiIneffCompleted)) / (a.manualOrigEst + a.manualAiIneffOrigEst)) * 100) : 0,
 aiEff: a.aiOrigEst > 0 ? Math.round(((a.aiOrigEst - a.aiCompleted) / a.aiOrigEst) * 100) : 0,
-hourSaved: a.aiOrigEst - a.aiCompleted
+hourSaved: (a.aiOrigEst - a.aiCompleted) + (a.manualAiIneffOrigEst - a.manualAiIneffCompleted) + (a.manualOrigEst - a.manualCompleted)
 };
 });
 
@@ -9639,7 +9639,7 @@ const gtAiAdopt = gtTotalOrig > 0 ? Math.round(((gt.aiOrigEst + gt.manualAiIneff
 const gtManEffD = gt.manualOrigEst + gt.manualAiIneffOrigEst;
 const gtManEff = gtManEffD > 0 ? Math.round(((gtManEffD - (gt.manualCompleted + gt.manualAiIneffCompleted)) / gtManEffD) * 100) : 0;
 const gtAiEff = gt.aiOrigEst > 0 ? Math.round(((gt.aiOrigEst - gt.aiCompleted) / gt.aiOrigEst) * 100) : 0;
-const gtHrSave = gt.aiOrigEst - gt.aiCompleted;
+const gtHrSave = (gt.aiOrigEst - gt.aiCompleted) + (gt.manualAiIneffOrigEst - gt.manualAiIneffCompleted) + (gt.manualOrigEst - gt.manualCompleted);
 const gtProdGain = calcProdGain(gt.aiOrigEst, gt.aiCompleted, gt.manualAiIneffOrigEst, gt.manualAiIneffCompleted, gt.manualOrigEst, gt.manualCompleted);
 const gtProdGainColor = gtProdGain === null ? '#64748b' : (gtProdGain >= 0 ? '#22d3ee' : '#f87171');
 const tf = 'padding:8px 6px;border-top:2px solid rgba(6,182,212,0.4);font-size:0.75rem;';
@@ -9752,7 +9752,7 @@ const pTotalOrig = p.aiOrigEst + p.manualAiIneffOrigEst + p.manualOrigEst;
 const pAiAdoption = pTotalOrig > 0 ? Math.round(((p.aiOrigEst + p.manualAiIneffOrigEst) / pTotalOrig) * 100) : 0;
 const pManualEff = (p.manualOrigEst + p.manualAiIneffOrigEst) > 0 ? Math.round((((p.manualOrigEst + p.manualAiIneffOrigEst) - (p.manualCompleted + p.manualAiIneffCompleted)) / (p.manualOrigEst + p.manualAiIneffOrigEst)) * 100) : 0;
 const pAiEff = p.aiOrigEst > 0 ? Math.round(((p.aiOrigEst - p.aiCompleted) / p.aiOrigEst) * 100) : 0;
-const pHourSaved = p.aiOrigEst - p.aiCompleted;
+const pHourSaved = (p.aiOrigEst - p.aiCompleted) + (p.manualAiIneffOrigEst - p.manualAiIneffCompleted) + (p.manualOrigEst - p.manualCompleted);
 const pHourSavedColor = pHourSaved >= 0 ? '#f472b6' : '#f87171';
 const pManualEffColor = pManualEff >= 0 ? '#34d399' : '#f87171';
 const pAiEffColor = pAiEff >= 0 ? '#34d399' : '#f87171';
@@ -9794,7 +9794,7 @@ const pAiAdopt = pTotalOrig > 0 ? Math.round(((pgt.aiOrigEst + pgt.manualAiIneff
 const pManEffD = pgt.manualOrigEst + pgt.manualAiIneffOrigEst;
 const pManEff = pManEffD > 0 ? Math.round(((pManEffD - (pgt.manualCompleted + pgt.manualAiIneffCompleted)) / pManEffD) * 100) : 0;
 const pAiEff = pgt.aiOrigEst > 0 ? Math.round(((pgt.aiOrigEst - pgt.aiCompleted) / pgt.aiOrigEst) * 100) : 0;
-const pHrSave = pgt.aiOrigEst - pgt.aiCompleted;
+const pHrSave = (pgt.aiOrigEst - pgt.aiCompleted) + (pgt.manualAiIneffOrigEst - pgt.manualAiIneffCompleted) + (pgt.manualOrigEst - pgt.manualCompleted);
 const pProdGainFt = calcProdGain(pgt.aiOrigEst, pgt.aiCompleted, pgt.manualAiIneffOrigEst, pgt.manualAiIneffCompleted, pgt.manualOrigEst, pgt.manualCompleted);
 const pProdGainFtColor = pProdGainFt === null ? '#64748b' : (pProdGainFt >= 0 ? '#22d3ee' : '#f87171');
 const ptf = 'padding:8px 6px;border-top:2px solid rgba(99,102,241,0.4);font-size:0.75rem;';
@@ -11278,7 +11278,7 @@ d.aiAdoption = dwCalcAiAdopt(d.aiOrigEst, d.manualAiIneffOrigEst, d.manualOrigEs
 const manEffDenom = d.manualOrigEst + d.manualAiIneffOrigEst;
 d.manualEff = manEffDenom > 0 ? Math.round(((manEffDenom - (d.manualCompleted + d.manualAiIneffCompleted)) / manEffDenom) * 100) : 0;
 d.aiEff = d.aiOrigEst > 0 ? Math.round(((d.aiOrigEst - d.aiCompleted) / d.aiOrigEst) * 100) : 0;
-d.hourSaved = d.aiOrigEst - d.aiCompleted;
+d.hourSaved = (d.aiOrigEst - d.aiCompleted) + (d.manualAiIneffOrigEst - d.manualAiIneffCompleted) + (d.manualOrigEst - d.manualCompleted);
 });
 const gt = disciplineWiseData.reduce((acc, d) => {
 acc.taskCount += d.taskCount; acc.claudeAiCount += d.claudeAiCount; acc.copilotCount += d.copilotCount;
@@ -11295,7 +11295,7 @@ aiCount: (gt.claudeAiCount || 0) + (gt.copilotCount || 0),
 aiAdoption: dwCalcAiAdopt(gt.aiOrigEst, gt.manualAiIneffOrigEst, gt.manualOrigEst),
 manualEff: gtManEffDenom > 0 ? Math.round(((gtManEffDenom - (gt.manualCompleted + gt.manualAiIneffCompleted)) / gtManEffDenom) * 100) : 0,
 aiEff: gt.aiOrigEst > 0 ? Math.round(((gt.aiOrigEst - gt.aiCompleted) / gt.aiOrigEst) * 100) : 0,
-hourSaved: gt.aiOrigEst - gt.aiCompleted
+hourSaved: (gt.aiOrigEst - gt.aiCompleted) + (gt.manualAiIneffOrigEst - gt.manualAiIneffCompleted) + (gt.manualOrigEst - gt.manualCompleted)
 };
 }
 
@@ -11372,7 +11372,7 @@ return `<tr style="transition:background 0.2s" onmouseover="this.style.backgroun
 <td style="${td}text-align:center;color:${aiAdoptColor};font-weight:600">${d.aiAdoption}%</td>
 <td style="${td}text-align:center;color:${mEffC};font-weight:600">${(d.manualOrigEst+d.manualAiIneffOrigEst)>0 ? d.manualEff+'%' : '-'}</td>
 <td style="${td}text-align:center;color:${aEffC};font-weight:600">${d.aiOrigEst>0 ? d.aiEff+'%' : '-'}</td>
-<td style="${td}text-align:center;color:${hSC};font-weight:600">${d.aiOrigEst>0 ? fmtH(d.hourSaved)+'h' : '-'}</td>
+<td style="${td}text-align:center;color:${hSC};font-weight:600">${(d.aiOrigEst+d.manualAiIneffOrigEst+d.manualOrigEst)>0 ? fmtH(d.hourSaved)+'h' : '-'}</td>
 ${showProdGain ? `<td style="${td}text-align:center;color:${dProdGainColor};font-weight:600">${dProdGain !== null ? dProdGain + '%' : '-'}</td>` : ''}
 </tr>`;
 }).join('');
