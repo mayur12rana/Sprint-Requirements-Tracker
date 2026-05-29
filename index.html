@@ -3214,15 +3214,29 @@ else if (currentMonth <= 6)  calendarQuarter = 2;
 else if (currentMonth <= 9)  calendarQuarter = 3;
 else                         calendarQuarter = 4;
 
+// Determine the "current" quarter from the iteration the user is actually in,
+// or closest to. An active sprint (now within its date range) always wins; if
+// we're in a gap between sprints, the nearest sprint (upcoming or just finished)
+// is used. This avoids defaulting to the calendar quarter when the team's PI
+// cadence doesn't line up with calendar quarters (e.g. Q2 sprints ending mid-May
+// while Q3 has already started). The finish date is treated as inclusive
+// end-of-day so a sprint still counts as active on its final day.
 let sprintBasedQStr = null;
+let bestDistance = Infinity;
 iterations.forEach(i => {
 if (!i.attributes?.startDate) return;
-const sd = new Date(i.attributes.startDate);
-const fd = i.attributes.finishDate ? new Date(i.attributes.finishDate) : null;
-const isActive = sd <= now && (!fd || fd >= now);
-if (isActive) {
 const q = extractQStr(i.name);
-if (q) sprintBasedQStr = q;
+if (!q) return;
+const sd = new Date(i.attributes.startDate);
+const fd = i.attributes.finishDate ? new Date(i.attributes.finishDate) : new Date(sd);
+fd.setHours(23, 59, 59, 999);
+let distance;
+if (now >= sd && now <= fd) distance = 0;        // active right now
+else if (now < sd)          distance = sd - now;  // upcoming sprint
+else                        distance = now - fd;  // already finished
+if (distance < bestDistance) {
+bestDistance = distance;
+sprintBasedQStr = q;
 }
 });
 
@@ -3255,8 +3269,13 @@ iterationsByName[name].projects.push(i.project);
 
 const combinedIterations = Object.values(iterationsByName);
 
-const currentIteration = combinedIterations.find(i => i.attributes?.startDate && i.attributes?.finishDate &&
-now >= new Date(i.attributes.startDate) && now <= new Date(i.attributes.finishDate));
+const currentIteration = combinedIterations.find(i => {
+if (!i.attributes?.startDate || !i.attributes?.finishDate) return false;
+const sd = new Date(i.attributes.startDate);
+const fd = new Date(i.attributes.finishDate);
+fd.setHours(23, 59, 59, 999);
+return now >= sd && now <= fd;
+});
 
 const currentQIterations = combinedIterations.filter(i => extractQStr(i.name) === currentQStr);
 const prevQIterations    = combinedIterations.filter(i => extractQStr(i.name) === prevQStr);
