@@ -6896,6 +6896,38 @@ btn.textContent = '⬆️ Update Feature Data';
 }
 }
 
+// Canonical Feature status workflow — matches the "Edit status workflow" list
+// (see product screenshot). Used as the default options for BOTH the
+// "Update Feature Data in TFS" Status dropdown and the "Update AHA Status"
+// modal's AHA Status dropdown, so both always show the full workflow in order.
+window.DEFAULT_FEATURE_STATUSES = [
+  'Under consideration',
+  'Discovery Pending',
+  'Discovery Started',
+  'Discovery Done',
+  'In Development',
+  'In QA',
+  'In PT',
+  'Ready to Ship',
+  'Shipped',
+  'On Hold',
+  'Will not implement'
+];
+
+// Sort a set of statuses into canonical workflow order (above). Any value not
+// in the canonical list is appended afterwards, alphabetically.
+window._orderFeatureStatuses = function (arr) {
+  const order = window.DEFAULT_FEATURE_STATUSES || [];
+  const rank = s => {
+    const i = order.findIndex(o => o.toLowerCase() === String(s).toLowerCase());
+    return i === -1 ? order.length + 1 : i;
+  };
+  return [...new Set(arr)].sort((a, b) => {
+    const r = rank(a) - rank(b);
+    return r !== 0 ? r : String(a).localeCompare(String(b));
+  });
+};
+
 function showUpdateFeaturePopup() {
 if (!['admin','super_admin','pdm'].includes(currentUserRole)) {
 alert('⚠️ Only Admin and Super Admin can update feature data.'); return;
@@ -6903,7 +6935,7 @@ alert('⚠️ Only Admin and Super Admin can update feature data.'); return;
 const filteredData = getFilteredFeatureData().filter(f => fpSelectedIds.has(f.id));
 if (filteredData.length === 0) { alert('⚠️ No features selected. Please check features in the table first.'); return; }
 const states = ['Active', 'Closed', 'Proposed', 'Resolved'];
-const statuses = ['Under Consideration', 'In Dev', 'In QA', 'In PT', 'On Hold', 'Ready to Ship', 'Shipped', 'Will not implement', 'Discovery Done'];
+const statuses = window.DEFAULT_FEATURE_STATUSES.slice();
 const isLight = document.body.classList.contains('light-theme');
 const totalFiltered = getFilteredFeatureData().length;
 
@@ -6968,7 +7000,9 @@ const mm1 = Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01;
 const mm2 = Math.abs(f.completedEffort - f.taskLevelCompletedDevHours) > 0.01;
 const mm3 = Math.abs(f.actualCompletedHours - f.taskLevelActualCompHours) > 0.01;
 const stOpts = states.map(s => `<option value="${s}"${s===f.state?' selected':''}>${s}</option>`).join('');
-const suOpts = ['<option value="">-</option>', ...statuses.map(s => `<option value="${s}"${s===f.status?' selected':''}>${s}</option>`)].join('');
+const _rowStatuses = (f.status && !statuses.some(s => s.toLowerCase() === String(f.status).toLowerCase()))
+  ? [...statuses, f.status] : statuses;
+const suOpts = ['<option value="">-</option>', ..._rowStatuses.map(s => `<option value="${s}"${s===f.status?' selected':''}>${s}</option>`)].join('');
 const rowBg = i % 2 === 0 ? '' : tc.rowAlt;
 return `<tr id="fpPopupRow-${f.id}" style="${tc.border}${rowBg}">
 <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
@@ -15078,7 +15112,7 @@ Object.values(window._ahaMap).forEach(m => {
 if (m && m.status && m.status !== '—') seen.add(m.status);
 });
 }
-const union = [...seen];
+const union = [...new Set([...(window.DEFAULT_FEATURE_STATUSES || []), ...seen])];
 
 const key = (document.getElementById('ahaKeyInput')?.value || '').trim();
 const baseUrl = window._ahaBaseUrl || 'https://casepoint.aha.io';
@@ -15108,12 +15142,12 @@ _absorb(wf.workflow_statuses);
 _absorb(wf.statuses);
 });
 _absorb(data?.workflow_statuses);
-window._ahaWorkflowStatusList = [...enriched].sort((a,b)=>a.localeCompare(b));
+window._ahaWorkflowStatusList = window._orderFeatureStatuses([...enriched]);
 return window._ahaWorkflowStatusList;
 }
 } catch (_) {  }
 
-window._ahaWorkflowStatusList = union.sort((a,b)=>a.localeCompare(b));
+window._ahaWorkflowStatusList = window._orderFeatureStatuses(union);
 return window._ahaWorkflowStatusList;
 }
 
@@ -15198,7 +15232,7 @@ return `<option value="">(no statuses available)</option>`;
 
 const opts = new Set(statusList);
 if (sel) opts.add(sel);
-return [...opts].sort((a,b)=>a.localeCompare(b)).map(s =>
+return window._orderFeatureStatuses([...opts]).map(s =>
 `<option value="${s.replace(/"/g,'&quot;')}" ${s === sel ? 'selected' : ''}>${s}</option>`
 ).join('');
 };
