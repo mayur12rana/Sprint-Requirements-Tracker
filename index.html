@@ -6928,6 +6928,17 @@ window._orderFeatureStatuses = function (arr) {
   });
 };
 
+// Display label (shown in the dropdown / screenshot workflow) -> value actually
+// stored in the TFS field Casepoint.TFS.CustomFields.Status. Any label NOT in
+// this map is written through unchanged (display === backend value).
+// Extend this when a TFS picklist value differs from its display label.
+window.TFS_STATUS_VALUE_MAP = {
+  'In Development': 'In Dev'
+};
+// Resolve a display label to the value to PATCH into TFS.
+window._tfsStatusValue = label =>
+  (window.TFS_STATUS_VALUE_MAP && window.TFS_STATUS_VALUE_MAP[label]) || label;
+
 function showUpdateFeaturePopup() {
 if (!['admin','super_admin','pdm'].includes(currentUserRole)) {
 alert('⚠️ Only Admin and Super Admin can update feature data.'); return;
@@ -7000,9 +7011,17 @@ const mm1 = Math.abs(f.plannedHours - f.taskLevelPlannedHours) > 0.01;
 const mm2 = Math.abs(f.completedEffort - f.taskLevelCompletedDevHours) > 0.01;
 const mm3 = Math.abs(f.actualCompletedHours - f.taskLevelActualCompHours) > 0.01;
 const stOpts = states.map(s => `<option value="${s}"${s===f.state?' selected':''}>${s}</option>`).join('');
-const _rowStatuses = (f.status && !statuses.some(s => s.toLowerCase() === String(f.status).toLowerCase()))
-  ? [...statuses, f.status] : statuses;
-const suOpts = ['<option value="">-</option>', ..._rowStatuses.map(s => `<option value="${s}"${s===f.status?' selected':''}>${s}</option>`)].join('');
+// Each option shows the display label but carries the TFS backend value (so the
+// selected option's .value is exactly what we PATCH). e.g. "In Development" → "In Dev".
+const _statusPairs = statuses.map(label => ({ label, value: window._tfsStatusValue(label) }));
+// Keep the feature's current backend status selectable even if it's not produced
+// by the canonical list (avoids accidental clearing / lets odd legacy values show).
+if (f.status && !_statusPairs.some(p => p.value.toLowerCase() === String(f.status).toLowerCase())) {
+  _statusPairs.push({ label: f.status, value: f.status });
+}
+const suOpts = ['<option value="">-</option>',
+  ..._statusPairs.map(p => `<option value="${p.value}"${p.value===f.status?' selected':''}>${p.label}</option>`)
+].join('');
 const rowBg = i % 2 === 0 ? '' : tc.rowAlt;
 return `<tr id="fpPopupRow-${f.id}" style="${tc.border}${rowBg}">
 <td style="${pd}"><a href="${tfsUrl}/${project}/_workitems/edit/${f.id}" target="_blank" class="wi-link">${f.id}</a></td>
