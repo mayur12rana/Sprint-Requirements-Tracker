@@ -12,12 +12,15 @@
 // sprintClosingReportUrl   : URL to external Sprint Closing Report dashboard   (shown as tile in Tab 8 > Reports)
 // sprintDiscoveryReportUrl : URL to external Sprint Discovery Report dashboard (shown as tile in Tab 8 > Reports)
 // sprintPlanningReportUrl  : URL to external Sprint Planning Report dashboard  (shown as tile in Tab 8 > Reports)
+// unitTestReportUrl        : URL to external xUnit Test Audit Report          (shown as tile in Tab 8 > Reports > Engineering Quality Reports)
+//                            This one is a standalone static page — no TFS context is forwarded and no sprint needs to be loaded first.
 // Set a URL to empty string "" to hide its tile; TFS context (tfsUrl/pat/area/sprint) is forwarded automatically.
 var ALLOWED_USERS_DATA = {
     "taskCreatorUrl":           "https://mayur12rana.github.io/Task-Creator/",
     "sprintClosingReportUrl":   "https://mayur12rana.github.io/SprintClosingReport/Sprint-Closing-Report.html",
     "sprintDiscoveryReportUrl": "https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html",
     "sprintPlanningReportUrl":  "https://mayur12rana.github.io/Dashboard-Sprint-Planning-Report/Dashboard_Sprint_Planning_Report.html",
+    "unitTestReportUrl":        "https://kailash0504.github.io/Unittest/",
     "users": [
         { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
         { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6] },

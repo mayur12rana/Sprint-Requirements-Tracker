@@ -2500,6 +2500,30 @@ body.light-theme #featureProgressTable.aha-cols-on tbody tr td:nth-child(8){colo
 
                     </div>
                 </div>
+
+                <div style="margin-bottom:4px">
+                    <div style="padding:6px 12px;border-left:3px solid #f59e0b;background:rgba(245,158,11,0.08);border-radius:0 6px 6px 0;margin-bottom:14px">
+                        <span style="color:#fbbf24;font-size:0.8rem;font-weight:700">🧪 Engineering Quality Reports</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">
+
+                        <div id="unitTestReportTile" style="background:linear-gradient(135deg,rgba(245,158,11,0.18),rgba(251,191,36,0.12));border:1px solid rgba(245,158,11,0.4);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(245,158,11,0.25)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <span style="font-size:1.8rem">🧪</span>
+                                <div>
+                                    <div style="color:#fbbf24;font-size:0.9rem;font-weight:700">Unit Test Audit Report</div>
+                                    <div style="color:#64748b;font-size:0.6rem;margin-top:2px">xUnit coverage &amp; test inventory</div>
+                                </div>
+                            </div>
+                            <p style="color:#94a3b8;font-size:0.65rem;margin:0;line-height:1.5">xUnit test audit for the API core test project — module breakdown, Fact/Theory counts, skipped tests, file inventory and contributor activity.</p>
+                            <a id="unitTestReportLink" href="#" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#d97706,#f59e0b);border:none;border-radius:8px;color:#fff;font-size:0.75rem;font-weight:600;text-decoration:none;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                                🚀 Open Report
+                            </a>
+                            <div id="unitTestReportStatus" style="font-size:0.55rem;color:#475569;word-break:break-all"></div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div><!-- End Tab 8 -->
 
@@ -8226,6 +8250,7 @@ function initReportsTile() {
 initSprintClosingTile();
 initSprintDiscoveryTile();
 initSprintPlanningTile();
+initUnitTestReportTile();
 }
 
 function initSprintClosingTile() {
@@ -8486,6 +8511,29 @@ params.set('autoLoad', '1');
 const finalUrl = spUrl + (spUrl.includes('?') ? '&' : '?') + params.toString();
 
 window.open(finalUrl, '_blank', 'noopener,noreferrer');
+}
+
+function initUnitTestReportTile() {
+const tile   = document.getElementById('unitTestReportTile');
+const link   = document.getElementById('unitTestReportLink');
+const status = document.getElementById('unitTestReportStatus');
+if (!tile || !link) return;
+
+const utUrl = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA.unitTestReportUrl)
+? String(ALLOWED_USERS_DATA.unitTestReportUrl).trim() : '';
+
+// Empty string in allowed_users.json hides the tile entirely, matching the
+// documented behaviour of the other report URLs.
+if (!utUrl) {
+tile.style.display = 'none';
+link.removeAttribute('href');
+if (status) { status.textContent = 'Set unitTestReportUrl in allowed_users.json to enable'; status.style.color = '#ef4444'; }
+return;
+}
+
+tile.style.display = '';
+link.href = utUrl;
+if (status) { status.textContent = utUrl; status.style.color = '#475569'; }
 }
 
 function initTaskManagementTile() {
@@ -16122,6 +16170,12 @@ body.light-theme #tabContent1 #membersCapacityTotalTable td{color:#0f172a !impor
 .uas-comment-box{width:100%;min-width:200px;resize:vertical;background:rgba(0,0,0,.32);border:1px solid rgba(139,92,246,.32);border-radius:6px;color:#e2e8f0;font-family:inherit;font-size:.64rem;line-height:1.5;padding:5px 8px;outline:none;transition:border-color .18s;box-sizing:border-box}
 .uas-comment-box:focus{border-color:#8b5cf6}
 .uas-comment-box::placeholder{color:#475569;font-style:italic}
+
+/* --- Reports tab: Unit Test Audit tile (amber) in light theme --- */
+body.light-theme #unitTestReportTile{background:linear-gradient(135deg,#fffbeb,#fef3c7) !important;border-color:#fcd34d !important}
+body.light-theme #unitTestReportTile [style*="color:#fbbf24"]{color:#b45309 !important}
+body.light-theme #unitTestReportTile p{color:#475569 !important}
+body.light-theme #tabContent8 [style*="color:#fbbf24"]{color:#b45309 !important}
 
 /* --- @mention picker --- */
 #ahcMentionPop{display:none;position:fixed;z-index:11200;background:#0f172a;border:1px solid rgba(139,92,246,.5);border-radius:9px;box-shadow:0 14px 42px rgba(0,0,0,.65);overflow:hidden;max-height:264px;overflow-y:auto}
