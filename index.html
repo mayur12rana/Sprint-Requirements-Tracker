@@ -3257,11 +3257,14 @@ const currentMonth = now.getMonth() + 1;
 function extractQStr(name) {
 const n = (name || '').trim();
 
-const mQ = n.match(/(\d{4})-Q([1-4])/i);
-if (mQ) return `${mQ[1]}-Q${mQ[2]}`;
+// Quarter numbers are NOT limited to 1-4. Some teams run a 5th/6th PI
+// (e.g. 2026-Q5), so accept any 1-2 digit quarter number here. Restricting
+// this to [1-4] made those iterations invisible in the sprint picker.
+const mQ = n.match(/(\d{4})-Q(\d{1,2})/i);
+if (mQ) return `${mQ[1]}-Q${parseInt(mQ[2], 10)}`;
 
-const mN = n.match(/(\d{4})-([1-4])(?:[_\-]|$)/);
-if (mN) return `${mN[1]}-Q${mN[2]}`;
+const mN = n.match(/(\d{4})-([1-9]\d?)(?:[_\-]|$)/);
+if (mN) return `${mN[1]}-Q${parseInt(mN[2], 10)}`;
 return null;
 }
 
@@ -3297,17 +3300,61 @@ sprintBasedQStr = q;
 }
 });
 
-const currentQStr = sprintBasedQStr || `${currentYear}-Q${calendarQuarter}`;
+let currentQStr = sprintBasedQStr || `${currentYear}-Q${calendarQuarter}`;
 
-const cqM      = currentQStr.match(/(\d{4})-Q([1-4])/i);
-const cqYear   = parseInt(cqM[1]);
-const cqNum    = parseInt(cqM[2]);
-const prevQStr = cqNum > 1 ? `${cqYear}-Q${cqNum - 1}` : `${cqYear - 1}-Q4`;
+// Every quarter that actually exists in the iteration data, in chronological
+// order. Used so "previous quarter" follows the team's real cadence instead of
+// assuming exactly four quarters per year.
+const quarterKey = (q) => {
+const p = q.split('-Q');
+return parseInt(p[0], 10) * 100 + parseInt(p[1], 10);
+};
+const knownQuarters = [...new Set(iterations.map(i => extractQStr(i.name)).filter(Boolean))]
+.sort((a, b) => quarterKey(a) - quarterKey(b));
 
-const filteredIterations = iterations.filter(i => {
+const cqM    = currentQStr.match(/(\d{4})-Q(\d{1,2})/i);
+const cqYear = cqM ? parseInt(cqM[1], 10) : currentYear;
+const cqNum  = cqM ? parseInt(cqM[2], 10) : calendarQuarter;
+
+let prevQStr;
+const cqIdx = knownQuarters.indexOf(currentQStr);
+if (cqIdx > 0) {
+prevQStr = knownQuarters[cqIdx - 1];
+} else if (cqNum > 1) {
+prevQStr = `${cqYear}-Q${cqNum - 1}`;
+} else {
+// Rolling over a year boundary: use the last quarter the previous year
+// actually had (which may be Q4, Q5, ...), not a hardcoded Q4.
+const lastOfPrevYear = knownQuarters.filter(q => q.startsWith(`${cqYear - 1}-Q`)).pop();
+prevQStr = lastOfPrevYear || `${cqYear - 1}-Q4`;
+}
+
+const matchQuarters = (i) => {
 const q = extractQStr(i.name);
+if (!q) return false;
 return q === currentQStr || q === prevQStr;
-});
+};
+
+let filteredIterations = iterations.filter(matchQuarters);
+
+// Safety net: if the detected quarter matched nothing, fall back to the two
+// most recent quarters present in the data so the picker is never left empty.
+if (filteredIterations.length === 0 && knownQuarters.length > 0) {
+const fallback = knownQuarters.slice(-2);
+currentQStr = fallback[fallback.length - 1];
+prevQStr    = fallback.length > 1 ? fallback[0] : null;
+filteredIterations = iterations.filter(matchQuarters);
+}
+
+// Last resort: iterations whose names carry no recognisable quarter at all.
+let usingUnquarteredFallback = false;
+if (filteredIterations.length === 0) {
+const unquartered = iterations.filter(i => !extractQStr(i.name));
+if (unquartered.length > 0) {
+filteredIterations = unquartered;
+usingUnquarteredFallback = true;
+}
+}
 
 const iterationsByName = {};
 filteredIterations.forEach(i => {
@@ -3335,7 +3382,7 @@ return now >= sd && now <= fd;
 });
 
 const currentQIterations = combinedIterations.filter(i => extractQStr(i.name) === currentQStr);
-const prevQIterations    = combinedIterations.filter(i => extractQStr(i.name) === prevQStr);
+const prevQIterations    = prevQStr ? combinedIterations.filter(i => extractQStr(i.name) === prevQStr) : [];
 
 const container = document.getElementById('iterationCheckboxContainer');
 let iterHtml = '';
@@ -3379,8 +3426,18 @@ iterHtml += prevQIterations.map(i => createIterCheckbox(i, false)).join('');
 iterHtml += '</div>';
 }
 
+if (usingUnquarteredFallback && combinedIterations.length > 0) {
+iterHtml += `<div style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);border-radius:8px;padding:8px">
+<div style="color:#a5b4fc;font-size:0.8rem;font-weight:600;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid rgba(99,102,241,0.3)">📅 Available Iterations</div>`;
+iterHtml += combinedIterations.map(i => {
+const isCurrent = currentIteration && i.name === currentIteration.name;
+return createIterCheckbox(i, isCurrent);
+}).join('');
+iterHtml += '</div>';
+}
+
 if (iterHtml === '') {
-iterHtml = '<div style="color:#94a3b8;font-size:0.85rem;text-align:center;padding:20px">No iterations found for current/previous quarter</div>';
+iterHtml = `<div style="color:#94a3b8;font-size:0.85rem;text-align:center;padding:20px">No iterations found for ${currentQStr}${prevQStr ? ` or ${prevQStr}` : ''}</div>`;
 }
 
 container.innerHTML = iterHtml;
@@ -6146,14 +6203,15 @@ const parts      = sprintPath.split('\\');
 const sprintName = parts[parts.length - 1];
 const basePath   = parts.slice(0, -1).join('\\');
 
-const piMatch = sprintName.match(/^((?:PI-)?(?:\d{4}-Q\d|\d{4}-[1-4]))_(\d)$/i);
+// Quarter part accepts 1-2 digits so PIs like 2026-Q5 / 2026-Q10 resolve.
+const piMatch = sprintName.match(/^((?:PI-)?(?:\d{4}-Q\d{1,2}|\d{4}-\d{1,2}))_(\d{1,2})$/i);
 let piName   = '';
 let piSprints = [];
 if (piMatch) {
 const piPrefix = piMatch[1];
 piName = piPrefix;
 
-const piPattern = new RegExp(`^${piPrefix.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')}_\\d$`, 'i');
+const piPattern = new RegExp(`^${piPrefix.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')}_\\d{1,2}$`, 'i');
 const matchingIters = iterations.filter(i => piPattern.test(i.path.split('\\').pop()));
 const maxSprint = matchingIters.length > 0
 ? Math.max(...matchingIters.map(i => parseInt(i.path.split('\\').pop().split('_').pop()) || 0))
