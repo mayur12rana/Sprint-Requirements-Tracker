@@ -15,7 +15,7 @@
     const display = document.getElementById("liveVisitors");
 
     const serverUrl =
-        "wss://live-visitor-counter.onrender.com/ws";
+        "wss://https://live-visitor-counter-e9jp.onrender.com/ws";
 
     let reconnectDelay = 2000;
 
@@ -84,12 +84,7 @@ body.light-theme #featureProgressTable.aha-cols-on tbody tr td:nth-child(8){colo
     <script src="allowed_users.json"></script>
 </head>
 <body data-theme="dark">
-<div id="liveVisitors"
-     style="position:fixed;bottom:15px;right:15px;
-     background:#222;color:white;padding:12px 16px;
-     border-radius:8px;font-family:Arial;">
-    🟢 Live Visitors: Connecting...
-</div>
+
     
     <noscript>
         <div style="position:fixed;top:0;left:0;right:0;bottom:0;background:#1e293b;z-index:99999;display:flex;align-items:center;justify-content:center">
@@ -121,6 +116,9 @@ body.light-theme #featureProgressTable.aha-cols-on tbody tr td:nth-child(8){colo
     </div>
 
     <div class="config-panel" id="configPanel">
+        <div id="liveVisitors" style="position:fixed;bottom:15px;right:15px; background:#222;color:white;padding:12px 16px; border-radius:8px;font-family:Arial;">
+    🟢 Live Visitors: Connecting...
+        </div>
         <h2>🔗 Connect to TFS</h2>
         <div class="config-field">
             <label>TFS Server URL</label>
