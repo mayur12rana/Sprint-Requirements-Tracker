@@ -4,7 +4,11 @@
 // admin       = Only assigned tabs + All areas + Update Feature Hours + Reports tab (auto-granted)
 // pdm         = Tabs 1-6 + AHA Status checkbox (Product/Delivery Managers)
 // normal      = Only assigned tabs + Max 3 areas
-// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only), 8=Reports (super_admin & admin only)
+// tabs: 1=Sprint Planning, 2=Work Progress, 3=AI Usage, 4=AI Analytics, 5=Feature Progress, 6=Data Lookup, 7=Encrypt Username (super_admin only), 8=Reports (super_admin & admin only), 9=Load Requirements button (Feature Progress), 10=Affected Area Requirement by Team (Sprint Planning)
+// Feature access numbers (also listed in "tabs", for EVERY role including super_admin — not granted automatically):
+//   9  = Load Requirements button              (Tab 5 Feature Progress: child items, their filters and State/Status update)
+//   10 = Affected Area Requirement by Team block (Tab 1 Sprint Planning)
+//   Add 9 and/or 10 to a user's "tabs" to give access; remove them to take it away.
 // Note: Tab 8 (Reports) is granted automatically by role (admin + super_admin), regardless of the `tabs` array below — no need to add 8 to any admin entry.
 // Note: User names are encrypted using XOR cipher for security
 // -------- Configurable URLs (Tab 8 > Reports tiles) --------
@@ -15,14 +19,17 @@
 // unitTestReportUrl        : URL to external xUnit Test Audit Report          (shown as tile in Tab 8 > Reports > Engineering Quality Reports)
 //                            This one is a standalone static page — no TFS context is forwarded and no sprint needs to be loaded first.
 // Set a URL to empty string "" to hide its tile; TFS context (tfsUrl/pat/area/sprint) is forwarded automatically.
+// liveVisitorWsUrl         : WebSocket address of the live-visitor-counter service on Render (header "👥 Live Visitors",
+//                            shown to super_admin only; every visitor is counted). Set to "" to turn the counter off.
 var ALLOWED_USERS_DATA = {
     "taskCreatorUrl":           "https://mayur12rana.github.io/Task-Creator/",
     "sprintClosingReportUrl":   "https://mayur12rana.github.io/SprintClosingReport/Sprint-Closing-Report.html",
     "sprintDiscoveryReportUrl": "https://arpitpatel2718.github.io/ArpitDashboard/Sprint_Discovery_Report.html",
     "sprintPlanningReportUrl":  "https://mayur12rana.github.io/Dashboard-Sprint-Planning-Report/Dashboard_Sprint_Planning_Report.html",
     "unitTestReportUrl":        "https://kailash0504.github.io/Unittest/",
+    "liveVisitorWsUrl":         "wss://live-visitor-counter-e9jp.onrender.com/ws",
     "users": [
-        { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7] },
+        { "name": "HhELHBxUFgAdCQ==", "role": "super_admin", "tabs": [1, 2, 3, 4, 5, 6, 7, 9, 10] },
         { "name": "EBgXHQ8aZDISBlVYU1pI", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6, 8] },
         { "name": "BxEAHABUFkE7CUBbW1pIIQ==", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6, 8] },
         { "name": "AREaHAJUDkE3AF1cU0ZIIQ==", "role": "pdm", "tabs": [1, 2, 3, 4, 5, 6, 8] },
