@@ -1296,85 +1296,231 @@ function sortFpReq(fid, col) {
 
 /* ═══ Live Visitor Counter ═══
    Every visitor connects (so everyone is counted); only super_admin sees the number.
-   Server: live-visitor-counter on Render. URL is configurable in allowed_users.json → "liveVisitorWsUrl"
-   ("" turns the counter off). Never reloads the page; reconnects quietly with growing delays. */
+   After TFS login each browser reports its display name (never the PAT); people who have not
+   logged in show as "Unknown". Clicking the count (super_admin) lists who is online — the server
+   only sends names to connections that present the ADMIN_KEY set on Render.
+   URL: allowed_users.json → "liveVisitorWsUrl" ("" turns the counter off). Never reloads the page. */
 (function () {
   const DEFAULT_WS_URL = 'wss://live-visitor-counter-e9jp.onrender.com/ws';
+  const KEY_STORE = 'liveVisitorAdminKey';
   const cfg = (typeof ALLOWED_USERS_DATA !== 'undefined' && ALLOWED_USERS_DATA) || {};
   const baseUrl = Object.prototype.hasOwnProperty.call(cfg, 'liveVisitorWsUrl') ? String(cfg.liveVisitorWsUrl || '').trim() : DEFAULT_WS_URL;
 
   let canSee = false, ws = null, retryMs = 5000, retryTimer = null, wakeTimer = null, keepAlive = null, everConnected = false;
+  let identity = null;          // { name, status: 'ok' | 'denied' }
+  let adminState = 'none';      // none | pending | ok | wrong | locked | off
+  let lastData = null;          // last count message
   const lbl = () => document.getElementById('hdrLiveVisitors');
   const out = () => document.getElementById('hdrLiveVisitorsCount');
+  const store = {
+    get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} },
+    del: k => { try { localStorage.removeItem(k); } catch (e) {} }
+  };
+  const send = obj => { try { if (ws && ws.readyState === 1) ws.send(typeof obj === 'string' ? obj : JSON.stringify(obj)); } catch (e) {} };
 
   function show(text, dim, title) {
     const o = out(); if (!o) return;
     o.textContent = text;
     o.classList.toggle('lv-dim', !!dim);
-    const l = lbl(); if (l) l.title = title || 'Live visitors on this dashboard right now';
+    const l = lbl(); if (l) l.title = title || 'Live visitors on this dashboard right now — click to see who';
   }
 
-  // Called from applyTabPermissions / access-denied path
+  // ---------- identity (read from the login panel the dashboard already fills in) ----------
+  function readIdentity() {
+    const nameEl = document.getElementById('patUserName');
+    const name = nameEl ? nameEl.textContent.trim() : '';
+    if (!name || name === '-') return null;
+    const info = document.getElementById('patUserInfo');
+    const badge = info && info.querySelector('span');
+    const denied = !!(badge && /access denied/i.test(badge.textContent || ''));
+    return { name, status: denied ? 'denied' : 'ok' };
+  }
+  function sendHello() { if (identity) send({ type: 'hello', name: identity.name, status: identity.status }); }
+  function sendAdmin() {
+    const key = store.get(KEY_STORE);
+    if (canSee && key) { adminState = 'pending'; send({ type: 'admin', key }); }
+    else { if (adminState === 'ok') send({ type: 'adminOff' }); if (adminState !== 'locked' && adminState !== 'off') adminState = 'none'; }
+    renderPanel();
+  }
+
+  // Called by the dashboard after login (allowed or denied)
   window.applyLiveVisitorVisibility = function (visible) {
     canSee = !!visible && !!baseUrl;
     const l = lbl(); if (l) l.hidden = !canSee;
+    if (!canSee) closePanel();
+    identity = readIdentity();
+    sendHello();
+    sendAdmin();
   };
 
-  // one id per browser, so several tabs count as one visitor
   function visitorId() {
     const KEY = 'liveVisitorId';
-    let id = null;
-    try { id = localStorage.getItem(KEY); } catch (e) {}
+    let id = store.get(KEY);
     if (!id || !/^[A-Za-z0-9_-]{8,64}$/.test(id)) {
       id = 'v' + Date.now().toString(36) + Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 12);
-      try { localStorage.setItem(KEY, id); } catch (e) {}
+      store.set(KEY, id);
     }
     return id;
   }
 
+  // ---------- connection ----------
   function scheduleReconnect() {
     clearTimeout(retryTimer);
     retryTimer = setTimeout(connect, retryMs);
     retryMs = Math.min(retryMs * 2, 60000);
   }
-
   function connect() {
     clearTimeout(retryTimer); clearTimeout(wakeTimer); clearInterval(keepAlive);
     if (!baseUrl || typeof WebSocket === 'undefined') { show('Off', true); return; }
     show(everConnected ? 'Reconnecting…' : 'Connecting…', true);
-    // Render free tier sleeps when idle; the first connection can take ~50 s
     wakeTimer = setTimeout(() => show('Waking up…', true, 'The counter server is starting (free tier). This can take up to a minute.'), 6000);
     let sock;
-    try {
-      sock = new WebSocket(baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'vid=' + encodeURIComponent(visitorId()));
-    } catch (e) { show('Unavailable', true); scheduleReconnect(); return; }
+    try { sock = new WebSocket(baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'vid=' + encodeURIComponent(visitorId())); }
+    catch (e) { show('Unavailable', true); scheduleReconnect(); return; }
     ws = sock;
     sock.addEventListener('open', function () {
       everConnected = true; retryMs = 5000; clearTimeout(wakeTimer);
       show('…', true);
-      keepAlive = setInterval(() => { try { if (sock.readyState === 1) sock.send('ping'); } catch (e) {} }, 25000);
+      keepAlive = setInterval(() => send('ping'), 25000);
+      sendHello();                 // re-identify after every (re)connect
+      if (adminState !== 'locked') sendAdmin();
     });
     sock.addEventListener('message', function (ev) {
       let d = null;
       try { d = JSON.parse(ev.data); } catch (e) { return; }
-      if (!d || typeof d.activeVisitors !== 'number') return;
+      if (!d) return;
+      if (d.type === 'admin') { onAdminReply(d); return; }
+      if (typeof d.activeVisitors !== 'number') return;
+      lastData = d;
       const tabs = typeof d.activeConnections === 'number' ? d.activeConnections : d.activeVisitors;
-      show(String(d.activeVisitors), false, `${d.activeVisitors} visitor${d.activeVisitors === 1 ? '' : 's'} right now (${tabs} open tab${tabs === 1 ? '' : 's'})`);
+      show(String(d.activeVisitors), false, `${d.activeVisitors} visitor${d.activeVisitors === 1 ? '' : 's'} right now (${tabs} open tab${tabs === 1 ? '' : 's'}) — click to see who`);
+      renderPanel();
     });
-    // a failed connection is followed by 'close', which handles the retry
     sock.addEventListener('error', function () {});
     sock.addEventListener('close', function () {
       clearTimeout(wakeTimer); clearInterval(keepAlive);
       if (ws !== sock) return;
       ws = null;
+      if (adminState === 'ok' || adminState === 'pending') adminState = 'none';
       show('Unavailable', true, 'Counter server not reachable — retrying automatically');
+      renderPanel();
       scheduleReconnect();
     });
   }
 
-  // reconnect promptly when the network or the tab comes back
+  function onAdminReply(d) {
+    if (d.ok) { adminState = 'ok'; }
+    else if (d.reason === 'not-configured') { adminState = 'off'; }
+    else if (d.reason === 'locked') { adminState = 'locked'; store.del(KEY_STORE); }
+    else { adminState = 'wrong'; store.del(KEY_STORE); }
+    renderPanel();
+  }
+
+  // ---------- "who is online" panel ----------
+  let panel = null;
+  const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const hhmm = t => { try { return new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
+
+  function makeClickable() {
+    const o = out(); if (!o || o.dataset.lvClick) return;
+    o.dataset.lvClick = '1';
+    o.setAttribute('role', 'button');
+    o.setAttribute('tabindex', '0');
+    o.setAttribute('aria-haspopup', 'dialog');
+    o.setAttribute('aria-expanded', 'false');
+    o.classList.add('lv-click');
+    o.addEventListener('click', e => { e.stopPropagation(); togglePanel(); });
+    o.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePanel(); } });
+  }
+  function togglePanel() { if (panel && !panel.hidden) closePanel(); else openPanel(); }
+  function openPanel() {
+    if (!canSee) return;
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'lvPanel';
+      panel.setAttribute('role', 'dialog');
+      panel.setAttribute('aria-label', 'Live visitors');
+      panel.addEventListener('click', e => e.stopPropagation());
+      document.body.appendChild(panel);
+      document.addEventListener('click', () => closePanel());
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel && !panel.hidden) { closePanel(); const o = out(); if (o) o.focus(); } });
+      window.addEventListener('resize', place);
+      window.addEventListener('scroll', place, true);
+    }
+    panel.hidden = false;
+    const o = out(); if (o) o.setAttribute('aria-expanded', 'true');
+    renderPanel(); place();
+    const f = panel.querySelector('input,button'); if (f) f.focus();
+  }
+  function closePanel() {
+    if (panel) panel.hidden = true;
+    const o = out(); if (o) o.setAttribute('aria-expanded', 'false');
+  }
+  function place() {
+    if (!panel || panel.hidden) return;
+    const o = out(); if (!o) return;
+    const r = o.getBoundingClientRect();
+    const w = Math.min(340, window.innerWidth - 16);
+    panel.style.width = w + 'px';
+    panel.style.left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8)) + 'px';
+    panel.style.top = (r.bottom + 8) + 'px';
+  }
+
+  function renderPanel() {
+    if (!panel || panel.hidden) return;
+    const head = `<div class="lv-head"><span>👥 Live visitors</span><button type="button" class="lv-x" aria-label="Close">✕</button></div>`;
+    let body = '';
+    if (!ws) {
+      body = `<div class="lv-msg">The counter server is not reachable right now. It retries automatically.</div>`;
+    } else if (adminState === 'off') {
+      body = `<div class="lv-msg">Visitor names are turned off on the server. Set <b>ADMIN_KEY</b> in Render → Settings → Environment to enable them.</div>`;
+    } else if (adminState === 'ok' && lastData && Array.isArray(lastData.visitors)) {
+      const list = lastData.visitors;
+      const named = list.filter(v => v.name).sort((a, b) => (b.self - a.self) || a.name.localeCompare(b.name));
+      const unknown = list.filter(v => !v.name);
+      const unknownTabs = unknown.reduce((n, v) => n + (v.tabs || 1), 0);
+      body = `<ul class="lv-list">` + named.map(v => `<li>
+          <span class="lv-name">${esc(v.name)}${v.self ? ' <span class="lv-you">you</span>' : ''}${v.status === 'denied' ? ' <span class="lv-denied">Not authorized</span>' : ''}</span>
+          <span class="lv-meta">${v.tabs > 1 ? v.tabs + ' tabs · ' : ''}since ${esc(hhmm(v.since))}</span></li>`).join('') +
+        (unknown.length ? `<li class="lv-unknown"><span class="lv-name">Unknown visitor${unknown.length === 1 ? '' : 's'} (${unknown.length})</span><span class="lv-meta">not logged in${unknownTabs > unknown.length ? ' · ' + unknownTabs + ' tabs' : ''}</span></li>` : '') +
+        `</ul>` + (list.length ? '' : `<div class="lv-msg">No one is online.</div>`) +
+        `<div class="lv-foot"><button type="button" class="lv-link" data-act="forget">Forget admin key on this browser</button></div>`;
+    } else if (adminState === 'pending') {
+      body = `<div class="lv-msg">Checking admin key…</div>`;
+    } else if (adminState === 'locked') {
+      body = `<div class="lv-msg lv-err">Too many wrong keys. Reload the page to try again.</div>`;
+    } else {
+      body = `<div class="lv-msg">Enter the admin key to see who is online. It is remembered on this browser only.</div>
+        <form class="lv-form" autocomplete="off">
+          <label class="lv-sr" for="lvKey">Admin key</label>
+          <input type="password" id="lvKey" placeholder="Admin key" autocomplete="off">
+          <button type="submit" class="lv-btn">Unlock</button>
+        </form>
+        <div class="lv-err" id="lvKeyErr" role="alert">${adminState === 'wrong' ? 'That key was not accepted.' : ''}</div>`;
+    }
+    const focusedId = document.activeElement && panel.contains(document.activeElement) ? document.activeElement.id : null;
+    panel.innerHTML = head + body;
+    panel.querySelector('.lv-x').addEventListener('click', () => { closePanel(); const o = out(); if (o) o.focus(); });
+    const form = panel.querySelector('.lv-form');
+    if (form) form.addEventListener('submit', e => {
+      e.preventDefault();
+      const inp = panel.querySelector('#lvKey'); const err = panel.querySelector('#lvKeyErr');
+      const v = (inp.value || '').trim();
+      if (!v) { err.textContent = 'Enter the key first.'; inp.focus(); return; }
+      store.set(KEY_STORE, v); sendAdmin();
+    });
+    const inp = panel.querySelector('#lvKey');
+    if (inp) inp.addEventListener('input', () => { const err = panel.querySelector('#lvKeyErr'); if (err) err.textContent = ''; });
+    const fg = panel.querySelector('[data-act="forget"]');
+    if (fg) fg.addEventListener('click', () => { store.del(KEY_STORE); send({ type: 'adminOff' }); adminState = 'none'; renderPanel(); });
+    if (focusedId) { const f = document.getElementById(focusedId); if (f) f.focus(); }
+    place();
+  }
+
   window.addEventListener('online', () => { if (!ws) { retryMs = 5000; connect(); } });
   document.addEventListener('visibilitychange', () => { if (!document.hidden && !ws) { retryMs = 5000; connect(); } });
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connect); else connect();
+  const start = () => { makeClickable(); connect(); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

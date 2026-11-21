@@ -267,3 +267,38 @@ body.light-theme .table-header .btn:last-child,body.light-theme [style*="display
 /* Uniform font size per table (value computed per table by the guard script) */
 body.light-theme table.lt-fs > tbody > tr > td,body.light-theme table.lt-fs > tfoot > tr > td{font-size:var(--lt-fs-td) !important}
 body.light-theme table.lt-fs-h > thead > tr > th{font-size:var(--lt-fs-th) !important}
+
+/* ---- live visitor list (super_admin) ---- */
+#hdrLiveVisitorsCount.lv-click{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;border-radius:4px}
+#hdrLiveVisitorsCount.lv-click:focus-visible{outline:2px solid #818cf8;outline-offset:2px}
+#lvPanel{position:fixed;z-index:10700;background:#1e293b;color:#e2e8f0;border:1px solid rgba(129,140,248,.45);border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.45);padding:10px 12px;font-size:.78rem;max-height:60vh;overflow:auto}
+#lvPanel[hidden]{display:none}
+#lvPanel .lv-head{display:flex;justify-content:space-between;align-items:center;font-weight:600;margin-bottom:8px}
+#lvPanel .lv-x{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:.9rem;padding:2px 6px;border-radius:4px}
+#lvPanel .lv-x:hover{background:rgba(255,255,255,.08)}
+#lvPanel .lv-list{list-style:none;margin:0;padding:0}
+#lvPanel .lv-list li{display:flex;flex-direction:column;gap:2px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+#lvPanel .lv-list li:last-child{border-bottom:none}
+#lvPanel .lv-name{font-weight:600}
+#lvPanel .lv-meta{font-size:.68rem;color:#94a3b8}
+#lvPanel .lv-unknown .lv-name{font-weight:500;color:#cbd5e1;font-style:italic}
+#lvPanel .lv-you{font-size:.6rem;font-weight:600;padding:1px 6px;border-radius:8px;background:rgba(129,140,248,.2);color:#c7d2fe;margin-left:4px}
+#lvPanel .lv-denied{font-size:.6rem;font-weight:600;padding:1px 6px;border-radius:8px;background:rgba(239,68,68,.18);color:#fca5a5;margin-left:4px}
+#lvPanel .lv-msg{color:#cbd5e1;line-height:1.5;margin-bottom:8px}
+#lvPanel .lv-err{color:#f87171;font-size:.7rem;min-height:1em}
+#lvPanel .lv-form{display:flex;gap:6px}
+#lvPanel .lv-form input{flex:1;min-width:0;padding:6px 8px;border-radius:6px;border:1px solid rgba(129,140,248,.4);background:rgba(0,0,0,.3);color:#e2e8f0;font:inherit}
+#lvPanel .lv-btn{padding:6px 12px;border-radius:6px;border:none;background:#6366f1;color:#fff;font:inherit;font-weight:600;cursor:pointer}
+#lvPanel .lv-foot{margin-top:8px;text-align:right}
+#lvPanel .lv-link{background:none;border:none;color:#a5b4fc;font:inherit;font-size:.68rem;cursor:pointer;text-decoration:underline;padding:0}
+#lvPanel input:focus-visible,#lvPanel button:focus-visible{outline:2px solid #818cf8;outline-offset:1px}
+#lvPanel .lv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.light-theme #lvPanel{background:#ffffff;color:#1e293b;border-color:#c7d2fe;box-shadow:0 18px 40px rgba(15,23,42,.18)}
+body.light-theme #lvPanel .lv-list li{border-bottom-color:#e2e8f0}
+body.light-theme #lvPanel .lv-meta,body.light-theme #lvPanel .lv-x{color:#64748b}
+body.light-theme #lvPanel .lv-msg,body.light-theme #lvPanel .lv-unknown .lv-name{color:#475569}
+body.light-theme #lvPanel .lv-you{background:#e0e7ff;color:#3730a3}
+body.light-theme #lvPanel .lv-denied{background:#fee2e2;color:#b91c1c}
+body.light-theme #lvPanel .lv-form input{background:#fff;color:#1e293b;border-color:#94a3b8}
+body.light-theme #lvPanel .lv-link{color:#4f46e5}
+body.light-theme #lvPanel .lv-err{color:#dc2626}
